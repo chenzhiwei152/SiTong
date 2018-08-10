@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AlbumMatchParent"
+    android:background="@color/albumWhite"
+    android:orientation="vertical"
+    tools:context=".AlbumActivity"
+    tools:ignore="MergeRootFrame,Overdraw,UnusedAttribute">
+
+    <LinearLayout
+        android:id="@+id/statue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/album_layout_normal_title"
+            android:background="#ffffff"></include>
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/statue"
+        android:background="@color/albumWhite">
+
+        <com.yanzhenjie.album.widget.FixViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/albumWhite" />
+
+        <ImageView
+            android:id="@+id/ic_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:src="@drawable/album_ic_del_big"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_gallery_preview_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/statue"
+        android:layout_gravity="top">
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cb_album_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:button="@null"
+            android:drawableLeft="@drawable/album_checkbox_button"
+            android:drawablePadding="8dp"
+            android:textColor="@color/albumWhite"
+            android:textSize="@dimen/album_sp_16" />
+
+    </RelativeLayout>
+</RelativeLayout>

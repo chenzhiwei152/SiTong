@@ -1,0 +1,13 @@
+ext {
+    android = [
+            compileSdkVersion: 27,
+            buildToolsVersion: "27.0.3",
+            minSdkVersion    : 15,
+            targetSdkVersion : 27,
+            commonVersion    : "27.1.1"
+    ]
+    dependencies = [
+            supportV4: 'com.android.support:support-v4:27+',
+    ]
+    kotlin_version = '1.2.60'
+}

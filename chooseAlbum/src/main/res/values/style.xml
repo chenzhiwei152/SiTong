@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AlbumAppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AlbumPopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- MatchParent -->
+
+    <style name="AlbumMatchParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- WrapContent -->
+
+    <style name="AlbumWrapContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="AlbumWrapContent.WidthMatchParent">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+
+    <!-- toolbar菜单样式 -->
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="actionMenuTextColor">#333333</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="actionMenuTextAppearance">@style/ToolbarMenuTextSize</item>
+
+    </style>
+
+    <!-- toolbar菜单文字尺寸 -->
+    <style name="ToolbarMenuTextSize" parent="@style/TextAppearance.AppCompat.Menu">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AlbumToolbar" parent="TextAppearance.AppCompat.Title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="actionMenuTextColor">#333333</item>
+    </style>
+
+
+    <style name="AlbumToolbar.PopupTheme">
+        <item name="popupTheme">@style/AlbumPopupOverlay</item>
+    </style>
+
+    <!-- CheckBox -->
+
+    <style name="AlbumCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox" />
+
+    <style name="AlbumCheckBox.WrapContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">35dp</item>
+
+    </style>
+
+    <style name="AlbumDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="AlbumDialogStyle.Folder">
+        <item name="android:windowBackground">@null</item>
+    </style>
+
+    <style name="AlbumDialogStyle.Preview">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@null</item>
+    </style>
+
+    <!-- Button -->
+    <style name="AlbumButtonText" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <style name="AlbumTitle_right">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:minWidth">55dp</item>
+        <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="android:layout_marginRight">9dp</item>
+        <item name="android:background">@drawable/album_title_right_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/album_text_color_enable_selecor</item>
+    </style>
+
+
+    <style name="AlbumTitle_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#333333</item>
+    </style>
+
+    <style name="AlbumTitle_left_back">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:src">@drawable/icon_title_back_normal</item>
+    </style>
+
+</resources>

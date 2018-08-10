@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+def config = rootProject.ext.android
+uploadArchives{
+    repositories {
+        mavenDeployer{
+            repository(url:"http://10.10.10.60:8081/nexus/content/repositories/jsjy-snapshot"){
+                authentication(userName:"deploy",password:"eBbef58C")
+            }
+            pom.project{
+                groupId "com.jyall.multiplestatusview"
+                artifactId "multiplestatusview"
+                version "1.0.0-SNAPSHOT"
+                packaging = "aar"
+            }
+        }
+    }
+}
+android {
+    compileSdkVersion config.compileSdkVersion
+    buildToolsVersion config.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0-SNAPSHOT"
+    }
+    lintOptions {
+
+        disable "ResourceType"
+        disable 'InvalidPackage'
+        disable 'MissingTranslation'
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+}

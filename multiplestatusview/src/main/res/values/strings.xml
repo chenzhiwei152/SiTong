@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">jyallbase</string>
+    <string name="load_ing">加载中</string>
+    <string name="error_message">页面找不到了，请稍后重试</string>
+    <string name="empty_message">信息跑丢了</string>
+    <string name="empty_button">逛逛首页</string>
+    <string name="error_button">刷新</string>
+    <string name="net_state_error">网络连接失败，请检测您的网络</string>
+    <string name="no_find">没有找到您想要\n的信息</string>
+    <string name="common_otherError">系统繁忙，请稍后再试</string>
+</resources>
