@@ -4,11 +4,12 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
+import com.jyall.android.common.utils.SysUtils
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
-import com.jyall.bbzf.extension.toast
+import com.sitong.changqin.MainActivity
 import com.sitong.changqin.R
 import kotlinx.android.synthetic.main.activity_login_or_register.*
 
@@ -28,7 +29,9 @@ class LoginOrRegisterActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>
         tv_login.setOnClickListener {
             this@LoginOrRegisterActivity.jump<LoginActivity>()
         }
-        iv_spl.setOnClickListener { toast("首页") }
+        tv_register.setOnClickListener {
+            this@LoginOrRegisterActivity.jump<MainActivity>()
+        }
     }
 
     override fun isRegistEventBus(): Boolean = false
@@ -48,24 +51,35 @@ class LoginOrRegisterActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>
             }
 
             override fun onAnimationEnd(p0: Animation?) {
-                ll_right.clearAnimation()
-                ll_left.clearAnimation()
-                iv_spl.clearAnimation()
+
                 var width = 0
-                val params = ll_right.getLayoutParams() as LinearLayout.LayoutParams
-                width = (-params.width)
-                params.leftMargin = width
-                ll_right.layoutParams = params
+
                 val params1 = ll_left.getLayoutParams() as LinearLayout.LayoutParams
+                width = ((-SysUtils.getDefaultScreenWidth(this@LoginOrRegisterActivity)*0.23).toInt())
                 params1.rightMargin = -width
                 ll_left.layoutParams = params1
+                ll_left.clearAnimation()
 
-
+                val params = ll_right.getLayoutParams() as LinearLayout.LayoutParams
+                params.leftMargin = width
+                ll_right.layoutParams = params
+                ll_right.clearAnimation()
             }
 
             override fun onAnimationStart(p0: Animation?) {
             }
 
+        })
+        translateAnimation1.setAnimationListener(object :Animation.AnimationListener{
+            override fun onAnimationRepeat(p0: Animation?) {
+            }
+
+            override fun onAnimationEnd(p0: Animation?) {
+                iv_spl.clearAnimation()
+            }
+
+            override fun onAnimationStart(p0: Animation?) {
+            }
         })
     }
 
