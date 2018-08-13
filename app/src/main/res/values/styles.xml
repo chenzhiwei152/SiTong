@@ -7,7 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="AppTheme.NoActionBar">
+
+    <style name="AppTheme.NoActionBar" parent="FullScreenTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -26,5 +27,26 @@
     <style name="TranslucentFullScreenTheme" parent="FullScreenTheme">
         <item name="android:windowBackground">@color/albumTransparent</item>
         <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <!-- 防止欢迎页白屏或者黑屏，设置图片 -->
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/layout_list_start_pic</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="textStyle_20232b_20">
+        <item name="android:textSize">20sp</item>
+        <item name="android:color">@color/color_20232b</item>
+    </style>
+
+    <style name="textStyle_d0a670_37">
+        <item name="android:textSize">37sp</item>
+        <item name="android:color">@color/color_d0a670</item>
+    </style>
+
+    <style name="textStyle_d0a670_24">
+        <item name="android:textSize">24sp</item>
+        <item name="android:color">@color/color_d0a670</item>
     </style>
 </resources>

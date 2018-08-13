@@ -2,11 +2,16 @@ package com.jyall.bbzf.extension
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.jyall.android.common.utils.ImageLoadedrManager
 import com.sitong.changqin.R
+import com.sitong.changqin.ui.activity.LoginActivity
+import com.sitong.changqin.utils.ExtraUtils
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,15 +26,15 @@ fun Activity.toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) =
 fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) =
         Toast.makeText(this, message, duration).show()
 
-//inline fun <reified T : Activity> Activity.jump(checkLogin: Boolean = false, dataBundle: Bundle = Bundle()) =
-//        if (checkLogin) {
-//            val intent = Intent(this, LoginActivity::class.java)
-//            startActivity(intent)
-//        } else {
-//            val intent = Intent(this, T::class.java)
-//            intent.putExtras(dataBundle)
-//            startActivity(intent)
-//        }
+inline fun <reified T : Activity> Activity.jump(checkLogin: Boolean = false, dataBundle: Bundle = Bundle()) =
+        if (checkLogin) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        } else {
+            val intent = Intent(this, T::class.java)
+            intent.putExtras(dataBundle)
+            startActivity(intent)
+        }
 
 fun ImageView.loadImage(context: Context, url: String?, defaultResId: Int = R.mipmap.ic_default, errorResId: Int = R.mipmap.ic_default, width: Int = 0, height: Int = 0) {
     if (null != url)
@@ -39,7 +44,7 @@ fun ImageView.loadImage(context: Context, url: String?, defaultResId: Int = R.mi
 
 fun ImageView.loadRoundImage(context: Context, url: String?, defaultResId: Int = R.mipmap.ic_default, width: Int = 0, height: Int = 0) {
     if (null != url)
-        ImageLoadedrManager.getInstance().displayCycle(context,url, this, defaultResId)
+        ImageLoadedrManager.getInstance().displayCycle(context, url, this, defaultResId)
 
 }
 
@@ -87,4 +92,11 @@ fun String.formateDate(timeMillis: String?, format: String = "yyyy-MM-dd HH:mm:s
     } else {
         ""
     }
+}
+
+fun TextView.loadText(text: String, type: Int = 0) {
+    if (ExtraUtils.getTextType(type) != null) {
+        this.typeface = ExtraUtils.getTextType(type)
+    }
+    this.setText(text)
 }
