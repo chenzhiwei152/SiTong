@@ -9,7 +9,6 @@ import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
-import com.sitong.changqin.MainActivity
 import com.sitong.changqin.R
 import kotlinx.android.synthetic.main.activity_login_or_register.*
 
@@ -30,7 +29,7 @@ class LoginOrRegisterActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>
             this@LoginOrRegisterActivity.jump<LoginActivity>()
         }
         tv_register.setOnClickListener {
-            this@LoginOrRegisterActivity.jump<MainActivity>()
+            this@LoginOrRegisterActivity.jump<RegisterActivity>()
         }
     }
 

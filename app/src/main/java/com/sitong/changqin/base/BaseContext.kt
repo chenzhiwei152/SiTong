@@ -10,12 +10,13 @@ import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.SharedPrefUtil
-import com.jyall.bbzf.mvp.model.bean.UserInfo
 import com.scwang.smartrefresh.layout.SmartRefreshLayout.setDefaultRefreshFooterCreater
 import com.scwang.smartrefresh.layout.SmartRefreshLayout.setDefaultRefreshHeaderCreater
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import com.sitong.changqin.R
+import com.sitong.changqin.mvp.model.bean.UserInfo
 import javax.crypto.SecretKey
 import kotlin.properties.Delegates
 
@@ -103,14 +104,10 @@ class BaseContext : MultiDexApplication() {
 //            }
 //            LeakCanary.install(this)
 //        }
-        //编译时注解 use the index
-//        EventBus.builder().addIndex(MyEventBusIndex()).installDefaultEventBus()
         LogUtils.setUp(isApkDebugable(this))
-        LogUtils.customTagPrefix = "JYALL_NEW"
+        LogUtils.customTagPrefix = this.resources.getString(R.string.app_name)
 //        ShareUtils.initShare(this)
-//        initNIM()
 //        initJPush()
-//        SDKInitializer.initialize(this)
         registerActivityLifeCircleListener()//注册Activity声明周期回调，以便于分辨前后台
     }
 
@@ -158,7 +155,6 @@ class BaseContext : MultiDexApplication() {
     fun isLoginIn(): Boolean {
         return null != getUserInfo()
     }
-
 
 
     // 如果已经存在用户登录信息，返回LoginInfo，否则返回null即可

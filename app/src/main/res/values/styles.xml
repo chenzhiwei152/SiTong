@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" >
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -19,7 +19,7 @@
         <item name="titleMarginTop">0dp</item>
     </style>
     <!--全屏-->
-    <style name="FullScreenTheme" parent="AppTheme.NoActionBar">
+    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
@@ -34,19 +34,44 @@
         <item name="android:windowFullscreen">true</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="textStyle_20232b_20">
         <item name="android:textSize">20sp</item>
-        <item name="android:color">@color/color_20232b</item>
+        <item name="android:textColor">@color/color_20232b</item>
+    </style>
+    <style name="textStyle_20232b_42">
+        <item name="android:textSize">42sp</item>
+        <item name="android:textColor">@color/color_20232b</item>
     </style>
 
     <style name="textStyle_d0a670_37">
         <item name="android:textSize">37sp</item>
-        <item name="android:color">@color/color_d0a670</item>
+        <item name="android:textColor">@color/color_d0a670</item>
     </style>
 
     <style name="textStyle_d0a670_24">
         <item name="android:textSize">24sp</item>
-        <item name="android:color">@color/color_d0a670</item>
+        <item name="android:textColor">@color/color_d0a670</item>
+    </style>
+
+    <style name="textStyle_d0a670_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/color_d0a670</item>
+    </style>
+    <style name="textStyle_d0a670_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_d0a670</item>
+    </style>
+    <style name="textStyle_ffffff_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/color_ffffff</item>
+    </style>
+
+    <style name="divider_d0a670_1">
+        <item name="android:background">@color/color_d0a670</item>
+        <item name="android:layout_height">@dimen/dp_1</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 </resources>

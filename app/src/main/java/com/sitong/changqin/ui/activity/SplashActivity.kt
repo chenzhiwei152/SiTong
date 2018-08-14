@@ -5,8 +5,11 @@ import android.os.Handler
 import android.view.View
 import com.jyall.android.common.utils.SharedPrefUtil
 import com.jyall.bbzf.base.BaseActivity
+import com.jyall.bbzf.base.BaseContext
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
+import com.jyall.bbzf.extension.jump
+import com.sitong.changqin.MainActivity
 import com.sitong.changqin.R
 
 /**
@@ -39,8 +42,12 @@ class SplashActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>() {
     }
 
     private fun intentMainActivity() {
-        val intent = Intent(this, LoginOrRegisterActivity::class.java)
-        startActivity(intent)
+        if (BaseContext.instance.getUserInfo()!=null){
+            jump<MainActivity>()
+        }else{
+            val intent = Intent(this, LoginOrRegisterActivity::class.java)
+            startActivity(intent)
+        }
         overridePendingTransition(0, 0)
         finish()
     }

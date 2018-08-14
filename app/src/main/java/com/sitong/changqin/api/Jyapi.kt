@@ -1,14 +1,18 @@
 package com.jyall.bbzf.api.scheduler
 
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.CHECK_SHORT_MESSAGE
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MUSIC_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.SEND_SHORT_MESSAGE
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.USER_LOGIN
 import com.jyall.bbzf.base.BaseBean
-import com.jyall.bbzf.mvp.model.bean.UserInfo
+import com.sitong.changqin.mvp.model.bean.MusicBean
+import com.sitong.changqin.mvp.model.bean.UserInfo
 import io.reactivex.Observable
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface Jyapi {
     /**
@@ -31,25 +35,23 @@ interface Jyapi {
     /**
      *  登录
      */
-    @GET(USER_LOGIN)
-    fun logIn(@Query("cityId") cityId: String, @Query("userPhone") phone: String,
-              @Query("userRole") shortCode: String): Observable<Response<BaseBean<UserInfo>>>
+    @POST(USER_LOGIN)
+    fun logIn(@Body queryMap: HashMap<String, String>): Observable<Response<BaseBean<UserInfo>>>
 
     /**
      *  发送验证码
      */
     @GET(SEND_SHORT_MESSAGE)
-    fun sendCode(@Query("phone") phone: String): Observable<Response<BaseBean<String>>>
+    fun sendCode(@Path("phone") phone: String): Observable<Response<BaseBean<String>>>
 
     /**
-     *  校验验证码
+     *  注册
      */
-    @GET(CHECK_SHORT_MESSAGE)
-    fun checkCode(@Query("cityId") cityId: String,
-                  @Query("phone") phone: String,
-                  @Query("shortCode") shortCode: String): Observable<Response<BaseBean<UserInfo>>>
+    @POST(CHECK_SHORT_MESSAGE)
+    fun register(@Body map: HashMap<String, String>): Observable<Response<BaseBean<UserInfo>>>
 
     /*---------------------------------------------登录注册相关end-------------------------*/
 
-
+    @GET(GET_MUSIC_LIST)
+    fun getMusicList(@Path("listtype") listtype: String) :Observable<Response<BaseBean<ArrayList<MusicBean>>>>
 }

@@ -29,7 +29,7 @@
                 style="@style/textStyle_d0a670_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login" />
+                android:text="@string/register" />
 
         </LinearLayout>
 
@@ -42,7 +42,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_32"
             android:ems="1"
-            android:text="@string/register" />
+            android:text="@string/login" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -81,6 +81,43 @@
 
 
         <EditText
+            android:id="@+id/et_code"
+            style="@style/textStyle_d0a670_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tv_send_code"
+            android:background="@null"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/message_code"
+            android:textColorHint="@color/color_d0a670" />
+
+        <View
+            style="@style/divider_d0a670_1"
+            android:layout_below="@+id/et_code"
+            android:layout_marginRight="80dp"
+            android:layout_marginTop="@dimen/dp_11" />
+
+        <TextView
+            android:id="@+id/tv_send_code"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_d0a670_90"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/send_message_code" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_34"
+        android:layout_marginRight="@dimen/dp_34"
+        android:layout_marginTop="39dp">
+
+
+        <EditText
             android:id="@+id/et_pw"
             style="@style/textStyle_d0a670_16"
             android:layout_width="match_parent"
@@ -98,28 +135,8 @@
             android:layout_marginTop="@dimen/dp_11" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_34"
-        android:layout_marginRight="@dimen/dp_34"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            style="@style/textStyle_d0a670_14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Tourist" />
-
-        <TextView
-            style="@style/textStyle_d0a670_14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/forget_password" />
-    </RelativeLayout>
-
     <TextView
+        android:id="@+id/go_register"
         style="@style/textStyle_ffffff_16"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -128,31 +145,5 @@
         android:layout_marginTop="@dimen/dp_100"
         android:background="@drawable/bg_d0a670_90"
         android:gravity="center"
-        android:text="@string/login" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_20"
-        android:gravity="center_horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_login_sina" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:layout_marginRight="@dimen/dp_20"
-            android:background="@drawable/selector_login_wx" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_login_qq" />
-
-    </LinearLayout>
-
+        android:text="@string/register" />
 </LinearLayout>

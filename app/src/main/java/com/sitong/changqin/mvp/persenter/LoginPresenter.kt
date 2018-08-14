@@ -2,7 +2,6 @@ package com.sitong.changqin.mvp.persenter
 
 import com.jyall.bbzf.api.scheduler.CommonObserver
 import com.jyall.bbzf.api.scheduler.ErrorResponseBean
-import com.jyall.bbzf.api.scheduler.ResponseCode
 import com.jyall.bbzf.base.BaseBean
 import com.jyall.bbzf.base.BasePresenter
 import com.sitong.changqin.mvp.contract.LoginContract
@@ -33,14 +32,14 @@ class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presen
 
             override fun onFail(errorResponseBean: BaseBean<String>): Boolean {
                 mRootView?.dismissLoading()
-                when (errorResponseBean.error_code) {
-                    ResponseCode.SEND_CODE_FAIL -> {
-//                        mRootView?.toast_msg("验证码发送失败", errorResponseBean.message)
-                    }
-                    else -> {
-                        mRootView?.toast_msg(errorResponseBean.message)
-                    }
-                }
+//                when (errorResponseBean.error_code) {
+//                    ResponseCode.SEND_CODE_FAIL -> {
+////                        mRootView?.toast_msg("验证码发送失败", errorResponseBean.message)
+//                    }
+//                    else -> {
+//                        mRootView?.toast_msg(errorResponseBean.message)
+//                    }
+//                }
                 return true
             }
 

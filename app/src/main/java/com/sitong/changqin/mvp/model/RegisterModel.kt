@@ -7,7 +7,7 @@ import com.sitong.changqin.mvp.model.bean.UserInfo
 import io.reactivex.Observable
 import retrofit2.Response
 
-class LoginModel {
+class RegisterModel {
     /**
      * 登录
      */
@@ -15,12 +15,8 @@ class LoginModel {
         return APIManager.jyApi.logIn(map).compose(SchedulerUtils.ioToMain())
     }
 
-    fun sendCode(phone: String): Observable<Response<BaseBean<String>>> {
+    fun sendCode( phone: String): Observable<Response<BaseBean<String>>> {
         return APIManager.jyApi.sendCode(phone).compose(SchedulerUtils.ioToMain())
-    }
-
-    fun register(map: HashMap<String,String>): Observable<Response<BaseBean<UserInfo>>> {
-        return APIManager.jyApi.register(map).compose(SchedulerUtils.ioToMain())
     }
 
 }
