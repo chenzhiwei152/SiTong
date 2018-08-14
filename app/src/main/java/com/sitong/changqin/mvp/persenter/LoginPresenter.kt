@@ -6,6 +6,7 @@ import com.jyall.bbzf.base.BaseBean
 import com.jyall.bbzf.base.BasePresenter
 import com.sitong.changqin.mvp.contract.LoginContract
 import com.sitong.changqin.mvp.model.LoginModel
+import com.sitong.changqin.mvp.model.bean.UserInfo
 
 /**
  *
@@ -14,42 +15,37 @@ import com.sitong.changqin.mvp.model.LoginModel
  */
 
 class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presenter {
+    override fun login(map: HashMap<String, String>) {
+        if (checkViewAttached()){
+            mRootView?.showLoading(false)
+            var observer = object : CommonObserver<BaseBean<UserInfo>>() {
+
+                override fun onError(errorResponseBean: ErrorResponseBean): Boolean {
+                    mRootView?.dismissLoading()
+                    mRootView?.toast_msg(errorResponseBean.message!!)
+                    return false
+                }
+
+                override fun onFail(errorResponseBean: BaseBean<UserInfo>): Boolean {
+                    mRootView?.dismissLoading()
+                    return true
+                }
+
+                override fun onSuccess(body: BaseBean<UserInfo>) {
+                    mRootView?.dismissLoading()
+                    mRootView?.loginSuccess(body.data)
+                }
+            }
+
+            loginModel.login(map).subscribe(observer)
+            addSubscription(observer.disposable!!)
+        }
+    }
 
     private val loginModel: LoginModel by lazy {
         LoginModel()
     }
 
-    override fun sendCode(phone: String) {
-        checkViewAttached()
-        mRootView?.showLoading(false)
-        var observer = object : CommonObserver<BaseBean<String>>() {
 
-            override fun onError(errorResponseBean: ErrorResponseBean): Boolean {
-                mRootView?.dismissLoading()
-                mRootView?.toast_msg(errorResponseBean.message!!)
-                return false
-            }
-
-            override fun onFail(errorResponseBean: BaseBean<String>): Boolean {
-                mRootView?.dismissLoading()
-//                when (errorResponseBean.error_code) {
-//                    ResponseCode.SEND_CODE_FAIL -> {
-////                        mRootView?.toast_msg("验证码发送失败", errorResponseBean.message)
-//                    }
-//                    else -> {
-//                        mRootView?.toast_msg(errorResponseBean.message)
-//                    }
-//                }
-                return true
-            }
-
-            override fun onSuccess(body: BaseBean<String>) {
-                mRootView?.dismissLoading()
-            }
-        }
-
-        loginModel.sendCode(phone).subscribe(observer)
-        addSubscription(observer.disposable!!)
-    }
 
 }

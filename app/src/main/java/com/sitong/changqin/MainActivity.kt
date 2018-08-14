@@ -1,9 +1,11 @@
 package com.sitong.changqin
 
+import android.annotation.SuppressLint
 import android.support.design.widget.AppBarLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.toast
 import com.sitong.changqin.mvp.contract.IndexContract
@@ -20,11 +22,14 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
     var mRVAdapter: IndexAdapter? = null
     var mRankRVAdapter: IndexRankAdapter? = null
     var indexLayoutManaget: LinearLayoutManager? = null
-
+    var mKeys = arrayListOf<String>()
+    var mValues = arrayListOf<String>()
     override fun getDataSuccess(musicList: ArrayList<MusicBean>) {
         toast_msg("" + musicList?.size)
         mRVAdapter?.setData(musicList)
         mRankRVAdapter?.setData(musicList)
+        rv_rank.postDelayed(Runnable { getValue() }, 3000)
+
     }
 
     override fun getPresenter(): IndexPresenter = IndexPresenter()
@@ -73,32 +78,54 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
         })
 
-
     }
 
+    var mPosition = 0
     fun controlLetters() {
-        if (rv_list == null || rv_rank == null) {
-            return
-        }
-        mRankRVAdapter?.list?.forEachIndexed loop@{ index, value ->
-            mRVAdapter?.list?.forEachIndexed { index, value ->
-                var startLocation = IntArray(2)
-                rv_list.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
 
-
-                var startLocation1 = IntArray(2)
-                rv_rank.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation1)
-
-                if (startLocation[0] <= startLocation1[0]) {
-//                    LogUtils.e("index_position:" + index + "rv_rank" + rv_rank.getChildAt(index).x + "-----rv_list" + rv_list.getChildAt(index).x)
-                    mRankRVAdapter!!.setPosition(index)
-                } else {
-                    return@loop
-                }
+        getValue()
+        if (mKeys[mPosition] >= mValues[mPosition]) {
+            mRankRVAdapter!!.setPosition(mPosition)
+            if (mPosition<mKeys.size){
+                mPosition++
             }
-
         }
 
+
+//        mKeys.forEachIndexed loop@{ index, value ->
+//            //            if (index>mPosition){
+//            if (value >= mValues[index]) {
+//                mRankRVAdapter!!.setPosition(index)
+//                LogUtils.e("Index________" + index)
+//                mPosition = index
+//                return@loop
+//            } else {
+//                LogUtils.e("Index________break")
+//                return@loop
+//            }
+////            }
+//        }
+//        if (rv_list == null || rv_rank == null) {
+//            return
+//        }
+//        mRankRVAdapter?.list?.forEachIndexed loop@{ index, value ->
+//            mRVAdapter?.list?.forEachIndexed { index, value ->
+//                var startLocation = IntArray(2)
+//                rv_list.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
+//
+//
+//                var startLocation1 = IntArray(2)
+//                rv_rank.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation1)
+//
+//                if (startLocation[0] <= startLocation1[0]) {
+////                    LogUtils.e("index_position:" + index + "rv_rank" + rv_rank.getChildAt(index).x + "-----rv_list" + rv_list.getChildAt(index).x)
+//                    mRankRVAdapter!!.setPosition(index)
+//                } else {
+//                    return@loop
+//                }
+//            }
+//
+//        }
 //        rv_list.setOnScrollListener(object : RecyclerView.OnScrollListener() {
 //            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
 //                super.onScrolled(recyclerView, dx, dy)
@@ -118,6 +145,24 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 //                }
 //            }
 //        })
+    }
+
+    fun getValue() {
+
+        mValues.clear()
+        mKeys.clear()
+        mRankRVAdapter?.list?.forEachIndexed { index, value ->
+            var startLocation = IntArray(2)
+            rv_rank.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
+            mKeys.add(startLocation[1].toString())
+//            LogUtils.e("Stickysssssss:" + startLocation[0].toString() + "----" + startLocation[1].toString())
+        }
+        mRVAdapter?.list?.forEachIndexed { index, value ->
+            var startLocation = IntArray(2)
+            rv_list.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
+            mValues.add(startLocation[1].toString())
+//            LogUtils.e("Stickysssssss:" + startLocation[0].toString() + "----" + startLocation[1].toString())
+        }
     }
 
     override fun isRegistEventBus(): Boolean = false
