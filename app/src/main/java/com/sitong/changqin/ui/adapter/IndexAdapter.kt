@@ -16,8 +16,7 @@ import kotlinx.android.synthetic.main.item_index_first.view.*
  */
 class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.ViewHolder>() {
     var list = arrayListOf<MusicBean>()
-
-
+    var posi = 1
     private var onItemClick: RVAdapterItemOnClick? = null
 
     fun setListerner(onItemClick: RVAdapterItemOnClick) {
@@ -34,6 +33,17 @@ class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.Vie
         notifyDataSetChanged()
     }
 
+    fun setPosition(po: Int) {
+        this.posi = po
+        updatePosition(posi)
+        if (posi < list.size - 1) {
+            updatePosition(posi + 1)
+        }
+    }
+
+    fun updatePosition(po: Int) {
+        notifyItemChanged(po)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context)
@@ -46,9 +56,14 @@ class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.Vie
         holder.viewLayout.tag = position
         holder.viewLayout.tv_rank.text = list[position].levelName
         holder.viewLayout.ll_tag.tag = "sticky"
+        if (position <= posi) {
+            holder.viewLayout.tv_rank.visibility = View.VISIBLE
+        } else {
+            holder.viewLayout.tv_rank.visibility = View.INVISIBLE
+        }
         if (list[position].musics.isNotEmpty()) {
             holder.viewLayout.rv_music_list.layoutManager = LinearLayoutManager(context)
-            holder.viewLayout.rv_music_list.isNestedScrollingEnabled=false
+            holder.viewLayout.rv_music_list.isNestedScrollingEnabled = false
             holder.viewLayout.rv_music_list.adapter = IndexMusicAdapter(context, list[position].musics as ArrayList<MusicBean.Music>)
         }
     }

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_index_third.view.*
  */
 class IndexRankAdapter(var context: Context) : RecyclerView.Adapter<IndexRankAdapter.ViewHolder>() {
     var list = arrayListOf<MusicBean>()
-    var posi = 0
+    var posi = 1
     fun setData(all: ArrayList<MusicBean>) {
         list?.addAll(all)
         notifyDataSetChanged()

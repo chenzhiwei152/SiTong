@@ -1,11 +1,10 @@
 package com.sitong.changqin
 
-import android.annotation.SuppressLint
 import android.support.design.widget.AppBarLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.jyall.android.common.utils.LogUtils
+import android.widget.TextView
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.toast
 import com.sitong.changqin.mvp.contract.IndexContract
@@ -19,16 +18,21 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexContract.View {
 
-    var mRVAdapter: IndexAdapter? = null
-    var mRankRVAdapter: IndexRankAdapter? = null
-    var indexLayoutManaget: LinearLayoutManager? = null
-    var mKeys = arrayListOf<String>()
-    var mValues = arrayListOf<String>()
+    private var mRVAdapter: IndexAdapter? = null
+    private var mRankRVAdapter: IndexRankAdapter? = null
+    private var lists = arrayListOf<MusicBean>()
+    private var mKeys = arrayListOf<Int>()
+    private var mValues = arrayListOf<Int>()
     override fun getDataSuccess(musicList: ArrayList<MusicBean>) {
-        toast_msg("" + musicList?.size)
+//        toast_msg("" + musicList?.size)
         mRVAdapter?.setData(musicList)
         mRankRVAdapter?.setData(musicList)
-        rv_rank.postDelayed(Runnable { getValue() }, 3000)
+        lists = musicList
+        rv_rank.postDelayed({
+            getValue()
+//            controlLetters(true)
+        }, 3000)
+
 
     }
 
@@ -47,11 +51,9 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                     //展开状态
                     tv_subtitle.visibility = View.VISIBLE
                 } else if (state === AppBarStateChangeListener.State.COLLAPSED) {
-
                     //折叠状态
                     tv_subtitle.visibility = View.GONE
                 } else {
-
                     //中间状态
                     tv_subtitle.visibility = View.GONE
                 }
@@ -59,8 +61,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         })
         mRVAdapter = IndexAdapter(this)
         rv_list.isNestedScrollingEnabled = false
-        indexLayoutManaget = LinearLayoutManager(this)
-        rv_list.layoutManager = indexLayoutManaget
+        rv_list.layoutManager = LinearLayoutManager(this)
         rv_list.adapter = mRVAdapter
 
         mRankRVAdapter = IndexRankAdapter(this)
@@ -73,96 +74,79 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
         stick_scroll.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
             override fun onScrollChange(v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
-                controlLetters()
+                controlLetters(scrollY > oldScrollY)
             }
 
         })
 
     }
 
-    var mPosition = 0
-    fun controlLetters() {
+    var mPosition = 1
+    fun controlLetters(flag: Boolean) {
+        try {
+            //        var mKey = IntArray(2)
+//        rv_rank.findViewHolderForLayoutPosition(mPosition)?.itemView?.getLocationOnScreen(mKey)
 
-        getValue()
-        if (mKeys[mPosition] >= mValues[mPosition]) {
-            mRankRVAdapter!!.setPosition(mPosition)
-            if (mPosition<mKeys.size){
-                mPosition++
+
+            if (mKeys.size <= 0 || mKeys[0] <= 0) {
+                getValue()
+                return
             }
+            if (flag) {
+                //上滑
+                var mValue = IntArray(2)
+                rv_list.findViewHolderForLayoutPosition(mPosition)?.itemView?.getLocationOnScreen(mValue)
+                if (mKeys[mPosition] >= mValue[1]) {
+//                mRVAdapter!!.setPosition(mPosition)
+                    var hol = rv_list.findViewHolderForLayoutPosition(mPosition)?.itemView?.findViewById<TextView>(R.id.tv_rank)
+                    hol?.visibility = View.VISIBLE
+                    mRankRVAdapter!!.setPosition(mPosition)
+                    if (mPosition < lists.size - 1) {
+                        mPosition++
+//                    LogUtils.e("++--mPosition:" + mPosition + "-----key:" + mKeys[mPosition] + "-----value:" + mValue[1])
+                    }
+                }
+
+            } else {
+//下滑
+                var cache = 0
+                if (mPosition > 0) {
+                    cache = mPosition - 1
+                } else {
+                    cache = mPosition
+                }
+                var mValue = IntArray(2)
+                rv_list.findViewHolderForLayoutPosition(cache)?.itemView?.getLocationOnScreen(mValue)
+                if (mKeys[cache] <= mValue[1]) {
+                    mRankRVAdapter!!.setPosition(cache - 1)
+//                mRVAdapter!!.setPosition(cache - 1)
+                    var hol = rv_list.findViewHolderForLayoutPosition(cache)?.itemView?.findViewById<TextView>(R.id.tv_rank)
+                    hol?.visibility = View.INVISIBLE
+                    mPosition = cache
+//                LogUtils.e("----mPosition:" + mPosition + "-----key:" + mKeys[mPosition] + "-----value:" + mValue[1])
+                }
+
+            }
+        } catch (ex: Exception) {
+
         }
-
-
-//        mKeys.forEachIndexed loop@{ index, value ->
-//            //            if (index>mPosition){
-//            if (value >= mValues[index]) {
-//                mRankRVAdapter!!.setPosition(index)
-//                LogUtils.e("Index________" + index)
-//                mPosition = index
-//                return@loop
-//            } else {
-//                LogUtils.e("Index________break")
-//                return@loop
-//            }
-////            }
-//        }
-//        if (rv_list == null || rv_rank == null) {
-//            return
-//        }
-//        mRankRVAdapter?.list?.forEachIndexed loop@{ index, value ->
-//            mRVAdapter?.list?.forEachIndexed { index, value ->
-//                var startLocation = IntArray(2)
-//                rv_list.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
-//
-//
-//                var startLocation1 = IntArray(2)
-//                rv_rank.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation1)
-//
-//                if (startLocation[0] <= startLocation1[0]) {
-////                    LogUtils.e("index_position:" + index + "rv_rank" + rv_rank.getChildAt(index).x + "-----rv_list" + rv_list.getChildAt(index).x)
-//                    mRankRVAdapter!!.setPosition(index)
-//                } else {
-//                    return@loop
-//                }
-//            }
-//
-//        }
-//        rv_list.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//            }
-//
-//            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//                val layoutManager = recyclerView!!.layoutManager
-//                //判断是当前layoutManager是否为LinearLayoutManager
-//                // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
-//                if (layoutManager is LinearLayoutManager) {
-////获取最后一个可见view的位置
-//                    val lastItemPosition = layoutManager.findLastVisibleItemPosition()
-//                    //获取第一个可见view的位置
-//                    val firstItemPosition = layoutManager.findFirstVisibleItemPosition()
-//                    LogUtils.e(lastItemPosition.toString() + "   " + firstItemPosition)
-//                }
-//            }
-//        })
     }
 
     fun getValue() {
-
-        mValues.clear()
+//        mValues.clear()
         mKeys.clear()
         mRankRVAdapter?.list?.forEachIndexed { index, value ->
             var startLocation = IntArray(2)
             rv_rank.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
-            mKeys.add(startLocation[1].toString())
+            mKeys.add(startLocation[1])
 //            LogUtils.e("Stickysssssss:" + startLocation[0].toString() + "----" + startLocation[1].toString())
         }
-        mRVAdapter?.list?.forEachIndexed { index, value ->
-            var startLocation = IntArray(2)
-            rv_list.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
-            mValues.add(startLocation[1].toString())
-//            LogUtils.e("Stickysssssss:" + startLocation[0].toString() + "----" + startLocation[1].toString())
-        }
+//        mRVAdapter?.list?.forEachIndexed { index, value ->
+//            var startLocation = IntArray(2)
+//            rv_list.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
+//            mValues.add(startLocation[1])
+////            LogUtils.e("Stickysssssss:" + startLocation[0].toString() + "----" + startLocation[1].toString())
+//        }
     }
 
     override fun isRegistEventBus(): Boolean = false
