@@ -41,8 +41,18 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/color_20232b</item>
     </style>
+    <style name="textStyle_20232b_39_gravity">
+        <item name="android:textSize">39sp</item>
+        <item name="android:textColor">@color/color_20232b</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
     <style name="textStyle_20232b_42">
         <item name="android:textSize">42sp</item>
+        <item name="android:textColor">@color/color_20232b</item>
+    </style>
+    <style name="textStyle_20232b_13">
+        <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/color_20232b</item>
     </style>
 

@@ -26,14 +26,24 @@ fun Activity.toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) =
 fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) =
         Toast.makeText(this, message, duration).show()
 
-inline fun <reified T : Activity> Activity.jump(checkLogin: Boolean = false, dataBundle: Bundle = Bundle()) =
+inline fun <reified T : Activity> Activity.jump(checkLogin: Boolean = false, isAnimation: Boolean = true, dataBundle: Bundle = Bundle()) =
         if (checkLogin) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            if (isAnimation) {
+
+            } else {
+                overridePendingTransition(0, 0)
+            }
         } else {
             val intent = Intent(this, T::class.java)
             intent.putExtras(dataBundle)
             startActivity(intent)
+            if (isAnimation) {
+
+            } else {
+                overridePendingTransition(0, 0)
+            }
         }
 
 fun ImageView.loadImage(context: Context, url: String?, defaultResId: Int = R.mipmap.ic_default, errorResId: Int = R.mipmap.ic_default, width: Int = 0, height: Int = 0) {

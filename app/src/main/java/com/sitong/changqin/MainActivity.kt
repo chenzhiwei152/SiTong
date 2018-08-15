@@ -6,10 +6,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
 import com.jyall.bbzf.base.BaseActivity
+import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sitong.changqin.mvp.contract.IndexContract
 import com.sitong.changqin.mvp.model.bean.MusicBean
 import com.sitong.changqin.mvp.persenter.IndexPresenter
+import com.sitong.changqin.ui.activity.MenuActivity
 import com.sitong.changqin.ui.adapter.IndexAdapter
 import com.sitong.changqin.ui.adapter.IndexRankAdapter
 import com.sitong.changqin.ui.listerner.AppBarStateChangeListener
@@ -44,6 +46,9 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
     override fun initViewsAndEvents() {
         setSupportActionBar(toolbar)
+        iv_menu.setOnClickListener {
+            jump<MenuActivity>(isAnimation=false)
+        }
         appBar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout, state: AppBarStateChangeListener.State) {
                 if (state === AppBarStateChangeListener.State.EXPANDED) {

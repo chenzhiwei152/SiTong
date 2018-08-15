@@ -1,6 +1,5 @@
 package com.sitong.changqin.ui.activity
 
-import android.content.Intent
 import android.os.Handler
 import android.view.View
 import com.jyall.android.common.utils.SharedPrefUtil
@@ -43,12 +42,12 @@ class SplashActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>() {
 
     private fun intentMainActivity() {
         if (BaseContext.instance.getUserInfo()!=null){
-            jump<MainActivity>()
+            jump<MainActivity>(isAnimation = true)
         }else{
-            val intent = Intent(this, LoginOrRegisterActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, LoginOrRegisterActivity::class.java)
+//            startActivity(intent)
+            jump<LoginOrRegisterActivity>(isAnimation = false)
         }
-        overridePendingTransition(0, 0)
         finish()
     }
 

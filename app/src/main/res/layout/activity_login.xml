@@ -140,19 +140,22 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_login_sina" />
+            android:background="@drawable/selector_login_sina"
+            android:clickable="true" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginRight="@dimen/dp_20"
-            android:background="@drawable/selector_login_wx" />
+            android:background="@drawable/selector_login_wx"
+            android:clickable="true" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_login_qq" />
+            android:background="@drawable/selector_login_qq"
+            android:clickable="true" />
 
     </LinearLayout>
 
