@@ -57,9 +57,11 @@ dependencies {
     implementation project(':apkupdate')
     implementation project(':chooseAlbum')
     implementation project(':multiplestatusview')
-//    configurations.all {
-//        resolutionStrategy {
-//            force 'com.android.support:support-v4:27.1.0'
-//        }
-//    }
+    //    configurations.all {
+    //        resolutionStrategy {
+    //            force 'com.android.support:support-v4:27.1.0'
+    //        }
+    //    }
+    implementation files('libs/TarsosDSP-Android-latest.jar')
+//    implementation project(':soundtouch_library')
 }

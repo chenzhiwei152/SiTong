@@ -1,5 +1,6 @@
 package com.sitong.changqin
 
+import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
@@ -12,9 +13,12 @@ import com.sitong.changqin.mvp.contract.IndexContract
 import com.sitong.changqin.mvp.model.bean.MusicBean
 import com.sitong.changqin.mvp.persenter.IndexPresenter
 import com.sitong.changqin.ui.activity.MenuActivity
+import com.sitong.changqin.ui.activity.MusicPlayActivity
 import com.sitong.changqin.ui.adapter.IndexAdapter
 import com.sitong.changqin.ui.adapter.IndexRankAdapter
 import com.sitong.changqin.ui.listerner.AppBarStateChangeListener
+import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
+import com.sitong.changqin.view.MusicDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -47,7 +51,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
     override fun initViewsAndEvents() {
         setSupportActionBar(toolbar)
         iv_menu.setOnClickListener {
-            jump<MenuActivity>(isAnimation=false)
+            jump<MenuActivity>(isAnimation = false)
         }
         appBar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout, state: AppBarStateChangeListener.State) {
@@ -68,7 +72,22 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         rv_list.isNestedScrollingEnabled = false
         rv_list.layoutManager = LinearLayoutManager(this)
         rv_list.adapter = mRVAdapter
+        mRVAdapter!!.setListerner(object : RVAdapterItemOnClick {
+            override fun onItemClicked(data: Any) {
+                var bean = data as MusicBean.Music
+                var dia = MusicDialog(this@MainActivity, resources.getString(R.string.enjoy), resources.getString(R.string.begin_experience), bean.icon, true).setRightTitleListerner(object : View.OnClickListener {
+                    override fun onClick(p0: View?) {
+                        var bundle = Bundle()
+                        bundle.putString("id", "" + bean.id)
+                        jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
+                    }
 
+                })
+                dia.show()
+
+            }
+
+        })
         mRankRVAdapter = IndexRankAdapter(this)
         rv_rank.layoutManager = LinearLayoutManager(this)
         rv_rank.adapter = mRankRVAdapter

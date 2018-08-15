@@ -64,7 +64,13 @@ class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.Vie
         if (list[position].musics.isNotEmpty()) {
             holder.viewLayout.rv_music_list.layoutManager = LinearLayoutManager(context)
             holder.viewLayout.rv_music_list.isNestedScrollingEnabled = false
-            holder.viewLayout.rv_music_list.adapter = IndexMusicAdapter(context, list[position].musics as ArrayList<MusicBean.Music>)
+            var ada = IndexMusicAdapter(context, list[position].musics as ArrayList<MusicBean.Music>)
+            holder.viewLayout.rv_music_list.adapter = ada
+            ada.setListerner(object : RVAdapterItemOnClick {
+                override fun onItemClicked(data: Any) {
+                    onItemClick?.onItemClicked(data)
+                }
+            })
         }
     }
 

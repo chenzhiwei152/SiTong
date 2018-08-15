@@ -36,6 +36,9 @@ class IndexMusicAdapter(var context: Context, lists: ArrayList<MusicBean.Music>)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.viewLayout.iv_image.loadImage(context, list[position].icon)
+        holder.viewLayout.setOnClickListener{
+            onItemClick?.onItemClicked(list[position])
+        }
     }
 
 

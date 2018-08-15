@@ -1,6 +1,7 @@
 package com.jyall.bbzf.api.scheduler
 
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.CHECK_SHORT_MESSAGE
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MUSIC_DETAIL
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MUSIC_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.SEND_SHORT_MESSAGE
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.USER_LOGIN
@@ -51,7 +52,15 @@ interface Jyapi {
     fun register(@Body map: HashMap<String, String>): Observable<Response<BaseBean<UserInfo>>>
 
     /*---------------------------------------------登录注册相关end-------------------------*/
-
+/*
+* 音乐列表
+* */
     @GET(GET_MUSIC_LIST)
-    fun getMusicList(@Path("listtype") listtype: String) :Observable<Response<BaseBean<ArrayList<MusicBean>>>>
+    fun getMusicList(@Path("listtype") listtype: String): Observable<Response<BaseBean<ArrayList<MusicBean>>>>
+
+    /*
+    * 音乐详情
+    * */
+    @GET(GET_MUSIC_DETAIL)
+    fun getMusicDetail(@Path("music_id") music_id: String): Observable<Response<BaseBean<String>>>
 }

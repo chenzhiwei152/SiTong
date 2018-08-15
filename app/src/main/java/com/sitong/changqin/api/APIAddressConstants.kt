@@ -44,4 +44,10 @@ object APIAddressConstants {
 * 1：首页列表；2：收藏列表
 * */
     const val GET_MUSIC_LIST = "/music/getmusiclist/{listtype}"
+
+    /*
+    * 获取曲目详情
+    * */
+
+    const val GET_MUSIC_DETAIL = "/music/getmusicinfo/{music_id}"
 }

@@ -84,4 +84,9 @@
         <item name="android:layout_height">@dimen/dp_1</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+    <style name="divider_d0a670_1_vertical">
+        <item name="android:background">@color/color_d0a670</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">@dimen/dp_1</item>
+    </style>
 </resources>
