@@ -24,6 +24,27 @@ import java.util.regex.Pattern
 class ExtraUtils {
     companion object {
         /**
+         * 转全角的方法(SBC case)<br></br><br></br>
+         * 全角空格为12288，半角空格为32
+         * 其他字符半角(33-126)与全角(65281-65374)的对应关系是：均相差65248
+         * @param input 任意字符串
+         * @return 半角字符串
+         */
+        fun ToSBC(input: String): String {
+            //半角转全角：
+            val c = input.toCharArray()
+            for (i in c.indices) {
+                if (c[i].toInt() == 32) {
+                    c[i] = 12288.toChar()
+                    continue
+                }
+                if (c[i].toInt() < 127)
+                    c[i] = (c[i].toInt() + 65248).toChar()
+            }
+            return String(c)
+        }
+
+        /**
          * @param v 动态设置view margin
          * @param l 左
          * @param t 上

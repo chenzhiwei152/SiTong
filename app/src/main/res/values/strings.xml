@@ -11,4 +11,27 @@
     <string name="forget_password">忘记密码</string>
     <string name="enjoy">观赏曲目</string>
     <string name="begin_experience">开始练习</string>
+
+
+    <string name="qin_hall">琴馆</string>
+    <string name="video">视频</string>
+    <string name="article">文章</string>
+
+
+    <string name="word">我</string>
+
+
+    <string name="rank">等级</string>
+    <string name="rank_e">LEVEL</string>
+    <string name="experience_time">练琴时长</string>
+    <string name="experience_time_e">HOURS</string>
+    <string name="punch_time">连续打卡</string>
+    <string name="punch_time_e">DAYS</string>
+
+
+    <string name="information">信息</string>
+    <string name="task">任务</string>
+    <string name="file">文件</string>
+    <string name="member">会员</string>
+
 </resources>

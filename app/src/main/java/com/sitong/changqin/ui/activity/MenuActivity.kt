@@ -7,6 +7,7 @@ import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
+import com.sitong.changqin.MainActivity
 import com.sitong.changqin.R
 import kotlinx.android.synthetic.main.activity_menu.*
 
@@ -18,10 +19,12 @@ class MenuActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseV
         when (p0?.id) {
             R.id.tv_close -> back()
             R.id.iv_qin -> {
-
+                jump<MainActivity>(isAnimation = false)
+                back()
             }
             R.id.iv_search -> {
-
+                jump<MusicSearchActivity>(isAnimation = false)
+                back()
             }
             R.id.iv_me -> {
                 jump<MineActivity>(isAnimation = false)

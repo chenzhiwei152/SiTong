@@ -20,24 +20,15 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun getLayoutId(): Int = R.layout.activity_music_play
 
     override fun initViewsAndEvents() {
-//        val dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0)
-//
-//        val pdh = PitchDetectionHandler { result, e ->
-//            val pitchInHz = result.pitch
-//            runOnUiThread {
-//                //                tv_pinlv.setText("" + pitchInHz)
-//            }
-//        }
-//        val p = PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050f, 1024, pdh)
-//        dispatcher.addAudioProcessor(p)
-//        mThread = Thread(dispatcher, "Audio Dispatcher")
-//        mThread?.start()
         var bundle = intent.extras
         if (bundle != null) {
             id = bundle.getString("id")
         }
-
-        mPresenter?.getMusicDetail(id!!)
+var map:HashMap<String,String>?=null
+        map= hashMapOf()
+        map.put("music",id!!)
+        map.put("needdetail","1")
+        mPresenter?.getMusicDetail(map)
     }
 
     override fun isRegistEventBus(): Boolean = false

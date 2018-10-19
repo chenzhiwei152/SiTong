@@ -1,13 +1,15 @@
 package com.jyall.bbzf.api.scheduler
 
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.CHECK_SHORT_MESSAGE
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_ARTICLE_LIST
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_HALL_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MUSIC_DETAIL
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MUSIC_LIST
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_VIDEO_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.SEND_SHORT_MESSAGE
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.USER_LOGIN
 import com.jyall.bbzf.base.BaseBean
-import com.sitong.changqin.mvp.model.bean.MusicBean
-import com.sitong.changqin.mvp.model.bean.UserInfo
+import com.sitong.changqin.mvp.model.bean.*
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.Body
@@ -61,6 +63,24 @@ interface Jyapi {
     /*
     * 音乐详情
     * */
-    @GET(GET_MUSIC_DETAIL)
-    fun getMusicDetail(@Path("music_id") music_id: String): Observable<Response<BaseBean<String>>>
+    @POST(GET_MUSIC_DETAIL)
+    fun getMusicDetail(@Body map: HashMap<String, String>): Observable<Response<BaseBean<MusicDetailBean>>>
+
+    /*
+    * 琴馆列表
+    * */
+    @GET(GET_HALL_LIST)
+    fun getHallList(): Observable<Response<BaseBean<ArrayList<QinHallBean>>>>
+
+    /*
+    * 视频列表
+    * */
+    @GET(GET_VIDEO_LIST)
+    fun getVideoList(): Observable<Response<BaseBean<ArrayList<VideoListBean>>>>
+
+    /*
+    * 文章列表
+    * */
+    @GET(GET_ARTICLE_LIST)
+    fun getArticleList(): Observable<Response<BaseBean<ArrayList<VideoListBean>>>>
 }

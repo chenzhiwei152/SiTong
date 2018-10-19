@@ -2,19 +2,19 @@ package com.sitong.changqin.mvp.contract
 
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.base.IPresenter
-import com.sitong.changqin.mvp.model.bean.MusicBean
+import com.sitong.changqin.mvp.model.bean.QinHallBean
 
-interface MusicPlayContract {
+interface QinHallContract {
 
     interface View : IBaseView {
         fun toast_msg(msg: String)
-        fun getDataSuccess(musicList:ArrayList<MusicBean>)
+        fun getDataSuccess(list:ArrayList<QinHallBean>)
 
     }
 
     interface Presenter : IPresenter<View> {
 
-        fun getMusicDetail( map: HashMap<String, String>)
+        fun getHallList()
 
     }
 }

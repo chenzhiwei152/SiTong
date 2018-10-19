@@ -6,17 +6,17 @@ import com.jyall.bbzf.api.scheduler.CommonObserver
 import com.jyall.bbzf.api.scheduler.ErrorResponseBean
 import com.jyall.bbzf.base.BaseBean
 import com.jyall.bbzf.base.BasePresenter
-import com.sitong.changqin.mvp.contract.MusicPlayContract
-import com.sitong.changqin.mvp.model.bean.MusicDetailBean
+import com.sitong.changqin.mvp.contract.QinHallContract
+import com.sitong.changqin.mvp.model.bean.QinHallBean
 
 /**
  * create by chen.zhiwei on 2018-8-14
  */
-class MusicPlayPresenter : BasePresenter<MusicPlayContract.View>(), MusicPlayContract.Presenter {
-    override fun getMusicDetail( map: HashMap<String, String>) {
-        if (checkViewAttached()){
+class QinHallPresenter : BasePresenter<QinHallContract.View>(), QinHallContract.Presenter {
+    override fun getHallList() {
+        if (checkViewAttached()) {
 //            mRootView?.showLoading(false)
-            var observer = object : CommonObserver<BaseBean<MusicDetailBean>>() {
+            var observer = object : CommonObserver<BaseBean<ArrayList<QinHallBean>>>() {
 
                 override fun onError(errorResponseBean: ErrorResponseBean): Boolean {
                     mRootView?.dismissLoading()
@@ -24,20 +24,19 @@ class MusicPlayPresenter : BasePresenter<MusicPlayContract.View>(), MusicPlayCon
                     return false
                 }
 
-                override fun onFail(errorResponseBean: BaseBean<MusicDetailBean>): Boolean {
+                override fun onFail(errorResponseBean: BaseBean<ArrayList<QinHallBean>>): Boolean {
                     mRootView?.dismissLoading()
                     return true
                 }
 
-                override fun onSuccess(body: BaseBean<MusicDetailBean>) {
+                override fun onSuccess(body: BaseBean<ArrayList<QinHallBean>>) {
 //                    mRootView?.dismissLoading()
-//                    mRootView?.getDataSuccess(body.data)
+                    mRootView?.getDataSuccess(body.data)
                 }
             }
 
-            APIManager.jyApi.getMusicDetail(map).compose(SchedulerUtils.ioToMain()).subscribe(observer)
+            APIManager.jyApi.getHallList().compose(SchedulerUtils.ioToMain()).subscribe(observer)
             addSubscription(observer.disposable!!)
         }
     }
-
 }

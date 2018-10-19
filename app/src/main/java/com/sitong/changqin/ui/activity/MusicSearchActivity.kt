@@ -6,37 +6,41 @@ import android.view.ViewGroup
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
-import com.jyall.bbzf.ui.adapter.MineInfoFragmentAdapter
+import com.jyall.bbzf.ui.adapter.SearchFragmentAdapter
 import com.sitong.changqin.R
-import com.sitong.changqin.utils.ExtraUtils
-import kotlinx.android.synthetic.main.fragment_mine.*
+import kotlinx.android.synthetic.main.activity_search.*
 
 /**
+ * 寻
  * create by chen.zhiwei on 2018-8-15
  */
-class MineActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseView {
-    private var tabsTitle: ArrayList<String> = arrayListOf()
-    private var pageAdapter: MineInfoFragmentAdapter? = null
-    override fun getPresenter(): BasePresenter<IBaseView> = BasePresenter()
+class MusicSearchActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseView {
 
+    private var tabsTitle: ArrayList<String> = arrayListOf()
+    private var pageAdapter: SearchFragmentAdapter? = null
     override fun getRootView(): IBaseView = this
 
-    override fun getLayoutId(): Int = R.layout.fragment_mine
+    override fun getPresenter(): BasePresenter<IBaseView> = BasePresenter()
+
+    private var mThread: Thread? = null
+    var id: String? = null
+
+
+    override fun getLayoutId(): Int = R.layout.activity_search
 
     override fun initViewsAndEvents() {
-        tv_rank.setText(ExtraUtils.ToSBC("6"))
-
-        tabsTitle.add(resources.getString(R.string.information))
-        tabsTitle.add(resources.getString(R.string.task))
-        tabsTitle.add(resources.getString(R.string.file))
-        tabsTitle.add(resources.getString(R.string.member))
+        tabsTitle.add(resources.getString(R.string.qin_hall))
+        tabsTitle.add(resources.getString(R.string.video))
+        tabsTitle.add(resources.getString(R.string.article))
 
 
-        pageAdapter = MineInfoFragmentAdapter(this, supportFragmentManager, tabsTitle, "1")
+        pageAdapter = SearchFragmentAdapter(this, supportFragmentManager, tabsTitle, "1")
         view_pager.adapter = pageAdapter
         view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tablayout))
         tablayout.setupWithViewPager(view_pager)
         setUpTabBadge(tabsTitle)
+
+
 
 
     }

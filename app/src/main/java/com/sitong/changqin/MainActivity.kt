@@ -1,11 +1,13 @@
 package com.sitong.changqin
 
 import android.os.Bundle
+import android.os.Environment
 import android.support.design.widget.AppBarLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
+import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
@@ -18,8 +20,14 @@ import com.sitong.changqin.ui.adapter.IndexAdapter
 import com.sitong.changqin.ui.adapter.IndexRankAdapter
 import com.sitong.changqin.ui.listerner.AppBarStateChangeListener
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
+import com.sitong.changqin.utils.DownUtils.DownloadUtils
+import com.sitong.changqin.utils.DownUtils.JsDownloadListener
 import com.sitong.changqin.view.MusicDialog
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.InputStream
+import java.util.*
 
 
 class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexContract.View {
@@ -29,6 +37,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
     private var lists = arrayListOf<MusicBean>()
     private var mKeys = arrayListOf<Int>()
     private var mValues = arrayListOf<Int>()
+
     override fun getDataSuccess(musicList: ArrayList<MusicBean>) {
 //        toast_msg("" + musicList?.size)
         mRVAdapter?.setData(musicList)
@@ -80,6 +89,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                         var bundle = Bundle()
                         bundle.putString("id", "" + bean.id)
                         jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
+//                        startLoad()
                     }
 
                 })
@@ -179,5 +189,46 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
     override fun toast_msg(msg: String) {
         toast(msg)
+    }
+
+    private fun startLoad() {
+        val listener = object : JsDownloadListener {
+            override fun onStartDownload() {
+                toast_msg("开始下载")
+            }
+
+            override fun onProgress(progress: Int) {
+                LogUtils.e("--------下载进度：" + progress);
+            }
+
+            override fun onFinishDownload() {
+                LogUtils.e("--------下载完成："  );
+            }
+
+            override fun onFail(errorInfo: String?) {
+                LogUtils.e("--------下载失败：" + errorInfo);
+            }
+        }
+
+        var base = "http://stsystem.oss-cn-beijing.aliyuncs.com"
+        val downloadUtils = DownloadUtils(base, listener)
+        var url = "/music/xianwengcao.mp3"
+        var observab = object : Observer<InputStream> {
+            override fun onComplete() {
+            }
+
+            override fun onSubscribe(d: Disposable?) {
+            }
+
+            override fun onNext(value: InputStream?) {
+                listener.onFinishDownload()
+            }
+
+            override fun onError(e: Throwable?) {
+                listener.onFail(e.toString())
+            }
+        }
+        downloadUtils.download(url, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath+"a.mp3", observab)
+
     }
 }

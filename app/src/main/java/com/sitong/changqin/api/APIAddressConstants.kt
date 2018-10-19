@@ -48,6 +48,20 @@ object APIAddressConstants {
     /*
     * 获取曲目详情
     * */
+    const val GET_MUSIC_DETAIL = "/music/getmusicinfo/"
 
-    const val GET_MUSIC_DETAIL = "/music/getmusicinfo/{music_id}"
+    /*
+    * 获取琴馆列表
+    * */
+    const val GET_HALL_LIST = "/carillon/getcarillonlist/"
+
+    /*
+    * 获取视频列表
+    * */
+    const val GET_VIDEO_LIST = "/infomation/videolist/"
+
+    /*
+    * 获取文章列表
+    * */
+    const val GET_ARTICLE_LIST = " /infomation/articlelist/"
 }

@@ -55,6 +55,10 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/color_20232b</item>
     </style>
+    <style name="textStyle_20232b_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/color_20232b</item>
+    </style>
 
     <style name="textStyle_d0a670_37">
         <item name="android:textSize">37sp</item>
@@ -81,12 +85,12 @@
 
     <style name="divider_d0a670_1">
         <item name="android:background">@color/color_d0a670</item>
-        <item name="android:layout_height">@dimen/dp_1</item>
+        <item name="android:layout_height">@dimen/dp_0.5</item>
         <item name="android:layout_width">match_parent</item>
     </style>
     <style name="divider_d0a670_1_vertical">
         <item name="android:background">@color/color_d0a670</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">@dimen/dp_1</item>
+        <item name="android:layout_width">@dimen/dp_0.5</item>
     </style>
 </resources>

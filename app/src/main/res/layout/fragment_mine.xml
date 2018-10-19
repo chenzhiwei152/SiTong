@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -52,4 +53,117 @@
             android:background="@drawable/selector_menu"
             android:clickable="true" />
     </RelativeLayout>
+
+    <View style="@style/divider_d0a670_1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_20">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|top">
+
+            <TextView
+                android:id="@+id/tv_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:text="5"
+                android:textColor="@color/color_20232b"
+                android:textSize="40sp" />
+
+            <com.sitong.changqin.view.TextViewVertical
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:v_text="@string/rank"
+                app:v_textColor="@color/color_d0a670"
+                app:v_textSize="11sp" />
+
+            <com.sitong.changqin.view.TextViewVertical
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:v_text="@string/rank_e"
+                app:v_textColor="@color/color_20232b"
+                app:v_textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="32"
+                android:textColor="@color/color_20232b"
+                android:textSize="40sp" />
+
+            <com.sitong.changqin.view.TextViewVertical
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:v_text="@string/experience_time"
+                app:v_textColor="@color/color_d0a670"
+                app:v_textSize="11sp" />
+
+            <com.sitong.changqin.view.TextViewVertical
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:v_text="@string/experience_time_e"
+                app:v_textColor="@color/color_20232b"
+                app:v_textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="19"
+                android:textColor="@color/color_20232b"
+                android:textSize="40sp" />
+
+            <com.sitong.changqin.view.TextViewVertical
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:v_text="@string/punch_time"
+                app:v_textColor="@color/color_d0a670"
+                app:v_textSize="11sp" />
+
+            <com.sitong.changqin.view.TextViewVertical
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:v_text="@string/punch_time_e"
+                app:v_textColor="@color/color_20232b"
+                app:v_textSize="10sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View style="@style/divider_d0a670_1" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorHeight="0dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
 </LinearLayout>

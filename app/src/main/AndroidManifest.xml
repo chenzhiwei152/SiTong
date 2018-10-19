@@ -56,6 +56,9 @@
             android:name=".ui.activity.MineActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.MusicSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activity.MusicPlayActivity"
             android:screenOrientation="landscape"
              />
