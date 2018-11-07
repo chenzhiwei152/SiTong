@@ -91,6 +91,9 @@
             android:name="com.sitong.changqin.ui.activity.CollectionActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sitong.changqin.ui.activity.KnowledgeActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sitong.changqin.ui.activity.ToolActivity"
             android:screenOrientation="landscape"
             android:theme="@style/TranslucentFullScreenTheme" />

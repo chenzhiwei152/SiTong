@@ -14,6 +14,7 @@ import com.jyall.bbzf.extension.toast
 import com.sitong.changqin.mvp.contract.IndexContract
 import com.sitong.changqin.mvp.model.bean.MusicBean
 import com.sitong.changqin.mvp.persenter.IndexPresenter
+import com.sitong.changqin.ui.activity.KnowledgeActivity
 import com.sitong.changqin.ui.activity.MenuActivity
 import com.sitong.changqin.ui.activity.MusicPlayActivity
 import com.sitong.changqin.ui.adapter.IndexAdapter
@@ -41,6 +42,11 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
     override fun getDataSuccess(musicList: ArrayList<MusicBean>) {
 //        toast_msg("" + musicList?.size)
+        var beanMusic = MusicBean.Music(-1, false, "zhiqin", "知琴", false, "知琴", 1, 1, "")
+        var list = arrayListOf<MusicBean.Music>()
+        list.add(beanMusic)
+        var beanOne = MusicBean("知琴", 1, list)
+        musicList.add(0,beanOne)
         mRVAdapter?.setData(musicList)
         mRankRVAdapter?.setData(musicList)
         lists = musicList
@@ -85,6 +91,12 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         mRVAdapter!!.setListerner(object : RVAdapterItemOnClick {
             override fun onItemClicked(data: Any) {
                 var bean = data as MusicBean.Music
+
+                if (bean.levelcode==-1){
+                    jump<KnowledgeActivity>()
+                    return
+                }
+
                 var dia = MusicDialog(this@MainActivity, resources.getString(R.string.enjoy), resources.getString(R.string.begin_experience), bean.icon, true).setRightTitleListerner(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
                         var bundle = Bundle()
@@ -203,7 +215,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
             }
 
             override fun onFinishDownload() {
-                LogUtils.e("--------下载完成："  );
+                LogUtils.e("--------下载完成：");
             }
 
             override fun onFail(errorInfo: String?) {
@@ -229,7 +241,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                 listener.onFail(e.toString())
             }
         }
-        downloadUtils.download(url, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath+"a.mp3", observab)
+        downloadUtils.download(url, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath + "a.mp3", observab)
 
     }
 }
