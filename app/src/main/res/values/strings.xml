@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SiTong</string>
+    <string name="app_name">丝桐</string>
     <string name="login">登陆</string>
     <string name="register">注册</string>
     <string name="login_english">Sign Up</string>
@@ -33,5 +33,20 @@
     <string name="task">任务</string>
     <string name="file">文件</string>
     <string name="member">会员</string>
+
+
+    <string name="finish">完成</string>
+
+    <style name="about">年少时乐器店的一次偶遇，古琴便成了小小少年的念
+        想；青年时代古琴成为了一种向往；机缘巧合下和古
+        琴正式结缘，从此开始了古琴学习的漫漫长路。
+        在古琴学习的过程中，偶遇练琴时的问题，比如记谱
+        慢、节奏把握不好、厚厚的教材携带不便等，同时了
+        解到全国各地学习古琴的同学们苦于当地找不到老师
+        等问题，从此萌发了想做一款有关古琴练习的手
+        机 ，用来方便琴友们练琴和学习，这就是丝桐古琴qpp的由来。
+
+    </style>
+
 
 </resources>

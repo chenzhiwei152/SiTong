@@ -9,9 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.jyall.android.common.utils.ImageLoadedrManager
-import com.sitong.changqin.R
 import com.sitong.changqin.ui.activity.LoginActivity
 import com.sitong.changqin.utils.ExtraUtils
+import com.stringedzithers.sitong.R
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*

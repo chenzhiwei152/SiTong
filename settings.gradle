@@ -1,1 +1,1 @@
-include ':app','jyall-android-common','apkupdate','chooseAlbum','multiplestatusview','soundtouch_library'
+include ':app','jyall-android-common','apkupdate','chooseAlbum','multiplestatusview','soundtouch_library','bubbleseekbar'

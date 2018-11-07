@@ -4,11 +4,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.extension.toast
-import com.sitong.changqin.R
 import com.sitong.changqin.mvp.contract.QinHallContract
 import com.sitong.changqin.mvp.model.bean.QinHallBean
 import com.sitong.changqin.mvp.persenter.QinHallPresenter
 import com.sitong.changqin.ui.adapter.QinHallListAdapter
+import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.fragment_qin_hall.*
 
 /**

@@ -30,8 +30,8 @@ class MusicPlayPresenter : BasePresenter<MusicPlayContract.View>(), MusicPlayCon
                 }
 
                 override fun onSuccess(body: BaseBean<MusicDetailBean>) {
-//                    mRootView?.dismissLoading()
-//                    mRootView?.getDataSuccess(body.data)
+                    mRootView?.dismissLoading()
+                    mRootView?.getDataSuccess(body.data)
                 }
             }
 

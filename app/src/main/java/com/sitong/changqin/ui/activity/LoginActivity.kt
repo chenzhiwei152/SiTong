@@ -6,10 +6,10 @@ import com.jyall.bbzf.base.BaseContext
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sitong.changqin.MainActivity
-import com.sitong.changqin.R
 import com.sitong.changqin.mvp.contract.LoginContract
 import com.sitong.changqin.mvp.model.bean.UserInfo
 import com.sitong.changqin.mvp.persenter.LoginPresenter
+import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**

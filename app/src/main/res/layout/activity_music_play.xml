@@ -1,59 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBar"
+
+    <com.sitong.changqin.view.ChangqinView
+        android:id="@+id/cq_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_125"
-        android:background="@color/color_ffffff"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp">
+        android:layout_height="100dp"
+        android:layout_below="@+id/ll_title"
+        android:background="#20232b"
+        android:paddingBottom="@dimen/dp_15"
+        android:paddingLeft="@dimen/dp_40"
+        android:paddingRight="@dimen/dp_40"
+        android:paddingTop="@dimen/dp_15" />
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/ct_layout"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cq_view"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_scroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:collapsedTitleGravity="center_horizontal"
-            app:collapsedTitleTextAppearance="@style/textStyle_20232b_39_gravity"
-            app:expandedTitleGravity="left"
-            app:expandedTitleTextAppearance="@style/textStyle_20232b_42"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:title="Discovery">
-
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
-                android:background="@color/color_ffffff"
-                app:layout_collapseMode="pin"
-                app:title="title" />
+            android:layout_height="30dp">
 
             <TextView
-                android:id="@+id/tv_subtitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="-10dp"
-                android:text="寻"
-                android:textColor="@color/color_20232b"
-                android:textSize="24sp" />
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+                android:gravity="center"
+                android:text="cesi"
+                android:textSize="16sp" />
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iv_menu"
-        android:layout_width="wrap_content"
+        <com.sitong.changqin.view.dragselectrecyclerview.DragSelectRecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_play"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_15"
-        android:background="@drawable/selector_menu"
-        android:clickable="true" />
-</android.support.design.widget.CoordinatorLayout>
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/dp_15">
+
+        <ImageView
+            android:id="@+id/iv_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_play" />
+
+        <TextView
+            android:id="@+id/tv_start_time"
+            style="@style/textStyle_d0a670_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_play"
+            android:text="0:0" />
+
+        <com.xw.repo.BubbleSeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toLeftOf="@+id/tv_end_time"
+            android:layout_toRightOf="@+id/tv_start_time"
+            app:bsb_bubble_color="@color/color_d0a670"
+            app:bsb_bubble_text_color="@color/color_ffffff"
+            app:bsb_max="80"
+            app:bsb_min="0"
+            app:bsb_progress="0"
+            app:bsb_second_track_color="@color/color_d0a670"
+            app:bsb_track_color="@color/color_d0a670" />
+
+        <TextView
+            android:id="@+id/tv_end_time"
+            style="@style/textStyle_d0a670_14"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv_tool"
+            android:text="0:0" />
+
+        <ImageView
+            android:id="@+id/iv_tool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_play_tool" />
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/ll_title"
+        layout="@layout/layout_play_title" />
+</RelativeLayout>

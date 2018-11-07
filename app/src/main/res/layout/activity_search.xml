@@ -68,6 +68,7 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
+        app:tabIndicatorHeight="0dp"
         android:layout_height="wrap_content">
     </android.support.design.widget.TabLayout>
 

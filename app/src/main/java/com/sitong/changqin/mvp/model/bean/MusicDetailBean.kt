@@ -4,12 +4,7 @@ import java.io.Serializable
 
 
 data class MusicDetailBean(
-        var message: String,
-        var data: Data,
-        var statuscode: Int
-) : Serializable {
 
-    data class Data(
             var iscollection: Boolean,
             var video_url: String,
             var hasright: Boolean,
@@ -60,5 +55,4 @@ data class MusicDetailBean(
                     var position: String
             )
         }
-    }
 }

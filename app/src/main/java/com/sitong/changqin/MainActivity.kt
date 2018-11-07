@@ -23,6 +23,7 @@ import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
 import com.sitong.changqin.utils.DownUtils.DownloadUtils
 import com.sitong.changqin.utils.DownUtils.JsDownloadListener
 import com.sitong.changqin.view.MusicDialog
+import com.stringedzithers.sitong.R
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*

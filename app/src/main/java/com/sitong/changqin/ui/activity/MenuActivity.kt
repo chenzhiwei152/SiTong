@@ -8,7 +8,7 @@ import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.sitong.changqin.MainActivity
-import com.sitong.changqin.R
+import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_menu.*
 
 /**
@@ -31,7 +31,8 @@ class MenuActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseV
                 back()
             }
             R.id.iv_story -> {
-
+                jump<AboutActivity>(isAnimation = false)
+                back()
             }
         }
     }

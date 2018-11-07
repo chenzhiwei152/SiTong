@@ -7,9 +7,9 @@ import android.media.MediaExtractor;
 import android.media.MediaFormat;
 import android.util.Log;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.util.Locale;
 
@@ -70,9 +70,11 @@ public class MediaCodecAudioDecoder implements AudioDecoder {
         Locale locale = Locale.getDefault();
 /*		if (getExtension(fullPath).toLowerCase(locale).equals(".wma"))
             throw new IOException("WMA file not supported");*/
-        RandomAccessFile fis = null;
-        extractor = new MediaExtractor();
+        FileInputStream  fis = null;
+//        File file = new File(fullPath);
         try {
+//            fis = new FileInputStream (file);
+//            FileDescriptor fd = fis.getFD();
             extractor = new MediaExtractor();
             extractor.setDataSource(fullPath);
         }

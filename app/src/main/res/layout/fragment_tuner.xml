@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <com.sitong.changqin.view.pickview.StringScrollPicker
+        android:id="@+id/picker_01"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_weight="1.6"
+        app:spv_center_item_position="2"
+        app:spv_disallow_intercept_touch="true"
+        app:spv_end_color="@color/color_33d0a670"
+        app:spv_is_circulation="false"
+        app:spv_max_text_size="22sp"
+        app:spv_min_text_size="16sp"
+        app:spv_start_color="@color/color_d0a670"
+        app:spv_visible_item_count="5" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/color_000000" />
+
+    <com.sitong.changqin.view.scaleview.VerticalScaleView1
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_20" />
+
+    <com.sitong.changqin.view.pickview.StringLineScrollPicker
+        android:id="@+id/picker_02"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_weight="1"
+        app:spv_center_item_position="3"
+        app:spv_disallow_intercept_touch="true"
+        app:spv_end_color="@color/color_33d0a670"
+        app:spv_is_circulation="false"
+        app:spv_max_text_size="22sp"
+        app:spv_min_text_size="16sp"
+        app:spv_alignment="right"
+        app:spv_start_color="@color/color_000000"
+        app:spv_visible_item_count="7" />
+
+</LinearLayout>

@@ -7,7 +7,7 @@ import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.ui.adapter.SearchFragmentAdapter
-import com.sitong.changqin.R
+import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_search.*
 
 /**
@@ -40,7 +40,18 @@ class MusicSearchActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
         tablayout.setupWithViewPager(view_pager)
         setUpTabBadge(tabsTitle)
 
+        tablayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
 
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                setUpTabBadge(tabsTitle)
+            }
+
+        })
 
 
     }
@@ -65,7 +76,7 @@ class MusicSearchActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
                 }
             }
             // 更新CustomView
-            tab?.customView = pageAdapter?.getTabItemView(i)
+           tab?.customView = pageAdapter?.getTabItemView(i,i==tablayout.selectedTabPosition)
         }
         // 需加上以下代码,不然会出现更新Tab角标后,选中的Tab字体颜色不是选中状态的颜色
         tablayout.getTabAt(tablayout.selectedTabPosition)?.customView?.isSelected = true

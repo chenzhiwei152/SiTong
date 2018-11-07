@@ -15,8 +15,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout.setDefaultRefreshHeader
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import com.sitong.changqin.R
 import com.sitong.changqin.mvp.model.bean.UserInfo
+import com.stringedzithers.sitong.R
 import javax.crypto.SecretKey
 import kotlin.properties.Delegates
 

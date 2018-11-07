@@ -2,13 +2,13 @@ package com.sitong.changqin.mvp.contract
 
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.base.IPresenter
-import com.sitong.changqin.mvp.model.bean.MusicBean
+import com.sitong.changqin.mvp.model.bean.MusicDetailBean
 
 interface MusicPlayContract {
 
     interface View : IBaseView {
         fun toast_msg(msg: String)
-        fun getDataSuccess(musicList:ArrayList<MusicBean>)
+        fun getDataSuccess(musicBean: MusicDetailBean)
 
     }
 

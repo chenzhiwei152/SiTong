@@ -9,7 +9,7 @@ import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
-import com.sitong.changqin.R
+import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_login_or_register.*
 
 

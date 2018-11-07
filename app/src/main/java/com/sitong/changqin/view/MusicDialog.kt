@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import com.jyall.bbzf.extension.loadImage
-import com.sitong.changqin.R
+import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.dialog_music.*
 
 /**

@@ -2,12 +2,16 @@ package com.sitong.changqin.utils
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.PointF
 import android.graphics.Typeface
+import android.media.MediaMetadataRetriever
 import android.net.ConnectivityManager
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseContext
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -18,11 +22,93 @@ import java.util.*
 import java.util.regex.Pattern
 
 
+
+
 /**
  * 扩展工具类，common里面没有的
  */
 class ExtraUtils {
     companion object {
+
+        fun toasts(msg:String){
+            Toast.makeText(BaseContext.instance,msg,Toast.LENGTH_LONG).show()
+        }
+
+
+        fun getMP3FileInfo(path: String): Long {
+            var dur: Long? = null
+            val retriever = MediaMetadataRetriever()
+            retriever.setDataSource(path) //在获取前，设置文件路径（应该只能是本地路径）
+            val duration = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+            retriever.release() //释放
+            if (!TextUtils.isEmpty(duration)) {
+                dur = java.lang.Long.parseLong(duration)
+            } else {
+                return 0L
+            }
+            LogUtils.e("時常："+dur)
+            return dur
+        }
+
+        /**
+         * B(t) = (1 - t)^2 * P0 + 2t * (1 - t) * P1 + t^2 * P2, t ∈ [0,1]
+         *
+         * @param t  曲线长度比例
+         * @param p0 起始点
+         * @param p1 控制点
+         * @param p2 终止点
+         * @return t对应的点
+         */
+        fun CalculateBezierPointForQuadratic2(t: Float, p0: PointF, p1: PointF, p2: PointF): PointF {
+            val point = PointF()
+            val temp = 1 - t
+            point.x = temp * temp * p0.x + 2f * t * temp * p1.x + t * t * p2.x
+            point.y = temp * temp * p0.y + 2f * t * temp * p1.y + t * t * p2.y
+            return point
+        }
+        fun CalculateBezierPointForQuadratic1(t: Float, p0: PointF, p2: PointF): PointF {
+            val point = PointF()
+            val temp = 1 - t
+            point.x = temp  * p0.x +  t  * p2.x
+            point.y = temp  * p0.y + t  * p2.y
+            return point
+        }
+
+        // a integer to xx:xx:xx
+        fun secToTime(time: Int): String {
+            var timeStr: String? = null
+            var hour = 0
+            var minute = 0
+            var second = 0
+            if (time <= 0)
+                return "00:00"
+            else {
+                minute = time / 60
+                if (minute < 60) {
+                    second = time % 60
+                    timeStr = unitFormat(minute) + ":" + unitFormat(second)
+                } else {
+                    hour = minute / 60
+                    if (hour > 99)
+                        return "99:59:59"
+                    minute = minute % 60
+                    second = time - hour * 3600 - minute * 60
+                    timeStr = unitFormat(hour) + ":" + unitFormat(minute) + ":" + unitFormat(second)
+                }
+            }
+            return timeStr
+        }
+
+        fun unitFormat(i: Int): String {
+            var retStr: String? = null
+            if (i >= 0 && i < 10)
+                retStr = "0" + Integer.toString(i)
+            else
+                retStr = "" + i
+            return retStr
+        }
+
+
         /**
          * 转全角的方法(SBC case)<br></br><br></br>
          * 全角空格为12288，半角空格为32
@@ -177,7 +263,7 @@ class ExtraUtils {
             return m.matches()
         }
 
-        fun getTextType(type: Int=0): Typeface? {
+        fun getTextType(type: Int = 0): Typeface? {
             var typeface: Typeface? = null
             if (type == 0) {
                 typeface = Typeface.createFromAsset(BaseContext.instance.assets, "fonts/chinese.TTF")

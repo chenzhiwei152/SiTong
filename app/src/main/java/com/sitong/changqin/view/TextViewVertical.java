@@ -13,7 +13,7 @@ import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.sitong.changqin.R;
+import com.stringedzithers.sitong.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -253,6 +253,9 @@ public class TextViewVertical extends View {
     private int getColNum() {
 
         int oneRowWordCount = getColWordCount();
+        if (oneRowWordCount==0){
+            return 0;
+        }
         int colNum = 0;
         if (cutChars != null) {
             String[] textArray = text.split(cutChars);

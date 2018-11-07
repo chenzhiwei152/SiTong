@@ -4,12 +4,29 @@ import android.view.View
 import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
-import com.sitong.changqin.R
+import com.jyall.bbzf.extension.jump
+import com.sitong.changqin.ui.activity.CollectionActivity
+import com.stringedzithers.sitong.R
+import kotlinx.android.synthetic.main.fragment_file.*
 
 /**
  * create by chen.zhiwei on 2018-8-15
  */
-class FileFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBaseView {
+class FileFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBaseView, View.OnClickListener {
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.rl_record->{
+
+            }
+            R.id.rl_collection->{
+                activity?.jump<CollectionActivity>()
+            }
+            R.id.rl_download->{
+
+            }
+        }
+    }
+
     override fun getLayoutId(): Int = R.layout.fragment_file
 
     override fun lazyLoad() {
@@ -19,6 +36,9 @@ class FileFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBaseV
     override fun getRootView(): IBaseView = this
 
     override fun initViewsAndEvents() {
+        rl_download.setOnClickListener(this)
+        rl_collection.setOnClickListener(this)
+        rl_record.setOnClickListener(this)
     }
 
     override fun isRegistEventBus(): Boolean = false

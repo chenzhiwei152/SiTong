@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.drawable.AnimationDrawable
 import android.view.Gravity
-import com.sitong.changqin.R
+import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.custom_progress_dialog.*
 
 class CustomProgressDialog : Dialog {

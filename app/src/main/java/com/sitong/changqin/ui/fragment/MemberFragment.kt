@@ -4,7 +4,7 @@ import android.view.View
 import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
-import com.sitong.changqin.R
+import com.stringedzithers.sitong.R
 
 /**
  * create by chen.zhiwei on 2018-8-15

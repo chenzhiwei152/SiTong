@@ -63,5 +63,69 @@ object APIAddressConstants {
     /*
     * 获取文章列表
     * */
-    const val GET_ARTICLE_LIST = " /infomation/articlelist/"
+    const val GET_ARTICLE_LIST = "/infomation/articlelist/"
+
+    /*
+    * 获取个人信息
+    * */
+    const val GET_USER_INFO = "/user/getuserinfo/"
+
+    /*
+    * 更新用户信息
+    * */
+    const val UPDATE_USER_INFOs = "/user/saveuserinfo/"
+
+
+    /*
+    * 获取任务
+    * */
+    const val GET_TASK = "/task/gettasks/{type}"
+
+
+    /*获取练习记录
+    * */
+    const val GET_EXERCISE_RECORD = "/music/getpracticelist/"
+
+    /*上传意见反馈图片
+    * */
+    const val upload_feedback_image = "/system/uploadimage/"
+
+
+    /*提交意见反馈
+   * */
+    const val UPLOAD_FEEDBACK = "/system/feedback/"
+
+    /*
+    * 获取，下载oos权限
+    * */
+    const val GET_OOS_PERMESSITION = "/music/downloadmusic/"
+
+    /*上传头像图片
+       * */
+    const val UPLOAD_HEAD = "/user/uploaduheader/"
+
+    /*获取消息列表
+      * */
+    const val GET_MESSAGE = "/message/getmessages/"
+
+
+    /*设置已读消息
+      * */
+    const val SET_MESSAGE_READ = "/message/readmessage/"
+
+    /*领奖
+      * */
+    const val GET_REWARD = "/user/getaward/"
+
+    /*收藏
+      * */
+    const val COLLECTION = "/music/setcollectionstate/"
+
+    /*琴馆详情
+      * */
+    const val QINGUAN_DETAIL = "/carillon/getcarillondetail/"
+    /*文章详情
+      * */
+    const val ARTICLE_DETAIL = "/infomation/articledetail/"
+
 }

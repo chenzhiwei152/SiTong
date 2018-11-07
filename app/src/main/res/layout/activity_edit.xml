@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_common_title" />
+
+    <EditText
+        android:id="@+id/et_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:hint=""
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_10"
+        android:textColor="@color/color_20232b"
+        android:textColorHint="@color/color_20232b"
+        android:textSize="16sp" />
+
+    <View
+        style="@style/divider_d0a670_1"
+        android:layout_marginLeft="@dimen/dp_20" />
+
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        style="@style/ButtonSecondary"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_30"
+        android:layout_marginTop="350dp"
+        android:text="@string/finish" />
+</LinearLayout>

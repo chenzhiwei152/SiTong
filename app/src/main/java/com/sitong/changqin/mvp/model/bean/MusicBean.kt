@@ -7,7 +7,7 @@ import java.io.Serializable
 data class MusicBean(
         @SerializedName("level_name") var levelName: String,
         @SerializedName("type") var type: Int,
-        @SerializedName("musics") var musics: List<Music>
+        @SerializedName("musics") var musics: ArrayList<Music>
 ) :Serializable{
 
     data class Music(

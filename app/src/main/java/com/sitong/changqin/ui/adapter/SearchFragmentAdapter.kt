@@ -6,10 +6,10 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
 import android.view.View
-import com.sitong.changqin.R
 import com.sitong.changqin.ui.fragment.ArticleFragment
 import com.sitong.changqin.ui.fragment.QinHallFragment
 import com.sitong.changqin.ui.fragment.VideoFragment
+import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.item_tablayout.view.*
 
 /**
@@ -56,9 +56,13 @@ class SearchFragmentAdapter(mContext: Context, fm: FragmentManager?, tabs: Array
      * @param position
      * @return
      */
-    fun getTabItemView(position: Int): View {
+    fun getTabItemView(position: Int,isCurrent:Boolean=false): View {
         val view = LayoutInflater.from(mContext).inflate(R.layout.item_tablayout, null)
-        view.tv_title.text = tabs?.get(position)
+        if (isCurrent){
+            view.tv_title.text = "【"+tabs?.get(position)+"】"
+        }else{
+            view.tv_title.text =tabs?.get(position)
+        }
         return view
     }
 }

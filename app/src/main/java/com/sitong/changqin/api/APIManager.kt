@@ -60,7 +60,6 @@ object APIManager {
      */
     private fun getCommonHeaderInterceptor(): Interceptor {
         return Interceptor { chain ->
-
             val original = chain.request()
             val requestBuilder = original.newBuilder()
                     .header("token", getToken()).header("platform", "Android")// 平台

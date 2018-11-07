@@ -55,6 +55,10 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/color_20232b</item>
     </style>
+    <style name="textStyle_9920232b_13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/color_9920232b</item>
+    </style>
     <style name="textStyle_20232b_16">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/color_20232b</item>
@@ -92,5 +96,20 @@
         <item name="android:background">@color/color_d0a670</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">@dimen/dp_0.5</item>
+    </style>
+
+    <!-- *****************  按钮  ************************！-->
+
+    <!-- 二级按钮  红色 有圆角-->
+    <style name="ButtonSecondary" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/button_secondary_text_color</item>
+        <item name="android:background">@drawable/button_secondary_background</item>
+    </style>
+    <!-- 二级按钮 -->
+    <style name="ButtonSecondary_rangle" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/button_secondary_text_color</item>
+        <item name="android:background">@drawable/button_secondary_background_rangle</item>
     </style>
 </resources>

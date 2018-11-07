@@ -14,7 +14,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.sitong.changqin.R;
+import com.stringedzithers.sitong.R;
+
 
 /** @author Aidan Follestad (afollestad) */
 @SuppressWarnings("unused")
