@@ -24,7 +24,7 @@
             app:expandedTitleGravity="left"
             app:expandedTitleTextAppearance="@style/textStyle_20232b_42"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:title="Music">
+            app:title="SiTong">
 
 
             <android.support.v7.widget.Toolbar
@@ -42,25 +42,39 @@
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="-10dp"
-                android:text="琴"
+                android:text="知琴"
                 android:textColor="@color/color_20232b"
                 android:textSize="24sp" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    <LinearLayout
         android:layout_width="match_parent"
-        app:tabIndicatorHeight="0dp"
-        android:layout_height="wrap_content">
-    </android.support.design.widget.TabLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/color_ffffff"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <View style="@style/divider_d0a670_1"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            />
 
-    </android.support.v4.view.ViewPager>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            app:tabIndicatorHeight="0dp" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+    </LinearLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

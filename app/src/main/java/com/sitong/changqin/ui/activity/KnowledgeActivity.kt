@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_knowledge.*
 class KnowledgeActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseView {
     private var tabsTitle: ArrayList<String> = arrayListOf()
     private var pageAdapter: KnowledgeFragmentAdapter? = null
-    private var tabIcon: ArrayList<Int>? = null
+    private var tabIcon: ArrayList<Int>? =arrayListOf()
     override fun getPresenter(): BasePresenter<IBaseView> = BasePresenter()
 
     override fun getRootView(): IBaseView = this
