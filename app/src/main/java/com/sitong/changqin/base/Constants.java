@@ -22,6 +22,12 @@ public class Constants {
 
 
     public static final String TAG_TABLE = "tag_table";
+    public static String WECHAT_APPID="wxda6db2aec81d89af";
+    public static String WECHAT_SECRET="8fed5a21d5e0022587ef8a6194c965be3";
+    public static String SINA_APP_ID="8fed5a21d5e0022587ef8a6194c965be3";
+    public static String REDIRECT_URL="https://api.weibo.com/oauth2/default.html";
+    public static String SCOPE="";
+
 
     public static class Tag {
         //请自增往下写
@@ -29,6 +35,9 @@ public class Constants {
         public static final int CHANGE_PASSWORD_SUCCESS = 0x22;//修改密码成功
         public static final int UPDATE_USER_INFO = 0x23;//获取用户信息成功
         public static final int RELOAD_USERINFO = 0x24;//重新获取用户信息
+        public static final int WX_SHARE = 0x25;//微信分享
+        public static final int WX_LOGIN = 0x26;//微信登录
+        public static final int WX_PAY = 0x27;//微信支付
     }
 
 }

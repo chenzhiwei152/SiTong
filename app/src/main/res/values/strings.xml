@@ -53,5 +53,6 @@
 
     </style>
 
-
+    <string name="parent_type" translatable="false">ParentType:%1$s , Pos:%2$d , AdapterPos:%3$d</string>
+    <string name="child_type" translatable="false">ChildType:%1$s , Pos:%2$d , AdapterPos:%3$d</string>
 </resources>
