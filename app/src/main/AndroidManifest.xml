@@ -58,6 +58,9 @@
             android:name="com.sitong.changqin.ui.activity.ExperienceRecordActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sitong.changqin.ui.activity.MusicMemberListActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sitong.changqin.ui.activity.MemberListActivity"
             android:screenOrientation="portrait" />
         <activity
