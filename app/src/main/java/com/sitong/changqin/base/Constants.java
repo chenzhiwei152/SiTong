@@ -25,6 +25,7 @@ public class Constants {
     public static String WECHAT_APPID="wxda6db2aec81d89af";
     public static String WECHAT_SECRET="8fed5a21d5e0022587ef8a6194c965be3";
     public static String SINA_APP_ID="8fed5a21d5e0022587ef8a6194c965be3";
+    public static String WBAPP_KEY="8fed5a21d5e0022587ef8a6194c965be3";
     public static String REDIRECT_URL="https://api.weibo.com/oauth2/default.html";
     public static String SCOPE="";
 
@@ -38,6 +39,8 @@ public class Constants {
         public static final int WX_SHARE = 0x25;//微信分享
         public static final int WX_LOGIN = 0x26;//微信登录
         public static final int WX_PAY = 0x27;//微信支付
+        public static final int REGISTER_SUCCESS = 0x28;//注册成功
+        public static final int REGISTER_FINISH = 0x22;//finish注册页面
     }
 
 }

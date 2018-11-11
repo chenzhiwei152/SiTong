@@ -1,15 +1,20 @@
 package com.sitong.changqin.ui.activity
 
 import android.content.Intent
-import android.util.Log
+import android.os.Handler
+import android.os.Message
 import android.view.View
-import com.google.gson.Gson
-import com.jyall.bbzf.api.scheduler.CommonObserver
+import com.google.gson.JsonParser
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BaseContext
 import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
+import com.sina.weibo.sdk.WbSdk
+import com.sina.weibo.sdk.auth.AuthInfo
+import com.sina.weibo.sdk.auth.Oauth2AccessToken
+import com.sina.weibo.sdk.auth.WbConnectErrorMessage
+import com.sina.weibo.sdk.auth.sso.SsoHandler
 import com.sitong.changqin.MainActivity
 import com.sitong.changqin.base.Constants
 import com.sitong.changqin.mvp.contract.LoginContract
@@ -23,34 +28,40 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.tencent.tauth.IUiListener
-import kotlinx.android.synthetic.main.activity_login.*
 import com.tencent.tauth.Tencent
 import com.tencent.tauth.UiError
-import io.reactivex.Observer
+import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.*
 import java.io.IOException
 import kotlin.concurrent.thread
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
-import com.sina.weibo.sdk.auth.AuthInfo
-import com.sina.weibo.sdk.auth.sso.SsoHandler
-import com.sina.weibo.sdk.exception.WeiboException
-import android.widget.Toast
-import android.text.TextUtils
-import com.sina.weibo.sdk.auth.Oauth2AccessToken
-import android.os.Bundle
-import com.sina.weibo.sdk.WbSdk
-import com.sina.weibo.sdk.auth.AccessTokenKeeper
-import com.sina.weibo.sdk.auth.WbConnectErrorMessage
-import com.sina.weibo.sdk.utils.WeiboUtilListener
 
 
 /**
  * create by chen.zhiwei on 2018-8-13
  */
-class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginContract.View, View.OnClickListener,IUiListener {
+class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginContract.View, View.OnClickListener,IUiListener,com.sina.weibo.sdk.auth.WbAuthListener {
     private var mAccessToken:Oauth2AccessToken?=null
-    private  var  mSsoHandler:SsoHandler?=null
+    override fun onSuccess(p0: Oauth2AccessToken?) {
+        mAccessToken=p0
+        var map = hashMapOf<String, String>()
+        map.put("type", "1")
+        map.put("uid", mAccessToken!!.uid)
+        mPresenter?.login(map)
+    }
+
+    override fun onFailure(p0: WbConnectErrorMessage?) {
+        dismissLoading()
+    }
+
+    override fun cancel() {
+        dismissLoading()
+    }
+
+    companion object {
+
+        private  var  mSsoHandler:SsoHandler?=null
+
+    }
     override fun onComplete(p0: Any?) {
         var data=p0.toString()
         val parser = JsonParser()
@@ -72,7 +83,7 @@ class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginC
         dismissLoading()
     }
 
-    private var mTencent = Tencent.createInstance("", this@LoginActivity.application)
+    private var mTencent:Tencent?=null
     private var wxAPI: IWXAPI? = null
     override fun onClick(p0: View?) {
         when (p0?.id) {
@@ -87,7 +98,8 @@ class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginC
                 jump<RegisterActivity>()
             }
             R.id.iv_weibo -> {
-
+                showLoading()
+                sinaLogin()
             }
             R.id.iv_weixin -> {
                 showLoading()
@@ -95,7 +107,7 @@ class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginC
             }
             R.id.iv_qq -> {
                 showLoading()
-                mTencent.login(this, "get_user_info", this)
+                mTencent?.login(this@LoginActivity, "get_user_info", this)
             }
         }
     }
@@ -114,6 +126,7 @@ class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginC
     override fun getLayoutId(): Int = R.layout.activity_login
 
     override fun initViewsAndEvents() {
+        mTencent = Tencent.createInstance(Constants.WECHAT_APPID, this@LoginActivity)
         wxAPI = WXAPIFactory.createWXAPI(this, Constants.WECHAT_APPID, true)
         wxAPI?.registerApp(Constants.WECHAT_APPID)
         tv_login.setOnClickListener(this)
@@ -132,6 +145,9 @@ class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginC
                 Constants.Tag.WX_LOGIN -> {
                     var bean = eventBusCenter.data as WeiXin
                     getAccessToken(bean.getCode())
+                }
+                Constants.Tag.REGISTER_SUCCESS->{
+                    finish()
                 }
             }
         }
@@ -220,55 +236,14 @@ class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginC
      * 新浪微博登录
      */
     private fun sinaLogin() {
-        //        // 从 SharedPreferences 中读取上次已保存好 AccessToken 等信息，
-        //        // 第一次启动本应用，AccessToken 不可用
-        //        mAccessToken = AccessTokenKeeper.readAccessToken(this);
-        //        if (mAccessToken.isSessionValid()) {
-        //            updateTokenView(true);
-        //        }
         // 快速授权时，请不要传入 SCOPE，否则可能会授权不成功
-        var mAuthInfo = AuthInfo(this, Constants.SINA_APP_ID, Constants.REDIRECT_URL, Constants.SCOPE)
+        var mAuthInfo = AuthInfo(this@LoginActivity, Constants.SINA_APP_ID, Constants.REDIRECT_URL, Constants.SCOPE)
         WbSdk.install(this,mAuthInfo)
-        mSsoHandler = SsoHandler(this)
+        mSsoHandler = SsoHandler(this@LoginActivity)
         // SSO 授权, ALL IN ONE   如果手机安装了微博客户端则使用客户端授权,没有则进行网页授权
-        mSsoHandler?.authorize(AuthListener())
+        mSsoHandler?.authorize(this)
     }
 
-    /**
-     * 微博认证授权回调类。
-     * 1. SSO 授权时，需要在 [.onActivityResult] 中调用 [SsoHandler.authorizeCallBack] 后，
-     * 该回调才会被执行。
-     * 2. 非 SSO 授权时，当授权结束后，该回调就会被执行。
-     * 当授权成功后，请保存该 access_token、expires_in、uid 等信息到 SharedPreferences 中。
-     */
-     class AuthListener :  com.sina.weibo.sdk.auth.WbAuthListener{
-        override fun onSuccess(p0: Oauth2AccessToken?) {
-//            mAccessToken =p0
-//            getUserInfo()
-//             WBAuthActivity.this.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mAccessToken = token;
-//                    if (mAccessToken.isSessionValid()) {
-//                        // 显示 Token
-//                        updateTokenView(false);
-//                        // 保存 Token 到 SharedPreferences
-//                        AccessTokenKeeper.writeAccessToken(WBAuthActivity.this, mAccessToken);
-//                        Toast.makeText(WBAuthActivity.this,
-//                                R.string.weibosdk_demo_toast_auth_success, Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            });
-        }
-
-        override fun onFailure(p0: WbConnectErrorMessage?) {
-        }
-
-        override fun cancel() {
-        }
-
-
-    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Tencent.onActivityResultData(requestCode, resultCode, data, this)

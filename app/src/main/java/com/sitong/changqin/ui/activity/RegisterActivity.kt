@@ -1,11 +1,14 @@
 package com.sitong.changqin.ui.activity
 
+import android.os.Bundle
 import android.view.View
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BaseContext
+import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sitong.changqin.MainActivity
+import com.sitong.changqin.base.Constants
 import com.sitong.changqin.mvp.contract.RegisterContract
 import com.sitong.changqin.mvp.model.bean.UserInfo
 import com.sitong.changqin.mvp.persenter.RegisterPresenter
@@ -17,6 +20,9 @@ import kotlinx.android.synthetic.main.activity_register.*
  * create by chen.zhiwei on 2018-8-14
  */
 class RegisterActivity : BaseActivity<RegisterContract.View, RegisterPresenter>(), RegisterContract.View {
+    override fun sendCodeSuccess() {
+    }
+
     override fun registerSuccess(userInfo: UserInfo) {
         BaseContext.instance.setUserInfo(userInfo)
         jump<MainActivity>()
@@ -34,17 +40,43 @@ class RegisterActivity : BaseActivity<RegisterContract.View, RegisterPresenter>(
                 mPresenter?.sendCode(et_phone.text.toString())
             }
         }
+        tv_login.setOnClickListener {
+            finish()
+        }
         go_register.setOnClickListener {
-            var map = HashMap<String, String>()
-            map.put("phone", et_phone.text.toString())
-            map.put("passwd", et_pw.text.toString())
-            map.put("code", et_code.text.toString())
-            map.put("type", "0")
-            mPresenter?.register(map)
+            //            var map = HashMap<String, String>()
+//            map.put("phone", et_phone.text.toString())
+//            map.put("passwd", et_pw.text.toString())
+//            map.put("code", et_code.text.toString())
+//            map.put("type", "0")
+//            mPresenter?.register(map)
+            if (et_phone.text.toString().isNullOrEmpty()) {
+                toast_msg("手机号码不能为空")
+                return@setOnClickListener
+            }
+            if (et_phone.text.toString().length != 11) {
+                toast_msg("手机号码格式不对")
+                return@setOnClickListener
+            }
+            if (et_code.text.toString().isNullOrEmpty()) {
+                toast_msg("验证码不能为空")
+                return@setOnClickListener
+            }
+            var bundle = Bundle()
+            bundle.putString("phone", et_phone.text.toString())
+            bundle.putString("code", et_code.text.toString())
+            jump<RegisterTwoActivity>(dataBundle = bundle)
         }
     }
 
-    override fun isRegistEventBus(): Boolean = false
+    override fun isRegistEventBus(): Boolean = true
+    override fun onMessageEvent(eventBusCenter: EventBusCenter<Object>) {
+        super.onMessageEvent(eventBusCenter)
+        if (eventBusCenter != null) {
+            if (eventBusCenter.evenCode == Constants.Tag.REGISTER_SUCCESS||eventBusCenter.evenCode == Constants.Tag.REGISTER_FINISH)
+                finish()
+        }
+    }
 
     override fun isNeedLec(): View? = null
 

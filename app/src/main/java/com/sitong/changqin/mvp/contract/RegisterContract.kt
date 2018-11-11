@@ -9,6 +9,7 @@ interface RegisterContract {
     interface View : IBaseView {
         fun toast_msg(msg: String)
         fun registerSuccess(userInfo: UserInfo)
+        fun sendCodeSuccess()
     }
 
     interface Presenter : IPresenter<View> {

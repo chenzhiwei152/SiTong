@@ -66,6 +66,7 @@ class RegisterPresenter : BasePresenter<RegisterContract.View>(), RegisterContra
                 override fun onSuccess(body: BaseBean<String>) {
                     mRootView?.toast_msg(body.message)
                     mRootView?.dismissLoading()
+                    mRootView?.sendCodeSuccess()
                 }
             }
 

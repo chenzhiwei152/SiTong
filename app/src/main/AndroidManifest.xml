@@ -52,6 +52,9 @@
             android:name="com.sitong.changqin.ui.activity.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sitong.changqin.ui.activity.RegisterTwoActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sitong.changqin.ui.activity.ExperienceRecordActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -127,12 +130,6 @@
         <activity
             android:name="com.sitong.changqin.wxapi.WXPayEntryActivity"
             android:exported="true" />
-        <!--微博登录授权所需activity-->
-        <!--<activity-->
-            <!--android:name="com.sin"-->
-            <!--android:configChanges="keyboardHidden|orientation"-->
-            <!--android:exported="false"-->
-            <!--android:windowSoftInputMode="adjustResize" />-->
 
     </application>
 
