@@ -11,7 +11,8 @@ import com.sitong.changqin.mvp.model.bean.TaskBean
 import com.sitong.changqin.mvp.persenter.TaskPresenter
 import com.sitong.changqin.ui.adapter.TaskListAdapter
 import com.stringedzithers.sitong.R
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_task.*
+import kotlinx.android.synthetic.main.layout_common_title.*
 
 class TaskActivity : BaseActivity<TaskContract.View, TaskPresenter>(), TaskContract.View {
     private var mAdapter: TaskListAdapter? = null
@@ -21,6 +22,7 @@ class TaskActivity : BaseActivity<TaskContract.View, TaskPresenter>(), TaskContr
     override fun getLayoutId(): Int = R.layout.activity_task
 
     override fun initViewsAndEvents() {
+        initTitle()
         mAdapter = TaskListAdapter(this)
         rv_list.layoutManager = LinearLayoutManager(this)
         rv_list.adapter = mAdapter
@@ -38,6 +40,12 @@ class TaskActivity : BaseActivity<TaskContract.View, TaskPresenter>(), TaskContr
 
     override fun getDataSuccess(list: ArrayList<TaskBean>) {
         mAdapter?.setData(list)
+    }
+
+    private fun initTitle() {
+        iv_back.setOnClickListener { finish() }
+        tv_title.setText("任务")
+        iv_menu.visibility=View.GONE
     }
 
     companion object {

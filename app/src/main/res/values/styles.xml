@@ -37,10 +37,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    <style name="textStyle_20232b_20">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/color_20232b</item>
-    </style>
+
     <style name="textStyle_20232b_39_gravity">
         <item name="android:textSize">39sp</item>
         <item name="android:textColor">@color/color_20232b</item>
@@ -53,6 +50,10 @@
     </style>
     <style name="textStyle_20232b_13">
         <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/color_20232b</item>
+    </style>
+    <style name="textStyle_20232b_20">
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/color_20232b</item>
     </style>
     <style name="textStyle_9920232b_13">

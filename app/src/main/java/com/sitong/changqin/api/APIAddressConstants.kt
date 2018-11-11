@@ -129,5 +129,7 @@ object APIAddressConstants {
     /*文章详情
       * */
     const val ARTICLE_DETAIL = "/infomation/articledetail/"
-
+    /*
+    * 获取会员列表*/
+    const val GET_MESSBER_LIST = "/system/getmemberinfo/{type}"
 }

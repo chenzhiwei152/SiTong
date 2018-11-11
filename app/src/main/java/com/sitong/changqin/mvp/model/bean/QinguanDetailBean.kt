@@ -2,7 +2,7 @@ package com.sitong.changqin.mvp.model.bean
 
 
 data class QinguanDetailBean(
-        var content: List<Content>,
+        var content: ArrayList<Content>,
         var name: String,
         var img: String,
         var desc: String

@@ -8,6 +8,7 @@ import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_ARTICLE_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_EXERCISE_RECORD
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_HALL_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MESSAGE
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MESSBER_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MUSIC_DETAIL
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MUSIC_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_OOS_PERMESSITION
@@ -189,4 +190,10 @@ interface Jyapi {
     */
     @POST(ARTICLE_DETAIL)
     fun get_article_detail(@Body map: HashMap<String, String>): Observable<Response<BaseBean<ArticleDetailBean>>>
+
+    /*
+    * 获取会员列表*/
+    @GET(GET_MESSBER_LIST)
+    fun get_member_list(@Path("type") type:String): Observable<Response<BaseBean<ArrayList<MemberBean>>>>
+
 }

@@ -11,14 +11,26 @@ public class MyChild implements Parcelable {
     private int dot;
     private int type;
     private String info;
+    private int image;
+    private String title;
 
     public MyChild() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     private MyChild(Parcel in) {
         dot = in.readInt();
         type = in.readInt();
+        image=in.readInt();
         info = in.readString();
+        title=in.readString();
     }
 
     public static final Creator<MyChild> CREATOR = new Creator<MyChild>() {
@@ -32,6 +44,14 @@ public class MyChild implements Parcelable {
             return new MyChild[size];
         }
     };
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
 
     public int getType() {
         return type;
@@ -66,7 +86,9 @@ public class MyChild implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(dot);
         dest.writeInt(type);
+        dest.writeInt(image);
         dest.writeString(info);
+        dest.writeString(title);
     }
 
     @Override

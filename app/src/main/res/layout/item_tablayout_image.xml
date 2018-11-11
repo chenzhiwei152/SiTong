@@ -26,7 +26,7 @@
             android:layout_marginLeft="@dimen/dp_10"
             app:v_start="right"
             app:v_textColor="@color/text_color_second_tab"
-            app:v_textSize="15sp" />
+            app:v_textSize="13sp" />
     </LinearLayout>
 
 

@@ -4,7 +4,10 @@ import android.view.View
 import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
+import com.jyall.bbzf.extension.jump
+import com.sitong.changqin.ui.activity.MemberListActivity
 import com.stringedzithers.sitong.R
+import kotlinx.android.synthetic.main.fragment_member.*
 
 /**
  * create by chen.zhiwei on 2018-8-15
@@ -19,6 +22,8 @@ class MemberFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBas
     override fun getRootView(): IBaseView = this
 
     override fun initViewsAndEvents() {
+        rl_music_pay.setOnClickListener { activity?.jump<MemberListActivity>() }
+        rl_member.setOnClickListener { activity?.jump<MemberListActivity>() }
     }
 
     override fun isRegistEventBus(): Boolean = false

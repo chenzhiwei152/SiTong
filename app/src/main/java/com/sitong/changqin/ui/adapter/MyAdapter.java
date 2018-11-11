@@ -34,6 +34,11 @@ public class MyAdapter
         mInflater = LayoutInflater.from(context);
         mData = data;
     }
+    public void updateList(List<MyParent> data){
+        mData = data;
+        invalidate(mData);
+//        notifyAllChanged();
+    }
 
     public List<MyParent> getData() {
         return mData;

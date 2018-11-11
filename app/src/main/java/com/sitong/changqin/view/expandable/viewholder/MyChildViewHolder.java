@@ -1,9 +1,11 @@
 package com.sitong.changqin.view.expandable.viewholder;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.huajianjiang.expandablerecyclerview.widget.ChildViewHolder;
+import com.sitong.changqin.view.TextViewVertical;
 import com.sitong.changqin.view.expandable.model.MyChild;
 import com.stringedzithers.sitong.R;
 
@@ -19,10 +21,10 @@ public class MyChildViewHolder extends ChildViewHolder<MyChild> {
     }
 
     public void bind(MyChild data) {
-        String info = data.getInfo();
-        TextView tv_info = getView(R.id.info);
-        tv_info.setText(info);
-        getView(R.id.dot).setBackgroundColor(data.getDot());
+        TextViewVertical tv_info = getView(R.id.tv_title);
+        tv_info.setText(data.getTitle());
+        ImageView iv=getView(R.id.android);
+        iv.setImageResource(data.getImage());
     }
 
 }

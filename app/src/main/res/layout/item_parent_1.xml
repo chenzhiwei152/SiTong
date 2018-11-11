@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_30"
     android:clickable="true"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
+    android:gravity="center"
+    android:orientation="horizontal"
     android:tag="parent_1">
 
     <ImageView
         android:id="@+id/android"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"
-        android:tag="parent image"/>
+        android:tag="parent image" />
 
-    <include
-        layout="@layout/item_parent"/>
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/textStyle_20232b_20"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_width="wrap_content"
+        android:gravity="center_vertical"
+        android:text="sssssss"
+        android:ems="4"
+        android:layout_height="wrap_content" />
+
+    <!--<include-->
+    <!--layout="@layout/item_parent"/>-->
 
 </LinearLayout>

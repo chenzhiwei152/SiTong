@@ -17,6 +17,25 @@ public class MyParent implements Parent<MyChild>, Parcelable {
     private int dot;
     private int type;
     private String info;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int[] getImage() {
+        return image;
+    }
+
+    public void setImage(int[] image) {
+        this.image = image;
+    }
+
+    private int [] image;
     private List<MyChild> mMyChildren;
 
     public MyParent() {
@@ -28,6 +47,8 @@ public class MyParent implements Parent<MyChild>, Parcelable {
         dot = in.readInt();
         type = in.readInt();
         info = in.readString();
+        title=in.readString();
+        image=in.createIntArray();
         mMyChildren = in.createTypedArrayList(MyChild.CREATOR);
     }
 
@@ -103,6 +124,8 @@ public class MyParent implements Parent<MyChild>, Parcelable {
         dest.writeInt(dot);
         dest.writeInt(type);
         dest.writeString(info);
+        dest.writeString(title);
+        dest.writeIntArray(image);
         dest.writeTypedList(mMyChildren);
     }
 

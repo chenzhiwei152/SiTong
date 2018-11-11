@@ -253,7 +253,7 @@ public class TextViewVertical extends View {
     private int getColNum() {
 
         int oneRowWordCount = getColWordCount();
-        if (oneRowWordCount==0){
+        if (oneRowWordCount == 0) {
             return 0;
         }
         int colNum = 0;
@@ -307,7 +307,9 @@ public class TextViewVertical extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         int oneLineWordCount = getColWordCount();
-
+        if (oneLineWordCount <= 0) {
+            return;
+        }
         float w = getOneWordWidth();
         float h = getOneWordHeight();
 

@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import com.jyall.bbzf.extension.loadImage
 import com.jyall.bbzf.extension.loadRoundImage
 import com.sitong.changqin.mvp.model.bean.QinHallBean
+import com.sitong.changqin.ui.activity.ArticleDetailActivity
+import com.sitong.changqin.ui.activity.QinHallDetailActivity
 import com.sitong.changqin.ui.activity.VideoPlayActivity
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
 import com.stringedzithers.sitong.R
@@ -53,7 +55,8 @@ class QinHallListAdapter(var context: Context) : RecyclerView.Adapter<QinHallLis
         holder.viewLayout.tv_city.setText(list[position].city)
         holder.viewLayout.iv_image.loadImage(context,list[position].icon)
         holder.viewLayout.setOnClickListener {
-            var intent=Intent(context,VideoPlayActivity::class.java)
+            var intent=Intent(context, QinHallDetailActivity::class.java)
+            intent.putExtra("id",list[position].id)
             context.startActivity(intent)
 
         }

@@ -11,6 +11,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl_member"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dp_15"
@@ -54,6 +55,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl_music_pay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dp_15"

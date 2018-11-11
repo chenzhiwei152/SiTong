@@ -58,6 +58,15 @@
             android:name="com.sitong.changqin.ui.activity.ExperienceRecordActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sitong.changqin.ui.activity.MemberListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sitong.changqin.ui.activity.ArticleDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sitong.changqin.ui.activity.QinHallDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sitong.changqin.ui.activity.QuestionsActivity"
             android:screenOrientation="portrait" />
         <activity
