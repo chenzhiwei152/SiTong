@@ -29,6 +29,7 @@ class MusicSearchActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
     override fun getLayoutId(): Int = R.layout.activity_search
 
     override fun initViewsAndEvents() {
+
         tabsTitle.add(resources.getString(R.string.qin_hall))
         tabsTitle.add(resources.getString(R.string.video))
         tabsTitle.add(resources.getString(R.string.article))

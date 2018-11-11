@@ -109,6 +109,14 @@ class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginC
                 showLoading()
                 mTencent?.login(this@LoginActivity, "get_user_info", this)
             }
+            R.id.tv_find_pw->{
+                jump<FindPasswordOneActivity>()
+            }
+            R.id.tv_tourist->{
+                var map = hashMapOf<String, String>()
+                map.put("type", "2")
+                mPresenter?.login(map)
+            }
         }
     }
 
@@ -134,6 +142,8 @@ class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginC
         iv_weibo.setOnClickListener(this)
         iv_weixin.setOnClickListener(this)
         iv_qq.setOnClickListener(this)
+        tv_tourist.setOnClickListener(this)
+        tv_find_pw.setOnClickListener(this)
     }
 
     override fun isRegistEventBus(): Boolean = true

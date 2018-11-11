@@ -19,5 +19,7 @@ interface RegisterContract {
         fun sendCode(phone: String)
 
         fun register(map: HashMap<String,String>)
+
+        fun findPW(map: HashMap<String,String>)
     }
 }

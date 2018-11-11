@@ -2,9 +2,15 @@
     <string name="app_name">丝桐</string>
     <string name="login">登陆</string>
     <string name="register">注册</string>
+    <string name="next">下一步</string>
+    <string name="find_pw">寻回密码</string>
     <string name="login_english">Sign Up</string>
     <string name="phone">手机</string>
+    <string name="new_pw">输入新密码</string>
+    <string name="again_new_pw">再次输入新密码</string>
+
     <string name="pw">密码</string>
+    <string name="confirm">确定</string>
     <string name="message_code">验证码</string>
     <string name="send_message_code">发送验证码</string>
     <string name="Tourist">游客预览</string>

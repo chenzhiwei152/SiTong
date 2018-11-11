@@ -22,5 +22,8 @@ class LoginModel {
     fun register(map: HashMap<String,String>): Observable<Response<BaseBean<UserInfo>>> {
         return APIManager.jyApi.register(map).compose(SchedulerUtils.ioToMain())
     }
+    fun findPW(map: HashMap<String,String>): Observable<Response<BaseBean<String>>> {
+        return APIManager.jyApi.findPW(map).compose(SchedulerUtils.ioToMain())
+    }
 
 }

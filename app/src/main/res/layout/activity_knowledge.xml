@@ -43,6 +43,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="-10dp"
                 android:text="知琴"
+                app:layout_collapseMode="parallax"
                 android:textColor="@color/color_20232b"
                 android:textSize="24sp" />
         </android.support.design.widget.CollapsingToolbarLayout>

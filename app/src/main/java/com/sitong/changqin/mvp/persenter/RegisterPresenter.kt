@@ -15,6 +15,33 @@ import com.sitong.changqin.mvp.model.bean.UserInfo
  */
 
 class RegisterPresenter : BasePresenter<RegisterContract.View>(), RegisterContract.Presenter {
+    override fun findPW(map: HashMap<String, String>) {
+        if (checkViewAttached()){
+            mRootView?.showLoading(false)
+            var observer = object : CommonObserver<BaseBean<String>>() {
+
+                override fun onError(errorResponseBean: ErrorResponseBean): Boolean {
+                    mRootView?.dismissLoading()
+                    mRootView?.toast_msg(errorResponseBean.message!!)
+                    return false
+                }
+
+                override fun onFail(errorResponseBean: BaseBean<String>): Boolean {
+                    mRootView?.dismissLoading()
+                    return true
+                }
+
+                override fun onSuccess(body: BaseBean<String>) {
+                    mRootView?.dismissLoading()
+                    mRootView?.sendCodeSuccess()
+                }
+            }
+
+            loginModel.findPW(map).subscribe(observer)
+            addSubscription(observer.disposable!!)
+        }
+    }
+
     override fun register(map: HashMap<String,String>) {
         if (checkViewAttached()){
             mRootView?.showLoading(false)

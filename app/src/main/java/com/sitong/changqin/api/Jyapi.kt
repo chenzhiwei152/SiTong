@@ -3,6 +3,7 @@ package com.jyall.bbzf.api.scheduler
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.ARTICLE_DETAIL
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.CHECK_SHORT_MESSAGE
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.COLLECTION
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.FIND_PASSWORD
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_ARTICLE_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_EXERCISE_RECORD
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_HALL_LIST
@@ -67,6 +68,13 @@ interface Jyapi {
      */
     @POST(CHECK_SHORT_MESSAGE)
     fun register(@Body map: HashMap<String, String>): Observable<Response<BaseBean<UserInfo>>>
+
+
+    /**
+     *  找回密码
+     */
+    @POST(FIND_PASSWORD)
+    fun findPW(@Body map: HashMap<String, String>): Observable<Response<BaseBean<String>>>
 
     /*---------------------------------------------登录注册相关end-------------------------*/
 /*

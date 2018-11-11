@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 /**
  * create by chen.zhiwei on 2018-8-14
  */
-class RegisterActivity : BaseActivity<RegisterContract.View, RegisterPresenter>(), RegisterContract.View {
+class FindPasswordOneActivity : BaseActivity<RegisterContract.View, RegisterPresenter>(), RegisterContract.View {
     private var mTimer = CountDownTimerUtils.getCountDownTimer()
     private var isCountDown = false
     override fun sendCodeSuccess() {
@@ -50,7 +50,7 @@ class RegisterActivity : BaseActivity<RegisterContract.View, RegisterPresenter>(
 
     override fun getRootView(): RegisterContract.View = this
 
-    override fun getLayoutId(): Int = R.layout.activity_register
+    override fun getLayoutId(): Int = R.layout.activity_find_password_one
     override fun initViewsAndEvents() {
         tv_send_code.setOnClickListener {
             if (ExtraUtils.isMobile(et_phone.text.toString())) {
@@ -82,7 +82,7 @@ class RegisterActivity : BaseActivity<RegisterContract.View, RegisterPresenter>(
             var bundle = Bundle()
             bundle.putString("phone", et_phone.text.toString())
             bundle.putString("code", et_code.text.toString())
-            jump<RegisterTwoActivity>(dataBundle = bundle)
+            jump<FindPWTwoActivity>(dataBundle = bundle)
         }
     }
 

@@ -33,11 +33,13 @@ object APIAddressConstants {
      */
     const val SEND_SHORT_MESSAGE = "$USER_API/sendcode/{phone}"
     /**
-     *  校验短信验证码
+     *  注册
      */
     const val CHECK_SHORT_MESSAGE = "$USER_API/register/"
-
-
+    /*
+    * 找回密码
+    * */
+    const val FIND_PASSWORD = "$USER_API/resetpassword/"
     /*---------------------------------------------登录注册相关end-------------------------*/
 /*
 * 获取曲目列表
