@@ -16,6 +16,7 @@ import com.sitong.changqin.mvp.model.bean.MusicBean
 import com.sitong.changqin.mvp.persenter.IndexPresenter
 import com.sitong.changqin.ui.activity.KnowledgeActivity
 import com.sitong.changqin.ui.activity.MenuActivity
+import com.sitong.changqin.ui.activity.MusicEnjoyActivity
 import com.sitong.changqin.ui.activity.MusicPlayActivity
 import com.sitong.changqin.ui.adapter.IndexAdapter
 import com.sitong.changqin.ui.adapter.IndexRankAdapter
@@ -103,6 +104,13 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                         bundle.putString("id", "" + bean.id)
                         jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
 //                        startLoad()
+                    }
+
+                }).setLeftTitleListerner(object :View.OnClickListener{
+                    override fun onClick(p0: View?) {
+                        var bundle = Bundle()
+                        bundle.putString("id", "" + bean.id)
+                        jump<MusicEnjoyActivity>(isAnimation = false, dataBundle = bundle)
                     }
 
                 })

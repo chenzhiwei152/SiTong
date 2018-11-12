@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/ll_title"
+        layout="@layout/layout_play_title_fff" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_play"
+        android:layout_below="@+id/ll_title"
+        android:background="@color/color_ffffff"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/dp_15">
+
+        <ImageView
+            android:id="@+id/iv_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_play" />
+
+        <TextView
+            android:id="@+id/tv_start_time"
+            style="@style/textStyle_d0a670_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@+id/iv_play"
+            android:text="0:0" />
+
+        <com.xw.repo.BubbleSeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toLeftOf="@+id/tv_end_time"
+            android:layout_toRightOf="@+id/tv_start_time"
+            app:bsb_bubble_color="@color/color_d0a670"
+            app:bsb_bubble_text_color="@color/color_ffffff"
+            app:bsb_max="80"
+            app:bsb_min="0"
+            app:bsb_progress="0"
+            app:bsb_second_track_color="@color/color_d0a670"
+            app:bsb_track_color="@color/color_d0a670" />
+
+        <TextView
+            android:id="@+id/tv_end_time"
+            style="@style/textStyle_d0a670_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toLeftOf="@+id/iv_tool"
+            android:text="0:0" />
+
+        <ImageView
+            android:id="@+id/iv_tool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_play_tool" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
