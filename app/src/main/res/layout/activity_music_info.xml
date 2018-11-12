@@ -6,6 +6,7 @@
 
     <include
         android:id="@+id/ll_title"
+        android:visibility="gone"
         layout="@layout/layout_play_title_fff" />
 
     <LinearLayout
@@ -17,8 +18,10 @@
             style="@style/textStyle_d0a670_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="琴曲" />
+            android:gravity="center"
+            android:text="琴曲介绍" />
 
         <View style="@style/divider_d0a670_1_vertical" />
 
@@ -31,63 +34,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20">
+                android:paddingLeft="@dimen/dp_40"
+                android:paddingRight="@dimen/dp_60">
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        style="@style/textStyle_d0a670_14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ceshi" />
-
-                    <TextView
-                        style="@style/textStyle_d0a670_14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="ceshi" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        style="@style/textStyle_d0a670_14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ceshi" />
-
-                    <TextView
-                        style="@style/textStyle_d0a670_14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="ceshi" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        style="@style/textStyle_d0a670_14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="ceshi" />
-                </RelativeLayout>
-
-                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="cececeeeeeeeeeeeeeeeeeeeeeeeeee" />
+                    android:layout_marginTop="@dimen/dp_40">
+
+                    <TextView
+                        android:id="@+id/tv_type"
+                        style="@style/textStyle_d0a670_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ceshi" />
+
+                    <TextView
+                        android:id="@+id/tv_source"
+                        style="@style/textStyle_d0a670_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="ceshi" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    style="@style/textStyle_d0a670_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_40"
+                    android:layout_marginTop="40dp"
+                    android:text="" />
             </LinearLayout>
 
         </ScrollView>
+
+        <TextView
+            android:id="@+id/tv_close"
+            style="@style/textStyle_d0a670_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="@dimen/dp_26"
+            android:layout_marginTop="@dimen/dp_29"
+            android:text="X" />
     </LinearLayout>
 </LinearLayout>

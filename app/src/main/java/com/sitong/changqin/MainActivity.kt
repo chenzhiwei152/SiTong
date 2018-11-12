@@ -22,6 +22,8 @@ import com.sitong.changqin.ui.adapter.IndexAdapter
 import com.sitong.changqin.ui.adapter.IndexRankAdapter
 import com.sitong.changqin.ui.listerner.AppBarStateChangeListener
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
+import com.sitong.changqin.ui.listerner.ResultCallback
+import com.sitong.changqin.utils.CollectionUtils
 import com.sitong.changqin.utils.DownUtils.DownloadUtils
 import com.sitong.changqin.utils.DownUtils.JsDownloadListener
 import com.sitong.changqin.view.MusicDialog
@@ -40,6 +42,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
     private var lists = arrayListOf<MusicBean>()
     private var mKeys = arrayListOf<Int>()
     private var mValues = arrayListOf<Int>()
+    private var dia: MusicDialog? = null
 
     override fun getDataSuccess(musicList: ArrayList<MusicBean>) {
 //        toast_msg("" + musicList?.size)
@@ -47,7 +50,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         var list = arrayListOf<MusicBean.Music>()
         list.add(beanMusic)
         var beanOne = MusicBean("知琴", 1, list)
-        musicList.add(0,beanOne)
+        musicList.add(0, beanOne)
         mRVAdapter?.setData(musicList)
         mRankRVAdapter?.setData(musicList)
         lists = musicList
@@ -93,12 +96,12 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
             override fun onItemClicked(data: Any) {
                 var bean = data as MusicBean.Music
 
-                if (bean.levelcode==-1){
+                if (bean.levelcode == -1) {
                     jump<KnowledgeActivity>()
                     return
                 }
 
-                var dia = MusicDialog(this@MainActivity, resources.getString(R.string.enjoy), resources.getString(R.string.begin_experience), bean.icon, true).setRightTitleListerner(object : View.OnClickListener {
+                dia = MusicDialog(this@MainActivity, resources.getString(R.string.enjoy), resources.getString(R.string.begin_experience), bean.name, bean.enName, bean.level, bean.iscollection).setRightTitleListerner(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
                         var bundle = Bundle()
                         bundle.putString("id", "" + bean.id)
@@ -106,15 +109,35 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 //                        startLoad()
                     }
 
-                }).setLeftTitleListerner(object :View.OnClickListener{
+                }).setLeftTitleListerner(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
                         var bundle = Bundle()
                         bundle.putString("id", "" + bean.id)
                         jump<MusicEnjoyActivity>(isAnimation = false, dataBundle = bundle)
                     }
 
+                }).setColletionListerner(object : View.OnClickListener {
+                    override fun onClick(v: View?) {
+                        var type = 1
+                        if (bean.iscollection) {
+                            type = 0
+                        }
+                        CollectionUtils.collectionUtils(type, "" + bean!!.id, object : ResultCallback<String> {
+                            override fun onSuccess(result: String?) {
+                                bean.iscollection = type != 0
+                                dia?.setCollection(bean.iscollection)
+                                toast_msg(result!!)
+                            }
+
+                            override fun onsFailed(reason: String?) {
+                                toast_msg(reason!!)
+                            }
+
+                        })
+                    }
+
                 })
-                dia.show()
+                dia?.show()
 
             }
 

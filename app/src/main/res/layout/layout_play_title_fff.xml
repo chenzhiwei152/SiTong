@@ -14,13 +14,22 @@
         android:layout_centerVertical="true"
         android:src="@mipmap/ic_back" />
 
+    <View
+        android:id="@+id/vv_divider"
+        style="@style/divider_d0a670_1_vertical"
+        android:layout_marginBottom="@dimen/dp_12"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_toRightOf="@+id/iv_back" />
+
     <TextView
+        android:id="@+id/iv_title"
         style="@style/textStyle_d0a670_16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dp_15"
-        android:layout_toRightOf="@+id/iv_back"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_toRightOf="@+id/vv_divider"
         android:text="仙翁操" />
 
     <ImageView
@@ -39,22 +48,15 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_toLeftOf="@+id/iv_voice"
-        android:background="@drawable/selector_load_music" />
+        android:background="@mipmap/ic_round_collection_normal" />
 
     <ImageView
         android:id="@+id/iv_voice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/dp_10"
-        android:layout_toLeftOf="@+id/iv_record"
-        android:background="@mipmap/ic_voice" />
-
-    <ImageView
-        android:id="@+id/iv_record"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/selector_record_music" />
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@mipmap/ic_voice" />
+
 </RelativeLayout>

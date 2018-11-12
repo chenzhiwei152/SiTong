@@ -1,17 +1,11 @@
 package com.sitong.changqin.ui.activity
 
-import android.os.Bundle
+import android.text.Html
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.loadImage
 import com.jyall.bbzf.extension.toast
 import com.sitong.changqin.mvp.contract.MusicPlayContract
@@ -30,6 +24,8 @@ import com.stringedzithers.sitong.R
 import com.stringedzithers.sitong.R.string.file
 import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.activity_music_enjoy.*
+import kotlinx.android.synthetic.main.activity_music_info.*
+import kotlinx.android.synthetic.main.layout_play_title_fff.*
 import java.io.File
 
 
@@ -54,9 +50,19 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
             }
             R.id.iv_tool -> {
-                var bundle=Bundle()
-//                bundle.putSerializable("",musicBean?.introduce)
-                jump<MusicInfoActivity>()
+                if (musicBean==null){
+                    return
+                }
+                tv_type.text=musicBean!!.level
+                tv_source.text=musicBean!!.from_detail
+                tv_content.text = Html.fromHtml(musicBean!!.introduce)
+                ll_info.visibility=View.VISIBLE
+            }
+            R.id.iv_back->{
+                finish()
+            }
+            R.id.tv_close->{
+                ll_info.visibility=View.GONE
             }
         }
     }
@@ -71,6 +77,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
     override fun getDataSuccess(musicBean: MusicDetailBean) {
         this.musicBean = musicBean
         iv_image.loadImage(this@MusicEnjoyActivity,musicBean.icon)
+        iv_title.setText(musicBean.name)
         musicBean.score.forEachIndexed { index, score ->
             if (score.start_second?.size > 0 && score.end_second?.size > 0 && score.start_second[0] > 0) {
                 var bean = QinViewPointBean(score.start_second[0], score.end_second[0], score.duration, score.percent, score.string)
@@ -99,12 +106,15 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
     override fun getLayoutId(): Int = R.layout.activity_music_enjoy
 
     override fun initViewsAndEvents() {
+        initTitle()
         var bundle = intent.extras
         if (bundle != null) {
             id = bundle.getString("id")
         }
         iv_play.setOnClickListener(this)
         iv_tool.setOnClickListener(this)
+        iv_back.setOnClickListener(this)
+        tv_close.setOnClickListener(this)
         pointList = arrayListOf()
 
         var map: HashMap<String, String>? = null
@@ -144,42 +154,6 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
     override fun getPresenter(): MusicPlayPresenter = MusicPlayPresenter()
 
     private fun init() {
-//        val layoutManager = FlexboxLayoutManager(this)
-//        layoutManager.flexDirection = FlexDirection.ROW
-//        layoutManager.flexWrap = FlexWrap.WRAP
-//        layoutManager.justifyContent = JustifyContent.CENTER
-//        rv_list.layoutManager = layoutManager
-//
-//        adapter = MainAdapter(this)
-//        rv_list.adapter = adapter
-
-//        var mPosX = 0f
-//        var mPosY = 0f
-//        var mCurPosX = 0f
-//        var mCurPosY = 0f
-//        ll_scroll.setOnTouchListener(object : View.OnTouchListener {
-//            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//                when (event?.getAction()) {
-//                    MotionEvent.ACTION_DOWN -> {
-//                        mPosX = event.getX()
-//                        mPosY = event.getY()
-//                    }
-//                    MotionEvent.ACTION_MOVE -> {
-//                        mCurPosX = event.getX()
-//                        mCurPosY = event.getY()
-//                    }
-//                    MotionEvent.ACTION_UP -> if (mCurPosY - mPosY > 0 && Math.abs(mCurPosY - mPosY) > 25) {
-//                        //向下滑動
-//                        cq_view.visibility = View.VISIBLE
-//                    } else if (mCurPosY - mPosY < 0 && Math.abs(mCurPosY - mPosY) > 25) {
-//                        //向上滑动
-//                        cq_view.visibility = View.GONE
-//                    }
-//                }
-//                return true
-//
-//            }
-//        })
     }
 
     /*
@@ -209,29 +183,8 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
                     f = File(DownLoadFilesUtils.getInstance(this@MusicEnjoyActivity)!!.getCurrentUri() + "/" + file)
                     initPlayer()
                 }
-
             })
-
         }
-
-
-//        player = SoundStreamAudioPlayer(0, f?.getPath(), tempo, pitchSemi)
-//        if (!f!!.exists()) {
-//            try {
-//                //InputStream is = this.getResources().openRawResource(R.raw.bjbj);
-//                val `is` = this.resources.assets.open("Downloada.mp3")
-//                val size = `is`.available()
-//                val buffer = ByteArray(size)
-//                `is`.read(buffer)
-//                `is`.close()
-//                val fos = FileOutputStream(f)
-//                fos.write(buffer)
-//                fos.close()
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//
-//        }
 
     }
 
@@ -300,26 +253,6 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
         }
     }
 
-//    private fun getPoints(currenttime: Float) {
-//        mMoveMap.clear()
-//        pointList?.forEachIndexed { index, qinViewPointBean ->
-//            if (qinViewPointBean.start_second <= currenttime && qinViewPointBean.end_second >= currenttime) {
-//                if (!qinViewPointBean.string.isNullOrEmpty()) {
-//                    if (!qinViewPointBean.string.contains("+")) {
-//                        mMoveMap.put(qinViewPointBean.string.toInt(), qinViewPointBean.percent.toFloat())
-//                    } else {
-//                        var ss = qinViewPointBean.string.split("+")
-//                        var pp = qinViewPointBean.percent.split("+")
-//                        ss.forEachIndexed { index, s ->
-//                            mMoveMap.put(s.toInt(), pp[index].toFloat())
-//                        }
-//                    }
-//                }
-//                nextSort = index
-//            }
-//
-//        }
-//    }
 
 
     /*
@@ -338,5 +271,8 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
         super.onDestroy()
         player?.stop()
         player = null
+    }
+    private fun initTitle(){
+        iv_back.setOnClickListener { finish() }
     }
 }

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="160dp"
+    android:layout_marginRight="@dimen/dp_40"
+    android:layout_marginLeft="@dimen/dp_40"
+    android:background="@color/color_ffffff">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:padding="@dimen/dp_20">
 
         <TextView
@@ -15,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            style="@style/textStyle_d0a670_14"
             android:ems="1"
             android:text="@string/enjoy" />
 
@@ -26,24 +29,36 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/vv_divider_right"
             android:layout_toRightOf="@+id/vv_divider_left"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/iv_music"
-                android:layout_width="wrap_content"
-                android:layout_height="120dp"
-                android:src="@mipmap/ic_cache" />
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                style="@style/textStyle_20232b_14"
+                android:layout_height="wrap_content"
+                android:text="仙翁操" />
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_5"
+                android:id="@+id/tv_en_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/textStyle_20232b_12"
+                android:text="xianfengcao" />
+
+            <TextView
+                android:id="@+id/tv_level"
+                android:layout_width="wrap_content"
+                style="@style/textStyle_20232b_10"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_15"
+                android:layout_height="wrap_content"
+                android:text="开指曲" />
 
             <ImageView
                 android:id="@+id/iv_collection"
@@ -63,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            style="@style/textStyle_d0a670_14"
             android:layout_centerVertical="true"
             android:ems="1"
             android:text="@string/begin_experience" />
