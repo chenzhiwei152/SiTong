@@ -20,4 +20,7 @@ class MusicInfoActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), I
     override fun isRegistEventBus(): Boolean = false
 
     override fun isNeedLec(): View? = null
+    companion object {
+        fun nweIntentce(mContext:Context,title:String){}
+    }
 }
