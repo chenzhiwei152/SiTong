@@ -1,5 +1,6 @@
 package com.sitong.changqin.ui.activity
 
+import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -53,6 +54,8 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
             }
             R.id.iv_tool -> {
+                var bundle=Bundle()
+//                bundle.putSerializable("",musicBean?.introduce)
                 jump<MusicInfoActivity>()
             }
         }
