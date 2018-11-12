@@ -53,7 +53,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
             }
             R.id.iv_tool -> {
-                jump<ToolActivity>(isAnimation = false)
+                jump<MusicInfoActivity>()
             }
         }
     }
