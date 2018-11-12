@@ -20,8 +20,8 @@ import org.greenrobot.eventbus.EventBus;
 
 /**
  * 微信登陆分享回调Activity
- * @author 安辉
- * @create time 2015-05-25
+ * @author
+ * @create
  */
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     private IWXAPI wxAPI;

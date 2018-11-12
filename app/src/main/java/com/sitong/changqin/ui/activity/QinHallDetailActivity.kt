@@ -15,10 +15,9 @@ import com.stringedzithers.sitong.R
 import com.yinglan.scrolllayout.ScrollLayout
 import kotlinx.android.synthetic.main.activity_qin_hall_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*
-import android.R.attr.startX
-import android.R.attr.startY
 import android.os.Build
 import android.support.annotation.RequiresApi
+import com.sitong.changqin.utils.ExtraUtils
 
 
 class QinHallDetailActivity : BaseActivity<QinHallDetailContract.View, qinHalDetailPresenter>(), QinHallDetailContract.View, ScrollLayout.OnScrollChangedListener {
@@ -91,8 +90,8 @@ class QinHallDetailActivity : BaseActivity<QinHallDetailContract.View, qinHalDet
         recyclerView.adapter = mAdapter
 
 
-//        scrollLayout.setMinOffset(UIUtil.dip2px(this,title2.measuredHeight.toFloat()))
-        scrollLayout.setMinOffset(270)
+        scrollLayout.setMinOffset(UIUtil.dip2px(this,68f))
+//        scrollLayout.setMinOffset(270)
         scrollLayout.setMaxOffset(-70)
         scrollLayout.setExitOffset(0)
         scrollLayout.setToOpen()
@@ -100,53 +99,36 @@ class QinHallDetailActivity : BaseActivity<QinHallDetailContract.View, qinHalDet
         scrollLayout.setAllowHorizontalScroll(true)
         scrollLayout.setOnScrollChangedListener(this)
 
-        iv_more.setOnClickListener { scrollLayout.setToClosed() }
+        iv_more.setOnClickListener { scrollLayout.scrollToClose() }
 
 
         var mp = hashMapOf<String, String>()
         mp.put("id", id!!)
         mPresenter?.getList(mp)
-        var startX = 0F
-        var startY = 0F
+//        var mPosX = 0F
+        var mPosY = 0F
+//        var mCurPosX = 0f
+        var mCurPosY = 0f
         rl_content.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(p0: View?, ev: MotionEvent?): Boolean {
+            override fun onTouch(p0: View?, event: MotionEvent?): Boolean {
 
-                when (ev?.action) {
+                when (event?.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        startX = ev.getRawX()
-                        startY = ev.getRawY()
-
+//                        mPosX = event.getX()
+                        mPosY = event.getY()
                     }
                     MotionEvent.ACTION_MOVE -> {
-                        val endX = ev?.getRawX()
-                        val endY = ev?.getRawY()
-
-                        if (Math.abs(endX!!.minus(startX)) > Math.abs(endY!!.minus(startY))) {// 左右滑动
-                            if (endX > startX) {// 右划
-//                        if (getCurrentItem() === 0) {// 第一个页面, 需要父控件拦截
-//                            parent.requestDisallowInterceptTouchEvent(false)
-//                        }
-                            } else {// 左划
-//                        if (getCurrentItem() === getAdapter().getCount() - 1) {// 最后一个页面,
-//                            // 需要拦截
-//                            parent.requestDisallowInterceptTouchEvent(false)
-//                        }
-                            }
-                        } else {// 上下滑动
-//                    parent.requestDisallowInterceptTouchEvent(false)
-                            if (startY.minus(endY) > 10) {
-                                scrollLayout.setToClosed()
-                                return true
-                            }
-
-                        }
+//                        mCurPosX = event.getX()
+                        mCurPosY = event.getY()
                     }
-                    MotionEvent.ACTION_UP -> {
-
+                    MotionEvent.ACTION_UP ->if (mCurPosY - mPosY < 0 && Math.abs(mCurPosY - mPosY) > 35) {
+                        //向上滑动
+                        scrollLayout.scrollToClose()
+//                        LogUtils.e("Scroll______向上滑动")
                     }
                 }
 
-                return false
+                return true
             }
 
         })

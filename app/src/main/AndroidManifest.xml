@@ -115,6 +115,9 @@
             android:name="com.sitong.changqin.ui.activity.KnowledgeActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sitong.changqin.ui.activity.PayActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sitong.changqin.ui.activity.ToolActivity"
             android:screenOrientation="landscape"
             android:theme="@style/TranslucentFullScreenTheme" />
@@ -123,7 +126,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name="com.sitong.changqin.ui.activity.MenuActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/TranslucentFullScreenTheme" />
         <activity
             android:name="com.tencent.tauth.AuthActivity"

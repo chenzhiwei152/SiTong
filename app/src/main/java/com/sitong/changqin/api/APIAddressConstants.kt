@@ -132,4 +132,18 @@ object APIAddressConstants {
     /*
     * 获取会员列表*/
     const val GET_MESSBER_LIST = "/system/getmemberinfo/{type}"
+    /*
+    * 获取会员列表*/
+    const val GET_MESSBER_LIST2 = "/user/pricelist/"
+
+    /*
+    * 下单
+    * */
+    const val GET_ORDER = "/music/placeorder/"
+
+    /*获取支付宝鉴权*/
+    const val GET_ali_premissition = "/music/getalipaykey/{orderid}"
+
+    /*获取微信鉴权*/
+    const val GET_wx_premissition = "/music/getweixinpaykey/{orderid}"
 }

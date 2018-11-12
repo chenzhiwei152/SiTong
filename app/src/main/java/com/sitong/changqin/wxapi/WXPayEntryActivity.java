@@ -19,8 +19,8 @@ import org.greenrobot.eventbus.EventBus;
 
 /**
  * 微信支付回调Activity
- * @author 安辉
- * @create time 2017-09-15
+ * @author
+ * @create
  */
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 	private IWXAPI wxAPI;

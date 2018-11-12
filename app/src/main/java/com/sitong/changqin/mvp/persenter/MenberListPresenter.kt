@@ -15,7 +15,7 @@ import com.sitong.changqin.mvp.model.bean.VideoListBean
  * create by chen.zhiwei on 2018-8-14
  */
 class MenberListPresenter : BasePresenter<MemberListContract.View>(), MemberListContract.Presenter {
-    override fun getList(type:String) {
+    override fun getList(map:HashMap<String,String>) {
         if (checkViewAttached()) {
             mRootView?.showLoading()
             var observer = object : CommonObserver<BaseBean<ArrayList<MemberBean>>>() {
@@ -37,7 +37,7 @@ class MenberListPresenter : BasePresenter<MemberListContract.View>(), MemberList
                 }
             }
 
-            APIManager.jyApi.get_member_list(type).compose(SchedulerUtils.ioToMain()).subscribe(observer)
+            APIManager.jyApi.get_member_list2(map).compose(SchedulerUtils.ioToMain()).subscribe(observer)
             addSubscription(observer.disposable!!)
         }
     }

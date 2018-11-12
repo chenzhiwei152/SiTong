@@ -1,5 +1,6 @@
 package com.sitong.changqin.ui.activity
 
+import android.content.pm.ActivityInfo
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -42,6 +43,7 @@ class MenuActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseV
     override fun getLayoutId(): Int = R.layout.activity_menu
 
     override fun initViewsAndEvents() {
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         val left_in = AnimationUtils.loadAnimation(this@MenuActivity, R.anim.animation_menu_left_in)
         val right_in = AnimationUtils.loadAnimation(this@MenuActivity, R.anim.animation_menu_right_in)
         ll_left.animation = left_in

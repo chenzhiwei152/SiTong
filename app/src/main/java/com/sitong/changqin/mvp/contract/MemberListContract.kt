@@ -15,7 +15,7 @@ interface MemberListContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun getList(type:String)
+        fun getList(map:HashMap<String,String>)
 
     }
 }

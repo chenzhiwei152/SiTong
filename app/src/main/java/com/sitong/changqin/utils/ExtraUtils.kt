@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.media.MediaMetadataRetriever
 import android.net.ConnectivityManager
 import android.text.TextUtils
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -34,7 +35,22 @@ class ExtraUtils {
             Toast.makeText(BaseContext.instance,msg,Toast.LENGTH_LONG).show()
         }
 
-
+        /**
+         * 获取屏幕内容高度
+         * @param activity
+         * @return
+         */
+        fun getScreenHeight(activity: Activity): Int {
+            val dm = DisplayMetrics()
+            activity.windowManager.defaultDisplay.getMetrics(dm)
+            var result = 0
+            val resourceId = activity.resources
+                    .getIdentifier("status_bar_height", "dimen", "android")
+            if (resourceId > 0) {
+                result = activity.resources.getDimensionPixelSize(resourceId)
+            }
+            return dm.heightPixels - result
+        }
         fun getMP3FileInfo(path: String): Long {
             var dur: Long? = null
             val retriever = MediaMetadataRetriever()

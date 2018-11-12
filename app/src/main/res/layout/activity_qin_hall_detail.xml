@@ -22,7 +22,7 @@
         <com.sitong.changqin.view.TextViewVertical
             android:id="@+id/tv_titles"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="20dp"
@@ -38,6 +38,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/dp_20"
+            android:padding="@dimen/dp_20"
             android:src="@mipmap/ic_down" />
 
         <com.yinglan.scrolllayout.ScrollLayout

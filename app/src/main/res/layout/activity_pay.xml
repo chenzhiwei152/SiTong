@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_common_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_f4f3f2"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/textStyle_d0a670_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="股市南山" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/textStyle_d0a670_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_toRightOf="@+id/tv_name"
+            android:text="100yuan" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/textStyle_d0a670_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="2017-4-3" />
+    </RelativeLayout>
+
+    <View
+        style="@style/divider_d0a670_1"
+        android:layout_marginLeft="@dimen/dp_20" />
+
+    <RelativeLayout
+        android:id="@+id/rl_ali"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tv_ali"
+            style="@style/textStyle_20232b_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付宝" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_exp" />
+    </RelativeLayout>
+
+    <View
+        style="@style/divider_d0a670_1"
+        android:layout_marginLeft="@dimen/dp_20" />
+
+    <RelativeLayout
+        android:id="@+id/rl_wx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tv_wx"
+            style="@style/textStyle_20232b_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微信" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_exp" />
+    </RelativeLayout>
+
+    <View
+        style="@style/divider_d0a670_1"
+        android:layout_marginLeft="@dimen/dp_20" />
+</LinearLayout>

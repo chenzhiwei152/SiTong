@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sitong.changqin.mvp.model.bean.MemberBean
+import com.sitong.changqin.ui.activity.PayActivity
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
 import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.item_question.view.*
@@ -42,11 +43,13 @@ class MemberListAdapter(var context: Context) : RecyclerView.Adapter<MemberListA
                 .inflate(R.layout.item_question, parent, false))
     }
 
-    override fun getItemCount(): Int =list.size
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.viewLayout.tv_name.text = ""+list[position].name+"   "+list[position].price+"元"
-
+        holder.viewLayout.tv_name.text = "" + list[position].name + "   " + list[position].price
+        holder.viewLayout.setOnClickListener {
+            onItemClick?.onItemClicked(list[position])
+        }
     }
 
 

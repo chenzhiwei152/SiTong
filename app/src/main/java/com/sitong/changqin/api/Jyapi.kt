@@ -9,13 +9,17 @@ import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_EXERCISE_RECORD
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_HALL_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MESSAGE
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MESSBER_LIST
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MESSBER_LIST2
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MUSIC_DETAIL
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_MUSIC_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_OOS_PERMESSITION
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_ORDER
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_REWARD
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_TASK
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_USER_INFO
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_VIDEO_LIST
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_ali_premissition
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_wx_premissition
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.QINGUAN_DETAIL
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.SEND_SHORT_MESSAGE
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.SET_MESSAGE_READ
@@ -194,6 +198,26 @@ interface Jyapi {
     /*
     * 获取会员列表*/
     @GET(GET_MESSBER_LIST)
-    fun get_member_list(@Path("type") type:String): Observable<Response<BaseBean<ArrayList<MemberBean>>>>
+    fun get_member_list(@Path("type") type: String): Observable<Response<BaseBean<ArrayList<MemberBean>>>>
+
+    /*
+    * 获取会员列表*/
+    @POST(GET_MESSBER_LIST2)
+    fun get_member_list2(@Body map: HashMap<String, String>): Observable<Response<BaseBean<ArrayList<MemberBean>>>>
+
+    /*
+    * 下单*/
+    @POST(GET_ORDER)
+    fun get_order(@Body map: HashMap<String, String>): Observable<Response<BaseBean<OrderBean>>>
+
+    /*
+   * 获取支付宝鉴权*/
+    @GET(GET_ali_premissition)
+    fun get_ali_premission(@Path("orderid") orderid: String): Observable<Response<BaseBean<AliPremissionBean>>>
+
+    /*
+   * 获取微信鉴权*/
+    @GET(GET_wx_premissition)
+    fun get_wx_premission(@Path("orderid") orderid: String): Observable<Response<BaseBean<WXPremissionBean>>>
 
 }
