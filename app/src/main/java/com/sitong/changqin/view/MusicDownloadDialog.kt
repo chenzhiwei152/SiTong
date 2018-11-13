@@ -39,11 +39,12 @@ class MusicDownloadDialog(context: Context?, leftTitle: String, rightTitle: Stri
         window.attributes = wlp
         tv_left.text = leftTitle
         tv_right.text = rightTitle
-        tv_en_title.text = size
+
+        tv_en_title.text =String.format("%.2f", size.toFloat())+"M"
         iv_image.loadImage(mContext!!,imageurl)
         seekListerner = object : ProgressCallback {
             override fun onProgressCallback(progress: Double) {
-                seekbar.progress = progress.toInt()
+                seek_bar.setProgress(progress.toFloat())
             }
 
             override fun onProgressFailed() {
@@ -55,7 +56,7 @@ class MusicDownloadDialog(context: Context?, leftTitle: String, rightTitle: Stri
         }
         tv_left.setOnClickListener { v ->
             leftTitleListerner?.onClick(v)
-            dismiss()
+//            dismiss()
         }
         tv_right.setOnClickListener { v ->
             rightTitleListerner?.onClick(v)

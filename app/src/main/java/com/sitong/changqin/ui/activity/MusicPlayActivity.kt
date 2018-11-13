@@ -38,6 +38,7 @@ import java.io.File
 class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresenter>(), MusicPlayContract.View, MainAdapter.Listener, View.OnClickListener {
     private var du: Long? = null
     private var isLoaded = false
+    private var isLoading = false
     var mLoadDialog: MusicDownloadDialog? = null
     private var pointList: ArrayList<QinViewPointBean>? = null
     private var mMoveMap: HashMap<Int, Float> = hashMapOf()//在线上动态显示的点
@@ -58,26 +59,36 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     toast_msg("已下载")
                     return
                 }
+                if (isLoading) {
+                    return
+                }
                 if (musicBean == null) {
                     return
                 }
                 if (mLoadDialog == null) {
                     mLoadDialog = MusicDownloadDialog(this@MusicPlayActivity, resources.getString(R.string.download), resources.getString(R.string.cancel), musicBean!!.size.toString(), musicBean!!.icon)
                     mLoadDialog?.setLeftTitleListerner(View.OnClickListener {
+                        isLoading = true
                         DownLoadUtils.downLoadMusic(this@MusicPlayActivity, musicBean!!.url, object : ProgressCallback {
                             override fun onProgressCallback(progress: Double) {
                                 mLoadDialog?.getSeekBarLister()?.onProgressCallback(progress)
                             }
 
                             override fun onProgressFailed() {
-                                dismissLoading()
-                                toast_msg("获取签名失败")
+//                                dismissLoading()
+                                isLoading = false
+
+                                runOnUiThread { toast_msg("获取签名失败") }
                             }
 
                             override fun onProgressSuccess() {
-                                dismissLoading()
-                                toast_msg("下载完成")
-                                mLoadDialog?.dismiss()
+//                                dismissLoading()
+                                runOnUiThread { toast_msg(
+                                        "下载完成")
+                                    mLoadDialog?.dismiss()}
+
+
+                                isLoading = false
                                 chenckIsLoaded(musicBean!!.url)
                             }
                         })
@@ -343,12 +354,13 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 iv_play.setBackgroundResource(R.drawable.selector_pause)
             }
         }
-        if (isLoaded){
+        if (isLoaded) {
             iv_load.setImageResource(R.mipmap.ic_load_pressed)
-        }else{
+        } else {
             iv_load.setImageResource(R.mipmap.ic_load_normal)
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         player?.stop()

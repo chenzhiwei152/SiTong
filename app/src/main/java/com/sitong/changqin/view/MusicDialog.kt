@@ -54,7 +54,7 @@ class MusicDialog(context: Context?, leftTitle: String, rightTitle: String, titl
         }
         iv_collection.setOnClickListener { v ->
             collectionListerner?.onClick(v)
-            dismiss()
+//            dismiss()
         }
     }
 
