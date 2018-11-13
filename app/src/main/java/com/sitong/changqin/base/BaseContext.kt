@@ -3,6 +3,7 @@ package com.jyall.bbzf.base
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -150,6 +151,10 @@ class BaseContext : MultiDexApplication() {
         }
         userInfo = null
         SharedPrefUtil.saveObj(instance, "userInfo", null)
+        var intent = getPackageManager()
+                .getLaunchIntentForPackage(getPackageName())
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
     }
 
     fun isLoginIn(): Boolean {

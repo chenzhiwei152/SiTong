@@ -3,6 +3,7 @@ package com.jyall.bbzf.api.scheduler
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.ARTICLE_DETAIL
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.CHECK_SHORT_MESSAGE
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.COLLECTION
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.DAILY_PUNCH
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.FIND_PASSWORD
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_ARTICLE_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.GET_EXERCISE_RECORD
@@ -220,4 +221,8 @@ interface Jyapi {
     @GET(GET_wx_premissition)
     fun get_wx_premission(@Path("orderid") orderid: String): Observable<Response<BaseBean<WXPremissionBean>>>
 
+    /*打卡
+    * */
+    @POST(DAILY_PUNCH)
+    fun daily_punch(): Observable<Response<BaseBean<ResultBean>>>
 }

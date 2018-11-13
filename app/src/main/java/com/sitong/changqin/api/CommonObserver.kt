@@ -3,6 +3,7 @@ package com.jyall.bbzf.api.scheduler
 import com.google.gson.Gson
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseBean
+import com.jyall.bbzf.base.BaseContext
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import retrofit2.Response
@@ -84,12 +85,17 @@ abstract class CommonObserver<T> : Observer<Response<T>> {
     override fun onError(e: Throwable?) {
         LogUtils.e(e?.message)
         onError(ErrorResponseBean(-1, "网络连接断开", e?.message))
+        if (e?.message!!.contains("token == null")){
+            BaseContext.instance.logout()
+        }
     }
 
 
     fun processCode(errorResponseBean: ErrorResponseBean): Boolean {
         when (errorResponseBean.code) {
-            ResponseCode.ACCESS_TOKEN_INVALID -> LogUtils.e(errorResponseBean.message)//TODO
+            ResponseCode.ACCESS_TOKEN_INVALID -> {
+                BaseContext.instance.logout()
+            }
             ResponseCode.UPDATE_FORCE -> LogUtils.e(errorResponseBean.message)//TODO
             ResponseCode.TICKET_UNAVALIBLE -> LogUtils.e(errorResponseBean.message)//TODO
             ResponseCode.TICKET_UNAVALIBLE2 -> LogUtils.e(errorResponseBean.message)//TODO

@@ -18,6 +18,15 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_head_default" />
 
+        <ImageView
+            android:id="@+id/iv_vip"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-15dp"
+            android:layout_toRightOf="@+id/iv_head"
+            android:src="@mipmap/ic_vip" />
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -27,7 +36,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_nick_name"
                 style="@style/textStyle_20232b_42"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +48,7 @@
                 style="@style/textStyle_20232b_13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_name"
+                android:layout_below="@+id/tv_nick_name"
                 android:text="消息2" />
 
         </RelativeLayout>
@@ -94,6 +103,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_exe_time"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -123,6 +133,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_daily_punch"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

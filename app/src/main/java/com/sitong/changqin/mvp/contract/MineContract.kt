@@ -10,13 +10,17 @@ interface MineContract {
         fun toast_msg(msg: String)
         fun getDataSuccess(bean: UserInfo)
 
+        fun punchSuccess(msg: String)
+
     }
 
     interface Presenter : IPresenter<View> {
 
         fun getUserInfo()
 
-        fun upLoadHeadImage(url:String)
+        fun upLoadHeadImage(url: String)
+
+        fun dailyPunch()
 
     }
 }

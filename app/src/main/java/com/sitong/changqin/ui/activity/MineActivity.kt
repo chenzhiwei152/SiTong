@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
+import com.jyall.bbzf.base.BaseContext
 import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.loadRoundImage
@@ -21,6 +22,7 @@ import com.sitong.changqin.mvp.model.bean.UserInfo
 import com.sitong.changqin.mvp.persenter.MinePresenter
 import com.sitong.changqin.ui.listerner.ProgressCallback
 import com.sitong.changqin.utils.UploadImageUtils
+import com.sitong.changqin.view.DailyPunchDialog
 import com.sitong.changqin.view.ImageDialog
 import com.yanzhenjie.album.Album
 import kotlinx.android.synthetic.main.fragment_mine.*
@@ -31,6 +33,10 @@ import org.greenrobot.eventbus.EventBus
  * create by chen.zhiwei on 2018-8-15
  */
 class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContract.View, View.OnClickListener {
+    override fun punchSuccess(msg: String) {
+        mPresenter?.getUserInfo()
+    }
+
     private var mDialog: ImageDialog? = null
     val ACTIVITY_REQUEST_SELECT_PHOTO: Int = 10086
     private var localImageUrl: String? = null
@@ -62,6 +68,36 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
             R.id.tv_message -> {
                 jump<MessageActivity>()
             }
+            R.id.ll_daily_punch -> {
+                var dialog = DailyPunchDialog(this@MineActivity, "查看任务", "今日打卡", "", BaseContext.instance.getUserInfo()!!.award, "已连续打卡" + BaseContext.instance.getUserInfo()!!.days + "天").setLeftTitleListerner(object : View.OnClickListener {
+                    override fun onClick(v: View?) {
+                        TaskActivity.newIntentce(this@MineActivity, "0")
+                    }
+
+
+                }).setRightTitleListerner(object : View.OnClickListener {
+                    override fun onClick(v: View?) {
+//                        打卡
+                        mPresenter?.dailyPunch()
+                    }
+
+                })
+                dialog?.show()
+            }
+            R.id.ll_exe_time -> {
+                var dialog = DailyPunchDialog(this@MineActivity, "查看日期", "今日练琴", "", BaseContext.instance.getUserInfo()!!.award, "已经连续练琴" + BaseContext.instance.getUserInfo()!!.days + "分钟").setLeftTitleListerner(object : View.OnClickListener {
+                    override fun onClick(v: View?) {
+                    }
+
+
+                }).setRightTitleListerner(object : View.OnClickListener {
+                    override fun onClick(v: View?) {
+                    }
+
+                })
+                dialog?.show()
+            }
+
         }
     }
 
@@ -74,11 +110,18 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
 
     override fun getDataSuccess(bean: UserInfo) {
         iv_head.loadRoundImage(this, bean.header)
-        tv_name.text = bean.nickname
+        tv_nick_name.text = bean.nickname
+
+        if (bean.vip) {
+            iv_vip.visibility = View.VISIBLE
+        } else {
+            iv_vip.visibility = View.GONE
+        }
         tv_message.text = "消息 " + bean.msgs
         tv_rank.text = bean.level
         tv_duration.tv_duration.text = bean.duration
         tv_days.tv_days.text = bean.days
+        BaseContext.instance.setUserInfo(bean)
         EventBus.getDefault().post(EventBusCenter<UserInfo>(Constants.Tag.UPDATE_USER_INFO, bean))
 
     }
@@ -103,7 +146,7 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
         tablayout.setupWithViewPager(view_pager)
         setUpTabBadge(tabsTitle)
         mPresenter?.getUserInfo()
-        tablayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+        tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
 
@@ -117,6 +160,9 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
         })
         iv_head.setOnClickListener(this)
         tv_message.setOnClickListener(this)
+        ll_daily_punch.setOnClickListener(this)
+        ll_exe_time.setOnClickListener(this)
+
     }
 
     override fun isRegistEventBus(): Boolean = true
@@ -147,7 +193,7 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
             }
 
             // 更新CustomView
-            tab?.customView = pageAdapter?.getTabItemView(i,i==tablayout.selectedTabPosition)
+            tab?.customView = pageAdapter?.getTabItemView(i, i == tablayout.selectedTabPosition)
         }
         // 需加上以下代码,不然会出现更新Tab角标后,选中的Tab字体颜色不是选中状态的颜色
         tablayout.getTabAt(tablayout.selectedTabPosition)?.customView?.isSelected = true

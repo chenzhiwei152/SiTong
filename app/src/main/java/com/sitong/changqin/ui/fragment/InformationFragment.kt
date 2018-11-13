@@ -1,10 +1,7 @@
 package com.sitong.changqin.ui.fragment
 
 import android.view.View
-import com.jyall.bbzf.base.BaseFragment
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.EventBusCenter
-import com.jyall.bbzf.base.IBaseView
+import com.jyall.bbzf.base.*
 import com.jyall.bbzf.extension.jump
 import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.base.Constants.Tag.UPDATE_USER_INFO
@@ -43,6 +40,9 @@ class InformationFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(),
             R.id.rl_feedback -> {
                 activity?.jump<FeedbackActivity>()
             }
+            R.id.tv_quit -> {
+                BaseContext.instance.logout()
+            }
         }
     }
 
@@ -63,6 +63,7 @@ class InformationFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(),
         rl_exp_record.setOnClickListener(this)
         rl_question.setOnClickListener(this)
         rl_feedback.setOnClickListener(this)
+        tv_quit.setOnClickListener(this)
     }
 
     override fun isRegistEventBus(): Boolean = true

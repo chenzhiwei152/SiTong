@@ -146,4 +146,7 @@ object APIAddressConstants {
 
     /*获取微信鉴权*/
     const val GET_wx_premissition = "/music/getweixinpaykey/{orderid}"
+
+    /*打卡*/
+    const val DAILY_PUNCH = "/task/punchtheclock/"
 }
