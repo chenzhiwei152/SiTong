@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.IndexContract
 import com.sitong.changqin.mvp.model.bean.MusicBean
 import com.sitong.changqin.mvp.persenter.IndexPresenter
@@ -14,7 +15,6 @@ import com.sitong.changqin.ui.adapter.CollectionListAdapter
 import com.sitong.changqin.ui.listerner.ResultCallback
 import com.sitong.changqin.utils.CollectionUtils
 import com.sitong.changqin.utils.files.FilesUtils
-import com.stringedzithers.sitong.R
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem

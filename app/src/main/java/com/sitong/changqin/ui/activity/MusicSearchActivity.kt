@@ -7,7 +7,7 @@ import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.ui.adapter.SearchFragmentAdapter
-import com.stringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_search.*
 
 /**

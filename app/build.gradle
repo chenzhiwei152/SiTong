@@ -5,7 +5,7 @@ def config = rootProject.ext.android
 android {
     compileSdkVersion config.compileSdkVersion
     defaultConfig {
-        applicationId "com.stringedzithers.sitong"
+        applicationId "com.sevenstringedzithers.sitong"
         minSdkVersion config.minSdkVersion
         targetSdkVersion config.compileSdkVersion
         versionCode 1

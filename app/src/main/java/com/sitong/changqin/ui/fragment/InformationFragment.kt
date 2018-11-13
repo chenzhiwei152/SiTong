@@ -6,10 +6,10 @@ import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.base.Constants.Tag.UPDATE_USER_INFO
 import com.sitong.changqin.mvp.model.bean.UserInfo
 import com.sitong.changqin.ui.activity.*
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.fragment_information.*
 
 /**

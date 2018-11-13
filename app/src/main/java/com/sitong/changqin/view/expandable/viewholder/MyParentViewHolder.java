@@ -5,8 +5,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.huajianjiang.expandablerecyclerview.widget.ParentViewHolder;
+import com.sevenstringedzithers.sitong.R;
 import com.sitong.changqin.view.expandable.model.MyParent;
-import com.stringedzithers.sitong.R;
 
 
 /**

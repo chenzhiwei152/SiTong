@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jyall.bbzf.extension.loadRoundImage
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.model.bean.VideoListBean
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.item_qin_hall_layout.view.*
 
 /**

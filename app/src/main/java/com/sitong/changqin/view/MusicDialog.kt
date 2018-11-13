@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import com.stringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.R
 import kotlinx.android.synthetic.main.dialog_music.*
 
 /**

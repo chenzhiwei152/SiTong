@@ -8,6 +8,7 @@ import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.loadImage
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.MusicPlayContract
 import com.sitong.changqin.mvp.model.bean.MusicDetailBean
 import com.sitong.changqin.mvp.model.bean.QinViewPointBean
@@ -20,8 +21,6 @@ import com.sitong.changqin.utils.files.DownLoadFilesUtils
 import com.sitong.changqin.utils.files.FilesUtils
 import com.smp.soundtouchandroid.OnProgressChangedListener
 import com.smp.soundtouchandroid.SoundStreamAudioPlayer
-import com.stringedzithers.sitong.R
-import com.stringedzithers.sitong.R.string.file
 import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.activity_music_enjoy.*
 import kotlinx.android.synthetic.main.activity_music_info.*
@@ -180,7 +179,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
                 override fun onProgressSuccess() {
                     dismissLoading()
-                    f = File(DownLoadFilesUtils.getInstance(this@MusicEnjoyActivity)!!.getCurrentUri() + "/" + file)
+                    f = File(DownLoadFilesUtils.getInstance(this@MusicEnjoyActivity)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url))
                     initPlayer()
                 }
             })

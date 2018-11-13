@@ -1,26 +1,22 @@
 package com.sitong.changqin.ui.fragment
 
-import android.content.ContentValues.TAG
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
-import android.widget.RadioGroup
 import com.github.huajianjiang.expandablerecyclerview.util.Logger
 import com.github.huajianjiang.expandablerecyclerview.widget.ExpandableAdapter
-import com.github.huajianjiang.expandablerecyclerview.widget.ExpandableRecyclerView
 import com.github.huajianjiang.expandablerecyclerview.widget.Parent
 import com.github.huajianjiang.expandablerecyclerview.widget.ParentViewHolder
 import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
-import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.ui.adapter.MyAdapter
 import com.sitong.changqin.utils.AppUtil
 import com.sitong.changqin.view.expandable.PresenterImpl
 import com.sitong.changqin.view.expandable.model.MyParent
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.fragment_describe_gesture.*
-import java.util.ArrayList
+import java.util.*
 
 /**
  * 延音

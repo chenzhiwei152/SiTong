@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.ExerciseRecordContract
 import com.sitong.changqin.mvp.model.bean.ExerciseRecordBean
 import com.sitong.changqin.mvp.persenter.ExerciseRecordPresenter
 import com.sitong.changqin.ui.adapter.ExerciseRecordListAdapter
-import com.stringedzithers.sitong.R
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem

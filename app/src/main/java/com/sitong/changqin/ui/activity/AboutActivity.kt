@@ -4,7 +4,7 @@ import android.view.View
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
-import com.stringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.R
 
 class AboutActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseView {
     override fun getPresenter(): BasePresenter<IBaseView> = BasePresenter()

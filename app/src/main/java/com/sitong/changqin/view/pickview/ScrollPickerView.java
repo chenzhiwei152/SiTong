@@ -19,7 +19,7 @@ import android.view.ViewParent;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
-import com.stringedzithers.sitong.R;
+import com.sevenstringedzithers.sitong.R;
 
 import java.util.ArrayList;
 import java.util.List;

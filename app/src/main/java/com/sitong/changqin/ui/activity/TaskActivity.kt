@@ -6,11 +6,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.TaskContract
 import com.sitong.changqin.mvp.model.bean.TaskBean
 import com.sitong.changqin.mvp.persenter.TaskPresenter
 import com.sitong.changqin.ui.adapter.TaskListAdapter
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_task.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 

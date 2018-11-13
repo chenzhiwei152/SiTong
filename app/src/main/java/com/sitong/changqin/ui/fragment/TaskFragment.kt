@@ -4,8 +4,8 @@ import android.view.View
 import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.ui.activity.TaskActivity
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.fragment_task.*
 
 /**

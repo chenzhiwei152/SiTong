@@ -7,7 +7,7 @@ import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.ui.adapter.KnowledgeFragmentAdapter
-import com.stringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_knowledge.*
 
 class KnowledgeActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseView {

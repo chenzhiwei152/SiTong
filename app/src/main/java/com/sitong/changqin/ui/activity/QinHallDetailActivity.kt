@@ -1,5 +1,7 @@
 package com.sitong.changqin.ui.activity
 
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MotionEvent
 import android.view.View
@@ -7,17 +9,14 @@ import com.jyall.android.common.utils.UIUtil
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.loadImage
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.QinHallDetailContract
 import com.sitong.changqin.mvp.model.bean.QinguanDetailBean
 import com.sitong.changqin.mvp.persenter.qinHalDetailPresenter
 import com.sitong.changqin.ui.adapter.QinHallDetilListAdapter
-import com.stringedzithers.sitong.R
 import com.yinglan.scrolllayout.ScrollLayout
 import kotlinx.android.synthetic.main.activity_qin_hall_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*
-import android.os.Build
-import android.support.annotation.RequiresApi
-import com.sitong.changqin.utils.ExtraUtils
 
 
 class QinHallDetailActivity : BaseActivity<QinHallDetailContract.View, qinHalDetailPresenter>(), QinHallDetailContract.View, ScrollLayout.OnScrollChangedListener {

@@ -4,11 +4,11 @@ import android.view.View
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.base.Constants
 import com.sitong.changqin.mvp.contract.RegisterContract
 import com.sitong.changqin.mvp.model.bean.UserInfo
 import com.sitong.changqin.mvp.persenter.RegisterPresenter
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_register_two.*
 import org.greenrobot.eventbus.EventBus
 

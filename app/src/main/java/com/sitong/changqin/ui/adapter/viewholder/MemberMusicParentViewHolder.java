@@ -1,13 +1,11 @@
 package com.sitong.changqin.ui.adapter.viewholder;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.huajianjiang.expandablerecyclerview.widget.ParentViewHolder;
+import com.sevenstringedzithers.sitong.R;
 import com.sitong.changqin.mvp.model.bean.MemberMusciParent;
-import com.sitong.changqin.view.expandable.model.MyParent;
-import com.stringedzithers.sitong.R;
 
 
 /**

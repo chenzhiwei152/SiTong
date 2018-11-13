@@ -5,9 +5,9 @@ import android.view.View
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.model.bean.ExerciseRecordBean
 import com.sitong.changqin.ui.adapter.QuestionListAdapter
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_exercise_record.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 

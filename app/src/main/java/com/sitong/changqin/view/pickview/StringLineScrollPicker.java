@@ -12,8 +12,8 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 
+import com.sevenstringedzithers.sitong.R;
 import com.sitong.changqin.utils.ColorUtil;
-import com.stringedzithers.sitong.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

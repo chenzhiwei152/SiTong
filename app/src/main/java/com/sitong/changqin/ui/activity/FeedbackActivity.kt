@@ -8,12 +8,12 @@ import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.loadLocalImage
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.FeedbackContract
 import com.sitong.changqin.mvp.persenter.FeedbackPresenter
 import com.sitong.changqin.ui.listerner.ProgressCallback
 import com.sitong.changqin.utils.UploadImageUtils
 import com.sitong.changqin.view.ImageDialog
-import com.stringedzithers.sitong.R
 import com.yanzhenjie.album.Album
 import kotlinx.android.synthetic.main.activity_feed_back.*
 import kotlinx.android.synthetic.main.layout_common_title.*

@@ -6,7 +6,7 @@ import android.view.View
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
-import com.stringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_message_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 

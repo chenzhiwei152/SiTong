@@ -5,9 +5,9 @@ import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.loadImage
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
 import com.sitong.changqin.utils.CustomController
-import com.stringedzithers.sitong.R
 import com.xiao.nicevideoplayer.Clarity
 import com.xiao.nicevideoplayer.NiceVideoPlayer
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager

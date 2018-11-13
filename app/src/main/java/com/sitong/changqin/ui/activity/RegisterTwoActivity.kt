@@ -6,13 +6,12 @@ import com.jyall.bbzf.base.BaseContext
 import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.MainActivity
 import com.sitong.changqin.base.Constants
 import com.sitong.changqin.mvp.contract.RegisterContract
 import com.sitong.changqin.mvp.model.bean.UserInfo
 import com.sitong.changqin.mvp.persenter.RegisterPresenter
-import com.sitong.changqin.utils.ExtraUtils
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_register_two.*
 import org.greenrobot.eventbus.EventBus
 

@@ -6,11 +6,11 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
 import android.view.View
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.ui.fragment.FileFragment
 import com.sitong.changqin.ui.fragment.InformationFragment
 import com.sitong.changqin.ui.fragment.MemberFragment
 import com.sitong.changqin.ui.fragment.TaskFragment
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.item_tablayout.view.*
 
 /**

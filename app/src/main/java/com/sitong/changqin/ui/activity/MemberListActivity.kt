@@ -3,15 +3,13 @@ package com.sitong.changqin.ui.activity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.MemberListContract
 import com.sitong.changqin.mvp.model.bean.MemberBean
 import com.sitong.changqin.mvp.persenter.MenberListPresenter
 import com.sitong.changqin.ui.adapter.MemberListAdapter
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_task.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 

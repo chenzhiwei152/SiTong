@@ -12,6 +12,7 @@ import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.MusicPlayContract
 import com.sitong.changqin.mvp.model.bean.MusicDetailBean
 import com.sitong.changqin.mvp.model.bean.QinViewPointBean
@@ -22,12 +23,12 @@ import com.sitong.changqin.utils.DownLoadUtils
 import com.sitong.changqin.utils.ExtraUtils
 import com.sitong.changqin.utils.files.DownLoadFilesUtils
 import com.sitong.changqin.utils.files.FilesUtils
+import com.sitong.changqin.view.MusicDownloadDialog
 import com.smp.soundtouchandroid.OnProgressChangedListener
 import com.smp.soundtouchandroid.SoundStreamAudioPlayer
-import com.stringedzithers.sitong.R
-import com.stringedzithers.sitong.R.string.file
 import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.activity_music_play.*
+import kotlinx.android.synthetic.main.layout_play_title.*
 import java.io.File
 
 
@@ -36,6 +37,8 @@ import java.io.File
  */
 class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresenter>(), MusicPlayContract.View, MainAdapter.Listener, View.OnClickListener {
     private var du: Long? = null
+    private var isLoaded = false
+    var mLoadDialog: MusicDownloadDialog? = null
     private var pointList: ArrayList<QinViewPointBean>? = null
     private var mMoveMap: HashMap<Int, Float> = hashMapOf()//在线上动态显示的点
     private var currentSort: Int? = null
@@ -49,7 +52,39 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 } else {
                     toast_msg("获取视频失败")
                 }
+            }
+            R.id.iv_load -> {
+                if (isLoaded) {
+                    toast_msg("已下载")
+                    return
+                }
+                if (musicBean == null) {
+                    return
+                }
+                if (mLoadDialog == null) {
+                    mLoadDialog = MusicDownloadDialog(this@MusicPlayActivity, resources.getString(R.string.download), resources.getString(R.string.cancel), musicBean!!.size.toString(), musicBean!!.icon)
+                    mLoadDialog?.setLeftTitleListerner(View.OnClickListener {
+                        DownLoadUtils.downLoadMusic(this@MusicPlayActivity, musicBean!!.url, object : ProgressCallback {
+                            override fun onProgressCallback(progress: Double) {
+                                mLoadDialog?.getSeekBarLister()?.onProgressCallback(progress)
+                            }
 
+                            override fun onProgressFailed() {
+                                dismissLoading()
+                                toast_msg("获取签名失败")
+                            }
+
+                            override fun onProgressSuccess() {
+                                dismissLoading()
+                                toast_msg("下载完成")
+                                mLoadDialog?.dismiss()
+                                chenckIsLoaded(musicBean!!.url)
+                            }
+                        })
+
+                    })
+                }
+                mLoadDialog?.show()
             }
             R.id.iv_tool -> {
                 jump<ToolActivity>(isAnimation = false)
@@ -66,14 +101,13 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
     override fun getDataSuccess(musicBean: MusicDetailBean) {
         this.musicBean = musicBean
+        chenckIsLoaded(musicBean.url)
         musicBean.score.forEachIndexed { index, score ->
             if (score.start_second?.size > 0 && score.end_second?.size > 0 && score.start_second[0] > 0) {
                 var bean = QinViewPointBean(score.start_second[0], score.end_second[0], score.duration, score.percent, score.string)
                 pointList?.add(bean)
             }
         }
-
-
     }
 
     override fun onClick(index: Int) {
@@ -100,6 +134,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         }
         iv_play.setOnClickListener(this)
         iv_tool.setOnClickListener(this)
+        iv_load.setOnClickListener(this)
         pointList = arrayListOf()
 
         var map: HashMap<String, String>? = null
@@ -177,15 +212,19 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         })
     }
 
+    private fun chenckIsLoaded(url: String): Boolean {
+        isLoaded = DownLoadFilesUtils.getInstance(this)!!.isExist(FilesUtils.getFileName(url))
+        setButtonState()
+        return isLoaded
+    }
+
     /*
     * 初始化播放器
     * */
     private fun checkFile(url: String) {
-//        f = File("/sdcard/Download.mp3")
-//        f = File(Environment.getExternalStorageDirectory().absolutePath + "/Download/Downloada.mp3")
 
         showLoading()
-        if (DownLoadFilesUtils.getInstance(this)!!.isExist(FilesUtils.getFileName(url))) {
+        if (chenckIsLoaded(url)) {
             f = File(DownLoadFilesUtils.getInstance(this)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url))
             initPlayer()
         } else {
@@ -201,33 +240,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
                 override fun onProgressSuccess() {
                     dismissLoading()
-                    f = File(DownLoadFilesUtils.getInstance(this@MusicPlayActivity)!!.getCurrentUri() + "/" + file)
+                    f = File(DownLoadFilesUtils.getInstance(this@MusicPlayActivity)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url))
                     initPlayer()
                 }
-
             })
-
         }
-
-
-//        player = SoundStreamAudioPlayer(0, f?.getPath(), tempo, pitchSemi)
-//        if (!f!!.exists()) {
-//            try {
-//                //InputStream is = this.getResources().openRawResource(R.raw.bjbj);
-//                val `is` = this.resources.assets.open("Downloada.mp3")
-//                val size = `is`.available()
-//                val buffer = ByteArray(size)
-//                `is`.read(buffer)
-//                `is`.close()
-//                val fos = FileOutputStream(f)
-//                fos.write(buffer)
-//                fos.close()
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//
-//        }
-
     }
 
     private fun initPlayer() {
@@ -268,7 +285,6 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
                     }
                 })
-
                 player?.setRate(rate)
 
                 Thread(player).start()
@@ -327,8 +343,12 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 iv_play.setBackgroundResource(R.drawable.selector_pause)
             }
         }
+        if (isLoaded){
+            iv_load.setImageResource(R.mipmap.ic_load_pressed)
+        }else{
+            iv_load.setImageResource(R.mipmap.ic_load_normal)
+        }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         player?.stop()

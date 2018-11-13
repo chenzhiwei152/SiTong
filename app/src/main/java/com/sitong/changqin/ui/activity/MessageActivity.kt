@@ -6,6 +6,7 @@ import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.toast
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.MessageContract
 import com.sitong.changqin.mvp.model.bean.GetRewardBean
 import com.sitong.changqin.mvp.model.bean.MessageListBean
@@ -13,7 +14,6 @@ import com.sitong.changqin.mvp.model.bean.ResultBean
 import com.sitong.changqin.mvp.persenter.MessagePresenter
 import com.sitong.changqin.ui.adapter.MessageListAdapter
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_message_list.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 

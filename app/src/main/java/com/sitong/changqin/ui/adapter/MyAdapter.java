@@ -7,13 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.github.huajianjiang.expandablerecyclerview.widget.ExpandableAdapter;
+import com.sevenstringedzithers.sitong.R;
 import com.sitong.changqin.view.expandable.model.MyChild;
 import com.sitong.changqin.view.expandable.model.MyParent;
 import com.sitong.changqin.view.expandable.viewholder.MyChildViewHolder;
 import com.sitong.changqin.view.expandable.viewholder.MyParentViewHolder;
-import com.stringedzithers.sitong.R;
 
 import java.util.List;
 

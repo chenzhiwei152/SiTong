@@ -15,10 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayoutManager;
+import com.sevenstringedzithers.sitong.R;
 import com.sitong.changqin.mvp.model.bean.MusicDetailBean;
 import com.sitong.changqin.view.dragselectrecyclerview.IDragSelectAdapter;
 import com.sitong.changqin.view.dragselectrecyclerview.RectangleView;
-import com.stringedzithers.sitong.R;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,6 +1,5 @@
 package com.sitong.changqin.ui.activity
 
-import android.content.pm.ActivityInfo
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -8,8 +7,8 @@ import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.MainActivity
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_menu.*
 
 /**

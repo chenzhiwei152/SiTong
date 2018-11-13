@@ -6,11 +6,11 @@ import android.view.View
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.base.Constants
 import com.sitong.changqin.mvp.contract.EditContract
 import com.sitong.changqin.mvp.model.bean.UserInfo
 import com.sitong.changqin.mvp.persenter.EditPresenter
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import org.greenrobot.eventbus.EventBus

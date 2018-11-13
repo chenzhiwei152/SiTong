@@ -9,7 +9,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.stringedzithers.sitong.R;
+import com.sevenstringedzithers.sitong.R;
 
 
 public class VerticalScaleView2 extends View {

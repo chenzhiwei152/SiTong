@@ -5,9 +5,9 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.sevenstringedzithers.sitong.R;
 import com.sitong.changqin.view.expandable.model.MyChild;
 import com.sitong.changqin.view.expandable.model.MyParent;
-import com.stringedzithers.sitong.R;
 
 import java.util.ArrayList;
 import java.util.List;

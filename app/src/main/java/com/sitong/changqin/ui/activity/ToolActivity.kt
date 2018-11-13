@@ -7,10 +7,10 @@ import android.widget.RadioGroup
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.ui.fragment.DelayFragment
 import com.sitong.changqin.ui.fragment.MetronomeFragment
 import com.sitong.changqin.ui.fragment.TunerFragment
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_tool.*
 
 /**

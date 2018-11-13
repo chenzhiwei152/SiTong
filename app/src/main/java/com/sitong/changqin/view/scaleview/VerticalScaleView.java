@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.VelocityTracker;
 import android.view.View;
 
-import com.stringedzithers.sitong.R;
+import com.sevenstringedzithers.sitong.R;
 
 import java.math.BigDecimal;
 

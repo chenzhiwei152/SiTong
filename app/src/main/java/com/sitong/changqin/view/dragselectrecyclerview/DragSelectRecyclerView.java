@@ -14,7 +14,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.stringedzithers.sitong.R;
+import com.sevenstringedzithers.sitong.R;
 
 
 /** @author Aidan Follestad (afollestad) */

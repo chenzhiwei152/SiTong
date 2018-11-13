@@ -11,6 +11,7 @@ import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.IndexContract
 import com.sitong.changqin.mvp.model.bean.MusicBean
 import com.sitong.changqin.mvp.persenter.IndexPresenter
@@ -27,7 +28,6 @@ import com.sitong.changqin.utils.CollectionUtils
 import com.sitong.changqin.utils.DownUtils.DownloadUtils
 import com.sitong.changqin.utils.DownUtils.JsDownloadListener
 import com.sitong.changqin.view.MusicDialog
-import com.stringedzithers.sitong.R
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*

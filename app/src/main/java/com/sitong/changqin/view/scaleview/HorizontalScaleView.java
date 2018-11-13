@@ -14,7 +14,7 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-import com.stringedzithers.sitong.R;
+import com.sevenstringedzithers.sitong.R;
 
 import java.math.BigDecimal;
 

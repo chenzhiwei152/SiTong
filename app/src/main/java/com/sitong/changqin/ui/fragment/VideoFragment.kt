@@ -4,11 +4,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.VideoListContract
 import com.sitong.changqin.mvp.model.bean.VideoListBean
 import com.sitong.changqin.mvp.persenter.VideoListPresenter
 import com.sitong.changqin.ui.adapter.VideoListAdapter
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.fragment_qin_hall.*
 
 /**

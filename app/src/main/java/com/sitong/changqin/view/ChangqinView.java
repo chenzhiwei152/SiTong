@@ -11,8 +11,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.LinearLayout;
 
+import com.sevenstringedzithers.sitong.R;
 import com.sitong.changqin.utils.ExtraUtils;
-import com.stringedzithers.sitong.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

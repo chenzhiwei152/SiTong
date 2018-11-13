@@ -13,7 +13,7 @@ import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.stringedzithers.sitong.R;
+import com.sevenstringedzithers.sitong.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

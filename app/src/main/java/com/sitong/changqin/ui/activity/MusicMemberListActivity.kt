@@ -5,23 +5,17 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.github.huajianjiang.expandablerecyclerview.widget.ExpandableAdapter
 import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.IndexContract
 import com.sitong.changqin.mvp.model.bean.MemberMusciChild
 import com.sitong.changqin.mvp.model.bean.MemberMusciParent
 import com.sitong.changqin.mvp.model.bean.MusicBean
 import com.sitong.changqin.mvp.persenter.IndexPresenter
 import com.sitong.changqin.ui.adapter.MemberMusicListAdapter
-import com.sitong.changqin.ui.adapter.MyAdapter
-import com.sitong.changqin.ui.adapter.viewholder.MemberMusicChildViewHolder
-import com.sitong.changqin.utils.AppUtil
 import com.sitong.changqin.utils.AppUtil.TYPE_CHILD
 import com.sitong.changqin.utils.AppUtil.TYPE_PARENT
-import com.sitong.changqin.view.expandable.model.MyParent
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_music_member.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 

@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.model.bean.ExerciseRecordBean
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
-import com.stringedzithers.sitong.R
 import kotlinx.android.synthetic.main.item_question.view.*
 
 /**

@@ -2,12 +2,11 @@ package com.sitong.changqin.view.expandable.viewholder;
 
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.github.huajianjiang.expandablerecyclerview.widget.ChildViewHolder;
+import com.sevenstringedzithers.sitong.R;
 import com.sitong.changqin.view.TextViewVertical;
 import com.sitong.changqin.view.expandable.model.MyChild;
-import com.stringedzithers.sitong.R;
 
 
 /**

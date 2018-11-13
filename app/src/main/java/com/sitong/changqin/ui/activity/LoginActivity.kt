@@ -1,8 +1,6 @@
 package com.sitong.changqin.ui.activity
 
 import android.content.Intent
-import android.os.Handler
-import android.os.Message
 import android.view.View
 import com.google.gson.JsonParser
 import com.jyall.bbzf.base.BaseActivity
@@ -10,6 +8,7 @@ import com.jyall.bbzf.base.BaseContext
 import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.R
 import com.sina.weibo.sdk.WbSdk
 import com.sina.weibo.sdk.auth.AuthInfo
 import com.sina.weibo.sdk.auth.Oauth2AccessToken
@@ -23,7 +22,6 @@ import com.sitong.changqin.mvp.model.bean.WeiXin
 import com.sitong.changqin.mvp.model.bean.WeiXinInfo
 import com.sitong.changqin.mvp.model.bean.WeiXinToken
 import com.sitong.changqin.mvp.persenter.LoginPresenter
-import com.stringedzithers.sitong.R
 import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory

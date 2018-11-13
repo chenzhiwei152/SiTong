@@ -13,6 +13,7 @@ import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.loadRoundImage
 import com.jyall.bbzf.extension.toast
 import com.jyall.bbzf.ui.adapter.MineInfoFragmentAdapter
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.base.Constants
 import com.sitong.changqin.base.Constants.Tag.RELOAD_USERINFO
 import com.sitong.changqin.mvp.contract.MineContract
@@ -21,7 +22,6 @@ import com.sitong.changqin.mvp.persenter.MinePresenter
 import com.sitong.changqin.ui.listerner.ProgressCallback
 import com.sitong.changqin.utils.UploadImageUtils
 import com.sitong.changqin.view.ImageDialog
-import com.stringedzithers.sitong.R
 import com.yanzhenjie.album.Album
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine.view.*

@@ -7,7 +7,7 @@ import android.view.View
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
-import com.stringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_music_info.*
 import kotlinx.android.synthetic.main.layout_play_title_fff.*
 

@@ -6,24 +6,27 @@ import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import com.stringedzithers.sitong.R
+import com.jyall.bbzf.extension.loadImage
+import com.sevenstringedzithers.sitong.R
+import com.sitong.changqin.ui.listerner.ProgressCallback
 import kotlinx.android.synthetic.main.dialog_load.*
 
 /**
+ * 下载
  * create by chen.zhiwei on 2018-8-15
  */
-class MusicDownloadDialog(context: Context?, leftTitle: String, rightTitle: String, title: String = "", enTitle: String, level: String, isCollection: Boolean = false) : Dialog(context) {
+class MusicDownloadDialog(context: Context?, leftTitle: String, rightTitle: String, size: String, imageurl: String) : Dialog(context) {
     var mContext: Context? = null
     var leftTitleListerner: View.OnClickListener? = null
     var rightTitleListerner: View.OnClickListener? = null
-    var collectionListerner: View.OnClickListener? = null
+    var seekListerner: ProgressCallback? = null
 
     init {
         this.mContext = context
-        init(leftTitle, rightTitle, enTitle)
+        init(leftTitle, rightTitle, size, imageurl)
     }
 
-    fun init(leftTitle: String, rightTitle: String, enTitle: String) {
+    fun init(leftTitle: String, rightTitle: String, size: String, imageurl: String) {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window!!.setBackgroundDrawableResource(android.R.color.transparent)
@@ -36,7 +39,20 @@ class MusicDownloadDialog(context: Context?, leftTitle: String, rightTitle: Stri
         window.attributes = wlp
         tv_left.text = leftTitle
         tv_right.text = rightTitle
-        tv_en_title.text = enTitle
+        tv_en_title.text = size
+        iv_image.loadImage(mContext!!,imageurl)
+        seekListerner = object : ProgressCallback {
+            override fun onProgressCallback(progress: Double) {
+                seekbar.progress = progress.toInt()
+            }
+
+            override fun onProgressFailed() {
+            }
+
+            override fun onProgressSuccess() {
+            }
+
+        }
         tv_left.setOnClickListener { v ->
             leftTitleListerner?.onClick(v)
             dismiss()
@@ -57,9 +73,8 @@ class MusicDownloadDialog(context: Context?, leftTitle: String, rightTitle: Stri
         return this
     }
 
-    fun setColletionListerner(lister: View.OnClickListener): MusicDownloadDialog {
-        this.collectionListerner = lister
-        return this
+    fun getSeekBarLister(): ProgressCallback {
+        return seekListerner!!
     }
 
 }

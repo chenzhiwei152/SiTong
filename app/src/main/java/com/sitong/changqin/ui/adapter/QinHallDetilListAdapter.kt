@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.model.bean.QinguanDetailBean
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
-import com.stringedzithers.sitong.R
 
 /**
  * create by chen.zhiwei on 2018-8-14
