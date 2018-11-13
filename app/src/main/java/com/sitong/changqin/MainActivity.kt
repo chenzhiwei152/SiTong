@@ -28,6 +28,7 @@ import com.sitong.changqin.utils.CollectionUtils
 import com.sitong.changqin.utils.DownUtils.DownloadUtils
 import com.sitong.changqin.utils.DownUtils.JsDownloadListener
 import com.sitong.changqin.view.MusicDialog
+import com.sitong.changqin.view.MusicPayDialog
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
@@ -103,10 +104,22 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
                 dia = MusicDialog(this@MainActivity, resources.getString(R.string.enjoy), resources.getString(R.string.begin_experience), bean.name, bean.enName, bean.level, bean.iscollection).setRightTitleListerner(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
+                        if (bean.isbuy){
+//                            需要付费的
+                            dia?.dismiss()
+                            var musicPayDialog=MusicPayDialog(this@MainActivity,"取消","购买",bean.name,bean.enName).setRightTitleListerner(object :View.OnClickListener{
+                                override fun onClick(p0: View?) {
+
+//                                    跳支付
+                                }
+
+                            })
+                            musicPayDialog.show()
+
+                        }
                         var bundle = Bundle()
                         bundle.putString("id", "" + bean.id)
                         jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
-//                        startLoad()
                     }
 
                 }).setLeftTitleListerner(object : View.OnClickListener {
