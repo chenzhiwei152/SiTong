@@ -54,7 +54,7 @@ class ToolActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseV
 //                        transaction.show( fragment1)
 //                        transaction.hide( fragment2)
 //                        transaction.hide( fragment3)
-                        transaction.replace(R.id.fl_container, TunerFragment())
+                        transaction.replace(R.id.fl_container, fragment1)
                         transaction.commit()
                     }
                     R.id.rb_metronome -> {
@@ -63,7 +63,7 @@ class ToolActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseV
 //                        transaction.show( fragment2)
 //                        transaction.hide( fragment1)
 //                        transaction.hide( fragment3)
-                        transaction.replace(R.id.fl_container, MetronomeFragment())
+                        transaction.replace(R.id.fl_container,fragment2)
                         transaction.commit()
                     }
                     R.id.rb_delay -> {
@@ -72,7 +72,7 @@ class ToolActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseV
 //                        transaction.show( fragment3)
 //                        transaction.hide( fragment2)
 //                        transaction.hide( fragment1)
-                        transaction.replace(R.id.fl_container, DelayFragment())
+                        transaction.replace(R.id.fl_container, fragment3)
                         transaction.commit()
                     }
 

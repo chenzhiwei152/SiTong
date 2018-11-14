@@ -15,10 +15,10 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="centerInside"
-            android:src="@mipmap/ic_menu_top" />
+            android:src="@mipmap/ic_top_play" />
     </LinearLayout>
 
     <LinearLayout

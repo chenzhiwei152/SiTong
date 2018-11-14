@@ -18,7 +18,7 @@ uploadArchives{
 }
 android {
     compileSdkVersion config.compileSdkVersion
-    buildToolsVersion config.buildToolsVersion
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion config.minSdkVersion

@@ -9,6 +9,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.jyall.android.common.utils.LogUtils;
 import com.sevenstringedzithers.sitong.R;
 
 
@@ -99,10 +100,11 @@ public class VerticalScaleView2 extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         //获取屏幕的宽度
-        maxWidth = getWidth();
+        maxWidth = getMeasuredWidth();
 
-        maxHeight = getHeight();
+        maxHeight = getMeasuredHeight();
 
+        LogUtils.e("VerticalScaleView2-------onMeasure"+maxWidth+"-----"+maxHeight);
         mRealWidth = maxWidth - getPaddingRight() - getPaddingLeft();
         mRealHeight = maxHeight - getPaddingTop() - getPaddingBottom();
 

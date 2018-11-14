@@ -94,9 +94,9 @@ public class VerticalScaleView1 extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         //获取屏幕的宽度
-        maxWidth = getWidth();
+        maxWidth = getMeasuredWidth();
 
-        maxHeight = getHeight();
+        maxHeight = getMeasuredHeight();
 
         mRealWidth = maxWidth - getPaddingRight() - getPaddingLeft();
         mRealHeight = maxHeight - getPaddingTop() - getPaddingBottom();
