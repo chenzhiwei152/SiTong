@@ -155,7 +155,7 @@ public class VerticalScaleView2 extends View {
                 RectF rectF=new RectF(getPaddingLeft()-60+(nums-1)*largeLineHeight*i+(nums-2)*mDividerLines*i, maxHeight / 2 + largeLineLength +20, getPaddingLeft()+150+(nums-1)*largeLineHeight*i+(nums-2)*mDividerLines*i, maxHeight / 2 + largeLineLength +distance+20);
                 canvas.drawRect(rectF, bgRect);
             }
-            canvas.drawText(currentValues[i],getPaddingLeft()-30+(nums-1)*largeLineHeight*i+(nums-2)*mDividerLines*i, maxHeight / 2 + largeLineLength +100, textPaint);
+            canvas.drawText(currentValues[i],getPaddingLeft()-30+(nums-1)*largeLineHeight*i+(nums-2)*mDividerLines*i-textPaint.measureText(currentValues[i])/2, maxHeight / 2 + largeLineLength +100, textPaint);
         }
 
 
