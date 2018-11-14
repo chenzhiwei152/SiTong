@@ -36,8 +36,12 @@ class IndexMusicAdapter(var context: Context, lists: ArrayList<MusicBean.Music>)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (list[position].levelcode==-1){
-            holder.viewLayout.iv_image.setImageResource(R.mipmap.ic_top_play)
+            holder.viewLayout.iv_image1.visibility=View.VISIBLE
+            holder.viewLayout.iv_image.visibility=View.GONE
+//            holder.viewLayout.iv_image1.setImageResource(R.mipmap.ic_top_play)
         }else{
+            holder.viewLayout.iv_image1.visibility=View.GONE
+            holder.viewLayout.iv_image.visibility=View.VISIBLE
             holder.viewLayout.iv_image.loadImage(context, list[position].icon)
         }
         holder.viewLayout.setOnClickListener{

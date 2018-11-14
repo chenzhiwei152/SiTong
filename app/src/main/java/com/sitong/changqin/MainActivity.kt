@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
 import com.jyall.android.common.utils.LogUtils
+import com.jyall.android.common.utils.SharedPrefUtil
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
@@ -33,7 +34,6 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.InputStream
-import java.util.*
 
 
 class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexContract.View {
@@ -52,13 +52,15 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         list.add(beanMusic)
         var beanOne = MusicBean("知琴", 1, list)
         musicList.add(0, beanOne)
-        mRVAdapter?.setData(musicList)
-        mRankRVAdapter?.setData(musicList)
         lists = musicList
         rv_rank.postDelayed({
             getValue()
 //            controlLetters(true)
         }, 3000)
+        mRVAdapter?.setData(musicList)
+        mRankRVAdapter?.setData(musicList)
+
+
 
 
     }
@@ -176,11 +178,9 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
     }
 
-    var mPosition = 1
+    var mPosition = 2
     fun controlLetters(flag: Boolean) {
         try {
-            //        var mKey = IntArray(2)
-//        rv_rank.findViewHolderForLayoutPosition(mPosition)?.itemView?.getLocationOnScreen(mKey)
 
 
             if (mKeys.size <= 0 || mKeys[0] <= 0) {
@@ -193,9 +193,12 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                 rv_list.findViewHolderForLayoutPosition(mPosition)?.itemView?.getLocationOnScreen(mValue)
                 if (mKeys[mPosition] >= mValue[1]) {
 //                mRVAdapter!!.setPosition(mPosition)
+//                    mRankRVAdapter!!.setPosition(mPosition)
                     var hol = rv_list.findViewHolderForLayoutPosition(mPosition)?.itemView?.findViewById<TextView>(R.id.tv_rank)
                     hol?.visibility = View.VISIBLE
-                    mRankRVAdapter!!.setPosition(mPosition)
+
+                    var rank = rv_rank.findViewHolderForLayoutPosition(mPosition)?.itemView?.findViewById<TextView>(R.id.tv_rank_tag)
+                    rank?.visibility = View.GONE
                     if (mPosition < lists.size - 1) {
                         mPosition++
 //                    LogUtils.e("++--mPosition:" + mPosition + "-----key:" + mKeys[mPosition] + "-----value:" + mValue[1])
@@ -213,10 +216,12 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                 var mValue = IntArray(2)
                 rv_list.findViewHolderForLayoutPosition(cache)?.itemView?.getLocationOnScreen(mValue)
                 if (mKeys[cache] <= mValue[1]) {
-                    mRankRVAdapter!!.setPosition(cache - 1)
-//                mRVAdapter!!.setPosition(cache - 1)
+//                    mRankRVAdapter!!.setPosition(cache - 1)
                     var hol = rv_list.findViewHolderForLayoutPosition(cache)?.itemView?.findViewById<TextView>(R.id.tv_rank)
                     hol?.visibility = View.INVISIBLE
+
+                    var rank = rv_rank.findViewHolderForLayoutPosition(cache)?.itemView?.findViewById<TextView>(R.id.tv_rank_tag)
+                    rank?.visibility = View.VISIBLE
                     mPosition = cache
 //                LogUtils.e("----mPosition:" + mPosition + "-----key:" + mKeys[mPosition] + "-----value:" + mValue[1])
                 }
@@ -228,20 +233,26 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
     }
 
     fun getValue() {
-//        mValues.clear()
-        mKeys.clear()
-        mRankRVAdapter?.list?.forEachIndexed { index, value ->
-            var startLocation = IntArray(2)
-            rv_rank.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
-            mKeys.add(startLocation[1])
-//            LogUtils.e("Stickysssssss:" + startLocation[0].toString() + "----" + startLocation[1].toString())
+        var mkeysNum=SharedPrefUtil.getInt(this,"mKeysNum",0)
+        if (SharedPrefUtil.getObj(this, "mKeys")!=null){
+            mKeys = SharedPrefUtil.getObj(this, "mKeys") as ArrayList<Int>
+            if (mKeys.size>0&&mKeys[0]<=0){
+                SharedPrefUtil.remove(this,"mKeys")
+            }
         }
-//        mRVAdapter?.list?.forEachIndexed { index, value ->
-//            var startLocation = IntArray(2)
-//            rv_list.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
-//            mValues.add(startLocation[1])
-////            LogUtils.e("Stickysssssss:" + startLocation[0].toString() + "----" + startLocation[1].toString())
-//        }
+        if (mKeys?.size <= 0||mkeysNum!=mRankRVAdapter?.list?.size) {
+            mRankRVAdapter?.list?.forEachIndexed { index, value ->
+                var startLocation = IntArray(2)
+                rv_rank.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
+                mKeys.add(startLocation[1])
+//            LogUtils.e("Stickysssssss:" + startLocation[0].toString() + "----" + startLocation[1].toString())
+            }
+            if (mKeys.size > 0&&mKeys[0] > 0) {
+                SharedPrefUtil.saveObj(this, "mKeys", mKeys)
+                SharedPrefUtil.saveInt(this,"mKeysNum",mKeys.size)
+            }
+        }
+        controlLetters(true)
     }
 
     override fun isRegistEventBus(): Boolean = false

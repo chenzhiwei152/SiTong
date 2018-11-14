@@ -45,11 +45,11 @@ class IndexRankAdapter(var context: Context) : RecyclerView.Adapter<IndexRankAda
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.viewLayout.tv_rank.text = list[position].levelName
+        holder.viewLayout.tv_rank_tag.text = list[position].levelName
         if (position <= posi) {
-            holder.viewLayout.tv_rank.visibility = View.GONE
+            holder.viewLayout.tv_rank_tag.visibility = View.INVISIBLE
         } else {
-            holder.viewLayout.tv_rank.visibility = View.VISIBLE
+            holder.viewLayout.tv_rank_tag.visibility = View.VISIBLE
         }
     }
 

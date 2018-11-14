@@ -4,8 +4,12 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/iv_image1"
+        android:layout_width="wrap_content"
+        android:src="@mipmap/ic_top_play"
+        android:layout_height="50dp" />
+    <ImageView
         android:id="@+id/iv_image"
-        android:scaleType="fitCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </android.support.constraint.ConstraintLayout>
