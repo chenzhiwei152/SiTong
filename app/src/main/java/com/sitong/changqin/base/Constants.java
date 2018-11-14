@@ -24,8 +24,8 @@ public class Constants {
     public static final String TAG_TABLE = "tag_table";
     public static String WECHAT_APPID="wxda6db2aec81d89af";
     public static String WECHAT_SECRET="8fed5a21d5e0022587ef8a6194c965be3";
-    public static String SINA_APP_ID="8fed5a21d5e0022587ef8a6194c965be3";
-    public static String WBAPP_KEY="8fed5a21d5e0022587ef8a6194c965be3";
+    public static String SINA_APP_ID="2302616735";
+    public static String WBAPP_KEY="aaf68edab767612aea24863b04db4074";
     public static String REDIRECT_URL="https://api.weibo.com/oauth2/default.html";
     public static String SCOPE="";
 

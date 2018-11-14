@@ -162,6 +162,9 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
         tv_message.setOnClickListener(this)
         ll_daily_punch.setOnClickListener(this)
         ll_exe_time.setOnClickListener(this)
+        iv_menu.setOnClickListener {
+            jump<MenuActivity>(isAnimation = false)
+        }
 
     }
 

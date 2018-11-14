@@ -83,9 +83,11 @@
 
                 <com.sitong.changqin.view.TextViewVertical
                     android:layout_width="0dp"
-                    android:layout_height="300dp"
+                    android:layout_height="400dp"
                     android:layout_weight="2"
                     app:v_start="right"
+                    app:v_textSize="@dimen/album_sp_14"
+                    app:v_textColor="@color/color_20232b"
                     app:v_text="年少时乐器店的一次偶遇，古琴便成了小小少年的念想；青年时代古琴成为了一种向往；机缘巧合下和古琴正式结缘，从此开始了古琴学习的漫漫长路。在古琴学习的过程中，偶遇练琴时的问题，比如记谱慢、节奏把握不好、厚厚的教材携带不便等，同时了解到全国各地学习古琴的同学们苦于当地找不到老师等问题，从此萌发了想做一款有关古琴练习的手机 ，用来方便琴友们练琴和学习，这就是丝桐古琴app的由来。" />
             </LinearLayout>
 

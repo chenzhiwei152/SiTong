@@ -1,5 +1,7 @@
 package com.sitong.changqin.ui.activity
 
+import android.app.Service
+import android.media.AudioManager
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -39,6 +41,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     private var du: Long? = null
     private var isLoaded = false
     private var isLoading = false
+    private var isSlience: Boolean = false
     var mLoadDialog: MusicDownloadDialog? = null
     private var pointList: ArrayList<QinViewPointBean>? = null
     private var mMoveMap: HashMap<Int, Float> = hashMapOf()//在线上动态显示的点
@@ -83,9 +86,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
                             override fun onProgressSuccess() {
 //                                dismissLoading()
-                                runOnUiThread { toast_msg(
-                                        "下载完成")
-                                    mLoadDialog?.dismiss()}
+                                runOnUiThread {
+                                    toast_msg(
+                                            "下载完成")
+                                    mLoadDialog?.dismiss()
+                                }
 
 
                                 isLoading = false
@@ -99,6 +104,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             }
             R.id.iv_tool -> {
                 jump<ToolActivity>(isAnimation = false)
+            }
+            R.id.iv_voice -> {
+                isSlience = !isSlience
+                setVolume(isSlience)
+                setButtonState()
             }
         }
     }
@@ -139,6 +149,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun getLayoutId(): Int = R.layout.activity_music_play
 
     override fun initViewsAndEvents() {
+        if (getVolum()){
+            isSlience=true
+        }
+
         var bundle = intent.extras
         if (bundle != null) {
             id = bundle.getString("id")
@@ -146,6 +160,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         iv_play.setOnClickListener(this)
         iv_tool.setOnClickListener(this)
         iv_load.setOnClickListener(this)
+        iv_voice.setOnClickListener(this)
         pointList = arrayListOf()
 
         var map: HashMap<String, String>? = null
@@ -185,6 +200,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun getPresenter(): MusicPlayPresenter = MusicPlayPresenter()
 
     private fun init() {
+        setButtonState()
         val layoutManager = FlexboxLayoutManager(this)
         layoutManager.flexDirection = FlexDirection.ROW
         layoutManager.flexWrap = FlexWrap.WRAP
@@ -222,7 +238,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             }
         })
     }
-
+/*检查文件本地是否有*/
     private fun chenckIsLoaded(url: String): Boolean {
         isLoaded = DownLoadFilesUtils.getInstance(this)!!.isExist(FilesUtils.getFileName(url))
         setButtonState()
@@ -297,7 +313,6 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     }
                 })
                 player?.setRate(rate)
-
                 Thread(player).start()
                 player?.start()
                 setButtonState()
@@ -306,11 +321,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             } else {
                 if (player!!.isPaused()) {
                     player?.start()
-                    setButtonState()
                 } else {
                     player!!.pause()
-                    setButtonState()
                 }
+                setButtonState()
             }
 //                    var du=player?.playedDuration!!.toFloat()/1000
             du = ExtraUtils.getMP3FileInfo(f?.absolutePath!!) / 1000
@@ -321,7 +335,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
     }
-
+/*获取琴上面的点*/
     private fun getPoints(currenttime: Float) {
         mMoveMap.clear()
         pointList?.forEachIndexed { index, qinViewPointBean ->
@@ -359,6 +373,24 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         } else {
             iv_load.setImageResource(R.mipmap.ic_load_normal)
         }
+        if (isSlience){
+            iv_voice.setImageResource(R.mipmap.ic_voice_closed)
+        }else{
+            iv_voice.setImageResource(R.mipmap.ic_voice)
+        }
+    }
+
+    /*设置是否静音*/
+    fun setVolume(isSlience: Boolean) {
+        val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
+        audioManager.setStreamMute(AudioManager.STREAM_MUSIC, isSlience)
+    }
+
+    /*获取是否是静音*/
+    fun getVolum(): Boolean {
+        val audioManager = getSystemService(Service.AUDIO_SERVICE) as AudioManager
+        var current = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+        return current <= 0
     }
 
     override fun onDestroy() {

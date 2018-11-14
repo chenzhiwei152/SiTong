@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.jyall.multiplestatusview.EmptyLayout
+import com.sitong.changqin.utils.ActivityStackManager
 import com.sitong.changqin.utils.EmptyLayoutEnum
 import com.sitong.changqin.utils.StatusBarUtil
 import com.sitong.changqin.view.CustomProgressDialog
@@ -33,7 +34,7 @@ abstract class BaseActivity<T : IBaseView, K : BasePresenter<T>> : AppCompatActi
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
         mPresenter = getPresenter()
-
+        ActivityStackManager.getInstance().addActivity(this)
 
         mPresenter?.attachView(getRootView())
         if (isRegistEventBus()) EventBus.getDefault().register(this)
@@ -185,6 +186,7 @@ abstract class BaseActivity<T : IBaseView, K : BasePresenter<T>> : AppCompatActi
         super.onDestroy()
         mPresenter?.detachView()
         if (isRegistEventBus()) EventBus.getDefault().unregister(this)
+        ActivityStackManager.getInstance().removeActivity(this)
     }
 
 

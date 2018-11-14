@@ -20,6 +20,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <application
         android:name="com.jyall.bbzf.base.BaseContext"
@@ -80,9 +81,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sitong.changqin.ui.activity.MineActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sitong.changqin.ui.activity.MusicSearchActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sitong.changqin.ui.activity.VideoPlayActivity"
@@ -92,6 +95,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sitong.changqin.ui.activity.AboutActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sitong.changqin.ui.activity.EditActivity"

@@ -25,14 +25,20 @@ class MenuActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseV
             R.id.iv_search -> {
                 jump<MusicSearchActivity>(isAnimation = false)
                 back()
+//                ActivityStackManager.getInstance().finishActivity(MineActivity::class.java)
+//                ActivityStackManager.getInstance().finishActivity(AboutActivity::class.java)
             }
             R.id.iv_me -> {
                 jump<MineActivity>(isAnimation = false)
                 back()
+//                ActivityStackManager.getInstance().finishActivity(MusicSearchActivity::class.java)
+//                ActivityStackManager.getInstance().finishActivity(AboutActivity::class.java)
             }
             R.id.iv_story -> {
                 jump<AboutActivity>(isAnimation = false)
                 back()
+//                ActivityStackManager.getInstance().finishActivity(MineActivity::class.java)
+//                ActivityStackManager.getInstance().finishActivity(MusicSearchActivity::class.java)
             }
         }
     }
