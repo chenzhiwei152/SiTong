@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/dp_20"
-    android:paddingTop="@dimen/dp_30">
+    android:paddingTop="@dimen/dp_30"
+    android:paddingBottom="@dimen/dp_20">
 
-    <ImageView
+    <com.sitong.changqin.view.scaleview.VerticalScaleView3
         android:id="@+id/iv_points"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/selector_metronome_play" />
+        android:layout_height="50dp"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20" />
 
     <LinearLayout
         android:id="@+id/ll_con"
@@ -25,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_40"
-            android:layout_marginTop="@dimen/dp_40"
             android:layout_weight="1"
             app:spv_center_item_position="2"
             app:spv_disallow_intercept_touch="true"
@@ -41,8 +42,8 @@
         <View
             android:layout_width="1dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_40"
             android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_40"
             android:background="@color/color_000000" />
 
 
@@ -50,10 +51,10 @@
             android:id="@+id/picker_02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_40"
             android:layout_marginLeft="@dimen/dp_20"
-            android:layout_marginRight="@dimen/dp_40"
             android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_40"
             android:layout_weight="1"
             app:spv_alignment="right"
             app:spv_center_item_position="2"

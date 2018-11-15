@@ -39,39 +39,24 @@ class ToolActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseV
         fragment1 = TunerFragment()
         fragment2 = MetronomeFragment()
         fragment3 = DelayFragment()
-//        val fm = supportFragmentManager
-//        val transaction = fm.beginTransaction()
-//        transaction.add(R.id.fl_container, fragment1)
-//        transaction.add(R.id.fl_container, fragment2)
-//        transaction.add(R.id.fl_container, fragment3)
-//        transaction.commit()
         rg_group.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
             override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
                 when (checkedId) {
                     R.id.rb_tuner -> {
                         val fm = supportFragmentManager
                         val transaction = fm.beginTransaction()
-//                        transaction.show( fragment1)
-//                        transaction.hide( fragment2)
-//                        transaction.hide( fragment3)
                         transaction.replace(R.id.fl_container, fragment1)
                         transaction.commit()
                     }
                     R.id.rb_metronome -> {
                         val fm = supportFragmentManager
                         val transaction = fm.beginTransaction()
-//                        transaction.show( fragment2)
-//                        transaction.hide( fragment1)
-//                        transaction.hide( fragment3)
                         transaction.replace(R.id.fl_container,fragment2)
                         transaction.commit()
                     }
                     R.id.rb_delay -> {
                         val fm = supportFragmentManager
                         val transaction = fm.beginTransaction()
-//                        transaction.show( fragment3)
-//                        transaction.hide( fragment2)
-//                        transaction.hide( fragment1)
                         transaction.replace(R.id.fl_container, fragment3)
                         transaction.commit()
                     }

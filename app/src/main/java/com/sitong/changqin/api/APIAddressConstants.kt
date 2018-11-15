@@ -25,7 +25,7 @@ object APIAddressConstants {
     /*
         * 版本升级
         * */
-    const val CHECK_VERSION = "$USER_API/basic/getAppVersion.do"
+    const val CHECK_VERSION = "/system/isforceupdate/"
 
     /*---------------------------------------------登录注册相关start-------------------------*/
     /**

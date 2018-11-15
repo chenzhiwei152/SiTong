@@ -5,6 +5,8 @@ import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.sevenstringedzithers.sitong.R
+import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
+import kotlinx.android.synthetic.main.fragment_delay.*
 
 /**
  * 延音
@@ -21,6 +23,13 @@ class DelayFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
     override fun getRootView(): IBaseView = this
 
     override fun initViewsAndEvents() {
+        ver_line.onclick = object : RVAdapterItemOnClick {
+            override fun onItemClicked(data: Any) {
+                var rate = data as String
+                tv_rate.text = rate
+            }
+
+        }
 
     }
 

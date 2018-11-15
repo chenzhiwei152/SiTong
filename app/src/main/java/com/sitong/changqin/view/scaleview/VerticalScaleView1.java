@@ -85,7 +85,7 @@ public class VerticalScaleView1 extends View {
 
 
         textPaint=new TextPaint();
-        textPaint.setTextSize(80);
+        textPaint.setTextSize(60);
         textPaint.setColor(getResources().getColor(R.color.color_d0a670));
 
     }

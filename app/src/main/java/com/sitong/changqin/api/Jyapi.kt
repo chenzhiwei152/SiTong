@@ -48,8 +48,8 @@ interface Jyapi {
     /**
      *  版本升级
      */
-//    @GET(APIAddressConstants.CHECK_VERSION)
-//    fun checkVersion(@Query("updateType") updateType: String): Observable<Response<BaseBean<AppVersionBean>>>
+    @GET(APIAddressConstants.CHECK_VERSION)
+    fun checkVersion(): Observable<Response<BaseBean<AppVersionBean>>>
 
     //    上传图片
 //    @Multipart

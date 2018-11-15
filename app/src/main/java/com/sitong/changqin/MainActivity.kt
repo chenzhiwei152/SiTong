@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.SharedPrefUtil
+import com.jyall.app.home.utils.ApkUpdateManager
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
@@ -53,16 +54,13 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         var beanOne = MusicBean("知琴", 1, list)
         musicList.add(0, beanOne)
         lists = musicList
+
+        mRVAdapter?.setData(musicList)
+        mRankRVAdapter?.setData(musicList)
         rv_rank.postDelayed({
             getValue()
 //            controlLetters(true)
-        }, 3000)
-        mRVAdapter?.setData(musicList)
-        mRankRVAdapter?.setData(musicList)
-
-
-
-
+        }, 500)
     }
 
     override fun getPresenter(): IndexPresenter = IndexPresenter()
@@ -175,7 +173,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
             }
 
         })
-
+        ApkUpdateManager.instance.checkVersion(this, false)
     }
 
     var mPosition = 2
@@ -233,23 +231,23 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
     }
 
     fun getValue() {
-        var mkeysNum=SharedPrefUtil.getInt(this,"mKeysNum",0)
-        if (SharedPrefUtil.getObj(this, "mKeys")!=null){
+        var mkeysNum = SharedPrefUtil.getInt(this, "mKeysNum", 0)
+        if (SharedPrefUtil.getObj(this, "mKeys") != null) {
             mKeys = SharedPrefUtil.getObj(this, "mKeys") as ArrayList<Int>
-            if (mKeys.size>0&&mKeys[0]<=0){
-                SharedPrefUtil.remove(this,"mKeys")
+            if (mKeys.size > 0 && mKeys[0] <= 0) {
+                SharedPrefUtil.remove(this, "mKeys")
             }
         }
-        if (mKeys?.size <= 0||mkeysNum!=mRankRVAdapter?.list?.size) {
+        if (mKeys?.size <= 0 || mkeysNum != mRankRVAdapter?.list?.size) {
             mRankRVAdapter?.list?.forEachIndexed { index, value ->
                 var startLocation = IntArray(2)
                 rv_rank.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
                 mKeys.add(startLocation[1])
 //            LogUtils.e("Stickysssssss:" + startLocation[0].toString() + "----" + startLocation[1].toString())
             }
-            if (mKeys.size > 0&&mKeys[0] > 0) {
+            if (mKeys.size > 0 && mKeys[0] > 0) {
                 SharedPrefUtil.saveObj(this, "mKeys", mKeys)
-                SharedPrefUtil.saveInt(this,"mKeysNum",mKeys.size)
+                SharedPrefUtil.saveInt(this, "mKeysNum", mKeys.size)
             }
         }
         controlLetters(true)
