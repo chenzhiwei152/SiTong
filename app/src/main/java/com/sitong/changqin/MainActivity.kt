@@ -92,7 +92,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         rv_list.adapter = mRVAdapter
         mRVAdapter!!.setListerner(object : RVAdapterItemOnClick {
             override fun onItemClicked(data: Any) {
-                var bean = data as MusicBean.Music.Music
+                var bean = data as MusicBean.Music
                 if (bean.levelcode == -1) {
                     jump<KnowledgeActivity>()
                     return

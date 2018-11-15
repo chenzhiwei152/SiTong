@@ -22,6 +22,9 @@ class TunerFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
     override fun lazyLoad() {
     }
 
+    private var currentValue: Float = 0.toFloat()
+    private var minValue: Float = 0.toFloat()
+    private var maxValue: Float = 0.toFloat()
     override fun getPresenter(): BasePresenter<IBaseView> = BasePresenter()
     override fun getRootView(): IBaseView = this
 
@@ -36,11 +39,18 @@ class TunerFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
         val pdh = PitchDetectionHandler { result, e ->
             val pitchInHz = result.pitch
 //            runOnUiThread(Runnable { tv_pinlv.setText("" + pitchInHz) })
+            activity?.runOnUiThread {
+                ver_line.setValue(pitchInHz - 100, pitchInHz + 100, pitchInHz)
+            }
         }
         val p = PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050f, 1024, pdh)
         dispatcher.addAudioProcessor(p)
-        mThread = Thread(dispatcher, "Audio Dispatcher")
-//        mThread?.start()
+        try {
+            mThread = Thread(dispatcher, "Audio Dispatcher")
+            mThread?.start()
+        }catch (e:java.lang.Exception){
+        }
+
 
     }
 
@@ -52,6 +62,19 @@ class TunerFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
         fun newInstance(): TunerFragment {
             return TunerFragment()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        try {
+            mThread?.interrupt()
+        } catch (e: Exception) {
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        mThread?.resume()
     }
 
     override fun onDestroy() {

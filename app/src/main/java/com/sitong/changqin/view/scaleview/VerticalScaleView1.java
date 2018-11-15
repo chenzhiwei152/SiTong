@@ -26,7 +26,7 @@ public class VerticalScaleView1 extends View {
     private int currentLineLength = 140;
     private int currentLineHeight = 2;
 
-    private int middleLineLength=100;//中间线的长度
+    private int middleLineLength = 100;//中间线的长度
 
 
     private Paint mLinesPaint;//刻度线画笔
@@ -41,8 +41,11 @@ public class VerticalScaleView1 extends View {
     private int mRealHeight;
 
     private static int mDividerLines = 5;//分割线之间的间距
-
-    private String currentValue="440";
+    private String value = "440";
+    private float currentValue;
+    private float percentValue=0.5f;
+    private float minValue;
+    private float maxValue;
 
 
     public VerticalScaleView1(Context context) {
@@ -84,7 +87,7 @@ public class VerticalScaleView1 extends View {
         mMiddleLinesPaint.setColor(getResources().getColor(R.color.colorAccent));
 
 
-        textPaint=new TextPaint();
+        textPaint = new TextPaint();
         textPaint.setTextSize(60);
         textPaint.setColor(getResources().getColor(R.color.color_d0a670));
 
@@ -123,12 +126,41 @@ public class VerticalScaleView1 extends View {
         canvas.drawLine(maxWidth / 2 - largeLineLength / 2, getPaddingTop() + largeLineHeight * nums * percentNum + mDividerLines * nums * (percentNum),
                 maxWidth / 2 + largeLineLength / 2, getPaddingTop() + largeLineHeight * nums * percentNum + mDividerLines * nums * percentNum, mLinesPaint);
 //绘制单位hz
-        canvas.drawText("Hz",maxWidth / 2 + largeLineLength / 2+40, getPaddingTop()+26, textPaint);
+        canvas.drawText("Hz", maxWidth / 2 + largeLineLength / 2 + 40, getPaddingTop() + 26, textPaint);
 //绘制中间线
-        canvas.drawLine(maxWidth / 2 - middleLineLength / 2, getPaddingTop() + largeLineHeight * nums * percentNum/2 + mDividerLines * nums * (percentNum)/2,
-                maxWidth / 2 + middleLineLength / 2, getPaddingTop() + largeLineHeight * nums * percentNum /2+ mDividerLines * nums * percentNum/2, mMiddleLinesPaint);
+        canvas.drawLine(maxWidth / 2 - middleLineLength / 2, ((getPaddingTop() + largeLineHeight * nums * percentNum+ mDividerLines * nums * (percentNum) )-(getPaddingTop())) * percentValue+getPaddingTop(),
+                maxWidth / 2 + middleLineLength / 2, ((getPaddingTop() + largeLineHeight * nums * percentNum + mDividerLines * nums * percentNum)-(getPaddingTop())) * percentValue+getPaddingTop(), mMiddleLinesPaint);
 //绘制中间位置的hz数值
-        canvas.drawText(currentValue,maxWidth / 2 + largeLineLength / 2+40, getPaddingTop()+ largeLineHeight * nums * percentNum /2+mDividerLines  * nums * percentNum /2+26, textPaint);
+        canvas.drawText(value, maxWidth / 2 + largeLineLength / 2 + 40, getPaddingTop() + largeLineHeight * nums * percentNum / 2 + mDividerLines * nums * percentNum / 2 + 26, textPaint);
 
+    }
+
+
+    public void setCurrentValue(float currentValue) {
+        this.currentValue = currentValue;
+    }
+
+    public void setMinValue(float minValue) {
+        this.minValue = minValue;
+        calu();
+        invalidate();
+    }
+
+    public void setMaxValue(float maxValue) {
+        this.maxValue = maxValue;
+        calu();
+        invalidate();
+    }
+
+    public void setValue(float min, float max, float current) {
+        this.currentValue = current;
+        this.minValue = min;
+        this.maxValue = max;
+        calu();
+        invalidate();
+    }
+
+    private void calu() {
+        percentValue = currentValue/(maxValue - minValue);
     }
 }

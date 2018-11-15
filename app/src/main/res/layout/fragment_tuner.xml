@@ -31,6 +31,7 @@
 
     <com.sitong.changqin.view.scaleview.VerticalScaleView1
         android:layout_width="120dp"
+        android:id="@+id/ver_line"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/dp_20"
         android:paddingTop="@dimen/dp_20" />
