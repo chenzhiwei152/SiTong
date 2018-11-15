@@ -6,6 +6,7 @@ import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
+import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.SharedPrefUtil
 import com.jyall.app.home.utils.ApkUpdateManager
 import com.jyall.bbzf.base.BaseActivity
@@ -166,16 +167,15 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         ApkUpdateManager.instance.checkVersion(this, false)
     }
 
-    var mPosition = 2
+    var mPosition = 1
     fun controlLetters(flag: Boolean) {
         try {
-
-
             if (mKeys.size <= 0 || mKeys[0] <= 0) {
                 getValue()
                 return
             }
             if (flag) {
+                LogUtils.e("AAAAAAAAA上滑:mPosition----"+mPosition)
                 //上滑
                 var mValue = IntArray(2)
                 rv_list.findViewHolderForLayoutPosition(mPosition)?.itemView?.getLocationOnScreen(mValue)
@@ -186,15 +186,17 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                     hol?.visibility = View.VISIBLE
 
                     var rank = rv_rank.findViewHolderForLayoutPosition(mPosition)?.itemView?.findViewById<TextView>(R.id.tv_rank_tag)
-                    rank?.visibility = View.GONE
-                    if (mPosition < lists.size - 1) {
-                        mPosition++
+                    rank?.visibility = View.INVISIBLE
+                    mPosition++
+                    if (mPosition >= lists.size ) {
+//                        mPosition=lists.size-1
 //                    LogUtils.e("++--mPosition:" + mPosition + "-----key:" + mKeys[mPosition] + "-----value:" + mValue[1])
                     }
                 }
 
             } else {
 //下滑
+                LogUtils.e("AAAAAAAAA下滑:mPosition----"+mPosition)
                 var cache = 0
                 if (mPosition > 0) {
                     cache = mPosition - 1
