@@ -26,7 +26,7 @@ class SplashActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>() {
 
     override fun initViewsAndEvents() {
         if (JsPermissionUtils.needRequestPermission()) {
-            JsPermissionUtils.getInstance().requestPermission(this, 100, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            JsPermissionUtils.getInstance().requestPermission(this, 100, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
         }
 //        val decorView = window.decorView
 //        val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
