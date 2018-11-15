@@ -53,4 +53,13 @@ class TunerFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
             return TunerFragment()
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            mThread?.stop()
+        } catch (e: Exception) {
+        }
+
+    }
 }
