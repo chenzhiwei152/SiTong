@@ -7,7 +7,6 @@ import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
-import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.SharedPrefUtil
 import com.jyall.app.home.utils.ApkUpdateManager
 import com.jyall.bbzf.base.BaseActivity
@@ -44,7 +43,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
     override fun getDataSuccess(musicList: ArrayList<MusicBean>) {
 //        toast_msg("" + musicList?.size)
-        var beanMusic = MusicBean.Music(-1, false, "zhiqin", "知琴", false, "知琴", 1, 1, "",false,"", arrayListOf())
+        var beanMusic = MusicBean.Music(-1, false, "zhiqin", "知琴", false, "知琴", 1, 1, "", false, "", arrayListOf())
         var list = arrayListOf<MusicBean.Music>()
         list.add(beanMusic)
 //        var bb=MusicBean.Music("",list)
@@ -147,6 +146,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                                 dia?.setCollection(bean.iscollection)
                                 toast_msg(result!!)
                             }
+
                             override fun onsFailed(reason: String?) {
                                 toast_msg(reason!!)
                             }
@@ -169,6 +169,13 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
             }
 
         })
+        appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
+            override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+                    controlLetters(true)
+                    controlLetters(false)
+            }
+
+        })
         ApkUpdateManager.instance.checkVersion(this, false)
     }
 
@@ -180,7 +187,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                 return
             }
             if (flag) {
-                LogUtils.e("AAAAAAAAA上滑:mPosition----"+mPosition)
+//                LogUtils.e("AAAAAAAAA上滑:mPosition----" + mPosition)
                 //上滑
                 var mValue = IntArray(2)
                 rv_list.findViewHolderForLayoutPosition(mPosition)?.itemView?.getLocationOnScreen(mValue)
@@ -193,7 +200,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                     var rank = rv_rank.findViewHolderForLayoutPosition(mPosition)?.itemView?.findViewById<TextView>(R.id.tv_rank_tag)
                     rank?.visibility = View.INVISIBLE
                     mPosition++
-                    if (mPosition >= lists.size ) {
+                    if (mPosition >= lists.size) {
 //                        mPosition=lists.size-1
 //                    LogUtils.e("++--mPosition:" + mPosition + "-----key:" + mKeys[mPosition] + "-----value:" + mValue[1])
                     }
@@ -201,7 +208,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
             } else {
 //下滑
-                LogUtils.e("AAAAAAAAA下滑:mPosition----"+mPosition)
+//                LogUtils.e("AAAAAAAAA下滑:mPosition----" + mPosition)
                 var cache = 0
                 if (mPosition > 0) {
                     cache = mPosition - 1

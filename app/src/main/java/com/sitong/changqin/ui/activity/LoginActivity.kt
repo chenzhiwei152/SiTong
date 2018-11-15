@@ -30,6 +30,7 @@ import com.tencent.tauth.Tencent
 import com.tencent.tauth.UiError
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.*
+import org.greenrobot.eventbus.EventBus
 import java.io.IOException
 import kotlin.concurrent.thread
 
@@ -121,6 +122,7 @@ class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginC
     override fun loginSuccess(user: UserInfo) {
         BaseContext.instance.setUserInfo(user)
         jump<MainActivity>()
+        EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.LOGIN_SUCCESS))
         finish()
     }
 

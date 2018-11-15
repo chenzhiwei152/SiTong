@@ -32,7 +32,7 @@ public class Constants {
 
     public static class Tag {
         //请自增往下写
-        public static final int REGIST_SUCCESS = 0x21;//注册成功
+        public static final int LOGIN_SUCCESS = 0x21;//登录成功
         public static final int CHANGE_PASSWORD_SUCCESS = 0x22;//修改密码成功
         public static final int UPDATE_USER_INFO = 0x23;//获取用户信息成功
         public static final int RELOAD_USERINFO = 0x24;//重新获取用户信息

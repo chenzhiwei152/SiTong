@@ -7,9 +7,11 @@ import android.widget.LinearLayout
 import com.jyall.android.common.utils.SysUtils
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
+import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.sevenstringedzithers.sitong.R
+import com.sitong.changqin.base.Constants
 import kotlinx.android.synthetic.main.activity_login_or_register.*
 
 
@@ -33,7 +35,15 @@ class LoginOrRegisterActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>
         }
     }
 
-    override fun isRegistEventBus(): Boolean = false
+    override fun isRegistEventBus(): Boolean = true
+    override fun onMessageEvent(eventBusCenter: EventBusCenter<Object>) {
+        super.onMessageEvent(eventBusCenter)
+        if (eventBusCenter != null) {
+            if (eventBusCenter.evenCode == Constants.Tag.LOGIN_SUCCESS) {
+                finish()
+            }
+        }
+    }
 
     override fun isNeedLec(): View? = null
     fun translate() {
@@ -43,7 +53,7 @@ class LoginOrRegisterActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>
         ll_right.startAnimation(translateAnimation2)
         ll_left.animation = translateAnimation2
         ll_left.startAnimation(translateAnimation2)
-        iv_spl.animation=translateAnimation1
+        iv_spl.animation = translateAnimation1
         iv_spl.startAnimation(translateAnimation1)
         translateAnimation2.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationRepeat(p0: Animation?) {
@@ -54,7 +64,7 @@ class LoginOrRegisterActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>
                 var width = 0
 
                 val params1 = ll_left.getLayoutParams() as LinearLayout.LayoutParams
-                width = ((-SysUtils.getDefaultScreenWidth(this@LoginOrRegisterActivity)*0.23).toInt())
+                width = ((-SysUtils.getDefaultScreenWidth(this@LoginOrRegisterActivity) * 0.23).toInt())
                 params1.rightMargin = -width
                 ll_left.layoutParams = params1
                 ll_left.clearAnimation()
@@ -69,7 +79,7 @@ class LoginOrRegisterActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>
             }
 
         })
-        translateAnimation1.setAnimationListener(object :Animation.AnimationListener{
+        translateAnimation1.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationRepeat(p0: Animation?) {
             }
 
