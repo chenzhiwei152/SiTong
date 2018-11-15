@@ -1,13 +1,11 @@
 package com.sitong.changqin
 
 import android.os.Bundle
-import android.os.Environment
 import android.support.design.widget.AppBarLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
-import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.SharedPrefUtil
 import com.jyall.app.home.utils.ApkUpdateManager
 import com.jyall.bbzf.base.BaseActivity
@@ -27,14 +25,9 @@ import com.sitong.changqin.ui.listerner.AppBarStateChangeListener
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
 import com.sitong.changqin.ui.listerner.ResultCallback
 import com.sitong.changqin.utils.CollectionUtils
-import com.sitong.changqin.utils.DownUtils.DownloadUtils
-import com.sitong.changqin.utils.DownUtils.JsDownloadListener
 import com.sitong.changqin.view.MusicDialog
 import com.sitong.changqin.view.MusicPayDialog
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.InputStream
 
 
 class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexContract.View {
@@ -48,9 +41,12 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
     override fun getDataSuccess(musicList: ArrayList<MusicBean>) {
 //        toast_msg("" + musicList?.size)
-        var beanMusic = MusicBean.Music(-1, false, "zhiqin", "知琴", false, "知琴", 1, 1, "")
+        var beanMusic = MusicBean.Music(-1, false, "zhiqin", "知琴", false, "知琴", 1, 1, "",false,"", arrayListOf())
         var list = arrayListOf<MusicBean.Music>()
         list.add(beanMusic)
+//        var bb=MusicBean.Music("",list)
+//        var list1=arrayListOf<MusicBean.Music>()
+//        list1.add(bb)
         var beanOne = MusicBean("知琴", 1, list)
         musicList.add(0, beanOne)
         lists = musicList
@@ -95,7 +91,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         rv_list.adapter = mRVAdapter
         mRVAdapter!!.setListerner(object : RVAdapterItemOnClick {
             override fun onItemClicked(data: Any) {
-                var bean = data as MusicBean.Music
+                var bean = data as MusicBean.Music.Music
                 if (bean.levelcode == -1) {
                     jump<KnowledgeActivity>()
                     return
@@ -145,17 +141,13 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                                 dia?.setCollection(bean.iscollection)
                                 toast_msg(result!!)
                             }
-
                             override fun onsFailed(reason: String?) {
                                 toast_msg(reason!!)
                             }
-
                         })
                     }
-
                 })
                 dia?.show()
-
             }
 
         })
@@ -164,8 +156,6 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         rv_rank.adapter = mRankRVAdapter
 
         mPresenter?.getMusicList("1")
-
-
 
         stick_scroll.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
             override fun onScrollChange(v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
@@ -259,46 +249,5 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
     override fun toast_msg(msg: String) {
         toast(msg)
-    }
-
-    private fun startLoad() {
-        val listener = object : JsDownloadListener {
-            override fun onStartDownload() {
-                toast_msg("开始下载")
-            }
-
-            override fun onProgress(progress: Int) {
-                LogUtils.e("--------下载进度：" + progress);
-            }
-
-            override fun onFinishDownload() {
-                LogUtils.e("--------下载完成：");
-            }
-
-            override fun onFail(errorInfo: String?) {
-                LogUtils.e("--------下载失败：" + errorInfo);
-            }
-        }
-
-        var base = "http://stsystem.oss-cn-beijing.aliyuncs.com"
-        val downloadUtils = DownloadUtils(base, listener)
-        var url = "/music/xianwengcao.mp3"
-        var observab = object : Observer<InputStream> {
-            override fun onComplete() {
-            }
-
-            override fun onSubscribe(d: Disposable?) {
-            }
-
-            override fun onNext(value: InputStream?) {
-                listener.onFinishDownload()
-            }
-
-            override fun onError(e: Throwable?) {
-                listener.onFail(e.toString())
-            }
-        }
-        downloadUtils.download(url, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath + "a.mp3", observab)
-
     }
 }

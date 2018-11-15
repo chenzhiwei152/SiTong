@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_ffffff"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dp_30">
+
+    <LinearLayout
+        android:id="@+id/ll_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:background="@color/color_ffffff"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:tag="sticky">
+
+        <View
+            android:id="@+id/vv_divider"
+            style="@style/divider_d0a670_1" />
+
+        <TextView
+            android:id="@+id/tv_rank"
+            style="@style/textStyle_d0a670_12"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/bg_d0a670_round_stroke"
+            android:gravity="center"
+            android:text="C" />
+
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_music_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginBottom="@dimen/dp_5" />
+</LinearLayout>

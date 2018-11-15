@@ -36,11 +36,13 @@ class MusicMemberListActivity : BaseActivity<IndexContract.View, IndexPresenter>
             bean.type=TYPE_PARENT[1]
             var list= arrayListOf<MemberMusciChild>()
             it.musics.forEach{
-                var bean=MemberMusciChild()
-                bean.id= it.id.toString()
-                bean.name=it.name
-                bean.type=TYPE_CHILD[1]
-                list.add(bean)
+                it.musics.forEach {
+                    var bean=MemberMusciChild()
+                    bean.id= it.id.toString()
+                    bean.name=it.name
+                    bean.type=TYPE_CHILD[1]
+                    list.add(bean)
+                }
             }
             bean.childList=list
             mData?.add(bean)

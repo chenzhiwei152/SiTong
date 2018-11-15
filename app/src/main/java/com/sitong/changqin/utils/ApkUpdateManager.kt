@@ -83,8 +83,8 @@ class ApkUpdateManager {
                                         intent.putExtra("url", updateInfo.updateUrl)
                                         intent.putExtra("fileName", context.resources.getString(R.string.app_name))
                                         context.startService(intent)
-                                        context.toast("正在下载...")
-                                        versionDialog.setMessage("正在下载，请稍后~")
+                                        context.toast("正在下载，请稍后...")
+//                                        versionDialog.setMessage("正在下载，请稍后~")
                                         if (appVersionBean.isforce.equals("1")) {
                                             versionDialog?.dismiss()
                                         }

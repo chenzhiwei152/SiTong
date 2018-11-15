@@ -35,14 +35,20 @@ class IndexMusicAdapter(var context: Context, lists: ArrayList<MusicBean.Music>)
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (list[position].levelcode==-1){
+//        if (list.size<=0){
+//            holder.viewLayout.visibility=View.GONE
+//            return
+//        }else{
+//            holder.viewLayout.visibility=View.VISIBLE
+//        }
+        if (list.get(position).levelcode==-1){
             holder.viewLayout.iv_image1.visibility=View.VISIBLE
             holder.viewLayout.iv_image.visibility=View.GONE
 //            holder.viewLayout.iv_image1.setImageResource(R.mipmap.ic_top_play)
         }else{
             holder.viewLayout.iv_image1.visibility=View.GONE
             holder.viewLayout.iv_image.visibility=View.VISIBLE
-            holder.viewLayout.iv_image.loadImage(context, list[position].icon)
+            holder.viewLayout.iv_image.loadImage(context, list.get(position).icon)
         }
         holder.viewLayout.setOnClickListener{
             onItemClick?.onItemClicked(list[position])

@@ -8,23 +8,17 @@ import android.view.ViewGroup
 import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.model.bean.MusicBean
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
-import kotlinx.android.synthetic.main.item_collection.view.*
+import kotlinx.android.synthetic.main.item_index_letter.view.*
 
 /**
  * create by chen.zhiwei on 2018-8-14
  */
-class CollectionListAdapter(var context: Context) : RecyclerView.Adapter<CollectionListAdapter.ViewHolder>() {
-    var list = arrayListOf<MusicBean.Music>()
-    fun setData(all: ArrayList<MusicBean.Music>) {
-        list=all
-        notifyDataSetChanged()
-    }
+class IndexLetterAdapter(var context: Context, lists: ArrayList<MusicBean.Music.Music>) : RecyclerView.Adapter<IndexLetterAdapter.ViewHolder>() {
+    var list = arrayListOf<MusicBean.Music.Music>()
 
-    fun clearData() {
-        list?.clear()
-        notifyDataSetChanged()
+    init {
+        this.list = lists
     }
-
 
     private var onItemClick: RVAdapterItemOnClick? = null
 
@@ -34,14 +28,14 @@ class CollectionListAdapter(var context: Context) : RecyclerView.Adapter<Collect
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.item_collection, parent, false))
+                .inflate(R.layout.item_index_letter, parent, false))
     }
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.viewLayout.tv_name.text = list[position].name
 
-        holder.viewLayout.tv_name.text = ""+list.get(position).name
     }
 
 

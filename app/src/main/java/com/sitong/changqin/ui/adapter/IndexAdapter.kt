@@ -62,15 +62,28 @@ class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.Vie
             holder.viewLayout.tv_rank.visibility = View.INVISIBLE
         }
         if (list[position].musics.isNotEmpty()) {
-            holder.viewLayout.rv_music_list.layoutManager = LinearLayoutManager(context)
-            holder.viewLayout.rv_music_list.isNestedScrollingEnabled = false
-            var ada = IndexMusicAdapter(context, list[position].musics as ArrayList<MusicBean.Music>)
-            holder.viewLayout.rv_music_list.adapter = ada
-            ada.setListerner(object : RVAdapterItemOnClick {
-                override fun onItemClicked(data: Any) {
-                    onItemClick?.onItemClicked(data)
-                }
-            })
+            if (list[position].type == 1) {
+                holder.viewLayout.rv_music_list.layoutManager = LinearLayoutManager(context)
+                holder.viewLayout.rv_music_list.isNestedScrollingEnabled = false
+                var ada = IndexMusicAdapter(context, list[position].musics)
+                holder.viewLayout.rv_music_list.adapter = ada
+                ada.setListerner(object : RVAdapterItemOnClick {
+                    override fun onItemClicked(data: Any) {
+                        onItemClick?.onItemClicked(data)
+                    }
+                })
+            } else {
+                holder.viewLayout.rv_music_list.layoutManager = LinearLayoutManager(context)
+                holder.viewLayout.rv_music_list.isNestedScrollingEnabled = false
+                var ada = IndexMusicWithLetterAdapter(context, list[position].musics)
+                holder.viewLayout.rv_music_list.adapter = ada
+                ada.setListerner(object : RVAdapterItemOnClick {
+                    override fun onItemClicked(data: Any) {
+                        onItemClick?.onItemClicked(data)
+                    }
+                })
+            }
+
         }
     }
 
