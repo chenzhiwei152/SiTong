@@ -1,5 +1,6 @@
 package com.sitong.changqin
 
+import android.Manifest
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.widget.NestedScrollView
@@ -26,6 +27,7 @@ import com.sitong.changqin.ui.listerner.AppBarStateChangeListener
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
 import com.sitong.changqin.ui.listerner.ResultCallback
 import com.sitong.changqin.utils.CollectionUtils
+import com.sitong.changqin.utils.DownUtils.permission.JsPermissionUtils
 import com.sitong.changqin.view.MusicDialog
 import com.sitong.changqin.view.MusicPayDialog
 import kotlinx.android.synthetic.main.activity_main.*
@@ -67,6 +69,9 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
     override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun initViewsAndEvents() {
+        if (JsPermissionUtils.needRequestPermission()) {
+            JsPermissionUtils.getInstance().requestPermission(this, 100, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+        }
         setSupportActionBar(toolbar)
         iv_menu.setOnClickListener {
             jump<MenuActivity>(isAnimation = false)

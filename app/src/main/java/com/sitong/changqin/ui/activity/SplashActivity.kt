@@ -1,6 +1,5 @@
 package com.sitong.changqin.ui.activity
 
-import android.Manifest
 import android.os.Handler
 import android.view.View
 import com.jyall.android.common.utils.SharedPrefUtil
@@ -11,7 +10,6 @@ import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.MainActivity
-import com.sitong.changqin.utils.DownUtils.permission.JsPermissionUtils
 
 /**
  * create by chen.zhiwei on 2018-8-13
@@ -25,9 +23,7 @@ class SplashActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>() {
     override fun getLayoutId(): Int = R.layout.activity_splash
 
     override fun initViewsAndEvents() {
-        if (JsPermissionUtils.needRequestPermission()) {
-            JsPermissionUtils.getInstance().requestPermission(this, 100, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
-        }
+
 //        val decorView = window.decorView
 //        val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
 //        decorView.systemUiVisibility = uiOptions
