@@ -58,6 +58,7 @@ class RegisterActivity : BaseActivity<RegisterContract.View, RegisterPresenter>(
             }
         }
         tv_login.setOnClickListener {
+            jump<LoginActivity>()
             finish()
         }
         go_register.setOnClickListener {

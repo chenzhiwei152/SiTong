@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_ffffff"
@@ -10,10 +10,10 @@
         android:id="@+id/ll_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:tag="sticky"
         android:background="@color/color_ffffff"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:tag="sticky">
 
         <TextView
             android:id="@+id/tv_rank"
@@ -28,8 +28,17 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/ll_tag"
         android:id="@+id/rv_music_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10" />
-</LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list_letter"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_5" />
+</RelativeLayout>

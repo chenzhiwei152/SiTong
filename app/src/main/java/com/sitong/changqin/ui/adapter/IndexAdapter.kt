@@ -18,9 +18,14 @@ class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.Vie
     var list = arrayListOf<MusicBean>()
     var posi = 1
     private var onItemClick: RVAdapterItemOnClick? = null
+    private var letteOnclick: RVAdapterItemOnClick? = null
 
     fun setListerner(onItemClick: RVAdapterItemOnClick) {
         this.onItemClick = onItemClick
+    }
+
+    fun setLetterOnclick(letteOnclick: RVAdapterItemOnClick) {
+        this.letteOnclick = letteOnclick
     }
 
     fun setData(all: ArrayList<MusicBean>) {
@@ -72,6 +77,8 @@ class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.Vie
                         onItemClick?.onItemClicked(data)
                     }
                 })
+                holder.viewLayout.rv_list_letter.visibility = View.GONE
+
             } else {
                 holder.viewLayout.rv_music_list.layoutManager = LinearLayoutManager(context)
                 holder.viewLayout.rv_music_list.isNestedScrollingEnabled = false
@@ -82,6 +89,26 @@ class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.Vie
                         onItemClick?.onItemClicked(data)
                     }
                 })
+
+                holder.viewLayout.rv_list_letter.visibility = View.VISIBLE
+                holder.viewLayout.rv_list_letter.layoutManager = LinearLayoutManager(context)
+                holder.viewLayout.rv_list_letter.isNestedScrollingEnabled = false
+                var letterAdapter = IndexLetterLinkdapter(context, list[position].musics)
+//                if (letteOnclick!=null){
+                letterAdapter.setLetterOnclick(object : RVAdapterItemOnClick {
+                    override fun onItemClicked(data: Any) {
+                        var pos = data as Int
+//                        var ll = holder.viewLayout.rv_music_list.layoutManager as LinearLayoutManager
+//                        ll.scrollToPositionWithOffset(pos, 0)
+                        var mValue = IntArray(2)
+                        holder.viewLayout.rv_music_list.getChildAt(pos).getLocationOnScreen(mValue)
+                        letteOnclick?.onItemClicked(mValue[1])
+
+                    }
+
+                })
+//                }
+                holder.viewLayout.rv_list_letter.adapter = letterAdapter
             }
 
         }

@@ -27,6 +27,11 @@ class IndexMusicWithLetterAdapter(var context: Context, lists: ArrayList<MusicBe
         this.onItemClick = onItemClick
     }
 
+    fun scrollToPosition(poi: Int) {
+
+
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context)
                 .inflate(R.layout.item_index_with_letter, parent, false))

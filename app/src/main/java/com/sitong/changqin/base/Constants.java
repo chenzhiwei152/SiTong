@@ -28,6 +28,7 @@ public class Constants {
     public static String WBAPP_KEY="aaf68edab767612aea24863b04db4074";
     public static String REDIRECT_URL="https://api.weibo.com/oauth2/default.html";
     public static String SCOPE="";
+    public static String musicList="musicList";
 
 
     public static class Tag {

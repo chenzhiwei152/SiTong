@@ -16,8 +16,8 @@ abstract class FileFactory(mContext: Context) {
         this.mContext = mContext
     }
 
-    fun getUri(path: String): ArrayList<String>? {
-        return FilesUtils.getFilesAllName(mContext?.getExternalFilesDir(path)!!.absolutePath)
+    fun getUri(path: String,isJustName:Boolean=false): ArrayList<String>? {
+        return FilesUtils.getFilesAllName(mContext?.getExternalFilesDir(path)!!.absolutePath,isJustName)
     }
 
 

@@ -18,6 +18,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.model.bean.UserInfo
+import com.sitong.changqin.utils.ActivityStackManager
 import javax.crypto.SecretKey
 import kotlin.properties.Delegates
 
@@ -155,6 +156,7 @@ class BaseContext : MultiDexApplication() {
                 .getLaunchIntentForPackage(getPackageName())
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
+        ActivityStackManager.getInstance().finishAllActivity()
     }
 
     fun isLoginIn(): Boolean {

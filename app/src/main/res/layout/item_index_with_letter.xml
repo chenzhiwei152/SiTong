@@ -18,6 +18,7 @@
 
         <View
             android:id="@+id/vv_divider"
+            android:layout_marginRight="@dimen/dp_25"
             style="@style/divider_d0a670_1" />
 
         <TextView

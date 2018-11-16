@@ -35,7 +35,7 @@ class DownLoadFilesUtils(mContext: Context) : FileFactory(mContext) {
     }
 
     override fun getFilesByPath(path: String): ArrayList<String> {
-        return getUri(mLoadUri)!!
+        return getUri(mLoadUri,true)!!
     }
 
     override fun isExist(file: String): Boolean {

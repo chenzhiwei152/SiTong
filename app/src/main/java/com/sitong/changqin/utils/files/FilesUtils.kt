@@ -5,7 +5,7 @@ import java.io.File
 
 class FilesUtils {
     companion object {
-        fun getFilesAllName(path: String): ArrayList<String>? {
+        fun getFilesAllName(path: String,isJustName:Boolean=false): ArrayList<String>? {
             val file = File(path)
             val files = file.listFiles()
             if (files == null) {
@@ -14,7 +14,11 @@ class FilesUtils {
             }
             val s = arrayListOf<String>()
             for (i in files!!.indices) {
-                s.add(files!![i].getAbsolutePath())
+                if (isJustName){
+                    s.add(getFileName(files!![i].absolutePath))
+                }else{
+                    s.add(files!![i].absolutePath)
+                }
             }
             return s
         }

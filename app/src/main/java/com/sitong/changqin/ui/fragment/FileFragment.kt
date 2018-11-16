@@ -7,6 +7,7 @@ import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.ui.activity.CollectionActivity
+import com.sitong.changqin.ui.activity.LocalDownloadActivity
 import kotlinx.android.synthetic.main.fragment_file.*
 
 /**
@@ -22,7 +23,7 @@ class FileFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBaseV
                 activity?.jump<CollectionActivity>()
             }
             R.id.rl_download->{
-
+                activity?.jump<LocalDownloadActivity>()
             }
         }
     }

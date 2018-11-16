@@ -7,17 +7,20 @@ import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
+import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.SharedPrefUtil
 import com.jyall.app.home.utils.ApkUpdateManager
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sitong.changqin.base.Constants
 import com.sitong.changqin.mvp.contract.IndexContract
 import com.sitong.changqin.mvp.model.bean.MusicBean
 import com.sitong.changqin.mvp.persenter.IndexPresenter
 import com.sitong.changqin.ui.activity.*
 import com.sitong.changqin.ui.adapter.IndexAdapter
+import com.sitong.changqin.ui.adapter.IndexLetterLinkdapter
 import com.sitong.changqin.ui.adapter.IndexRankAdapter
 import com.sitong.changqin.ui.listerner.AppBarStateChangeListener
 import com.sitong.changqin.ui.listerner.RVAdapterItemOnClick
@@ -33,6 +36,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
     private var mRVAdapter: IndexAdapter? = null
     private var mRankRVAdapter: IndexRankAdapter? = null
+    private var mLetterRVadapter: IndexLetterLinkdapter? = null
     private var lists = arrayListOf<MusicBean>()
     private var mKeys = arrayListOf<Int>()
     private var mValues = arrayListOf<Int>()
@@ -40,22 +44,28 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
     override fun getDataSuccess(musicList: ArrayList<MusicBean>) {
 //        toast_msg("" + musicList?.size)
+        kotlin.run {
+            SharedPrefUtil.saveObj(this@MainActivity, Constants.musicList, musicList)
+        }
         var beanMusic = MusicBean.Music(-1, false, "zhiqin", "知琴", false, "知琴", 1, 1, "", false, "", arrayListOf())
         var list = arrayListOf<MusicBean.Music>()
         list.add(beanMusic)
-//        var bb=MusicBean.Music("",list)
-//        var list1=arrayListOf<MusicBean.Music>()
-//        list1.add(bb)
         var beanOne = MusicBean("知琴", 1, list)
         musicList.add(0, beanOne)
         lists = musicList
 
         mRVAdapter?.setData(musicList)
         mRankRVAdapter?.setData(musicList)
-        rv_rank.postDelayed({
-            getValue()
-//            controlLetters(true)
-        }, 500)
+        if (SharedPrefUtil.getObj(this@MainActivity, "mKeys") != null) {
+            rv_rank.post {
+                getValue()
+            }
+        } else {
+            rv_rank.postDelayed({
+                getValue()
+            }, 3000)
+        }
+
     }
 
     override fun getPresenter(): IndexPresenter = IndexPresenter()
@@ -88,9 +98,19 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
             }
         })
         mRVAdapter = IndexAdapter(this)
+
         rv_list.isNestedScrollingEnabled = false
         rv_list.layoutManager = LinearLayoutManager(this)
         rv_list.adapter = mRVAdapter
+        mRVAdapter?.setLetterOnclick(object : RVAdapterItemOnClick {
+            override fun onItemClicked(data: Any) {
+                var position = data as Int
+                LogUtils.e("mPosition:" + position)
+                stick_scroll.scrollBy(0, position)
+
+            }
+
+        })
         mRVAdapter!!.setListerner(object : RVAdapterItemOnClick {
             override fun onItemClicked(data: Any) {
                 var bean = data as MusicBean.Music
@@ -110,8 +130,8 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                             var musicPayDialog = MusicPayDialog(this@MainActivity, "取消", "购买", bean.name, bean.enName).setRightTitleListerner(object : View.OnClickListener {
                                 override fun onClick(p0: View?) {
 //                                    跳支付
-                                    var bund=Bundle()
-                                    bund.putString("id",""+bean?.id)
+                                    var bund = Bundle()
+                                    bund.putString("id", "" + bean?.id)
                                     jump<MemberListActivity>(dataBundle = bund)
                                 }
                             })
@@ -169,8 +189,8 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         })
         appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
             override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-                    controlLetters(true)
-                    controlLetters(false)
+                controlLetters(true)
+                controlLetters(false)
             }
 
         })
