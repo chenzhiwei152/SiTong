@@ -38,10 +38,13 @@ class TunerFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
 
         val pdh = PitchDetectionHandler { result, e ->
             val pitchInHz = result.pitch
-//            runOnUiThread(Runnable { tv_pinlv.setText("" + pitchInHz) })
-            activity?.runOnUiThread {
-                ver_line.setValue(pitchInHz - 100, pitchInHz + 100, pitchInHz)
+            try {
+                activity?.runOnUiThread {
+                    ver_line.setValue(pitchInHz - 100, pitchInHz + 100, pitchInHz)
+                }
+            }catch (ex:java.lang.Exception){
             }
+
         }
         val p = PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050f, 1024, pdh)
         dispatcher.addAudioProcessor(p)

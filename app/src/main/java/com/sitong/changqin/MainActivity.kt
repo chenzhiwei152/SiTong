@@ -16,10 +16,7 @@ import com.sevenstringedzithers.sitong.R
 import com.sitong.changqin.mvp.contract.IndexContract
 import com.sitong.changqin.mvp.model.bean.MusicBean
 import com.sitong.changqin.mvp.persenter.IndexPresenter
-import com.sitong.changqin.ui.activity.KnowledgeActivity
-import com.sitong.changqin.ui.activity.MenuActivity
-import com.sitong.changqin.ui.activity.MusicEnjoyActivity
-import com.sitong.changqin.ui.activity.MusicPlayActivity
+import com.sitong.changqin.ui.activity.*
 import com.sitong.changqin.ui.adapter.IndexAdapter
 import com.sitong.changqin.ui.adapter.IndexRankAdapter
 import com.sitong.changqin.ui.listerner.AppBarStateChangeListener
@@ -112,10 +109,11 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                             dia?.dismiss()
                             var musicPayDialog = MusicPayDialog(this@MainActivity, "取消", "购买", bean.name, bean.enName).setRightTitleListerner(object : View.OnClickListener {
                                 override fun onClick(p0: View?) {
-
 //                                    跳支付
+                                    var bund=Bundle()
+                                    bund.putString("id",""+bean?.id)
+                                    jump<MemberListActivity>(dataBundle = bund)
                                 }
-
                             })
                             musicPayDialog.show()
 
@@ -192,8 +190,6 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                 var mValue = IntArray(2)
                 rv_list.findViewHolderForLayoutPosition(mPosition)?.itemView?.getLocationOnScreen(mValue)
                 if (mKeys[mPosition] >= mValue[1]) {
-//                mRVAdapter!!.setPosition(mPosition)
-//                    mRankRVAdapter!!.setPosition(mPosition)
                     var hol = rv_list.findViewHolderForLayoutPosition(mPosition)?.itemView?.findViewById<TextView>(R.id.tv_rank)
                     hol?.visibility = View.VISIBLE
 
@@ -218,7 +214,6 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                 var mValue = IntArray(2)
                 rv_list.findViewHolderForLayoutPosition(cache)?.itemView?.getLocationOnScreen(mValue)
                 if (mKeys[cache] <= mValue[1]) {
-//                    mRankRVAdapter!!.setPosition(cache - 1)
                     var hol = rv_list.findViewHolderForLayoutPosition(cache)?.itemView?.findViewById<TextView>(R.id.tv_rank)
                     hol?.visibility = View.INVISIBLE
 
@@ -254,7 +249,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                 SharedPrefUtil.saveInt(this, "mKeysNum", mKeys.size)
             }
         }
-        controlLetters(true)
+        controlLetters(false)
     }
 
     override fun isRegistEventBus(): Boolean = false
