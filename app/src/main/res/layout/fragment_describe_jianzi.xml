@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_jianzi_des" />
 
-        <com.sitong.changqin.view.TextViewVertical
+        <com.sevenstringedzithers.sitong.view.TextViewVertical
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:layout_marginRight="@dimen/dp_20"

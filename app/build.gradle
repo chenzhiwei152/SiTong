@@ -21,6 +21,19 @@ android {
             abiFilters "armeabi-v7a"
         }
     }
+    signingConfigs {
+        debug { storeFile file('Sitong.jks')
+            storePassword 'sitong123'
+            keyAlias 'sitong'
+            keyPassword 'sitong123' }
+
+        release {
+            storeFile file('Sitong.jks')
+            storePassword 'sitong123'
+            keyAlias 'sitong'
+            keyPassword 'sitong123'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false

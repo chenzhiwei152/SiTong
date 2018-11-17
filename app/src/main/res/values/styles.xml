@@ -60,6 +60,10 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/color_9920232b</item>
     </style>
+    <style name="textStyle_9920232b_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/color_9920232b</item>
+    </style>
     <style name="textStyle_20232b_16">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/color_20232b</item>

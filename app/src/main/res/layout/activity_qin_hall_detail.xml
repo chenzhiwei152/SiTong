@@ -19,7 +19,7 @@
             android:paddingBottom="200dp"
             android:scaleType="fitXY" />
 
-        <com.sitong.changqin.view.TextViewVertical
+        <com.sevenstringedzithers.sitong.view.TextViewVertical
             android:id="@+id/tv_titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

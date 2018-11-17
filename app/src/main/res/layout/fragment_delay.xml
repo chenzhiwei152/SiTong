@@ -39,7 +39,7 @@
     </RelativeLayout>
 
 
-    <com.sitong.changqin.view.scaleview.VerticalScaleView2
+    <com.sevenstringedzithers.sitong.view.scaleview.VerticalScaleView2
         android:id="@+id/ver_line"
         android:layout_width="match_parent"
         android:layout_height="110dp"

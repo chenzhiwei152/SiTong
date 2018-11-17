@@ -62,6 +62,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/phone"
+            android:text="17611596596"
             android:inputType="number"
             android:maxLength="11"
             android:textColorHint="@color/color_d0a670" />

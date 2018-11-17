@@ -30,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name="com.sitong.changqin.ui.activity.SplashActivity"
+            android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,105 +39,108 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.sitong.changqin.MainActivity"
+            android:name=".MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.LoginOrRegisterActivity"
+            android:name=".ui.activity.LoginOrRegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.RegisterActivity"
+            android:name=".ui.activity.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.RegisterTwoActivity"
+            android:name=".ui.activity.RegisterTwoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.ExperienceRecordActivity"
+            android:name=".ui.activity.ExperienceRecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.MusicMemberListActivity"
+            android:name=".ui.activity.MusicMemberListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.MemberListActivity"
+            android:name=".ui.activity.MemberListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.ArticleDetailActivity"
+            android:name=".ui.activity.ArticleDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.QinHallDetailActivity"
+            android:name=".ui.activity.QinHallDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.QuestionsActivity"
+            android:name=".ui.activity.QuestionsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.FeedbackActivity"
+            android:name=".ui.activity.FeedbackActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.yanzhenjie.album.AlbumActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.MineActivity"
+            android:name=".ui.activity.MineActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.MusicSearchActivity"
+            android:name=".ui.activity.MusicSearchActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.VideoPlayActivity"
+            android:name=".ui.activity.VideoPlayActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.TaskActivity"
+            android:name=".ui.activity.TaskActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.AboutActivity"
+            android:name=".ui.activity.AboutActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.EditActivity"
+            android:name=".ui.activity.EditActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.LocalDownloadActivity"
+            android:name=".ui.activity.LocalRecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.MessageActivity"
+            android:name=".ui.activity.LocalDownloadActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.MessageDetailActivity"
+            android:name=".ui.activity.MessageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.CollectionActivity"
+            android:name=".ui.activity.MessageDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.FindPWTwoActivity"
+            android:name=".ui.activity.CollectionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.FindPasswordOneActivity"
+            android:name=".ui.activity.FindPWTwoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.KnowledgeActivity"
+            android:name=".ui.activity.FindPasswordOneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.MusicInfoActivity"
+            android:name=".ui.activity.KnowledgeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MusicInfoActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.PayActivity"
+            android:name=".ui.activity.PayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.ToolActivity"
+            android:name=".ui.activity.ToolActivity"
             android:theme="@style/TranslucentFullScreenTheme" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.MusicPlayActivity"
+            android:name=".ui.activity.MusicPlayActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.MusicEnjoyActivity"
+            android:name=".ui.activity.MusicEnjoyActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.sitong.changqin.ui.activity.MenuActivity"
+            android:name=".ui.activity.MenuActivity"
             android:theme="@style/TranslucentFullScreenTheme" />
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -157,10 +160,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name="com.sitong.changqin.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:exported="true" />
         <activity
-            android:name="com.sitong.changqin.wxapi.WXPayEntryActivity"
+            android:name=".wxapi.WXPayEntryActivity"
             android:exported="true" />
 
     </application>

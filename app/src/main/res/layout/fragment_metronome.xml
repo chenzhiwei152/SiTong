@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/dp_30"
     android:paddingBottom="@dimen/dp_20">
 
-    <com.sitong.changqin.view.scaleview.VerticalScaleView3
+    <com.sevenstringedzithers.sitong.view.scaleview.VerticalScaleView3
         android:id="@+id/iv_points"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -21,7 +21,7 @@
         android:layout_below="@+id/iv_points"
         android:orientation="horizontal">
 
-        <com.sitong.changqin.view.pickview.StringScrollPicker
+        <com.sevenstringedzithers.sitong.view.pickview.StringScrollPicker
             android:id="@+id/picker_01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:background="@color/color_000000" />
 
 
-        <com.sitong.changqin.view.pickview.StringScrollPicker
+        <com.sevenstringedzithers.sitong.view.pickview.StringScrollPicker
             android:id="@+id/picker_02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

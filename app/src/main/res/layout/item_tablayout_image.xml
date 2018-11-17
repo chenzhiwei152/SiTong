@@ -19,7 +19,7 @@
             android:background="@drawable/selector_describe_qin"
             android:layout_height="wrap_content" />
 
-        <com.sitong.changqin.view.TextViewVertical
+        <com.sevenstringedzithers.sitong.view.TextViewVertical
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

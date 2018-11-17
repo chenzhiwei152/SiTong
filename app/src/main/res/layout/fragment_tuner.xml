@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <com.sitong.changqin.view.pickview.StringScrollPicker
+    <com.sevenstringedzithers.sitong.view.pickview.StringScrollPicker
         android:id="@+id/picker_01"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -29,14 +29,14 @@
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/color_000000" />
 
-    <com.sitong.changqin.view.scaleview.VerticalScaleView1
+    <com.sevenstringedzithers.sitong.view.scaleview.VerticalScaleView1
         android:layout_width="120dp"
         android:id="@+id/ver_line"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/dp_20"
         android:paddingTop="@dimen/dp_20" />
 
-    <com.sitong.changqin.view.pickview.StringLineScrollPicker
+    <com.sevenstringedzithers.sitong.view.pickview.StringLineScrollPicker
         android:id="@+id/picker_02"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
