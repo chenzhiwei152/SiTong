@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<paths>
+    <cache-path
+        name="apk"
+        path="/upgrade" />
+    <external-cache-path
+        name="apk"
+        path="/upgrade" />
+    <root-path name="root_path" path="."/>
+    <external-path path="" name="camera_photos" />
+</paths>
+</resources>
