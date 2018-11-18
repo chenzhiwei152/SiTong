@@ -139,6 +139,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun getDataSuccess(musicBean: MusicDetailBean) {
         this.musicBean = musicBean
         chenckIsLoaded(musicBean.url)
+        adapter?.setList(musicBean.score)
         musicBean.score.forEachIndexed { index, score ->
             if (score.start_second?.size > 0 && score.end_second?.size > 0 && score.start_second[0] > 0) {
                 var bean = QinViewPointBean(score.start_second[0], score.end_second[0], score.duration, score.percent, score.string)

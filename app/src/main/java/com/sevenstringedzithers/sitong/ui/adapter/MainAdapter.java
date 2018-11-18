@@ -33,6 +33,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     private ArrayList<MusicDetailBean.Score> list;
 
+    public void setList(ArrayList<MusicDetailBean.Score> list) {
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
     public interface Listener {
         void onClick(int index);
 
@@ -91,7 +96,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(MainViewHolder holder, int position) {
-//        holder.label.setText(getItem(position));
+        holder.label.setText(list.get(position).getNumbered_music());
+
+
+
 
         final Drawable d;
         final Context c = holder.itemView.getContext();
@@ -143,8 +151,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         if (lp instanceof FlexboxLayoutManager.LayoutParams) {
             FlexboxLayoutManager.LayoutParams flexboxLp =
                     (FlexboxLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
-            if (position == 1 || position == 3 || position == 13) {
-
+            if (list.get(position).getIslinefeed()==1) {
                 flexboxLp.setWrapBefore(true);
             } else {
                 flexboxLp.setWrapBefore(false);
@@ -173,12 +180,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     @Override
     public int getItemCount() {
-        if (list==null){
+        if (list == null) {
             return 0;
-        }else {
-           list.size();
+        } else {
+            return list.size();
         }
-        return 0;
     }
 
     static class MainViewHolder extends RecyclerView.ViewHolder

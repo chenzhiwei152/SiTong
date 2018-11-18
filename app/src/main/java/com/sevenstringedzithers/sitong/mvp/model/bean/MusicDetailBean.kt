@@ -19,7 +19,7 @@ data class MusicDetailBean(
             var url: String,
             var size: Double,
             var delay: Double,
-            var score: List<Score>,
+            var score: ArrayList<Score>,
             var icon: String
     ) : Serializable {
 
