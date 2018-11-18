@@ -26,11 +26,15 @@ import com.sevenstringedzithers.sitong.utils.files.DownLoadFilesUtils
 import com.sevenstringedzithers.sitong.utils.files.FilesUtils
 import com.sevenstringedzithers.sitong.view.MusicDownloadDialog
 import com.smp.soundtouchandroid.OnProgressChangedListener
+import com.smp.soundtouchandroid.SoundStreamAduioRecorder
 import com.smp.soundtouchandroid.SoundStreamAudioPlayer
+import com.smp.soundtouchandroid.SoundTouch
 import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.activity_music_play.*
 import kotlinx.android.synthetic.main.layout_play_title.*
 import java.io.File
+
+
 
 
 /**
@@ -38,6 +42,10 @@ import java.io.File
  */
 class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresenter>(), MusicPlayContract.View, MainAdapter.Listener, View.OnClickListener {
     private var du: Long? = null
+    private var soundTouchRec: SoundStreamAduioRecorder? = null
+    private var soundTouch: SoundTouch? = null
+    private var lastRecordFile:String?=null
+    private var isRecording=false
     private var isLoaded = false
     private var isLoading = false
     private var isSlience: Boolean = false
@@ -109,6 +117,15 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 setVolume(isSlience)
                 setButtonState()
             }
+            R.id.iv_record->{
+                if (isRecording){
+                    lastRecordFile=soundTouchRec?.stopRecord()
+//                    弹窗
+                }else{
+                    soundTouchRec?.startRecord()
+                }
+
+            }
         }
     }
 
@@ -160,6 +177,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         iv_tool.setOnClickListener(this)
         iv_load.setOnClickListener(this)
         iv_voice.setOnClickListener(this)
+        iv_record.setOnClickListener(this)
         pointList = arrayListOf()
 
         var map: HashMap<String, String>? = null
@@ -196,6 +214,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun getPresenter(): MusicPlayPresenter = MusicPlayPresenter()
 
     private fun init() {
+        soundTouch = SoundTouch(0, 2, 1, 2, 1f, 1f)
+        soundTouchRec = SoundStreamAduioRecorder(this, soundTouch)
+
+
         setButtonState()
         val layoutManager = FlexboxLayoutManager(this)
         layoutManager.flexDirection = FlexDirection.ROW
