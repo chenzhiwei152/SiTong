@@ -24,7 +24,9 @@ import com.sevenstringedzithers.sitong.utils.DownLoadUtils
 import com.sevenstringedzithers.sitong.utils.ExtraUtils
 import com.sevenstringedzithers.sitong.utils.files.DownLoadFilesUtils
 import com.sevenstringedzithers.sitong.utils.files.FilesUtils
+import com.sevenstringedzithers.sitong.utils.files.RecordFilesUtils
 import com.sevenstringedzithers.sitong.view.MusicDownloadDialog
+import com.sevenstringedzithers.sitong.view.MusicRecordDialog
 import com.smp.soundtouchandroid.OnProgressChangedListener
 import com.smp.soundtouchandroid.SoundStreamAduioRecorder
 import com.smp.soundtouchandroid.SoundStreamAudioPlayer
@@ -35,8 +37,6 @@ import kotlinx.android.synthetic.main.layout_play_title.*
 import java.io.File
 
 
-
-
 /**
  * create by chen.zhiwei on 2018-8-15
  */
@@ -44,8 +44,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     private var du: Long? = null
     private var soundTouchRec: SoundStreamAduioRecorder? = null
     private var soundTouch: SoundTouch? = null
-    private var lastRecordFile:String?=null
-    private var isRecording=false
+    private var lastRecordFile: String? = null
+    private var isRecording = false
     private var isLoaded = false
     private var isLoading = false
     private var isSlience: Boolean = false
@@ -117,11 +117,30 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 setVolume(isSlience)
                 setButtonState()
             }
-            R.id.iv_record->{
-                if (isRecording){
-                    lastRecordFile=soundTouchRec?.stopRecord()
+            R.id.iv_record -> {
+                if (isRecording) {
+                    lastRecordFile = soundTouchRec?.stopRecord()
 //                    弹窗
-                }else{
+
+                    var mRecordDialog = MusicRecordDialog(this, "存储", "删除", "0:0")
+                    mRecordDialog.setLeftTitleListerner(object : View.OnClickListener {
+                        override fun onClick(v: View?) {
+                            kotlin.run {
+                                FilesUtils.makePCMFileToWAVFile(lastRecordFile!!,RecordFilesUtils.getInstance(this@MusicPlayActivity)!!.getCurrentUri()+"/"+mRecordDialog.getEdittext()+".wav",true)
+                            }
+                        }
+
+                    })
+                    mRecordDialog.setRightTitleListerner(object : View.OnClickListener {
+                        override fun onClick(v: View?) {
+                            RecordFilesUtils.getInstance(this@MusicPlayActivity)?.deletedFile(lastRecordFile!!)
+                        }
+
+                    })
+                    mRecordDialog.show()
+                    isRecording=false
+                } else {
+                    isRecording=true
                     soundTouchRec?.startRecord()
                 }
 
@@ -166,8 +185,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun getLayoutId(): Int = R.layout.activity_music_play
 
     override fun initViewsAndEvents() {
-        if (getVolum()){
-            isSlience=true
+        if (getVolum()) {
+            isSlience = true
         }
 
         var bundle = intent.extras
@@ -198,7 +217,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             }
 
             override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
-                player?.seekTo((progressFloat.toDouble()/du!!),false)
+                player?.seekTo((progressFloat.toDouble() / du!!), false)
             }
         }
     }
@@ -226,7 +245,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         layoutManager.justifyContent = JustifyContent.CENTER
         rv_list.layoutManager = layoutManager
 
-        adapter = MainAdapter(this,this)
+        adapter = MainAdapter(this, this)
         rv_list.adapter = adapter
 
         var mPosX = 0f
@@ -257,7 +276,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             }
         })
     }
-/*检查文件本地是否有*/
+
+    /*检查文件本地是否有*/
     private fun chenckIsLoaded(url: String): Boolean {
         isLoaded = DownLoadFilesUtils.getInstance(this)!!.isExist(FilesUtils.getFileName(url))
         setButtonState()
@@ -343,7 +363,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
     }
-/*获取琴上面的点*/
+
+    /*获取琴上面的点*/
     private fun getPoints(currenttime: Float) {
         mMoveMap.clear()
         pointList?.forEachIndexed { index, qinViewPointBean ->
@@ -381,9 +402,9 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         } else {
             iv_load.setImageResource(R.mipmap.ic_load_normal)
         }
-        if (isSlience){
+        if (isSlience) {
             iv_voice.setImageResource(R.mipmap.ic_voice_closed)
-        }else{
+        } else {
             iv_voice.setImageResource(R.mipmap.ic_voice)
         }
     }

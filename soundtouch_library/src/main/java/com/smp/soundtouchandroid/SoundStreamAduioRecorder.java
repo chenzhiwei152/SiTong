@@ -8,6 +8,7 @@ import android.media.AudioTrack;
 import android.media.MediaRecorder;
 import android.util.Log;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -65,9 +66,12 @@ public class SoundStreamAduioRecorder {
 
             Log.d(TAG, "recordfile name:" + fileName);
 
-            fullFileName = /* recordFolderPath + */fileName + ".pcm";
+            fullFileName =context.getExternalFilesDir("pcms")+"/"+fileName + ".pcm";
+//            fullFileName = /* recordFolderPath + */fileName + ".pcm";
+            Log.e("fullFileName：",fullFileName);
             try {
-                recordOutputStream = context.openFileOutput(fullFileName, Context.MODE_PRIVATE);
+//                recordOutputStream = context.openFileOutput(fullFileName, Context.MODE_PRIVATE);
+                recordOutputStream = new FileOutputStream(new File(fullFileName));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -107,7 +111,9 @@ public class SoundStreamAduioRecorder {
             recordingstart = false;
 
             try {
-                recordOutputStream.close();
+                if (recordOutputStream!=null){
+                    recordOutputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
