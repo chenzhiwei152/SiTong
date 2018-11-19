@@ -35,6 +35,7 @@ data class MusicDetailBean(
                 var percent: String,
                 var isend: Int,
                 var bpm: Int,
+                var toline:Int,
                 var numbered_music: String,
                 var numbered_music_up: Any,
                 var jianziwidth: Double,

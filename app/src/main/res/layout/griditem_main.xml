@@ -24,79 +24,97 @@
                 android:visibility="invisible" />
 
             <LinearLayout
-                android:id="@+id/ll_center"
+                android:id="@+id/ll_center_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/left"
                 android:layout_gravity="center"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:padding="5dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/ll_left_top"
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="左上" />
+                        android:layout_height="wrap_content" />
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/ll_left_center"
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="上" />
+                        android:layout_height="wrap_content" />
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/ll_left_down"
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="右上" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/ll_center_top"
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="左中" />
+                        android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:id="@+id/label"
+                    <LinearLayout
+                        android:id="@+id/ll_center"
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="中" />
+                        android:layout_height="wrap_content" />
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/ll_center_dowm"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="右中" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/ll_right_top"
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="左下" />
+                        android:layout_height="wrap_content" />
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/ll_right"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="下" />
+                        android:layout_height="wrap_content" />
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/ll_right_down"
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="右下" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_shoushi"
+                android:layout_width="15dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="15dp" />
 
             <TextView
                 android:id="@+id/right"

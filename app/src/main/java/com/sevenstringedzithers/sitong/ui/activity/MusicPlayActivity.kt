@@ -226,7 +226,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         layoutManager.justifyContent = JustifyContent.CENTER
         rv_list.layoutManager = layoutManager
 
-        adapter = MainAdapter(this)
+        adapter = MainAdapter(this,this)
         rv_list.adapter = adapter
 
         var mPosX = 0f
