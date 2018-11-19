@@ -174,9 +174,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 //                    下
                         switch (symbol.getNamecode()) {
                             case 7:
-                                if (list.get(position).getToline()!=0){
-
-                                }
+//                                if (list.get(position).getToline()!=0){
+//
+//                                }
                                 ImageView v = new ImageView(mContext);
                                 v.setImageResource(R.drawable.line_black_5);
                                 holder.ll_center_dowm.addView(v);
