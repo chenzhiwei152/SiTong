@@ -96,7 +96,7 @@ public class Album {
         intent.putExtra(KEY_INPUT_LIMIT_COUNT, 1);
         intent.putExtra(KEY_INPUT_TOOLBAR_COLOR, toolbarColor);
         intent.putExtra(KEY_INPUT_STATUS_COLOR, statusBarColor);
-        intent.putExtra(KEY_IS_CROP, true);
+        intent.putExtra(KEY_IS_CROP, false);
         activity.startActivityForResult(intent, requestCode);
     }
 
