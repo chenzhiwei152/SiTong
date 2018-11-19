@@ -7,8 +7,8 @@ import com.jyall.bbzf.base.BaseContext
 import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
-import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.MainActivity
+import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.base.Constants
 import com.sevenstringedzithers.sitong.mvp.contract.RegisterContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo
@@ -24,20 +24,7 @@ class RegisterActivity : BaseActivity<RegisterContract.View, RegisterPresenter>(
     private var mTimer = CountDownTimerUtils.getCountDownTimer()
     private var isCountDown = false
     override fun sendCodeSuccess() {
-        mTimer.setMillisInFuture(60 * 1000)
-                .setCountDownInterval(1000)
-                .setTickDelegate {
-                    tv_send_code.text = "(${it / 1000})"
-                    tv_send_code.isEnabled = false
-                }
-                .setFinishDelegate {
-                    tv_send_code.text = getString(R.string.send_message_code)
-                    if (ExtraUtils.isMobile(et_phone.text.toString()))
-                        tv_send_code.isEnabled = true
-                    isCountDown = false
-                }
-                .start()
-        isCountDown = true
+
     }
 
     override fun registerSuccess(userInfo: UserInfo) {
@@ -55,7 +42,25 @@ class RegisterActivity : BaseActivity<RegisterContract.View, RegisterPresenter>(
         tv_send_code.setOnClickListener {
             if (ExtraUtils.isMobile(et_phone.text.toString())) {
                 mPresenter?.sendCode(et_phone.text.toString())
+            }else{
+                toast_msg("手机号码不正确")
+                return@setOnClickListener
             }
+            mTimer.setMillisInFuture(60 * 1000)
+                    .setCountDownInterval(1000)
+                    .setTickDelegate {
+                        tv_send_code.text = "(${it / 1000})"
+                        tv_send_code.isEnabled = false
+                    }
+                    .setFinishDelegate {
+                        tv_send_code.text = getString(R.string.send_message_code)
+                        if (ExtraUtils.isMobile(et_phone.text.toString()))
+                            tv_send_code.isEnabled = true
+                        isCountDown = false
+                    }
+                    .start()
+            isCountDown = true
+
         }
         tv_login.setOnClickListener {
             jump<LoginActivity>()
