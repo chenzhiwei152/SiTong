@@ -17,7 +17,10 @@ import com.sevenstringedzithers.sitong.base.Constants
 import com.sevenstringedzithers.sitong.mvp.contract.IndexContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicBean
 import com.sevenstringedzithers.sitong.mvp.persenter.IndexPresenter
-import com.sevenstringedzithers.sitong.ui.activity.*
+import com.sevenstringedzithers.sitong.ui.activity.KnowledgeActivity
+import com.sevenstringedzithers.sitong.ui.activity.MenuActivity
+import com.sevenstringedzithers.sitong.ui.activity.MusicEnjoyActivity
+import com.sevenstringedzithers.sitong.ui.activity.MusicPlayActivity
 import com.sevenstringedzithers.sitong.ui.adapter.IndexAdapter
 import com.sevenstringedzithers.sitong.ui.adapter.IndexLetterLinkdapter
 import com.sevenstringedzithers.sitong.ui.adapter.IndexRankAdapter
@@ -27,7 +30,6 @@ import com.sevenstringedzithers.sitong.ui.listerner.ResultCallback
 import com.sevenstringedzithers.sitong.utils.CollectionUtils
 import com.sevenstringedzithers.sitong.utils.DownUtils.permission.JsPermissionUtils
 import com.sevenstringedzithers.sitong.view.MusicDialog
-import com.sevenstringedzithers.sitong.view.MusicPayDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -123,24 +125,24 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                 }
                 dia = MusicDialog(this@MainActivity, resources.getString(R.string.enjoy), resources.getString(R.string.begin_experience), bean.name, bean.enName, bean.level, bean.iscollection).setRightTitleListerner(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
-                        if (!bean.isbuy) {
-//                            需要付费的
-                            dia?.dismiss()
-                            var musicPayDialog = MusicPayDialog(this@MainActivity, "取消", "购买", bean.name, bean.enName).setRightTitleListerner(object : View.OnClickListener {
-                                override fun onClick(p0: View?) {
-//                                    跳支付
-                                    var bund = Bundle()
-                                    bund.putString("id", "" + bean?.id)
-                                    jump<MemberListActivity>(dataBundle = bund)
-                                }
-                            })
-                            musicPayDialog.show()
-
-                        } else {
+//                        if (!bean.isbuy) {
+////                            需要付费的
+//                            dia?.dismiss()
+//                            var musicPayDialog = MusicPayDialog(this@MainActivity, "取消", "购买", bean.name, bean.enName).setRightTitleListerner(object : View.OnClickListener {
+//                                override fun onClick(p0: View?) {
+////                                    跳支付
+//                                    var bund = Bundle()
+//                                    bund.putString("id", "" + bean?.id)
+//                                    jump<MemberListActivity>(dataBundle = bund)
+//                                }
+//                            })
+//                            musicPayDialog.show()
+//
+//                        } else {
                             var bundle = Bundle()
                             bundle.putString("id", "" + bean.id)
                             jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
-                        }
+//                        }
 
                     }
 
