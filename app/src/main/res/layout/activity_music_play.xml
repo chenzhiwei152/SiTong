@@ -12,10 +12,10 @@
         android:layout_height="100dp"
         android:layout_below="@+id/ll_title"
         android:background="#20232b"
-        android:paddingBottom="@dimen/dp_15"
         android:paddingLeft="@dimen/dp_40"
+        android:paddingTop="@dimen/dp_15"
         android:paddingRight="@dimen/dp_40"
-        android:paddingTop="@dimen/dp_15" />
+        android:paddingBottom="@dimen/dp_5" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,20 +26,26 @@
         <LinearLayout
             android:id="@+id/ll_scroll"
             android:layout_width="match_parent"
-            android:layout_height="30dp">
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="cesi"
-                android:textSize="16sp" />
+            <View
+                style="@style/divider_d0a670_1"
+                android:layout_width="20dp" />
+
+            <View
+                style="@style/divider_d0a670_1"
+                android:layout_width="20dp"
+                android:layout_marginTop="3dp" />
         </LinearLayout>
 
         <com.sevenstringedzithers.sitong.view.dragselectrecyclerview.DragSelectRecyclerView
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_50" />
 
 
     </LinearLayout>
@@ -49,7 +55,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="@dimen/dp_15">
+        android:background="@color/color_ffffff"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_15"
+        android:paddingBottom="@dimen/dp_10">
 
         <ImageView
             android:id="@+id/iv_play"
@@ -62,8 +72,8 @@
             style="@style/textStyle_d0a670_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
             android:layout_toRightOf="@+id/iv_play"
             android:text="0:0" />
 
@@ -80,18 +90,18 @@
             app:bsb_bubble_text_color="@color/color_ffffff"
             app:bsb_max="80"
             app:bsb_min="0"
-            app:bsb_touch_to_seek="true"
             app:bsb_progress="0"
             app:bsb_second_track_color="@color/color_d0a670"
+            app:bsb_touch_to_seek="true"
             app:bsb_track_color="@color/color_d0a670" />
 
         <TextView
             android:id="@+id/tv_end_time"
             style="@style/textStyle_d0a670_14"
-            android:layout_marginRight="@dimen/dp_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_10"
             android:layout_toLeftOf="@+id/iv_tool"
             android:text="0:0" />
 

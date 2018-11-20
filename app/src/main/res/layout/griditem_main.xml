@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:minWidth="@dimen/dp_20"
     android:layout_gravity="center">
 
     <com.sevenstringedzithers.sitong.view.dragselectrecyclerview.RectangleView
@@ -24,13 +25,21 @@
                 android:visibility="invisible" />
 
             <LinearLayout
+                android:id="@+id/ll_limit_top"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_10"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/ll_center_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/left"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -39,21 +48,21 @@
 
                     <LinearLayout
                         android:id="@+id/ll_left_top"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_10"
+                        android:orientation="horizontal" />
 
                     <LinearLayout
                         android:id="@+id/ll_left_center"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_20"
+                        android:orientation="horizontal" />
 
                     <LinearLayout
                         android:id="@+id/ll_left_down"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_20"
+                        android:orientation="horizontal" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -62,24 +71,29 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
+
                     <LinearLayout
                         android:id="@+id/ll_center_top"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_10"
+                        android:orientation="horizontal" />
 
                     <LinearLayout
                         android:id="@+id/ll_center"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_20"
+                        android:gravity="center"
+                        android:orientation="vertical" />
 
                     <LinearLayout
                         android:id="@+id/ll_center_dowm"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_20"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -89,23 +103,26 @@
 
                     <LinearLayout
                         android:id="@+id/ll_right_top"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_10"
+                        android:orientation="horizontal" />
 
                     <LinearLayout
                         android:id="@+id/ll_right"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" />
 
                     <LinearLayout
                         android:id="@+id/ll_right_down"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_20"
+                        android:orientation="horizontal">
+
+                        />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
@@ -113,8 +130,8 @@
             <ImageView
                 android:id="@+id/iv_shoushi"
                 android:layout_width="15dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="15dp" />
+                android:layout_height="15dp"
+                android:layout_gravity="center_horizontal" />
 
             <TextView
                 android:id="@+id/right"

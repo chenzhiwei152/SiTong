@@ -32,6 +32,7 @@
                     android:layout_height="300dp"
                     android:layout_weight="2"
                     app:v_start="right"
+                    app:v_textSize="12sp"
                     app:v_text="古籍记载伏羲作琴，又有神农作琴、黄帝造琴、唐尧造琴等传说；舜定琴为五弦，文王增一弦，武王伐纣又增一弦为七弦；可见古琴文化的源远流长，博大精深。琴有﹃士无故不撤琴瑟﹄和﹃左琴右书﹄之说。位列中国传统文化四艺﹃琴棋书画﹄之首，被视为高雅的代表，亦为文人吟唱时的伴奏乐器，自古以来一直是许多文人必备的知识和必修的科目。" />
 
             </LinearLayout>
@@ -39,7 +40,10 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_cache" />
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_knowledge" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

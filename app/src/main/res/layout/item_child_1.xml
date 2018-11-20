@@ -14,7 +14,9 @@
     <com.sevenstringedzithers.sitong.view.TextViewVertical
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
+        app:v_textSize="12sp"
+        app:v_textColor="@color/color_20232b"
         app:v_start="right" />
 
     <ImageView

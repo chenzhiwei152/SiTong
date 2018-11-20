@@ -84,9 +84,9 @@ class DescribeGestureFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>
     private fun setChangeState() {
         if (currentType == 0) {
             rb_left.text = "左"
-            rb_right.text = "【" + "右" + "】"
+            rb_right.text = "【  " + "右" + "  】"
         } else {
-            rb_left.text = "【" + "左" + "】"
+            rb_left.text = "【  " + "左" + "  】"
             rb_right.text = "右"
         }
     }

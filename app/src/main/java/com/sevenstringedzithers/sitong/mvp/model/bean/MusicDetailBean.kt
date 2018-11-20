@@ -25,7 +25,7 @@ data class MusicDetailBean(
 
         data class Score(
                 var sort: Double,
-                var numbered_music_middle: Any,
+                var numbered_music_middle: String,
                 var sound_type: Int,
                 var right_str: String,
                 var end_second: List<Double>,
@@ -37,7 +37,7 @@ data class MusicDetailBean(
                 var bpm: Int,
                 var toline:String,
                 var numbered_music: String,
-                var numbered_music_up: Any,
+                var numbered_music_up: String,
                 var jianziwidth: Double,
                 var islinefeed: Int,
                 var start_second: List<Double>,

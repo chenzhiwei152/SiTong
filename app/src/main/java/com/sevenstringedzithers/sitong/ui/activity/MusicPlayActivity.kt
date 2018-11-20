@@ -126,7 +126,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     mRecordDialog.setLeftTitleListerner(object : View.OnClickListener {
                         override fun onClick(v: View?) {
                             kotlin.run {
-                                FilesUtils.makePCMFileToWAVFile(lastRecordFile!!,RecordFilesUtils.getInstance(this@MusicPlayActivity)!!.getCurrentUri()+"/"+mRecordDialog.getEdittext()+".wav",true)
+                                FilesUtils.makePCMFileToWAVFile(lastRecordFile!!, RecordFilesUtils.getInstance(this@MusicPlayActivity)!!.getCurrentUri() + "/" + mRecordDialog.getEdittext() + ".wav", true)
                             }
                         }
 
@@ -138,12 +138,12 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
                     })
                     mRecordDialog.show()
-                    isRecording=false
+                    isRecording = false
                 } else {
-                    isRecording=true
+                    isRecording = true
                     soundTouchRec?.startRecord()
                 }
-
+                setButtonState()
             }
         }
     }
@@ -247,7 +247,6 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
         adapter = MainAdapter(this, this)
         rv_list.adapter = adapter
-
         var mPosX = 0f
         var mPosY = 0f
         var mCurPosX = 0f
@@ -407,6 +406,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         } else {
             iv_voice.setImageResource(R.mipmap.ic_voice)
         }
+        if (isRecording) {
+            iv_record.setImageResource(R.mipmap.ic_record_pressed)
+        } else {
+            iv_record.setImageResource(R.mipmap.ic_record_normal)
+        }
     }
 
     /*设置是否静音*/
@@ -423,8 +427,17 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         player?.stop()
         player = null
+        try {
+            if (isRecording) {
+                RecordFilesUtils.getInstance(this)?.deleteFiles(soundTouchRec?.stopRecord()!!)
+            }
+            soundTouchRec = null
+            soundTouch=null
+        } catch (e: java.lang.Exception) {
+
+        }
+        super.onDestroy()
     }
 }
