@@ -14,6 +14,7 @@ import com.sevenstringedzithers.sitong.mvp.model.bean.ResultBean
 import com.sevenstringedzithers.sitong.mvp.persenter.MessagePresenter
 import com.sevenstringedzithers.sitong.ui.adapter.MessageListAdapter
 import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
+import com.sevenstringedzithers.sitong.view.NormalRewardDialog
 import kotlinx.android.synthetic.main.activity_message_list.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
@@ -23,12 +24,15 @@ import kotlinx.android.synthetic.main.layout_common_title.*
  */
 class MessageActivity : BaseActivity<MessageContract.View, MessagePresenter>(), MessageContract.View {
     override fun setMessageRead(bean: ResultBean) {
-        mPresenter?.getList(false)
+//        mPresenter?.getList(false)
 
     }
 
     override fun getRewardResult(bean: GetRewardBean) {
         mPresenter?.getList(false)
+        var mDialog = NormalRewardDialog(this@MessageActivity, "", "3")
+        mDialog.show()
+
     }
 
     private var messageAdapter: MessageListAdapter? = null
@@ -81,6 +85,7 @@ class MessageActivity : BaseActivity<MessageContract.View, MessagePresenter>(), 
 //item点击
                 var bean = data as MessageListBean
                 MessageDetailActivity.newIntentce(this@MessageActivity, bean?.title, bean?.content)
+//                mPresenter?.setRead()
             }
 
         })

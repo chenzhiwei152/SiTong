@@ -68,7 +68,9 @@ class ToolActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseV
         })
 
         rb_delay.isChecked = true
-
+        tv_close.setOnClickListener {
+            back()
+        }
 
     }
 

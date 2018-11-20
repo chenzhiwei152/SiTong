@@ -21,7 +21,7 @@
 
             <TextView
                 android:id="@+id/tv_name"
-                style="@style/textStyle_20232b_16"
+                style="@style/textStyle_20232b_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -65,7 +65,7 @@
 
             <TextView
                 android:id="@+id/tv_belong"
-                style="@style/textStyle_20232b_16"
+                style="@style/textStyle_20232b_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -109,7 +109,7 @@
 
             <TextView
                 android:id="@+id/tv_email"
-                style="@style/textStyle_20232b_16"
+                style="@style/textStyle_20232b_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -153,7 +153,7 @@
 
             <TextView
                 android:id="@+id/tv_phone"
-                style="@style/textStyle_20232b_16"
+                style="@style/textStyle_20232b_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -197,7 +197,7 @@
 
             <TextView
                 android:id="@+id/tv_address"
-                style="@style/textStyle_20232b_16"
+                style="@style/textStyle_20232b_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -241,7 +241,7 @@
 
             <TextView
                 android:id="@+id/tv_exp_record"
-                style="@style/textStyle_20232b_16"
+                style="@style/textStyle_20232b_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -284,7 +284,7 @@
 
             <TextView
                 android:id="@+id/tv_question"
-                style="@style/textStyle_20232b_16"
+                style="@style/textStyle_20232b_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -327,7 +327,7 @@
 
             <TextView
                 android:id="@+id/tv_feedback"
-                style="@style/textStyle_20232b_16"
+                style="@style/textStyle_20232b_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

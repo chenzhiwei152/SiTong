@@ -13,7 +13,7 @@ import com.sevenstringedzithers.sitong.mvp.model.bean.ResultBean
 
 /**
  *
- * 登陆
+ * 消息
  *
  */
 
@@ -36,7 +36,7 @@ class MessagePresenter : BasePresenter<MessageContract.View>(), MessageContract.
 
                 override fun onSuccess(body: BaseBean<GetRewardBean>) {
                     mRootView?.dismissLoading()
-//                    mRootView?.loginSuccess(body.data)
+                    mRootView?.getRewardResult(body.data)
                 }
             }
 
@@ -107,7 +107,7 @@ class MessagePresenter : BasePresenter<MessageContract.View>(), MessageContract.
 
                 override fun onSuccess(body: BaseBean<ResultBean>) {
                     mRootView?.dismissLoading()
-//                    mRootView?.loginSuccess(body.data)
+                    mRootView?.setMessageRead(body.data)
                 }
             }
 

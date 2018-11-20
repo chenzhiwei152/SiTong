@@ -63,7 +63,7 @@ class MineInfoFragmentAdapter(mContext: Context, fm: FragmentManager?, tabs: Arr
     fun getTabItemView(position: Int,isCurrent:Boolean=false): View {
         val view = LayoutInflater.from(mContext).inflate(R.layout.item_tablayout, null)
         if (isCurrent){
-            view.tv_title.text = "【"+tabs?.get(position)+"】"
+            view.tv_title.text = "【  "+tabs?.get(position)+"  】"
         }else{
             view.tv_title.text =tabs?.get(position)
         }
