@@ -6,11 +6,13 @@
     android:orientation="horizontal">
 
     <ImageView
+        android:id="@+id/iv_qq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/selector_login_qq" />
 
     <ImageView
+        android:id="@+id/iv_weixin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
@@ -18,6 +20,7 @@
         android:src="@drawable/selector_login_qq" />
 
     <ImageView
+        android:id="@+id/iv_weixin_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/selector_login_qq" />
