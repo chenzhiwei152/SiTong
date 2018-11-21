@@ -22,6 +22,7 @@ import com.sina.weibo.sdk.auth.AuthInfo
 import com.sina.weibo.sdk.auth.Oauth2AccessToken
 import com.sina.weibo.sdk.auth.WbConnectErrorMessage
 import com.sina.weibo.sdk.auth.sso.SsoHandler
+import com.tencent.android.tpush.XGPushManager
 import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
@@ -127,6 +128,7 @@ class LoginActivity : BaseActivity<LoginContract.View, LoginPresenter>(), LoginC
 
     override fun loginSuccess(user: UserInfo) {
         BaseContext.instance.setUserInfo(user)
+        XGPushManager.bindAccount(getApplicationContext(), user.phone)
         jump<MainActivity>()
         EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.LOGIN_SUCCESS))
         finish()

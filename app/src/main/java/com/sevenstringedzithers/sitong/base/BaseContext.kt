@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
@@ -19,6 +18,10 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo
 import com.sevenstringedzithers.sitong.utils.ActivityStackManager
+import com.tencent.android.tpush.XGIOperateCallback
+import com.tencent.android.tpush.XGPushConfig
+import com.tencent.android.tpush.XGPushManager
+import com.tencent.android.tpush.XGPushManager.registerPush
 import javax.crypto.SecretKey
 import kotlin.properties.Delegates
 
@@ -55,37 +58,7 @@ class BaseContext : MultiDexApplication() {
         var instance: BaseContext by Delegates.notNull()
     }
 
-    /**
-     * 百度地图开启定位定位
-     */
-    fun startLocation() {
-//        BaiduLocationHelper.getInstance()?.startLocation()
-    }
 
-    /*
-    * 获取定位的城市
-    * */
-//    fun getLocationCity(): CityData? {
-//        return InitDefaultHelper.getInstance()?.getLocationCity()
-//    }
-
-    /*
-    * 获取自己选择的城市
-    * */
-//    fun getSelectedCity(): CityData? {
-//        return InitDefaultHelper.getInstance()?.getSelectedCity()
-//    }
-
-    fun getChannel(): String? {
-        try {
-            val appInfo = instance.packageManager.getApplicationInfo(instance.packageName, PackageManager.GET_META_DATA)
-            return appInfo.metaData.getString("BBZF_CHANNEL")
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-        }
-
-        return ""
-    }
 
     /**
      * dex 分包
@@ -109,7 +82,7 @@ class BaseContext : MultiDexApplication() {
         LogUtils.setUp(isApkDebugable(this))
         LogUtils.customTagPrefix = this.resources.getString(R.string.app_name)
 //        ShareUtils.initShare(this)
-//        initJPush()
+        initPush()
         registerActivityLifeCircleListener()//注册Activity声明周期回调，以便于分辨前后台
     }
 
@@ -143,8 +116,9 @@ class BaseContext : MultiDexApplication() {
 
     //
     fun logout() {
+
         if (userInfo != null) {
-//            JPushHelper.logout(userInfo!!.token)
+            registerPush(this, "*")
         }
         userInfo = null
         SharedPrefUtil.saveObj(instance, "userInfo", null)
@@ -169,11 +143,20 @@ class BaseContext : MultiDexApplication() {
 
     var regId: String? = null
     /**
-     * 极光推送
+     * 腾讯信鸽推送
      */
-    private fun initJPush() {
-//        JPushInterface.init(this)
-//        JPushHelper.register(this)
+    private fun initPush() {
+        XGPushConfig.enableDebug(this,true)
+        XGPushManager.registerPush(this,object :XGIOperateCallback{
+            override fun onSuccess(p0: Any?, p1: Int) {
+                LogUtils.e("成功XGPushManager:"+p0.toString())
+            }
+
+            override fun onFail(p0: Any?, p1: Int, p2: String?) {
+                LogUtils.e("失败XGPushManager:"+p2)
+            }
+
+        })
     }
 
     private fun registerActivityLifeCircleListener() {

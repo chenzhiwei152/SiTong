@@ -8,8 +8,9 @@ import com.jyall.bbzf.base.BaseContext
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
-import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.MainActivity
+import com.sevenstringedzithers.sitong.R
+import com.tencent.android.tpush.XGPushManager
 
 /**
  * create by chen.zhiwei on 2018-8-13
@@ -23,6 +24,17 @@ class SplashActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>() {
     override fun getLayoutId(): Int = R.layout.activity_splash
 
     override fun initViewsAndEvents() {
+        var  click = XGPushManager.onActivityStarted(this)
+
+        if(click !=null) {
+
+            //从推送通知栏打开Service打开Activity会重新执行Laucher流程  //查看是不是全新打开的面板                                                                     
+
+            if(isTaskRoot()) {return;}
+
+            finish()//如果有面板存在则关闭当前的面板
+
+        }
 
 //        val decorView = window.decorView
 //        val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -42,6 +54,7 @@ class SplashActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>() {
 
     private fun intentMainActivity() {
         if (BaseContext.instance.getUserInfo() != null) {
+            XGPushManager.bindAccount(getApplicationContext(), BaseContext.instance.getUserInfo()?.phone)
             jump<MainActivity>(isAnimation = true)
         } else {
 //            val intent = Intent(this, LoginOrRegisterActivity::class.java)
