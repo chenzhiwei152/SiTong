@@ -136,15 +136,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                 //        中间的数字
                 TextView textview = new TextView(mContext);
                 textview.setText(list.get(position).getNumbered_music());
-                textview.setTextSize(UIUtil.sp2px(mContext, 5f));
+                textview.setTextSize(12f);
                 holder.ll_center.addView(textview);
             } else if (list.get(position).getSound_type() == 1) {
                 TextView textviewUp = new TextView(mContext);
                 textviewUp.setText(list.get(position).getNumbered_music_up());
-                textviewUp.setTextSize(UIUtil.sp2px(mContext, 2.5f));
+                textviewUp.setTextSize(6f);
                 TextView textview = new TextView(mContext);
                 textview.setText(list.get(position).getNumbered_music());
-                textview.setTextSize(UIUtil.sp2px(mContext, 2.5f));
+                textview.setTextSize(6);
                 holder.ll_center.addView(textviewUp);
                 holder.ll_center.addView(textview);
             } else {
