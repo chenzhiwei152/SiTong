@@ -29,6 +29,7 @@ public class Constants {
     public static String REDIRECT_URL="https://api.weibo.com/oauth2/default.html";
     public static String SCOPE="";
     public static String musicList="musicList";
+    public static String VIDOE_URL="video_url";
 
 
     public static class Tag {

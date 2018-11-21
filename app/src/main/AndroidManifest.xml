@@ -107,6 +107,9 @@
             android:name=".ui.activity.LocalDownloadActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.QuestionsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activity.MessageActivity"
             android:screenOrientation="portrait" />
         <activity

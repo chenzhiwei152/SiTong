@@ -1,6 +1,5 @@
 package com.jyall.bbzf.api.scheduler
 
-import com.google.gson.Gson
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseBean
 import com.jyall.bbzf.base.BaseContext
@@ -35,39 +34,27 @@ abstract class CommonObserver<T> : Observer<Response<T>> {
                             LogUtils.e("Exception:", e.toString())
                         }
 
+                    } else if (baseBean.statuscode == ResponseCode.ACCESS_TOKEN_INVALID) {
+                        BaseContext.instance.logout()
                     } else {
                         if (!onFail(response.body())) {
                             LogUtils.e(baseBean.message)
                         }
-
                     }
                 } catch (e: Exception) {
                     onError(e)
                     LogUtils.e("Exception:", e.message)
 
                 }
-
-
             }
-            ResponseCode.BAD_REQUEST == response?.code() -> {
-                var errorResponseBean: ErrorResponseBean
-                try {
-                    errorResponseBean = Gson().fromJson(response.errorBody().string(), ErrorResponseBean::class.java)
-                    onError(errorResponseBean)
-                } catch (e: Exception) {
-                    onError(e)
-                }
-
-
-            }
-            ResponseCode.ACCESS_TOKEN_INVALID == response?.code() -> {
-                try {
-                    BaseContext.instance.logout()
-                } catch (e: Exception) {
-                    onError(e)
-                }
-
-            }
+//            ResponseCode.ACCESS_TOKEN_INVALID == response?.code() -> {
+//                try {
+//                    BaseContext.instance.logout()
+//                } catch (e: Exception) {
+//                    onError(e)
+//                }
+//
+//            }
             else -> run { onError(Exception("unknown error")) }
         }
 

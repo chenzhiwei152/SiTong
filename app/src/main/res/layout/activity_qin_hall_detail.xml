@@ -19,16 +19,15 @@
             android:paddingBottom="200dp"
             android:scaleType="fitXY" />
 
-        <com.sevenstringedzithers.sitong.view.TextViewVertical
+        <TextView
             android:id="@+id/tv_titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="80dp"
-            app:v_start="right"
-            app:v_text="" />
+            android:ems="1"
+            android:layout_marginBottom="80dp" />
 
         <ImageView
             android:id="@+id/iv_more"

@@ -6,6 +6,7 @@ import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.mvp.contract.ArticleListContract
+import com.sevenstringedzithers.sitong.mvp.model.bean.QinguanDetailBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.VideoListBean
 import com.sevenstringedzithers.sitong.mvp.persenter.ArticleListPresenter
 import com.sevenstringedzithers.sitong.ui.adapter.VideoListAdapter
@@ -16,6 +17,9 @@ import kotlinx.android.synthetic.main.fragment_qin_hall.*
  * create by chen.zhiwei on 2018-8-15
  */
 class ArticleFragment : BaseFragment<ArticleListContract.View, ArticleListPresenter>(), ArticleListContract.View {
+    override fun getArticleDetailSuccess(bean: QinguanDetailBean) {
+    }
+
     private var mAdapter: VideoListAdapter? = null
     override fun getPresenter(): ArticleListPresenter =ArticleListPresenter()
 

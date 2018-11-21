@@ -149,6 +149,17 @@ object APIAddressConstants {
 
     /*打卡*/
     const val DAILY_PUNCH = "/task/punchtheclock/"
-    /*获取练琴记录*/
-    const val EXERCISE_RECORD_LIST="/music/getpracticelist/"
+
+    /*
+    获取练琴记录
+    * */
+    const val EXERCISE_RECORD_LIST = "/music/getpracticelist/"
+    /*
+    获取常见问题记录
+    * */
+    const val NOMAL_PROBLEM_LIST = "/system/getquestionslist/"
+    /*
+    获取常见问题详情
+    * */
+    const val NOMAL_PROBLEM_DETAIL = "/system/getsolutions/"
 }

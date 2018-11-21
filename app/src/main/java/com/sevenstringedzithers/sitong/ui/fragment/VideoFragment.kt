@@ -38,6 +38,7 @@ class VideoFragment : BaseFragment<VideoListContract.View, VideoListPresenter>()
     override fun initViewsAndEvents() {
         rv_list.layoutManager = LinearLayoutManager(activity)
         mAdapter = VideoListAdapter(context!!)
+        mAdapter?.setType(1)
         rv_list.adapter = mAdapter
         mPresenter?.getList()
     }

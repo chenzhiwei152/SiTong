@@ -6,18 +6,18 @@ import com.jyall.bbzf.api.scheduler.CommonObserver
 import com.jyall.bbzf.api.scheduler.ErrorResponseBean
 import com.jyall.bbzf.base.BaseBean
 import com.jyall.bbzf.base.BasePresenter
-import com.sevenstringedzithers.sitong.mvp.contract.ArticleListContract
-import com.sevenstringedzithers.sitong.mvp.model.bean.QinguanDetailBean
-import com.sevenstringedzithers.sitong.mvp.model.bean.VideoListBean
+import com.sevenstringedzithers.sitong.mvp.contract.QuestionContract
+import com.sevenstringedzithers.sitong.mvp.model.bean.QuestionDetailBean
+import com.sevenstringedzithers.sitong.mvp.model.bean.QuestionListBean
 
 /**
  * create by chen.zhiwei on 2018-8-14
  */
-class ArticleListPresenter : BasePresenter<ArticleListContract.View>(), ArticleListContract.Presenter {
-    override fun getDetail(map: HashMap<String, String>) {
+class QuestionPresenter : BasePresenter<QuestionContract.View>(), QuestionContract.Presenter {
+    override fun getQuestions() {
         if (checkViewAttached()) {
 //            mRootView?.showLoading(false)
-            var observer = object : CommonObserver<BaseBean<QinguanDetailBean>>() {
+            var observer = object : CommonObserver<BaseBean<ArrayList<QuestionListBean>>>() {
 
                 override fun onError(errorResponseBean: ErrorResponseBean): Boolean {
                     mRootView?.dismissLoading()
@@ -25,26 +25,26 @@ class ArticleListPresenter : BasePresenter<ArticleListContract.View>(), ArticleL
                     return false
                 }
 
-                override fun onFail(errorResponseBean: BaseBean<QinguanDetailBean>): Boolean {
+                override fun onFail(errorResponseBean: BaseBean<ArrayList<QuestionListBean>>): Boolean {
                     mRootView?.dismissLoading()
                     return true
                 }
 
-                override fun onSuccess(body: BaseBean<QinguanDetailBean>) {
+                override fun onSuccess(body: BaseBean<ArrayList<QuestionListBean>>) {
 //                    mRootView?.dismissLoading()
-                    mRootView?.getArticleDetailSuccess(body.data)
+                    mRootView?.getListSuccess(body.data)
                 }
             }
 
-            APIManager.jyApi.get_article_detail(map).compose(SchedulerUtils.ioToMain()).subscribe(observer)
+            APIManager.jyApi.get_problem_list().compose(SchedulerUtils.ioToMain()).subscribe(observer)
             addSubscription(observer.disposable!!)
         }
     }
 
-    override fun getList() {
+    override fun getQuestionDetails(map: HashMap<String, String>) {
         if (checkViewAttached()) {
 //            mRootView?.showLoading(false)
-            var observer = object : CommonObserver<BaseBean<ArrayList<VideoListBean>>>() {
+            var observer = object : CommonObserver<BaseBean<ArrayList<QuestionDetailBean>>>() {
 
                 override fun onError(errorResponseBean: ErrorResponseBean): Boolean {
                     mRootView?.dismissLoading()
@@ -52,19 +52,22 @@ class ArticleListPresenter : BasePresenter<ArticleListContract.View>(), ArticleL
                     return false
                 }
 
-                override fun onFail(errorResponseBean: BaseBean<ArrayList<VideoListBean>>): Boolean {
+                override fun onFail(errorResponseBean: BaseBean<ArrayList<QuestionDetailBean>>): Boolean {
                     mRootView?.dismissLoading()
                     return true
                 }
 
-                override fun onSuccess(body: BaseBean<ArrayList<VideoListBean>>) {
+                override fun onSuccess(body: BaseBean<ArrayList<QuestionDetailBean>>) {
 //                    mRootView?.dismissLoading()
-                    mRootView?.getDataSuccess(body.data)
+                    mRootView?.getDetailSuccess(body.data)
                 }
             }
 
-            APIManager.jyApi.getArticleList().compose(SchedulerUtils.ioToMain()).subscribe(observer)
+            APIManager.jyApi.get_problem_detail(map).compose(SchedulerUtils.ioToMain()).subscribe(observer)
             addSubscription(observer.disposable!!)
         }
+
     }
+
+
 }

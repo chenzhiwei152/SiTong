@@ -18,7 +18,7 @@ object ResponseCode {
 
 
     val UPDATE_FORCE = 201
-    val ACCESS_TOKEN_INVALID = -2001//token失效
+    val ACCESS_TOKEN_INVALID = -20001//token失效
     val TICKET_UNAVALIBLE = 400000023//ticket无效的请求参数
     val TICKET_UNAVALIBLE2 = 400000024//ticket无效的请求参数
     val TICKET_UNAVALIBLE3 = 400000002//ticket不存在或者已经失效
