@@ -22,6 +22,7 @@ import com.jyall.android.common.utils.LogUtils;
 import com.jyall.android.common.utils.UIUtil;
 import com.sevenstringedzithers.sitong.R;
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicDetailBean;
+import com.sevenstringedzithers.sitong.utils.ImageUtils;
 import com.sevenstringedzithers.sitong.view.dragselectrecyclerview.IDragSelectAdapter;
 import com.sevenstringedzithers.sitong.view.dragselectrecyclerview.RectangleView;
 
@@ -173,7 +174,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                             String ss[] = new String[2];
                             if (!TextUtils.isEmpty(symbol.getParam()))
                                 ss = symbol.getParam().split("\\.");
-                            if (ss.length>0){
+                            if (ss.length > 0) {
                                 yanyinSet.put(position, Integer.parseInt(ss[0]));
                             }
                         } catch (Exception e) {
@@ -215,9 +216,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                                 holder.ll_right.addView(v);
                                 break;
                             case 9:
-                                ImageView v1 = new ImageView(mContext);
-                                v1.setImageResource(R.mipmap.ic_jiepai);
-                                holder.ll_right.addView(v1);
+                                int image = ImageUtils.Companion.getJiePai(symbol.getParam());
+                                if (image != 0) {
+                                    ImageView v1 = new ImageView(mContext);
+                                    v1.setImageResource(image);
+                                    holder.ll_right.addView(v1);
+                                }
                                 break;
                         }
                         break;
@@ -301,9 +305,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 //                    左
                         switch (symbol.getNamecode()) {
                             case 9:
-                                ImageView v = new ImageView(mContext);
-                                v.setImageResource(R.mipmap.ic_jiepai);
-                                holder.ll_left_center.addView(v);
+                                int image = ImageUtils.Companion.getJiePai(symbol.getParam());
+                                if (image != 0) {
+                                    ImageView v = new ImageView(mContext);
+                                    v.setImageResource(image);
+                                    holder.ll_left_center.addView(v);
+                                }
+
                                 break;
                             case 11:
                                 ImageView v1 = new ImageView(mContext);
