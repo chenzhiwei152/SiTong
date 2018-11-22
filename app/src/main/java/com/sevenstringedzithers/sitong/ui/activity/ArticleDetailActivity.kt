@@ -13,6 +13,8 @@ import com.sevenstringedzithers.sitong.mvp.model.bean.QinguanDetailBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.VideoListBean
 import com.sevenstringedzithers.sitong.mvp.persenter.ArticleListPresenter
 import com.sevenstringedzithers.sitong.ui.adapter.QinHallDetilListAdapter
+import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
+import com.sevenstringedzithers.sitong.view.ShareDialog
 import com.yinglan.scrolllayout.ScrollLayout
 import kotlinx.android.synthetic.main.activity_qin_hall_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -131,5 +133,16 @@ class ArticleDetailActivity : BaseActivity<ArticleListContract.View, ArticleList
         tv_title.visibility = View.GONE
         vv_divider.visibility = View.GONE
         iv_menu.visibility = View.GONE
+        iv_menu.setImageResource(R.mipmap.ic_share)
+        iv_menu.setOnClickListener {
+            var dialog = ShareDialog(this, "", "", "")
+            dialog.setShareCallback(object : RVAdapterItemOnClick {
+                override fun onItemClicked(data: Any) {
+                    toast_msg(data as String)
+                }
+
+            })
+            dialog.show()
+        }
     }
 }

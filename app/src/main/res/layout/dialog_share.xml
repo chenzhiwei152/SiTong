@@ -2,8 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_ffffff"
     android:gravity="center_horizontal"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/dp_30"
+    android:paddingBottom="@dimen/dp_30">
 
     <ImageView
         android:id="@+id/iv_qq"
@@ -15,13 +18,13 @@
         android:id="@+id/iv_weixin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:src="@drawable/selector_login_qq" />
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_30"
+        android:src="@drawable/selector_login_wx" />
 
     <ImageView
         android:id="@+id/iv_weixin_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/selector_login_qq" />
+        android:src="@drawable/selector_login_wx" />
 </LinearLayout>

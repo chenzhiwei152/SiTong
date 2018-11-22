@@ -3,16 +3,19 @@ package com.sevenstringedzithers.sitong.view
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.ContextWrapper
 import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import com.jyall.bbzf.base.EventBusCenter
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.mvp.model.bean.WeiXin
+import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
 import com.tencent.connect.share.QQShare
 import com.tencent.connect.share.QzoneShare
+import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject
@@ -29,73 +32,90 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * create by chen.zhiwei on 2018-8-15
  */
-class ShareDialog(context: Context?, leftTitle: String, rightTitle: String, title: String = "", enTitle: String, level: String) : Dialog(context), IUiListener {
+class ShareDialog(context: Context?, leftTitle: String, rightTitle: String, title: String = "") : Dialog(context), IUiListener {
     override fun onComplete(p0: Any?) {
+        shareCallBack?.onItemClicked("分享成功")
     }
 
     override fun onCancel() {
+        shareCallBack?.onItemClicked("取消分享")
     }
 
     override fun onError(p0: UiError?) {
+        shareCallBack?.onItemClicked("分享失败")
     }
 
     var mContext: Context? = null
     private var wxAPI: IWXAPI? = null
     private var mTencent: Tencent? = null
-    var leftTitleListerner: View.OnClickListener? = null
-    var rightTitleListerner: View.OnClickListener? = null
+    var shareCallBack: RVAdapterItemOnClick? = null
 
     init {
         this.mContext = context
-        init(leftTitle, rightTitle, title, enTitle, level)
+        init(leftTitle, rightTitle, title)
     }
 
-    fun init(leftTitle: String, rightTitle: String, title: String = "", enTitle: String, level: String) {
+    fun init(leftTitle: String, rightTitle: String, title: String = "") {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window!!.setBackgroundDrawableResource(android.R.color.transparent)
         window!!.setContentView(R.layout.dialog_share)
         val window = window
         val wlp = window!!.attributes
-        wlp.gravity = Gravity.CENTER
+        wlp.gravity = Gravity.BOTTOM
         wlp.width = WindowManager.LayoutParams.MATCH_PARENT
         wlp.height = WindowManager.LayoutParams.WRAP_CONTENT
         window.attributes = wlp
-        iv_qq.setOnClickListener { }
+        iv_qq.setOnClickListener {
+            qqShare(false)
+        }
         iv_weixin.setOnClickListener {
-
+            weixinShare(false)
 
         }
-        iv_weixin_friend.setOnClickListener { }
+        iv_weixin_friend.setOnClickListener {
+            weixinShare(true)
+        }
         EventBus.getDefault().register(this)
     }
 
 
-    fun setLeftTitleListerner(lister: View.OnClickListener): ShareDialog {
-        this.leftTitleListerner = lister
+    fun setShareCallback(lister: RVAdapterItemOnClick): ShareDialog {
+        this.shareCallBack = lister
         return this
     }
 
-    fun setRightTitleListerner(lister: View.OnClickListener): ShareDialog {
-        this.rightTitleListerner = lister
-        return this
-    }
 
     @Subscribe
     public fun onMessageEvent(eventBusCenter: EventBusCenter<Object>) {
-
+        if (eventBusCenter != null) {
+            if (eventBusCenter.evenCode == Constants.Tag.WX_SHARE) {
+                var bean = eventBusCenter.data as WeiXin
+                when (bean.errCode) {
+                    BaseResp.ErrCode.ERR_OK -> {
+                        shareCallBack?.onItemClicked("分享成功")
+                    }
+                    BaseResp.ErrCode.ERR_USER_CANCEL -> {
+                        shareCallBack?.onItemClicked("分享取消")
+                    }
+                    BaseResp.ErrCode.ERR_AUTH_DENIED -> {
+                        shareCallBack?.onItemClicked("分享失败")
+                    }
+                }
+            }
+        }
     }
 
-    private fun share(friendsCircle: Boolean) {
+    private fun weixinShare(friendsCircle: Boolean) {
         val webpage = WXWebpageObject()
         webpage.webpageUrl = "www.baidu.com"//分享url
-        var msg = WXMediaMessage(webpage);
-        msg.title = "分享标题";
-        msg.description = "分享描述";
+        var msg = WXMediaMessage(webpage)
+        msg.title = "分享标题"
+        msg.description = "分享描述"
 //        msg.thumbData =getThumbData();//封面图片byte数组
-        var req = SendMessageToWX.Req();
+        var req = SendMessageToWX.Req()
         req.transaction = System.currentTimeMillis().toString()
-        req.message = msg;
+        req.message = msg
         if (friendsCircle) {
             req.scene = SendMessageToWX.Req.WXSceneTimeline
         } else {
@@ -108,7 +128,7 @@ class ShareDialog(context: Context?, leftTitle: String, rightTitle: String, titl
         wxAPI?.sendReq(req)
     }
 
-    private fun qqShare() {
+    private fun qqShare(isFriend: Boolean) {
         /*Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
         if (requestCode == Constants.REQUEST_API) {
             if (resultCode == Constants.REQUEST_QQ_SHARE || resultCode == Constants.REQUEST_QZONE_SHARE || resultCode == Constants.REQUEST_OLD_SHARE) {
@@ -119,6 +139,11 @@ class ShareDialog(context: Context?, leftTitle: String, rightTitle: String, titl
 */
         if (mTencent == null) {
             mTencent = Tencent.createInstance(Constants.WECHAT_APPID, context)
+        }
+        if (isFriend) {
+            shareToQQZone()
+        } else {
+            shareToQQ()
         }
     }
 
@@ -132,7 +157,7 @@ class ShareDialog(context: Context?, leftTitle: String, rightTitle: String, titl
         params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "医师工作站")// 应用名称
         // params.putString(QQShare.SHARE_TO_QQ_EXT_INT, "其它附加功能");
         // 分享操作要在主线程中完成
-        mTencent?.shareToQQ(context as Activity, params, this)
+        mTencent?.shareToQQ(scanForActivity(context), params, this)
     }
 
     private fun shareToQQZone() {
@@ -147,5 +172,14 @@ class ShareDialog(context: Context?, leftTitle: String, rightTitle: String, titl
         mTencent?.shareToQzone(context as Activity, params, this)
     }
 
+    private fun  scanForActivity( cont:Context):Activity?{
+        if (cont == null)
+            return null;
+        else if (cont is Activity)
+            return  cont
+        else if (cont is ContextWrapper)
+            return scanForActivity(( cont ).getBaseContext())
 
+        return null;
+    }
 }
