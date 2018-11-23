@@ -25,31 +25,6 @@
                 android:visibility="invisible" />
 
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/ll_limit_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_10"
-                    android:orientation="horizontal" />
-
-                <LinearLayout
-                    android:id="@+id/ll_limit_top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_10"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal" />
-
-                <LinearLayout
-                    android:id="@+id/ll_limit_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_10"
-                    android:orientation="horizontal" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -63,7 +38,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
+                    <LinearLayout
+                        android:id="@+id/ll_limit_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_10"
+                        android:orientation="horizontal" />
                     <LinearLayout
                         android:id="@+id/ll_left_top"
                         android:layout_width="wrap_content"
@@ -90,7 +69,12 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-
+                    <LinearLayout
+                        android:id="@+id/ll_limit_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_10"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal" />
                     <LinearLayout
                         android:id="@+id/ll_center_top"
                         android:layout_width="wrap_content"
@@ -119,7 +103,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
+                    <LinearLayout
+                        android:id="@+id/ll_limit_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_10"
+                        android:orientation="horizontal" />
                     <LinearLayout
                         android:id="@+id/ll_right_top"
                         android:layout_width="wrap_content"

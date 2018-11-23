@@ -353,63 +353,63 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                     int width2 = params_left.width;
 
                     ImageView imageView2 = new ImageView(mContext);
-                    imageView2.setImageResource(R.drawable.bg_transparent);
+                    imageView2.setImageResource(R.drawable.bg_transparent_5);
                     holder.ll_limit_left.addView(imageView2);
-                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
-                    params_image2.width = width2 + width / 2;
-                    imageView2.setLayoutParams(params_image2);
+//                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
+//                    params_image2.width = width2 + width / 2;
+//                    imageView2.setLayoutParams(params_image2);
 
 
                     ImageView imageView = new ImageView(mContext);
-                    imageView.setImageResource(R.mipmap.ic_oval_left_small);
+                    imageView.setImageResource(R.drawable.line_black_10);
                     holder.ll_limit_top.addView(imageView);
-                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-                    params_image.width = width / 2;
-                    imageView.setLayoutParams(params_image);
+//                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+//                    params_image.width = width / 2;
+//                    imageView.setLayoutParams(params_image);
 
 
                     LinearLayout.LayoutParams params_right = (LinearLayout.LayoutParams) holder.ll_right_content.getLayoutParams();
                     int width1 = params_right.width;
 
                     ImageView imageView1 = new ImageView(mContext);
-                    imageView1.setImageResource(R.mipmap.ic_oval_middle_small);
+                    imageView1.setImageResource(R.drawable.line_black_10);
                     holder.ll_limit_right.addView(imageView1);
-                    LinearLayout.LayoutParams params_image1 = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
-                    params_image1.width = width1;
-                    imageView1.setLayoutParams(params_image1);
+//                    LinearLayout.LayoutParams params_image1 = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
+//                    params_image1.width = width1;
+//                    imageView1.setLayoutParams(params_image1);
                 } else if (position == (key + yanyinSet.get(key) - 1)) {
 
                     LinearLayout.LayoutParams params_left = (LinearLayout.LayoutParams) holder.ll_left_content.getLayoutParams();
                     int width = params_left.width;
 
                     ImageView imageView1 = new ImageView(mContext);
-                    imageView1.setImageResource(R.mipmap.ic_oval_middle_small);
+                    imageView1.setImageResource(R.drawable.line_black_10);
                     holder.ll_limit_left.addView(imageView1);
-                    LinearLayout.LayoutParams params_image1 = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
-                    params_image1.width = width;
-                    imageView1.setLayoutParams(params_image1);
+//                    LinearLayout.LayoutParams params_image1 = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
+//                    params_image1.width = width;
+//                    imageView1.setLayoutParams(params_image1);
 
 
                     LinearLayout.LayoutParams params_center = (LinearLayout.LayoutParams) holder.ll_center_content.getLayoutParams();
                     int width1 = params_center.width;
 
                     ImageView imageView = new ImageView(mContext);
-                    imageView.setImageResource(R.mipmap.ic_oval_right_small);
+                    imageView.setImageResource(R.drawable.line_black_10);
                     holder.ll_limit_top.addView(imageView);
-                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-                    params_image.width = width1 / 2;
-                    imageView.setLayoutParams(params_image);
+//                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+//                    params_image.width = width1 / 2;
+//                    imageView.setLayoutParams(params_image);
 
 
                     LinearLayout.LayoutParams params_right = (LinearLayout.LayoutParams) holder.ll_right_content.getLayoutParams();
                     int width2 = params_right.width;
 
                     ImageView imageView2 = new ImageView(mContext);
-                    imageView2.setImageResource(R.drawable.bg_transparent);
+                    imageView2.setImageResource(R.drawable.line_black_10);
                     holder.ll_limit_right.addView(imageView2);
-                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
-                    params_image2.width = width2 + width1 / 2;
-                    imageView2.setLayoutParams(params_image2);
+//                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
+//                    params_image2.width = width2 + width1 / 2;
+//                    imageView2.setLayoutParams(params_image2);
 
                 } else if (position > key && position < (key + yanyinSet.get(key) - 1)) {
 
@@ -417,32 +417,32 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                     int width = params_left.width;
 
                     ImageView imageView1 = new ImageView(mContext);
-                    imageView1.setImageResource(R.mipmap.ic_oval_middle_small);
+                    imageView1.setImageResource(R.drawable.line_black_10);
                     holder.ll_limit_left.addView(imageView1);
-                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
-                    params_image.width = width;
-                    imageView1.setLayoutParams(params_image);
+//                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
+//                    params_image.width = width;
+//                    imageView1.setLayoutParams(params_image);
 
 
                     LinearLayout.LayoutParams params_center = (LinearLayout.LayoutParams) holder.ll_center_content.getLayoutParams();
                     int width1 = params_center.width;
 
                     ImageView imageView = new ImageView(mContext);
-                    imageView.setImageResource(R.mipmap.ic_oval_middle_small);
+                    imageView.setImageResource(R.drawable.line_black_10);
                     holder.ll_limit_top.addView(imageView);
-                    LinearLayout.LayoutParams params_image1 = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-                    params_image1.width = width1;
-                    imageView.setLayoutParams(params_image1);
+//                    LinearLayout.LayoutParams params_image1 = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+//                    params_image1.width = width1;
+//                    imageView.setLayoutParams(params_image1);
 
                     LinearLayout.LayoutParams params_right = (LinearLayout.LayoutParams) holder.ll_right_content.getLayoutParams();
                     int width2 = params_right.width;
 
                     ImageView imageView2 = new ImageView(mContext);
-                    imageView2.setImageResource(R.mipmap.ic_oval_middle_small);
+                    imageView2.setImageResource(R.drawable.line_black_10);
                     holder.ll_limit_right.addView(imageView2);
-                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
-                    params_image2.width = width2;
-                    imageView2.setLayoutParams(params_image2);
+//                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
+//                    params_image2.width = width2;
+//                    imageView2.setLayoutParams(params_image2);
                 }
 
             }
