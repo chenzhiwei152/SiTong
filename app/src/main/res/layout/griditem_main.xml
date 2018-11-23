@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:minWidth="@dimen/dp_20"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:minWidth="@dimen/dp_20">
 
     <com.sevenstringedzithers.sitong.view.dragselectrecyclerview.RectangleView
         android:id="@+id/colorSquare"
@@ -24,17 +24,34 @@
                 android:text="A"
                 android:visibility="invisible" />
 
+
             <LinearLayout
-                android:id="@+id/ll_limit_top"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_10"
-                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:orientation="horizontal">
 
+                <LinearLayout
+                    android:id="@+id/ll_limit_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_10"
+                    android:orientation="horizontal" />
+
+                <LinearLayout
+                    android:id="@+id/ll_limit_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_10"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" />
+
+                <LinearLayout
+                    android:id="@+id/ll_limit_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_10"
+                    android:orientation="horizontal" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_center_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/left"
@@ -42,6 +59,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/ll_left_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -66,6 +84,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_center_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -92,11 +111,11 @@
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
-                        />
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_right_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -121,9 +140,9 @@
                         android:layout_height="@dimen/dp_20"
                         android:orientation="horizontal">
 
-                        />
                     </LinearLayout>
                 </LinearLayout>
+
 
             </LinearLayout>
 
@@ -141,7 +160,6 @@
                 android:text="B"
                 android:visibility="invisible" />
         </LinearLayout>
-
 
     </com.sevenstringedzithers.sitong.view.dragselectrecyclerview.RectangleView>
 
