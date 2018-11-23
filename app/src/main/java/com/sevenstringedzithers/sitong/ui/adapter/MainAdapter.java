@@ -190,6 +190,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                     case 2:
 //                    上
                         switch (symbol.getNamecode()) {
+                            case 8:
+                                ImageView v3 = new ImageView(mContext);
+                                v3.setImageResource(R.mipmap.ic_point_black);
+                                holder.ll_center_dowm.addView(v3);
+                                LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) v3.getLayoutParams();
+                                params1.topMargin = UIUtil.dip2px(mContext, 2);
+                                v3.setLayoutParams(params1);
+                                break;
                             case 14:
 //泛音
 //                                ImageView v1 = new ImageView(mContext);
@@ -361,7 +369,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
 
                     ImageView imageView = new ImageView(mContext);
-                    imageView.setImageResource(R.drawable.line_black_10);
+                    imageView.setImageResource(R.drawable.line_black_5);
                     holder.ll_limit_top.addView(imageView);
 //                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView.getLayoutParams();
 //                    params_image.width = width / 2;
@@ -394,7 +402,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                     int width1 = params_center.width;
 
                     ImageView imageView = new ImageView(mContext);
-                    imageView.setImageResource(R.drawable.line_black_10);
+                    imageView.setImageResource(R.drawable.line_black_5);
                     holder.ll_limit_top.addView(imageView);
 //                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView.getLayoutParams();
 //                    params_image.width = width1 / 2;
@@ -405,7 +413,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                     int width2 = params_right.width;
 
                     ImageView imageView2 = new ImageView(mContext);
-                    imageView2.setImageResource(R.drawable.line_black_10);
+                    imageView2.setImageResource(R.drawable.bg_transparent_5);
                     holder.ll_limit_right.addView(imageView2);
 //                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
 //                    params_image2.width = width2 + width1 / 2;
