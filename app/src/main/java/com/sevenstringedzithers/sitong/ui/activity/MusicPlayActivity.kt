@@ -301,10 +301,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     }
                     MotionEvent.ACTION_UP -> if (mCurPosY - mPosY > 0 && Math.abs(mCurPosY - mPosY) > 25) {
                         //向下滑動
-                        cq_view.visibility = View.VISIBLE
+                        rl_qin.visibility = View.VISIBLE
                     } else if (mCurPosY - mPosY < 0 && Math.abs(mCurPosY - mPosY) > 25) {
                         //向上滑动
-                        cq_view.visibility = View.GONE
+                        rl_qin.visibility = View.GONE
                     }
                 }
                 return true
