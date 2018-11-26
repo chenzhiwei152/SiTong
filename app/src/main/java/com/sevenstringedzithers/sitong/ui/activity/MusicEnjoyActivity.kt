@@ -30,7 +30,6 @@ import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.activity_music_enjoy.*
 import kotlinx.android.synthetic.main.activity_music_info.*
 import kotlinx.android.synthetic.main.layout_play_title_fff.*
-import java.io.File
 
 
 /**
@@ -145,7 +144,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
     }
 
     private var player: SoundStreamAudioPlayer? = null
-    private var f: File? = null
+    private var f: String? = null
     private var tempo = 1.0f//这个是速度，1.0表示正常设置新的速度控制值，
     private var pitchSemi = 1.0f//这个是音调，1.0表示正常，
     private var rate = 1.0f//这个参数是变速又变声的，这个参数大于0，否则会报错
@@ -251,7 +250,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
         showLoading()
         if (DownLoadFilesUtils.getInstance(this)!!.isExist(FilesUtils.getFileName(url))) {
-            f = File(DownLoadFilesUtils.getInstance(this)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url))
+            f =DownLoadFilesUtils.getInstance(this)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
             initPlayer()
         } else {
 //开始下载
@@ -266,7 +265,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
                 override fun onProgressSuccess() {
                     dismissLoading()
-                    f = File(DownLoadFilesUtils.getInstance(this@MusicEnjoyActivity)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url))
+                    f =DownLoadFilesUtils.getInstance(this@MusicEnjoyActivity)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
                     initPlayer()
                 }
             })
@@ -277,7 +276,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
     private fun initPlayer() {
         try {
             if (player == null) {
-                player = SoundStreamAudioPlayer(0, f?.getPath(), tempo, pitchSemi)
+                player = SoundStreamAudioPlayer(0, f, tempo, pitchSemi)
 
                 //这个参数是变速又变声的，这个参数大于0，否则会报错
 
@@ -315,7 +314,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
                 }
             }
 //                    var du=player?.playedDuration!!.toFloat()/1000
-            du = ExtraUtils.getMP3FileInfo(f?.absolutePath!!) / 1000
+            du = ExtraUtils.getMP3FileInfo(f!!) / 1000
             seek_bar.getConfigBuilder().max(du!!.toFloat()).min(0f)
             tv_end_time.setText(ExtraUtils.secToTime((du!!).toInt()))
         } catch (e: Exception) {

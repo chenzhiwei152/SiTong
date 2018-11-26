@@ -28,7 +28,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/dp_15"
         android:layout_toRightOf="@+id/vv_divider"
-        android:text="仙翁操" />
+        android:text="" />
 
     <ImageView
         android:id="@+id/iv_load"

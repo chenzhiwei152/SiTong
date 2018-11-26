@@ -35,7 +35,6 @@ import com.smp.soundtouchandroid.SoundTouch
 import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.activity_music_play.*
 import kotlinx.android.synthetic.main.layout_play_title.*
-import java.io.File
 
 
 /**
@@ -50,6 +49,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     private var isLoaded = false
     private var isLoading = false
     private var isSlience: Boolean = false
+    private var isABStyle: Boolean = false
     var mLoadDialog: MusicDownloadDialog? = null
     private var pointList: ArrayList<QinViewPointBean>? = null
     private var mMoveMap: HashMap<Int, Float> = hashMapOf()//在线上动态显示的点
@@ -146,11 +146,23 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 }
                 setButtonState()
             }
+            R.id.iv_ab -> {
+                if (isABStyle) {
+//                    取消ab句模式
+                    adapter?.clearSelected()
+                    iv_ab.setImageResource(R.mipmap.ic_ab_normal)
+                } else {
+                    iv_ab.setImageResource(R.mipmap.ic_ab_pressed)
+//                    设置ab句模式
+
+                }
+                isABStyle = !isABStyle
+            }
         }
     }
 
     private var player: SoundStreamAudioPlayer? = null
-    private var f: File? = null
+    private var f: String? = null
     private var tempo = 1.0f//这个是速度，1.0表示正常设置新的速度控制值，
     private var pitchSemi = 1.0f//这个是音调，1.0表示正常，
     private var rate = 1.0f//这个参数是变速又变声的，这个参数大于0，否则会报错
@@ -169,10 +181,19 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         }
     }
 
+    //ab句 单选，多选
     override fun onClick(index: Int) {
+        if (isABStyle) {
+            adapter?.toggleSelected(index)
+        }
     }
 
     override fun onLongClick(index: Int) {
+        if (isABStyle) {
+            rv_list.setDragSelectActive(true, index)
+        } else {
+            rv_list.setDragSelectActive(false, index)
+        }
     }
 
     override fun onSelectionChanged(count: Int) {
@@ -201,6 +222,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         iv_load.setOnClickListener(this)
         iv_voice.setOnClickListener(this)
         iv_record.setOnClickListener(this)
+        iv_ab.setOnClickListener(this)
         pointList = arrayListOf()
 
         var map: HashMap<String, String>? = null
@@ -305,7 +327,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
 
         if (chenckIsLoaded(url)) {
-            f = File(DownLoadFilesUtils.getInstance(this)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url))
+            f = DownLoadFilesUtils.getInstance(this)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
             initPlayer()
         } else {
 //开始下载
@@ -321,7 +343,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
                 override fun onProgressSuccess() {
                     dismissLoading()
-                    f = File(DownLoadFilesUtils.getInstance(this@MusicPlayActivity)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url))
+                    f = DownLoadFilesUtils.getInstance(this@MusicPlayActivity)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
                     initPlayer()
                 }
             })
@@ -331,7 +353,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     private fun initPlayer() {
         try {
             if (player == null) {
-                player = SoundStreamAudioPlayer(0, f?.getPath(), tempo, pitchSemi)
+                player = SoundStreamAudioPlayer(0, f, tempo, pitchSemi)
 //播放器进度条
                 player?.setOnProgressChangedListener(object : OnProgressChangedListener {
                     override fun onProgressChanged(track: Int, currentPercentage: Double, position: Long) {
@@ -346,8 +368,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             if (currentSort == null) {
                                 currentSort = 0
                             }
-                            adapter?.clearSelected()
-                            adapter?.setSelected(currentSort!!, true)
+                            if (!isABStyle) {
+                                adapter?.clearSelected()
+                                adapter?.setSelected(currentSort!!, true)
+                            }
                             rv_list.layoutManager.scrollToPosition(currentSort!!)
                             cq_view.setmMoveMap(mMoveMap)
                             currentSort = nextSort
@@ -381,7 +405,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 setButtonState()
             }
 //                    var du=player?.playedDuration!!.toFloat()/1000
-            du = ExtraUtils.getMP3FileInfo(f?.absolutePath!!) / 1000
+            du = ExtraUtils.getMP3FileInfo(f!!) / 1000
             seek_bar.getConfigBuilder().max(du!!.toFloat()).min(0f)
             tv_end_time.setText(ExtraUtils.secToTime((du!!).toInt()))
         } catch (e: Exception) {

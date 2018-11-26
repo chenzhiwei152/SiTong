@@ -68,7 +68,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         return selectedIndices;
     }
 
-    void toggleSelected(int index) {
+    public void toggleSelected(int index) {
 
         if (selectedIndices.contains(index)) {
             selectedIndices.remove((Integer) index);
