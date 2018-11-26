@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -25,8 +24,8 @@
                 android:visibility="invisible" />
 
 
-
             <LinearLayout
+                android:id="@+id/ll_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/left"
@@ -38,15 +37,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:id="@+id/ll_limit_left"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_10"
                         android:orientation="horizontal" />
+
                     <LinearLayout
                         android:id="@+id/ll_left_top"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_10"
+                        android:layout_height="@dimen/dp_15"
                         android:orientation="horizontal" />
 
                     <LinearLayout
@@ -59,7 +60,7 @@
                         android:id="@+id/ll_left_down"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_20"
-                        android:orientation="horizontal" />
+                        android:orientation="vertical" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -75,11 +76,12 @@
                         android:layout_height="@dimen/dp_10"
                         android:gravity="center_horizontal"
                         android:orientation="horizontal" />
+
                     <LinearLayout
                         android:id="@+id/ll_center_top"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_10"
-                        android:orientation="horizontal" />
+                        android:layout_height="@dimen/dp_15"
+                        android:orientation="vertical" />
 
                     <LinearLayout
                         android:id="@+id/ll_center"
@@ -103,22 +105,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:id="@+id/ll_limit_right"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_10"
                         android:orientation="horizontal" />
+
                     <LinearLayout
                         android:id="@+id/ll_right_top"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_10"
+                        android:layout_height="@dimen/dp_15"
                         android:orientation="horizontal" />
 
                     <LinearLayout
                         android:id="@+id/ll_right"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_20"
-                        android:layout_gravity="center_horizontal"
                         android:gravity="center_vertical"
                         android:orientation="horizontal" />
 
@@ -126,7 +129,7 @@
                         android:id="@+id/ll_right_down"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_20"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                     </LinearLayout>
                 </LinearLayout>
@@ -134,11 +137,17 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_shoushi"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="15dp">
+
+                <ImageView
+                    android:id="@+id/iv_shoushi"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/right"

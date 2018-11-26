@@ -46,7 +46,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
     override fun getDataSuccess(musicList: ArrayList<MusicBean>) {
 //        toast_msg("" + musicList?.size)
 //        kotlin.run {
-            SharedPrefUtil.saveObj(this@MainActivity, Constants.musicList, musicList)
+        SharedPrefUtil.saveObj(this@MainActivity, Constants.musicList, musicList)
 //        }
         var beanMusic = MusicBean.Music(-1, false, "zhiqin", "知琴", false, "知琴", 1, 1, "", false, "", arrayListOf())
         var list = arrayListOf<MusicBean.Music>()
@@ -139,9 +139,14 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 //                            musicPayDialog.show()
 //
 //                        } else {
+                        if (bean.onshelf == 1) {
                             var bundle = Bundle()
                             bundle.putString("id", "" + bean.id)
                             jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
+                        } else {
+                            toast_msg("该曲目未上架")
+                        }
+
 //                        }
 
                     }

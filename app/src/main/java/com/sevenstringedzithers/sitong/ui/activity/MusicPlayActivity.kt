@@ -2,6 +2,7 @@ package com.sevenstringedzithers.sitong.ui.activity
 
 import android.app.Service
 import android.media.AudioManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -157,6 +158,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
     override fun getDataSuccess(musicBean: MusicDetailBean) {
         this.musicBean = musicBean
+        iv_music_title.text = musicBean.name
         chenckIsLoaded(musicBean.url)
         adapter?.setList(musicBean.score)
         musicBean.score.forEachIndexed { index, score ->
@@ -185,6 +187,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun getLayoutId(): Int = R.layout.activity_music_play
 
     override fun initViewsAndEvents() {
+        initTitle()
         if (getVolum()) {
             isSlience = true
         }
@@ -217,6 +220,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             }
 
             override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
+
                 player?.seekTo((progressFloat.toDouble() / du!!), false)
             }
         }
@@ -246,6 +250,17 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         rv_list.layoutManager = layoutManager
 
         adapter = MainAdapter(this, this)
+        rv_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) { // 滚动静止时才加载图片资源，极大提升流畅度
+                    adapter?.setScrolling(false)
+                    adapter?.notifyDataSetChanged() // notify调用后onBindViewHolder会响应调用
+                } else
+                    adapter?.setScrolling(true)
+
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
         rv_list.adapter = adapter
         var mPosX = 0f
         var mPosY = 0f
@@ -317,17 +332,29 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         try {
             if (player == null) {
                 player = SoundStreamAudioPlayer(0, f?.getPath(), tempo, pitchSemi)
-
+//播放器进度条
                 player?.setOnProgressChangedListener(object : OnProgressChangedListener {
                     override fun onProgressChanged(track: Int, currentPercentage: Double, position: Long) {
                         Log.e("onProgressChanged", "" + currentPercentage)
                         seek_bar.setProgress((currentPercentage * du!!).toFloat())
-
+//                        时间
                         tv_start_time.setText(ExtraUtils.secToTime((currentPercentage * du!!).toInt()))
+//                       琴谱上面的打点
+
                         getPoints((currentPercentage * du!!).toFloat())
                         if (currentSort != nextSort) {
+                            if (currentSort == null) {
+                                currentSort = 0
+                            }
+                            adapter?.clearSelected()
+                            adapter?.setSelected(currentSort!!, true)
+                            rv_list.layoutManager.scrollToPosition(currentSort!!)
                             cq_view.setmMoveMap(mMoveMap)
                             currentSort = nextSort
+                        }
+                        if (currentPercentage >= 1) {
+                            player?.seekTo(0, true)
+                            setButtonState()
                         }
                     }
 
@@ -346,7 +373,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 dismissLoading()
 
             } else {
-                if (player!!.isPaused()) {
+                if (player!!.isPaused() || player!!.isFinished) {
                     player?.start()
                 } else {
                     player!!.pause()
@@ -383,6 +410,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             }
 
         }
+
     }
 
 
@@ -392,9 +420,13 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         if (player != null) {
             if (player!!.isPaused) {
                 iv_play.setBackgroundResource(R.drawable.selector_play)
+            } else if (player!!.isFinished) {
+                iv_play.setBackgroundResource(R.drawable.selector_play)
+                seek_bar.setProgress(0f)
             } else {
                 iv_play.setBackgroundResource(R.drawable.selector_pause)
             }
+
         }
         if (isLoaded) {
             iv_load.setImageResource(R.mipmap.ic_load_pressed)
@@ -426,6 +458,12 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         return current <= 0
     }
 
+    override fun onPause() {
+        super.onPause()
+        player?.onPause()
+        setButtonState()
+    }
+
     override fun onDestroy() {
         player?.stop()
         player = null
@@ -434,10 +472,14 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 RecordFilesUtils.getInstance(this)?.deleteFiles(soundTouchRec?.stopRecord()!!)
             }
             soundTouchRec = null
-            soundTouch=null
+            soundTouch = null
         } catch (e: java.lang.Exception) {
 
         }
         super.onDestroy()
+    }
+
+    private fun initTitle() {
+        iv_back.setOnClickListener { finish() }
     }
 }
