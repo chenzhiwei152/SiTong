@@ -3,7 +3,6 @@ package com.sevenstringedzithers.sitong.ui.activity
 import android.app.Service
 import android.media.AudioManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
@@ -171,6 +170,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun getDataSuccess(musicBean: MusicDetailBean) {
         this.musicBean = musicBean
         iv_music_title.text = musicBean.name
+
         chenckIsLoaded(musicBean.url)
         adapter?.setList(musicBean.score)
         musicBean.score.forEachIndexed { index, score ->
@@ -357,7 +357,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 //播放器进度条
                 player?.setOnProgressChangedListener(object : OnProgressChangedListener {
                     override fun onProgressChanged(track: Int, currentPercentage: Double, position: Long) {
-                        Log.e("onProgressChanged", "" + currentPercentage)
+//                        Log.e("onProgressChanged", "" + currentPercentage)
                         seek_bar.setProgress((currentPercentage * du!!).toFloat())
 //                        时间
                         tv_start_time.setText(ExtraUtils.secToTime((currentPercentage * du!!).toInt()))
@@ -374,6 +374,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             }
                             rv_list.layoutManager.scrollToPosition(currentSort!!)
                             cq_view.setmMoveMap(mMoveMap)
+                            tv_left.text=musicBean?.score?.get(nextSort!!)?.left_str
+                            tv_right.text=musicBean?.score?.get(nextSort!!)?.right_str
                             currentSort = nextSort
                         }
                         if (currentPercentage >= 1) {
