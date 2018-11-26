@@ -41,6 +41,9 @@ public class ChangqinView extends LinearLayout {
     private int mRealWidth;//实际画布大小
     private int mRealHeight;
     private Map<Integer, Float> mMoveMap = new HashMap<>();//在线上动态显示的点
+    private boolean isYanyin = false;
+    private boolean ishuayin = false;
+    private Double duration;
     private Context mContext;
 
     private int mCyclerviewRadius = 4;//最右边圆的半径
@@ -109,8 +112,11 @@ public class ChangqinView extends LinearLayout {
     }
 
 
-    public void setmMoveMap(Map<Integer, Float> mMoveMap) {
+    public void setmMoveMap(Map<Integer, Float> mMoveMap,boolean isYanyin,boolean ishuayin,Double duration) {
         this.mMoveMap = mMoveMap;
+        this.isYanyin=isYanyin;
+        this.duration=duration;
+        this.ishuayin=ishuayin;
         invalidate();
     }
 
@@ -182,19 +188,19 @@ public class ChangqinView extends LinearLayout {
 
         //上方锚点point
         mLinesTopPoints = new float[]{
-                (float) ((getX() + getPaddingLeft() + mRealWidth /8)), (maxHeight / 2) - 4 * mRightDividerLines,
-                (float) ((getX() + getPaddingLeft() + mRealWidth /6)), (maxHeight / 2) - 4 * mRightDividerLines,
+                (float) ((getX() + getPaddingLeft() + mRealWidth / 8)), (maxHeight / 2) - 4 * mRightDividerLines,
+                (float) ((getX() + getPaddingLeft() + mRealWidth / 6)), (maxHeight / 2) - 4 * mRightDividerLines,
                 (float) ((getX() + getPaddingLeft() + mRealWidth * 0.2)), (maxHeight / 2) - 4 * mRightDividerLines,
                 (float) ((getX() + getPaddingLeft() + mRealWidth * 0.25)), (maxHeight / 2) - 4 * mRightDividerLines,
-                (float) ((getX() + getPaddingLeft() + mRealWidth /3)), (maxHeight / 2) - 4 * mRightDividerLines,
+                (float) ((getX() + getPaddingLeft() + mRealWidth / 3)), (maxHeight / 2) - 4 * mRightDividerLines,
                 (float) ((getX() + getPaddingLeft() + mRealWidth * 0.4)), (maxHeight / 2) - 4 * mRightDividerLines,
                 (float) ((getX() + getPaddingLeft() + mRealWidth * 0.5)), (maxHeight / 2) - 4 * mRightDividerLines,
                 (float) ((getX() + getPaddingLeft() + mRealWidth * 0.6)), (maxHeight / 2) - 4 * mRightDividerLines,
-                (float) ((getX() + getPaddingLeft() + mRealWidth * 2/3)), (maxHeight / 2) - 4 * mRightDividerLines,
+                (float) ((getX() + getPaddingLeft() + mRealWidth * 2 / 3)), (maxHeight / 2) - 4 * mRightDividerLines,
                 (float) ((getX() + getPaddingLeft() + mRealWidth * 0.75)), (maxHeight / 2) - 4 * mRightDividerLines,
                 (float) ((getX() + getPaddingLeft() + mRealWidth * 0.8)), (maxHeight / 2) - 4 * mRightDividerLines,
-                (float) ((getX() + getPaddingLeft() + mRealWidth *5/6)), (maxHeight / 2) - 4 * mRightDividerLines,
-                (float) ((getX() + getPaddingLeft() + mRealWidth *7/8)), (maxHeight / 2) - 4 * mRightDividerLines,
+                (float) ((getX() + getPaddingLeft() + mRealWidth * 5 / 6)), (maxHeight / 2) - 4 * mRightDividerLines,
+                (float) ((getX() + getPaddingLeft() + mRealWidth * 7 / 8)), (maxHeight / 2) - 4 * mRightDividerLines,
 
         };
         //最右边的point

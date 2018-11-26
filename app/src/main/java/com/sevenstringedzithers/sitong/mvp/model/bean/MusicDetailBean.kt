@@ -33,6 +33,8 @@ data class MusicDetailBean(
                 var left_str: String,
                 var jianzipu: String,
                 var percent: String,
+                var portamento:Boolean,
+                var overtone:Boolean,
                 var isend: Int,
                 var bpm: Int,
                 var toline:String,

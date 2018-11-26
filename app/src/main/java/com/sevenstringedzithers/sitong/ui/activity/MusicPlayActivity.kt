@@ -373,7 +373,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                                 adapter?.setSelected(currentSort!!, true)
                             }
                             rv_list.layoutManager.scrollToPosition(currentSort!!)
-                            cq_view.setmMoveMap(mMoveMap)
+                            cq_view.setmMoveMap(mMoveMap,musicBean?.score?.get(nextSort!!)?.overtone!!,musicBean?.score?.get(nextSort!!)?.portamento!!,musicBean?.score?.get(nextSort!!)?.duration)
                             tv_left.text=musicBean?.score?.get(nextSort!!)?.left_str
                             tv_right.text=musicBean?.score?.get(nextSort!!)?.right_str
                             currentSort = nextSort
