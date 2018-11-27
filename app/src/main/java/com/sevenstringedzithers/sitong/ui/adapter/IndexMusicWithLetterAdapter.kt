@@ -52,7 +52,9 @@ class IndexMusicWithLetterAdapter(var context: Context, lists: ArrayList<MusicBe
         holder.viewLayout.rv_music_list.adapter = ada
         ada.setListerner(object : RVAdapterItemOnClick {
             override fun onItemClicked(data: Any) {
-                onItemClick?.onItemClicked(data)
+                var bean=data as MusicBean.Music.Music
+                var bean_relal =MusicBean.Music(bean.levelcode,bean.iscollection,bean.enName,bean.name,bean.isbuy,bean.level,bean.onshelf,bean.id,bean.icon,bean.hasright,"", arrayListOf())
+                onItemClick?.onItemClicked(bean_relal)
             }
         })
     }

@@ -7,8 +7,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 
 import com.sevenstringedzithers.sitong.R;
@@ -43,7 +47,7 @@ public class ChangqinView extends LinearLayout {
     private Map<Integer, Float> mMoveMap = new HashMap<>();//在线上动态显示的点
     private boolean isYanyin = false;
     private boolean ishuayin = false;
-    private Double duration;
+    private String toPercent;
     private Context mContext;
 
     private int mCyclerviewRadius = 4;//最右边圆的半径
@@ -54,6 +58,9 @@ public class ChangqinView extends LinearLayout {
     private float[] mLinesPoints;//所有琴弦点
     private float[] mLinesRightPoints;//琴弦最右边的点
     private float[] mLinesTopPoints;//琴弦上边的13个锚点
+
+    private int DURATION = 0;//动画持续时间
+    private float mInterpolatedTime;
 
     private ArrayList<Integer> pointLists = new ArrayList<>();//所有琴弦点
 
@@ -112,11 +119,12 @@ public class ChangqinView extends LinearLayout {
     }
 
 
-    public void setmMoveMap(Map<Integer, Float> mMoveMap,boolean isYanyin,boolean ishuayin,Double duration) {
+    public void setmMoveMap(Map<Integer, Float> mMoveMap, boolean isYanyin, boolean ishuayin, Double duration, String toPercent) {
         this.mMoveMap = mMoveMap;
-        this.isYanyin=isYanyin;
-        this.duration=duration;
-        this.ishuayin=ishuayin;
+        this.isYanyin = isYanyin;
+        this.DURATION = (int) (duration * 1000);
+        this.ishuayin = ishuayin;
+        this.toPercent = toPercent;
         invalidate();
     }
 
@@ -235,14 +243,55 @@ public class ChangqinView extends LinearLayout {
 
         for (Integer key : mMoveMap.keySet()) {
             Float value = mMoveMap.get(key);
-
+            if (ishuayin && !TextUtils.isEmpty(toPercent)) {
+                value += (Float.parseFloat(toPercent) - value) * mInterpolatedTime;
+            }
             PointF f1 = new PointF(pointLists.get((key - 1) * 4), pointLists.get((key - 1) * 4 + 1));
             PointF f2 = new PointF(pointLists.get((key - 1) * 4 + 2), pointLists.get((key - 1) * 4 + 3));
-            canvas.drawCircle(ExtraUtils.Companion.CalculateBezierPointForQuadratic1(value, f1, f2).x, ExtraUtils.Companion.CalculateBezierPointForQuadratic1(value, f1, f2).y, mActiveCyclerviewRadius, mRightPointPaint);
+            PointF result = ExtraUtils.Companion.CalculateBezierPointForQuadratic1(value, f1, f2);
+            canvas.drawCircle(result.x, result.y, mActiveCyclerviewRadius, mRightPointPaint);
         }
 
     }
 
+    private class MoveAnimation extends Animation {
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            mInterpolatedTime = interpolatedTime;
+            invalidate();
+        }
+    }
+
+    public void startAnimation() {
+        mInterpolatedTime = 0;
+        MoveAnimation move = new MoveAnimation();
+        move.setDuration(DURATION);
+        move.setInterpolator(new LinearInterpolator());
+        startAnimation(move);
+
+    }
+    public void startAnim() {
+        this.startAnimation(new BarAnimation());
+    }
+
+    public class BarAnimation extends Animation {
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            mInterpolatedTime = interpolatedTime;
+            postInvalidate();
+            Log.e("AmountView", "tempcount:" + mInterpolatedTime);
+        }
+        @Override
+        public void initialize(int width, int height, int parentWidth, int parentHeight) {
+            super.initialize(width, height, parentWidth, parentHeight);
+            setDuration(DURATION);
+            //设置动画结束后保留效果
+            setFillAfter(true);
+            setInterpolator(new LinearInterpolator());
+        }
+    }
     private void LogUtils(String s) {
         Log.e(TAG, s);
     }

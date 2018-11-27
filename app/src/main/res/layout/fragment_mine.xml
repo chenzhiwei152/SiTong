@@ -88,18 +88,25 @@
                 android:textSize="40sp" />
 
             <com.sevenstringedzithers.sitong.view.TextViewVertical
+                android:id="@+id/tv_rank_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:v_text="@string/rank"
                 app:v_textColor="@color/color_d0a670"
                 app:v_textSize="11sp" />
 
-            <com.sevenstringedzithers.sitong.view.TextViewVertical
+            <TextView
+                android:fontFamily="@fonts/chinese"
+                android:id="@+id/tv_rank_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:v_text="@string/rank_e"
-                app:v_textColor="@color/color_20232b"
-                app:v_textSize="10sp" />
+                android:layout_gravity="top"
+                android:rotation="90"
+                android:text="@string/rank_e"
+                android:textColor="@color/color_20232b"
+                android:textSize="10sp"
+                android:transformPivotX="27dp"
+                android:transformPivotY="0dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -114,6 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="32"
+                android:fontFamily="@fonts/agaramondpro_regular"
                 android:textColor="@color/color_20232b"
                 android:textSize="40sp" />
 
@@ -124,12 +132,16 @@
                 app:v_textColor="@color/color_d0a670"
                 app:v_textSize="11sp" />
 
-            <com.sevenstringedzithers.sitong.view.TextViewVertical
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:v_text="@string/experience_time_e"
-                app:v_textColor="@color/color_20232b"
-                app:v_textSize="10sp" />
+                android:layout_gravity="top"
+                android:rotation="90"
+                android:text="@string/experience_time_e"
+                android:textColor="@color/color_20232b"
+                android:textSize="10sp"
+                android:transformPivotX="27dp"
+                android:transformPivotY="0dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -144,6 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="19"
+                android:fontFamily="@fonts/agaramondpro_regular"
                 android:textColor="@color/color_20232b"
                 android:textSize="40sp" />
 
@@ -154,12 +167,16 @@
                 app:v_textColor="@color/color_d0a670"
                 app:v_textSize="11sp" />
 
-            <com.sevenstringedzithers.sitong.view.TextViewVertical
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:v_text="@string/punch_time_e"
-                app:v_textColor="@color/color_20232b"
-                app:v_textSize="10sp" />
+                android:layout_gravity="top"
+                android:rotation="90"
+                android:text="@string/punch_time_e"
+                android:textColor="@color/color_20232b"
+                android:textSize="10sp"
+                android:transformPivotX="27dp"
+                android:transformPivotY="0dp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -181,10 +198,10 @@
 
     <LinearLayout
         android:id="@+id/ll_exe_title"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -207,11 +224,11 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_list"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/dp_15"
-            android:paddingRight="@dimen/dp_15" />
+            android:paddingRight="@dimen/dp_15"
+            android:visibility="gone" />
     </LinearLayout>
 
 

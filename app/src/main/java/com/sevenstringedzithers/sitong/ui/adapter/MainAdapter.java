@@ -394,8 +394,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             }
         }
         for (Integer key : yanyinSet.keySet()) {
-            LogUtils.e("key:" + key + "----value:" + yanyinSet.get(key));
-            System.out.println("Key = " + key);
+//            LogUtils.e("key:" + key + "----value:" + yanyinSet.get(key));
+//            System.out.println("Key = " + key);
             if (position == key) {
 
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ll_limit_left.getLayoutParams();
@@ -547,15 +547,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
 
 
-//        final Drawable d;
         if (selectedIndices.contains(position)) {
-//            d = new ColorDrawable(ContextCompat.getColor(mContext, R.color.color_d0a670));
-//            holder.ll_all.setBackground(d);
             holder.ll_all.setBackgroundResource( R.color.color_d0a670);
         } else {
-//            d =  new ColorDrawable(ContextCompat.getColor(mContext, R.color.color_ffffff));
-//            holder.ll_all.setBackground(d);
-            holder.ll_all.setBackgroundResource( R.color.color_ffffff);
+            holder.ll_all.setBackgroundResource( R.color.albumTransparent);
         }
 
 //        Collections.sort(selectedIndices);

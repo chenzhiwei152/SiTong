@@ -2,6 +2,7 @@ package com.sevenstringedzithers.sitong.ui.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Typeface
 import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -31,6 +32,8 @@ import com.yanzhenjie.album.Album
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine.view.*
 import org.greenrobot.eventbus.EventBus
+
+
 
 /**
  * create by chen.zhiwei on 2018-8-15
@@ -143,7 +146,11 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
             iv_vip.visibility = View.GONE
         }
         tv_message.text = "消息 " + bean.msgs
-        tv_rank.text = bean.level
+//        tv_rank.text = bean.level
+        val typeface1 = Typeface.createFromAsset(assets, "fonts/agaramondpro_regular.otf")
+        tv_rank.setTypeface(typeface1)
+//        val typeface = Typeface.createFromAsset(assets, "fonts/chinese.ttf")
+//        tv_rank_1.setTypeface(typeface)
         tv_duration.tv_duration.text = bean.duration
         tv_days.tv_days.text = bean.days
 
@@ -161,7 +168,7 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
     override fun getLayoutId(): Int = R.layout.fragment_mine
 
     override fun initViewsAndEvents() {
-
+        tv_rank_title.rotation=90f
 
         view_pager.offscreenPageLimit = 4
         tabsTitle.add(resources.getString(R.string.information))

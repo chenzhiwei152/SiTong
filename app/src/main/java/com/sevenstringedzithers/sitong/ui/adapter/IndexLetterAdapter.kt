@@ -35,7 +35,9 @@ class IndexLetterAdapter(var context: Context, lists: ArrayList<MusicBean.Music.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.viewLayout.tv_name.text = list[position].name
-
+        holder.viewLayout.setOnClickListener {
+            onItemClick?.onItemClicked(list[position])
+        }
     }
 
 

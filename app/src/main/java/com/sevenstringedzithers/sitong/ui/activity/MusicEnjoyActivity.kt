@@ -13,7 +13,6 @@ import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.mvp.contract.MusicPlayContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicDetailBean
-import com.sevenstringedzithers.sitong.mvp.model.bean.QinViewPointBean
 import com.sevenstringedzithers.sitong.mvp.persenter.MusicPlayPresenter
 import com.sevenstringedzithers.sitong.ui.adapter.MainAdapter
 import com.sevenstringedzithers.sitong.ui.listerner.ProgressCallback
@@ -40,7 +39,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
     private var isLoaded = false
     private var isLoading = false
     private var isSlience: Boolean = false
-    private var pointList: ArrayList<QinViewPointBean>? = null
+//    private var pointList: ArrayList<QinViewPointBean>? = null
     var mLoadDialog: MusicDownloadDialog? = null
     //    private var mMoveMap: HashMap<Int, Float> = hashMapOf()//在线上动态显示的点
 //    private var currentSort: Int? = null
@@ -160,14 +159,6 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
         iv_image.loadImage(this@MusicEnjoyActivity, musicBean.icon)
         iv_title.setText(musicBean.name)
         setCollection(musicBean.iscollection)
-        musicBean.score.forEachIndexed { index, score ->
-            if (score.start_second?.size > 0 && score.end_second?.size > 0 && score.start_second[0] > 0) {
-                var bean = QinViewPointBean(score.start_second[0], score.end_second[0], score.duration, score.percent, score.string)
-                pointList?.add(bean)
-            }
-        }
-
-
     }
 
     override fun onClick(index: Int) {
@@ -200,7 +191,6 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
         iv_load.setOnClickListener(this)
         iv_voice.setOnClickListener(this)
         iv_collection.setOnClickListener(this)
-        pointList = arrayListOf()
 
         var map: HashMap<String, String>? = null
         map = hashMapOf()

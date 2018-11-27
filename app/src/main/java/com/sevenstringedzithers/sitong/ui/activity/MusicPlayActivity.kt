@@ -5,6 +5,7 @@ import android.media.AudioManager
 import android.support.v7.widget.RecyclerView
 import android.view.MotionEvent
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -146,6 +147,12 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 setButtonState()
             }
             R.id.iv_ab -> {
+//                mMoveMap.clear()
+//                mMoveMap.put(1, 0.3f)
+//                cq_view.setmMoveMap(mMoveMap, false, true, 2.0, "0.7")
+//                cq_view.startAnim()
+//                return
+
                 if (isABStyle) {
 //                    取消ab句模式
                     adapter?.clearSelected()
@@ -175,8 +182,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         adapter?.setList(musicBean.score)
         musicBean.score.forEachIndexed { index, score ->
             if (score.start_second?.size > 0 && score.end_second?.size > 0 && score.start_second[0] > 0) {
-                var bean = QinViewPointBean(score.start_second[0], score.end_second[0], score.duration, score.percent, score.string)
-                pointList?.add(bean)
+                score.start_second.forEachIndexed { i, d ->
+                    var bean = QinViewPointBean(index, d, score.end_second[i], score.duration, score.percent, score.string)
+                    pointList?.add(bean)
+                }
             }
         }
     }
@@ -360,27 +369,36 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 //                        Log.e("onProgressChanged", "" + currentPercentage)
                         seek_bar.setProgress((currentPercentage * du!!).toFloat())
 //                        时间
-                        tv_start_time.setText(ExtraUtils.secToTime((currentPercentage * du!!).toInt()))
+                        tv_start_time.text = ExtraUtils.secToTime((currentPercentage * du!!).toInt())
 //                       琴谱上面的打点
 
                         getPoints((currentPercentage * du!!).toFloat())
-                        if (currentSort != nextSort) {
-                            if (currentSort == null) {
-                                currentSort = 0
+//                        LogUtils.e("currentSort:"+currentSort+"------nextSort:"+nextSort)
+                        if (currentSort != nextSort && nextSort != null) {
+                            if (!isABStyle && currentSort != null) {
+//                                adapter?.setSelected(currentSort!!, false)
+                                var hol = rv_list.findViewHolderForLayoutPosition(currentSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
+                                hol?.setBackgroundResource(R.color.albumTransparent)
                             }
                             if (!isABStyle) {
-                                adapter?.clearSelected()
-                                adapter?.setSelected(currentSort!!, true)
+//                                adapter?.setSelected(nextSort!!, true)
+                                var hol = rv_list.findViewHolderForLayoutPosition(nextSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
+                                hol?.setBackgroundResource(R.color.color_d0a670)
                             }
-                            rv_list.layoutManager.scrollToPosition(currentSort!!)
-                            cq_view.setmMoveMap(mMoveMap,musicBean?.score?.get(nextSort!!)?.overtone!!,musicBean?.score?.get(nextSort!!)?.portamento!!,musicBean?.score?.get(nextSort!!)?.duration)
-                            tv_left.text=musicBean?.score?.get(nextSort!!)?.left_str
-                            tv_right.text=musicBean?.score?.get(nextSort!!)?.right_str
+                            rv_list.layoutManager.scrollToPosition(nextSort!!)
+                            cq_view.setmMoveMap(mMoveMap, musicBean?.score?.get(nextSort!!)?.overtone!!, musicBean?.score?.get(nextSort!!)?.portamento!!, musicBean?.score?.get(nextSort!!)?.duration, musicBean?.score?.get(nextSort!!)?.toposition)
+                            if (musicBean?.score?.get(nextSort!!)?.portamento!!) {
+                                cq_view.startAnim()
+                            }
+                            tv_left.text = musicBean?.score?.get(nextSort!!)?.left_str
+                            tv_right.text = musicBean?.score?.get(nextSort!!)?.right_str
                             currentSort = nextSort
                         }
                         if (currentPercentage >= 1) {
                             player?.seekTo(0, true)
+                            seek_bar?.setProgress(0f)
                             setButtonState()
+                            adapter?.clearSelected()
                         }
                     }
 
@@ -432,7 +450,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                         }
                     }
                 }
-                nextSort = index
+                nextSort = qinViewPointBean.index
+                return@forEachIndexed
             }
 
         }
