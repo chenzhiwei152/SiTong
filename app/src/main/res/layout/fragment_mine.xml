@@ -83,6 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
+                app:fontFamily="@fonts/agaramondpro_regular"
                 android:text="5"
                 android:textColor="@color/color_20232b"
                 android:textSize="40sp" />
