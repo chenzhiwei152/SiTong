@@ -149,6 +149,7 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
 //        tv_rank.text = bean.level
         val typeface1 = Typeface.createFromAsset(assets, "fonts/agaramondpro_regular.otf")
         tv_rank.setTypeface(typeface1)
+
 //        val typeface = Typeface.createFromAsset(assets, "fonts/chinese.ttf")
 //        tv_rank_1.setTypeface(typeface)
         tv_duration.tv_duration.text = bean.duration
