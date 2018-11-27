@@ -169,7 +169,6 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
     override fun getLayoutId(): Int = R.layout.fragment_mine
 
     override fun initViewsAndEvents() {
-        tv_rank_title.rotation=90f
 
         view_pager.offscreenPageLimit = 4
         tabsTitle.add(resources.getString(R.string.information))
