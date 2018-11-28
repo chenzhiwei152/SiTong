@@ -1,8 +1,6 @@
 package com.sevenstringedzithers.sitong.ui.adapter;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -102,7 +100,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         return new MainViewHolder(v, callback);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(MainViewHolder holder, int position) {
 
