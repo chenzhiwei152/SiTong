@@ -39,6 +39,7 @@ public class ChangqinView extends LinearLayout {
     private Paint mLinesAnchorPaint;//琴弦上面的点画笔
     private Paint mPonitRightPointPaint;//锚点圆点画笔
     private Paint mRightPointPaint;//最右边圆点画笔
+    private Paint mPintStroke;//空心
 
     private int maxWidth;//控件总宽度
     private int maxHeight;//空间总高度
@@ -115,6 +116,12 @@ public class ChangqinView extends LinearLayout {
         mRightPointPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mRightPointPaint.setAntiAlias(true);
         mRightPointPaint.setColor(Color.WHITE);
+
+        mPintStroke = new Paint();
+        mPintStroke.setStyle(Paint.Style.STROKE);
+        mPintStroke.setStrokeWidth(1);
+        mPintStroke.setAntiAlias(true);
+        mPintStroke.setColor(Color.WHITE);
 
     }
 
@@ -249,7 +256,11 @@ public class ChangqinView extends LinearLayout {
             PointF f1 = new PointF(pointLists.get((key - 1) * 4), pointLists.get((key - 1) * 4 + 1));
             PointF f2 = new PointF(pointLists.get((key - 1) * 4 + 2), pointLists.get((key - 1) * 4 + 3));
             PointF result = ExtraUtils.Companion.CalculateBezierPointForQuadratic1(value, f1, f2);
-            canvas.drawCircle(result.x, result.y, mActiveCyclerviewRadius, mRightPointPaint);
+            if (isYanyin){
+                canvas.drawCircle(result.x, result.y, mActiveCyclerviewRadius, mPintStroke);
+            }else {
+                canvas.drawCircle(result.x, result.y, mActiveCyclerviewRadius, mRightPointPaint);
+            }
         }
 
     }
