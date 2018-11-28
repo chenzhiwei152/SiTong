@@ -123,9 +123,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             if (list.get(position).getJianziwidth() > 0) {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.iv_shoushi.getLayoutParams();
 //            params.width = UIUtil.dip2px(mContext,(float) list.get(position).getJianziwidth()/2);
-                params.width = (int) list.get(position).getJianziwidth() * 2;
+                params.width = (int) (list.get(position).getJianziwidth()*1.5);
 //            params.height =UIUtil.dip2px(mContext,(float) list.get(position).getJianziheight()/2);
-                params.height = (int) list.get(position).getJianziheight() * 2;
+                params.height = (int) (list.get(position).getJianziheight()*1.5);
                 holder.iv_shoushi.setLayoutParams(params);
             }
         }else {
