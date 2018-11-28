@@ -408,35 +408,20 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                 params2.width = UIUtil.dip2px(mContext, 10);
                 holder.ll_limit_right.setLayoutParams(params2);
 
-//                LinearLayout.LayoutParams params_left = (LinearLayout.LayoutParams) holder.ll_left_content.getLayoutParams();
-//                int width2 = params_left.width;
-
-
                 ImageView imageView2 = new ImageView(mContext);
                 imageView2.setImageResource(R.drawable.bg_transparent_5);
                 holder.ll_limit_left.addView(imageView2);
-//                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
-//                    params_image2.width = width2 + width / 2;
-//                    imageView2.setLayoutParams(params_image2);
 
 
                 ImageView imageView = new ImageView(mContext);
                 imageView.setBackgroundResource(R.mipmap.ic_oval_left_small);
                 holder.ll_limit_top.addView(imageView);
-//                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-//                    params_image.width = width / 2;
-//                    imageView.setLayoutParams(params_image);
 
 
-//                LinearLayout.LayoutParams params_right = (LinearLayout.LayoutParams) holder.ll_right_content.getLayoutParams();
-//                int width1 = params_right.width;
 
                 ImageView imageView1 = new ImageView(mContext);
                 imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_right.addView(imageView1);
-//                    LinearLayout.LayoutParams params_image1 = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
-//                    params_image1.width = width1;
-//                    imageView1.setLayoutParams(params_image1);
                 break;
             } else if (position == (key + yanyinSet.get(key) - 1)) {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ll_limit_left.getLayoutParams();
@@ -532,7 +517,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         }
 //        最下面的图片
         if (!isScrolling&&!TextUtils.isEmpty(list.get(position).getJianzipu())){
-            ImageLoadedrManager.getInstance().display(mContext, list.get(position).getJianzipu(), holder.iv_shoushi);
+            ImageLoadedrManager.getInstance().display(mContext, list.get(position).getJianzipu(), holder.iv_shoushi,R.drawable.bg_transparent);
             if (list.get(position).getJianziwidth() > 0) {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.iv_shoushi.getLayoutParams();
 //            params.width = UIUtil.dip2px(mContext,(float) list.get(position).getJianziwidth()/2);

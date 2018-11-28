@@ -2,7 +2,6 @@ package com.sevenstringedzithers.sitong.ui.activity
 
 import android.app.Service
 import android.media.AudioManager
-import android.support.v7.widget.RecyclerView
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
@@ -281,17 +280,17 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         rv_list.layoutManager = layoutManager
 
         adapter = MainAdapter(this, this)
-        rv_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) { // 滚动静止时才加载图片资源，极大提升流畅度
-                    adapter?.setScrolling(false)
-                    adapter?.notifyDataSetChanged() // notify调用后onBindViewHolder会响应调用
-                } else
-                    adapter?.setScrolling(true)
-
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-        })
+//        rv_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE) { // 滚动静止时才加载图片资源，极大提升流畅度
+//                    adapter?.setScrolling(false)
+//                    adapter?.notifyDataSetChanged() // notify调用后onBindViewHolder会响应调用
+//                } else
+//                    adapter?.setScrolling(true)
+//
+//                super.onScrollStateChanged(recyclerView, newState)
+//            }
+//        })
         rv_list.adapter = adapter
         var mPosX = 0f
         var mPosY = 0f
