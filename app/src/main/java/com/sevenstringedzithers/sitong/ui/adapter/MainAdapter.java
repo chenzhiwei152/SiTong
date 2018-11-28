@@ -306,6 +306,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                                 holder.ll_right_down.addView(v1);
                                 LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) v1.getLayoutParams();
                                 params1.topMargin = UIUtil.dip2px(mContext, 2);
+                                params1.width=UIUtil.dip2px(mContext,15);
                                 v1.setLayoutParams(params1);
                             }
 
@@ -330,6 +331,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                                 holder.ll_left_down.addView(v2);
                                 LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) v2.getLayoutParams();
                                 params1.topMargin = UIUtil.dip2px(mContext, 2);
+                                params1.width=UIUtil.dip2px(mContext,15);
                                 v2.setLayoutParams(params1);
                             }
 
@@ -338,8 +340,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                             holder.ll_center_dowm.addView(v);
                             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) v.getLayoutParams();
                             params.topMargin = UIUtil.dip2px(mContext, 2);
-                            params.leftMargin = 0;
-                            params.rightMargin = 0;
+                            params.width=UIUtil.dip2px(mContext,15);
                             v.setLayoutParams(params);
 
                             break;
@@ -379,13 +380,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                             holder.ll_left_center.addView(v2);
                             break;
                         case 25:
-                            ImageView v6 = new ImageView(mContext);
-//                                v6.setImageResource(R.drawable.line_black_5);
                             ImageView v7 = new ImageView(mContext);
                             v7.setImageResource(R.drawable.bg_transparent);
                             ImageView v8 = new ImageView(mContext);
                             v8.setImageResource(R.mipmap.ic_repeat_start);
-//                                holder.ll_right.addView(v6);
                             holder.ll_left_center.addView(v8);
                             holder.ll_left_center.addView(v7);
                             break;
@@ -399,13 +397,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             if (position == key) {
 
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ll_limit_left.getLayoutParams();
-                params.width = UIUtil.dip2px(mContext, 10);
+                params.width = UIUtil.dip2px(mContext, 15);
                 holder.ll_limit_left.setLayoutParams(params);
                 LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) holder.ll_limit_top.getLayoutParams();
-                params1.width = UIUtil.dip2px(mContext, 10);
+                params1.width = UIUtil.dip2px(mContext, 15);
                 holder.ll_limit_top.setLayoutParams(params1);
                 LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) holder.ll_limit_right.getLayoutParams();
-                params2.width = UIUtil.dip2px(mContext, 10);
+                params2.width = UIUtil.dip2px(mContext, 15);
                 holder.ll_limit_right.setLayoutParams(params2);
 
                 ImageView imageView2 = new ImageView(mContext);
@@ -425,92 +423,55 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                 break;
             } else if (position == (key + yanyinSet.get(key) - 1)) {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ll_limit_left.getLayoutParams();
-                params.width = UIUtil.dip2px(mContext, 10);
+                params.width = UIUtil.dip2px(mContext, 15);
                 holder.ll_limit_left.setLayoutParams(params);
                 LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) holder.ll_limit_top.getLayoutParams();
-                params1.width = UIUtil.dip2px(mContext, 10);
+                params1.width = UIUtil.dip2px(mContext, 15);
                 holder.ll_limit_top.setLayoutParams(params1);
                 LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) holder.ll_limit_right.getLayoutParams();
-                params2.width = UIUtil.dip2px(mContext, 10);
+                params2.width = UIUtil.dip2px(mContext, 15);
                 holder.ll_limit_right.setLayoutParams(params2);
 
 
-//                LinearLayout.LayoutParams params_left = (LinearLayout.LayoutParams) holder.ll_left_content.getLayoutParams();
-//                int width = params_left.width;
 
                 ImageView imageView1 = new ImageView(mContext);
                 imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_left.addView(imageView1);
-//                    LinearLayout.LayoutParams params_image1 = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
-//                    params_image1.width = width;
-//                    imageView1.setLayoutParams(params_image1);
-
-
-//                LinearLayout.LayoutParams params_center = (LinearLayout.LayoutParams) holder.ll_center_content.getLayoutParams();
-//                int width1 = params_center.width;
 
                 ImageView imageView = new ImageView(mContext);
                 imageView.setBackgroundResource(R.mipmap.ic_oval_right_small);
                 holder.ll_limit_top.addView(imageView);
-//                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-//                    params_image.width = width1 / 2;
-//                    imageView.setLayoutParams(params_image);
-
-
-//                LinearLayout.LayoutParams params_right = (LinearLayout.LayoutParams) holder.ll_right_content.getLayoutParams();
-//                int width2 = params_right.width;
 
                 ImageView imageView2 = new ImageView(mContext);
                 imageView2.setBackgroundResource(R.drawable.bg_transparent_5);
                 holder.ll_limit_right.addView(imageView2);
-//                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
-//                    params_image2.width = width2 + width1 / 2;
-//                    imageView2.setLayoutParams(params_image2);
                 break;
             } else if (position > key && position < (key + yanyinSet.get(key) - 1)) {
 
 //
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ll_limit_left.getLayoutParams();
-                params.width = UIUtil.dip2px(mContext, 10);
+                params.width = UIUtil.dip2px(mContext, 15);
                 holder.ll_limit_left.setLayoutParams(params);
                 LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) holder.ll_limit_top.getLayoutParams();
-                params1.width = UIUtil.dip2px(mContext, 10);
+                params1.width = UIUtil.dip2px(mContext, 15);
                 holder.ll_limit_top.setLayoutParams(params1);
                 LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) holder.ll_limit_right.getLayoutParams();
-                params2.width = UIUtil.dip2px(mContext, 10);
+                params2.width = UIUtil.dip2px(mContext, 15);
                 holder.ll_limit_right.setLayoutParams(params2);
 
 
-//                LinearLayout.LayoutParams params_left = (LinearLayout.LayoutParams) holder.ll_left_content.getLayoutParams();
-//                int width = params_left.width;
 
                 ImageView imageView1 = new ImageView(mContext);
                 imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_left.addView(imageView1);
-//                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
-//                    params_image.width = width;
-//                    imageView1.setLayoutParams(params_image);
-
-
-//                LinearLayout.LayoutParams params_center = (LinearLayout.LayoutParams) holder.ll_center_content.getLayoutParams();
-//                int width1 = params_center.width;
 
                 ImageView imageView = new ImageView(mContext);
                 imageView.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_top.addView(imageView);
-//                    LinearLayout.LayoutParams params_image1 = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-//                    params_image1.width = width1;
-//                    imageView.setLayoutParams(params_image1);
-
-//                LinearLayout.LayoutParams params_right = (LinearLayout.LayoutParams) holder.ll_right_content.getLayoutParams();
-//                int width2 = params_right.width;
 
                 ImageView imageView2 = new ImageView(mContext);
                 imageView2.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_right.addView(imageView2);
-//                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
-//                    params_image2.width = width2;
-//                    imageView2.setLayoutParams(params_image2);
                 break;
             }
 //
