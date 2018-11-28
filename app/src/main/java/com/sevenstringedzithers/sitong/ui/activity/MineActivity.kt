@@ -6,9 +6,13 @@ import android.graphics.Typeface
 import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import com.jyall.android.common.utils.LogUtils
+import com.jyall.android.common.utils.SharedPrefUtil
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BaseContext
 import com.jyall.bbzf.base.EventBusCenter
@@ -32,7 +36,6 @@ import com.yanzhenjie.album.Album
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine.view.*
 import org.greenrobot.eventbus.EventBus
-
 
 
 /**
@@ -107,19 +110,19 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
                 var dialog = DailyPunchDialog(this@MineActivity, "查看日期", "今日练琴", "", BaseContext.instance.getUserInfo()!!.award, "已经连续练琴" + BaseContext.instance.getUserInfo()!!.days + "分钟").setLeftTitleListerner(object : View.OnClickListener {
                     override fun onClick(v: View?) {
                         mPresenter?.getExeRecordList()
-                        rv_list.visibility=View.VISIBLE
-                        ll_exe_title.visibility=View.VISIBLE
-                        tablayout.visibility=View.GONE
-                        view_pager.visibility=View.GONE
+                        rv_list.visibility = View.VISIBLE
+                        ll_exe_title.visibility = View.VISIBLE
+                        tablayout.visibility = View.GONE
+                        view_pager.visibility = View.GONE
                     }
 
 
                 }).setRightTitleListerner(object : View.OnClickListener {
                     override fun onClick(v: View?) {
-                        rv_list.visibility=View.GONE
-                        ll_exe_title.visibility=View.GONE
-                        tablayout.visibility=View.VISIBLE
-                        view_pager.visibility=View.VISIBLE
+                        rv_list.visibility = View.GONE
+                        ll_exe_title.visibility = View.GONE
+                        tablayout.visibility = View.VISIBLE
+                        view_pager.visibility = View.VISIBLE
                     }
 
                 })
@@ -202,6 +205,63 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
             jump<MenuActivity>(isAnimation = false)
         }
 
+
+        if (SharedPrefUtil.getBoolean(this, "isShowedInformation", false)) {
+            setInformationSete(false)
+        } else {
+            setInformationSete(true)
+        }
+
+    }
+
+    fun setInformationSete(isShow: Boolean) {
+        if (isShow) {
+            rl_information.visibility = View.VISIBLE
+
+            tv_close_info.setOnClickListener {
+                setInformationSete(false)
+            }
+            var mPosY = 0f
+            var mCurPosY = 0f
+            rl_information.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.getAction()) {
+                        MotionEvent.ACTION_DOWN -> {
+                            mPosY = event.getY()
+                        }
+                        MotionEvent.ACTION_MOVE -> {
+                            mCurPosY = event.getY()
+                        }
+                        MotionEvent.ACTION_UP -> if (mCurPosY - mPosY > 0 && Math.abs(mCurPosY - mPosY) > 25) {
+                            //向下滑動
+                            setInformationSete(false)
+                        } else if (mCurPosY - mPosY < 0 && Math.abs(mCurPosY - mPosY) > 25) {
+                            //向上滑动
+                            setInformationSete(false)
+                        }
+                    }
+                    return true
+
+                }
+            })
+        } else {
+            val out = AnimationUtils.loadAnimation(this@MineActivity, R.anim.animation_menu_up_out)
+            rl_information.animation = out
+            rl_information.startAnimation(out)
+            out.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationEnd(p0: Animation?) {
+                    rl_information.visibility = View.GONE
+                }
+
+                override fun onAnimationStart(p0: Animation?) {
+                }
+
+                override fun onAnimationRepeat(p0: Animation?) {
+                }
+
+            })
+            SharedPrefUtil.saveBoolean(this@MineActivity, "isShowedInformation", true)
+        }
     }
 
     override fun isRegistEventBus(): Boolean = true

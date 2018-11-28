@@ -6,6 +6,32 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rl_information"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:visibility="gone"
+        android:background="@color/color_20232b"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20">
+
+        <TextView
+            style="@style/textStyle_d0a670_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="请完善个人信息" />
+
+        <TextView
+            android:id="@+id/tv_close_info"
+            style="@style/textStyle_d0a670_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="X" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_125"
         android:background="@color/color_f4f3f2"
@@ -83,10 +109,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                app:fontFamily="@fonts/agaramondpro_regular"
                 android:text="5"
                 android:textColor="@color/color_20232b"
-                android:textSize="40sp" />
+                android:textSize="40sp"
+                app:fontFamily="@fonts/agaramondpro_regular" />
 
             <com.sevenstringedzithers.sitong.view.TextViewVertical
                 android:id="@+id/tv_rank_1"
@@ -97,11 +123,11 @@
                 app:v_textSize="11sp" />
 
             <TextView
-                android:fontFamily="@fonts/chinese"
                 android:id="@+id/tv_rank_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
+                android:fontFamily="@fonts/chinese"
                 android:rotation="90"
                 android:text="@string/rank_e"
                 android:textColor="@color/color_20232b"
@@ -121,8 +147,8 @@
                 android:id="@+id/tv_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="32"
                 android:fontFamily="@fonts/agaramondpro_regular"
+                android:text="32"
                 android:textColor="@color/color_20232b"
                 android:textSize="40sp" />
 
@@ -156,8 +182,8 @@
                 android:id="@+id/tv_days"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="19"
                 android:fontFamily="@fonts/agaramondpro_regular"
+                android:text="19"
                 android:textColor="@color/color_20232b"
                 android:textSize="40sp" />
 
