@@ -117,7 +117,20 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         holder.ll_limit_right.removeAllViews();
         holder.ll_limit_left.removeAllViews();
         holder.ll_left_top.removeAllViews();
-
+//        最下面的图片
+        if (!isScrolling&&!TextUtils.isEmpty(list.get(position).getJianzipu())){
+            ImageLoadedrManager.getInstance().display(mContext, list.get(position).getJianzipu(), holder.iv_shoushi,R.drawable.bg_transparent);
+            if (list.get(position).getJianziwidth() > 0) {
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.iv_shoushi.getLayoutParams();
+//            params.width = UIUtil.dip2px(mContext,(float) list.get(position).getJianziwidth()/2);
+                params.width = (int) list.get(position).getJianziwidth() * 2;
+//            params.height =UIUtil.dip2px(mContext,(float) list.get(position).getJianziheight()/2);
+                params.height = (int) list.get(position).getJianziheight() * 2;
+                holder.iv_shoushi.setLayoutParams(params);
+            }
+        }else {
+            holder.iv_shoushi.setImageResource(R.drawable.bg_transparent);
+        }
 
         if (list.get(position).getNumbered_music().equals("-1") || list.get(position).getNumbered_music().equals("8")) {
             TextView textview = new TextView(mContext);
@@ -510,20 +523,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             }
 //
         }
-//        最下面的图片
-        if (!isScrolling&&!TextUtils.isEmpty(list.get(position).getJianzipu())){
-            ImageLoadedrManager.getInstance().display(mContext, list.get(position).getJianzipu(), holder.iv_shoushi,R.drawable.bg_transparent);
-            if (list.get(position).getJianziwidth() > 0) {
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.iv_shoushi.getLayoutParams();
-//            params.width = UIUtil.dip2px(mContext,(float) list.get(position).getJianziwidth()/2);
-                params.width = (int) list.get(position).getJianziwidth() * 2;
-//            params.height =UIUtil.dip2px(mContext,(float) list.get(position).getJianziheight()/2);
-                params.height = (int) list.get(position).getJianziheight() * 2;
-                holder.iv_shoushi.setLayoutParams(params);
-            }
-        }else {
-            holder.iv_shoushi.setImageResource(R.drawable.bg_transparent);
-        }
+
 
 
 
