@@ -26,6 +26,7 @@ import com.jyall.bbzf.api.scheduler.APIAddressConstants.NOMAL_PROBLEM_DETAIL
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.NOMAL_PROBLEM_LIST
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.QINGUAN_DETAIL
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.SEND_SHORT_MESSAGE
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.SET_BELONG
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.SET_MESSAGE_READ
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.UPDATE_USER_INFOs
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.UPLOAD_FEEDBACK
@@ -103,6 +104,12 @@ interface Jyapi {
     * */
     @GET(GET_HALL_LIST)
     fun getHallList(): Observable<Response<BaseBean<ArrayList<QinHallBean>>>>
+
+    /*
+    * 设置琴管归属
+    * */
+    @POST(SET_BELONG)
+    fun setBelong(@Body map: HashMap<String, String>): Observable<Response<BaseBean<Boolean>>>
 
     /*
     * 视频列表
@@ -238,11 +245,11 @@ interface Jyapi {
     * 获取问题列表
     * */
     @POST(NOMAL_PROBLEM_LIST)
-    fun get_problem_list():Observable<Response<BaseBean<ArrayList<QuestionListBean>>>>
+    fun get_problem_list(): Observable<Response<BaseBean<ArrayList<QuestionListBean>>>>
 
     /*
     * 获取问题列表
     * */
     @POST(NOMAL_PROBLEM_DETAIL)
-    fun get_problem_detail(@Body map:HashMap<String,String>):Observable<Response<BaseBean<ArrayList<QuestionDetailBean>>>>
+    fun get_problem_detail(@Body map: HashMap<String, String>): Observable<Response<BaseBean<ArrayList<QuestionDetailBean>>>>
 }

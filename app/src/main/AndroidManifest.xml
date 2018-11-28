@@ -78,6 +78,9 @@
             android:name=".ui.activity.FeedbackActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.BelongActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.yanzhenjie.album.AlbumActivity"
             android:screenOrientation="portrait" />
         <activity

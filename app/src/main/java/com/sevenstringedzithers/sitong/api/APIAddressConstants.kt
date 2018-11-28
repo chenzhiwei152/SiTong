@@ -56,7 +56,10 @@ object APIAddressConstants {
     * 获取琴馆列表
     * */
     const val GET_HALL_LIST = "/carillon/getcarillonlist/"
-
+    /*
+    * 琴管归属
+    * */
+    const val SET_BELONG = "/user/changeusercarillon/"
     /*
     * 获取视频列表
     * */

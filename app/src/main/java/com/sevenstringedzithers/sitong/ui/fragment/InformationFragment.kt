@@ -21,6 +21,7 @@ class InformationFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(),
                 EditActivity.newInstance(requireActivity(),"1","编辑姓名","姓名")
             }
             R.id.rl_belong -> {
+                activity?.jump<BelongActivity>()
             }
             R.id.rl_email -> {
                 EditActivity.newInstance(requireActivity(),"1","编辑邮箱","邮箱")

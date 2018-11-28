@@ -16,6 +16,9 @@ import kotlinx.android.synthetic.main.fragment_qin_hall.*
  * create by chen.zhiwei on 2018-8-15
  */
 class QinHallFragment : BaseFragment<QinHallContract.View, QinHallPresenter>(), QinHallContract.View {
+    override fun setBelongSuccess() {
+    }
+
     override fun getPresenter(): QinHallPresenter = QinHallPresenter()
 
     override fun getRootView(): QinHallContract.View = this
