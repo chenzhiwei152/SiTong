@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:layout_marginBottom="@dimen/dp_15"
     android:layout_marginLeft="42dp"
-    android:layout_marginRight="42dp"
     android:layout_marginTop="@dimen/dp_15"
+    android:layout_marginRight="42dp"
+    android:layout_marginBottom="@dimen/dp_15"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -27,16 +27,13 @@
         android:gravity="top"
         android:orientation="horizontal">
 
-        <com.sevenstringedzithers.sitong.view.TextViewVertical
+        <com.sevenstringedzithers.sitong.view.PlumbTextView
             android:id="@+id/tv_title"
-            style="@style/textStyle_20232b_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/vv_divider"
-            app:v_start="right"
-            app:v_text="最开始的时候,你并不熟悉这座陌生的城市，你甚至摸得到内心那种无法融入的恐慌和彷徨，据说这种感觉叫漂泊！！"
-            app:v_textColor="@color/color_20232b"
-            app:v_textSize="16sp" />
+            app:textColor="@color/color_20232b"
+            app:textSize="16sp" />
 
         <View
             android:id="@+id/vv_divider"
@@ -46,17 +43,13 @@
             android:layout_marginRight="@dimen/dp_5"
             android:layout_toLeftOf="@+id/tv_city" />
 
-        <com.sevenstringedzithers.sitong.view.TextViewVertical
+        <com.sevenstringedzithers.sitong.view.PlumbTextView
             android:id="@+id/tv_city"
-            style="@style/textStyle_20232b_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            app:v_start="right"
-            app:v_text="最开始的时候,你并不熟悉这座陌生的城市，你甚至摸得到内心那种无法融入的恐慌和彷徨，据说这种感觉叫漂泊！！"
-            app:v_textColor="@color/color_d0a670"
-            app:v_textSize="13sp" />
-
+            android:layout_toLeftOf="@+id/vv_divider"
+            app:textColor="@color/color_d0a670"
+            app:textSize="13sp" />
 
     </LinearLayout>
 

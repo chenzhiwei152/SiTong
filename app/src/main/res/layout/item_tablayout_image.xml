@@ -16,17 +16,17 @@
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="wrap_content"
-            android:background="@drawable/selector_describe_qin"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_describe_qin" />
 
-        <com.sevenstringedzithers.sitong.view.TextViewVertical
+        <com.sevenstringedzithers.sitong.view.PlumbTextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
-            app:v_start="right"
-            app:v_textColor="@color/text_color_second_tab"
-            app:v_textSize="13sp" />
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_toLeftOf="@+id/vv_divider"
+            app:textColor="@color/text_color_second_tab"
+            app:textSize="13sp" />
     </LinearLayout>
 
 

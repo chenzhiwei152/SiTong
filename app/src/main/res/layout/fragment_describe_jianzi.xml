@@ -10,21 +10,43 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_marginTop="@dimen/dp_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
             android:src="@mipmap/ic_jianzi_des" />
 
-        <com.sevenstringedzithers.sitong.view.TextViewVertical
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginRight="@dimen/dp_20"
-            app:v_start="right"
-            app:v_lineWidth="@dimen/dp_25"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_30"
-            app:v_text="减字谱又称指法谱，是中国古琴常用的一种以记写指位与左右手演奏技法为特征的记谱法。因为它是将古琴文字谱的指法、术语减取其较具特点的部分组合而成，故名。由唐末琴家曹柔创立的古琴文字谱，是由文字谱减化而来。这种记谱法使用减字拼成某种符号记录左手按弦指法和右手弹奏指法，它是一种只记录演奏法和音高，不记录音名、节奏的记谱法，其特点为：﹃字简而义尽，文约而音赅﹄。减字谱是对文字谱记谱法的一次重大改革，是一种沿用千年而未被取代的古老记谱发。"
-            app:v_textSize="14sp" />
+            android:layout_marginRight="@dimen/dp_20"
+            android:gravity="right"
+            android:orientation="horizontal">
 
+
+            <com.sevenstringedzithers.sitong.view.PlumbTextView
+                android:layout_width="wrap_content"
+                android:layout_height="350dp"
+                android:layout_gravity="right"
+                app:columnSpacing="5dp"
+                app:letterSpacing="3dp"
+                app:regex="[\n]"
+                app:text="由唐末琴家曹柔创立的古琴文字谱，是由文字谱减化而来。这种记谱法使用减字拼成某种符号记录左手按弦指法和右手弹奏指法，它是一种只记录演奏法和音高，不记录音名、节奏的记谱法，其特点为：﹃字简而义尽，文约而音赅﹄。减字谱是对文字谱记谱法的一次重大改革，是一种沿用千年而未被取代的古老记谱发。"
+                app:textColor="@color/color_20232b"
+                app:textSize="14sp" />
+
+            <com.sevenstringedzithers.sitong.view.PlumbTextView
+                android:layout_width="wrap_content"
+                android:layout_height="350dp"
+                android:layout_gravity="right"
+                android:layout_marginLeft="@dimen/dp_20"
+                app:columnSpacing="5dp"
+                app:letterSpacing="3dp"
+                app:regex="[\n]"
+                app:text="减字谱又称指法谱，是中国古琴常用的一种以记写指位与左右手演奏技法为特征的记谱法。因为它是将古琴文字谱的指法、术语减取其较具特点的部分组合而成，故名。"
+                app:textColor="@color/color_20232b"
+                app:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

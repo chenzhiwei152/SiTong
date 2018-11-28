@@ -114,13 +114,13 @@
                 android:textSize="40sp"
                 app:fontFamily="@fonts/agaramondpro_regular" />
 
-            <com.sevenstringedzithers.sitong.view.TextViewVertical
+            <com.sevenstringedzithers.sitong.view.PlumbTextView
                 android:id="@+id/tv_rank_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:v_text="@string/rank"
-                app:v_textColor="@color/color_d0a670"
-                app:v_textSize="11sp" />
+                app:text="@string/rank"
+                app:textColor="@color/color_d0a670"
+                app:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tv_rank_title"
@@ -152,13 +152,12 @@
                 android:textColor="@color/color_20232b"
                 android:textSize="40sp" />
 
-            <com.sevenstringedzithers.sitong.view.TextViewVertical
+            <com.sevenstringedzithers.sitong.view.PlumbTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:v_text="@string/experience_time"
-                app:v_textColor="@color/color_d0a670"
-                app:v_textSize="11sp" />
-
+                app:text="@string/experience_time"
+                app:textColor="@color/color_d0a670"
+                app:textSize="11sp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -187,13 +186,12 @@
                 android:textColor="@color/color_20232b"
                 android:textSize="40sp" />
 
-            <com.sevenstringedzithers.sitong.view.TextViewVertical
+            <com.sevenstringedzithers.sitong.view.PlumbTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:v_text="@string/punch_time"
-                app:v_textColor="@color/color_d0a670"
-                app:v_textSize="11sp" />
-
+                app:text="@string/punch_time"
+                app:textColor="@color/color_d0a670"
+                app:textSize="11sp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

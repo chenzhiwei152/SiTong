@@ -4,32 +4,31 @@
     android:id="@+id/child"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:gravity="center_horizontal"
-    android:orientation="horizontal"
-    android:layout_marginBottom="@dimen/album_dp_10"
     android:layout_marginTop="@dimen/album_dp_10"
+    android:layout_marginBottom="@dimen/album_dp_10"
+    android:clickable="true"
+    android:gravity="center_horizontal|top"
+    android:orientation="horizontal"
     android:tag="child_1">
 
-    <com.sevenstringedzithers.sitong.view.TextViewVertical
+    <com.sevenstringedzithers.sitong.view.PlumbTextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        app:v_textSize="12sp"
-        app:v_textColor="@color/color_20232b"
-        app:v_start="right" />
+        app:columnSpacing="5dp"
+        app:letterSpacing="3dp"
+        app:regex="[\n]"
+        app:textColor="@color/color_20232b"
+        app:textSize="12sp" />
 
     <ImageView
-        android:layout_marginLeft="@dimen/album_sp_20"
         android:id="@+id/android"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/album_sp_20"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"
         android:tag="child image" />
 
-    <!--<include-->
-    <!--layout="@layout/item_child"/>-->
 
 </LinearLayout>
