@@ -42,6 +42,7 @@ import java.util.*
  */
 class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresenter>(), MusicPlayContract.View, MainAdapter.Listener, View.OnClickListener {
     private var du: Long? = null
+    private var playThread: Thread? = null
     private var soundTouchRec: SoundStreamAduioRecorder? = null
     private var soundTouch: SoundTouch? = null
     private var lastRecordFile: String? = null
@@ -375,9 +376,9 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 player?.setOnProgressChangedListener(object : OnProgressChangedListener {
                     override fun onProgressChanged(track: Int, currentPercentage: Double, position: Long) {
 //                        Log.e("onProgressChanged", "" + currentPercentage)
-                            seek_bar.setProgress((currentPercentage * du!!).toFloat())
+                        seek_bar.setProgress((currentPercentage * du!!).toFloat())
 //                        时间
-                            tv_start_time.text = ExtraUtils.secToTime((currentPercentage * du!!).toInt())
+                        tv_start_time.text = ExtraUtils.secToTime((currentPercentage * du!!).toInt())
 //                       琴谱上面的打点
 
                         getPoints((currentPercentage * du!!).toFloat())
@@ -421,7 +422,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     }
                 })
                 player?.setRate(rate)
-                Thread(player).start()
+//                Thread(player).start()
+                if (playThread==null){
+                    playThread= Thread(player)
+                }
+                playThread?.start()
                 player?.start()
                 setButtonState()
                 dismissLoading()
@@ -466,7 +471,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     nextSort = qinViewPointBean.index
                     return@forEachIndexed
                 }
-        }
+            }
 
 
         }
@@ -527,6 +532,14 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun onDestroy() {
         player?.destroy()
         player = null
+        try {
+            if (playThread!=null){
+                playThread?.interrupt()
+            }
+        }catch (e:java.lang.Exception){
+
+        }
+
         try {
             if (isRecording) {
                 RecordFilesUtils.getInstance(this)?.deleteFiles(soundTouchRec?.stopRecord()!!)
