@@ -1,5 +1,6 @@
 package com.sevenstringedzithers.sitong.ui.activity
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MotionEvent
 import android.view.View
@@ -15,12 +16,15 @@ import com.sevenstringedzithers.sitong.mvp.persenter.ArticleListPresenter
 import com.sevenstringedzithers.sitong.ui.adapter.QinHallDetilListAdapter
 import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
 import com.sevenstringedzithers.sitong.view.ShareDialog
+import com.tencent.connect.common.Constants
+import com.tencent.tauth.Tencent
 import com.yinglan.scrolllayout.ScrollLayout
 import kotlinx.android.synthetic.main.activity_qin_hall_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 class ArticleDetailActivity : BaseActivity<ArticleListContract.View, ArticleListPresenter>(), ArticleListContract.View, ScrollLayout.OnScrollChangedListener {
     private var id: String? = null
+    private var dialog: ShareDialog? = null
     private var bean: QinguanDetailBean? = null
     private var mAdapter: QinHallDetilListAdapter? = null
     override fun onScrollFinished(currentStatus: ScrollLayout.Status?) {
@@ -129,6 +133,16 @@ class ArticleDetailActivity : BaseActivity<ArticleListContract.View, ArticleList
     override fun isRegistEventBus(): Boolean = false
 
     override fun isNeedLec(): View? = null
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Tencent.onActivityResultData(requestCode, resultCode, data, dialog)
+        if (requestCode == Constants.REQUEST_API) {
+            if (resultCode == Constants.REQUEST_QQ_SHARE || resultCode == Constants.REQUEST_QZONE_SHARE || resultCode == Constants.REQUEST_OLD_SHARE) {
+                Tencent.handleResultData(data, dialog)
+            }
+        }
+    }
+
     private fun initTitle() {
         iv_back.setOnClickListener { finish() }
         tv_title.setText("")
@@ -142,14 +156,14 @@ class ArticleDetailActivity : BaseActivity<ArticleListContract.View, ArticleList
             }
             var list = arrayListOf<String>()
             list.add("http://stsystem.oss-cn-beijing.aliyuncs.com/img/fengqiuhuang/normal/2%402x.png")
-            var dialog = ShareDialog(this@ArticleDetailActivity, "录音文件", "测试", "www.baidu.com", list)
-            dialog.setShareCallback(object : RVAdapterItemOnClick {
+            dialog = ShareDialog(this@ArticleDetailActivity, "录音文件", "测试", "www.baidu.com", list)
+            dialog?.setShareCallback(object : RVAdapterItemOnClick {
                 override fun onItemClicked(data: Any) {
                     toast_msg(data as String)
                 }
 
             })
-            dialog.show()
+            dialog?.show()
         }
     }
 }

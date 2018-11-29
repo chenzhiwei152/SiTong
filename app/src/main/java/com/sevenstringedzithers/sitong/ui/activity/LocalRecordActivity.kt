@@ -1,5 +1,6 @@
 package com.sevenstringedzithers.sitong.ui.activity
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
@@ -20,6 +21,8 @@ import com.sevenstringedzithers.sitong.utils.files.RecordFilesUtils
 import com.sevenstringedzithers.sitong.view.ShareDialog
 import com.smp.soundtouchandroid.OnProgressChangedListener
 import com.smp.soundtouchandroid.SoundStreamAudioPlayer
+import com.tencent.connect.common.Constants
+import com.tencent.tauth.Tencent
 import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.activity_exercise_record.*
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -33,6 +36,7 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
 
     private var mAdapter: RecordListAdapter? = null
     private var localFileName: ArrayList<FileInfo>? = null
+    private var dialog: ShareDialog? = null
     //    private var loacalFileInfo: ArrayList<MusicBean.Music>? = null
     override fun getPresenter(): BasePresenter<IBaseView> = BasePresenter()
 
@@ -52,16 +56,16 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
         rv_list.adapter = mAdapter
         mAdapter?.setShareListerne(object : RVAdapterItemOnClick {
             override fun onItemClicked(data: Any) {
-                var list= arrayListOf<String>()
+                var list = arrayListOf<String>()
                 list.add("http://stsystem.oss-cn-beijing.aliyuncs.com/img/fengqiuhuang/normal/2%402x.png")
-                var dialog = ShareDialog(this@LocalRecordActivity, "录音文件", "测试", "www.baidu.com", list)
-                dialog.setShareCallback(object : RVAdapterItemOnClick {
+                dialog = ShareDialog(this@LocalRecordActivity, "录音文件", "测试", "www.baidu.com", list)
+                dialog?.setShareCallback(object : RVAdapterItemOnClick {
                     override fun onItemClicked(data: Any) {
                         toast(data as String)
                     }
 
                 })
-                dialog.show()
+                dialog?.show()
             }
 
         })
@@ -162,5 +166,15 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
         iv_back.setOnClickListener { finish() }
         tv_title.text = "我的录音"
         iv_menu.visibility = View.GONE
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Tencent.onActivityResultData(requestCode, resultCode, data, dialog)
+        if (requestCode == Constants.REQUEST_API) {
+            if (resultCode == Constants.REQUEST_QQ_SHARE || resultCode == Constants.REQUEST_QZONE_SHARE || resultCode == Constants.REQUEST_OLD_SHARE) {
+                Tencent.handleResultData(data, dialog)
+            }
+        }
     }
 }

@@ -44,7 +44,8 @@ class ShareDialog(context: Context?, title:String,summary:String,url:String,imag
     }
 
     override fun onError(p0: UiError?) {
-        shareCallBack?.onItemClicked("分享失败")
+//        shareCallBack?.onItemClicked("分享失败")
+        shareCallBack?.onItemClicked(""+p0?.errorMessage+"------"+p0?.errorDetail)
     }
 
     var mContext: Context? = null
