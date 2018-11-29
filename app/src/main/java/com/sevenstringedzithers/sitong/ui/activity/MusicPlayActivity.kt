@@ -226,7 +226,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         if (getVolum()) {
             isSlience = true
         }
-
+        rv_list.isNestedScrollingEnabled = false
         var bundle = intent.extras
         if (bundle != null) {
             id = bundle.getString("id")
@@ -423,8 +423,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 })
                 player?.setRate(rate)
 //                Thread(player).start()
-                if (playThread==null){
-                    playThread= Thread(player)
+                if (playThread == null) {
+                    playThread = Thread(player)
                 }
                 playThread?.start()
                 player?.start()
@@ -533,10 +533,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         player?.destroy()
         player = null
         try {
-            if (playThread!=null){
+            if (playThread != null) {
                 playThread?.interrupt()
             }
-        }catch (e:java.lang.Exception){
+        } catch (e: java.lang.Exception) {
 
         }
 
