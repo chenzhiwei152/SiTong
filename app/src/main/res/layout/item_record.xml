@@ -97,6 +97,7 @@
         android:visibility="gone">
 
         <TextView
+            android:id="@+id/tv_share"
             style="@style/textStyle_d0a670_16"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

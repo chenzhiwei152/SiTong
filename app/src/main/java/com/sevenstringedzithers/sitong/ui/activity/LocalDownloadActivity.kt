@@ -37,29 +37,30 @@ class LocalDownloadActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(
                 1 -> {
                     mAdapter?.setData(loacalFileInfo!!)
                 }
-                2->{
+                2 -> {
                     initData()
                 }
             }
         }
     }
 
-private fun initData(){
-    if (localFileName != null) {
-        musicList?.forEachIndexed { index, musicBean ->
-            musicBean.musics.forEachIndexed { index, music ->
-                localFileName?.forEach {
-                    if (music!=null&&!music.enName.isNullOrEmpty())
-                    if (it.contains(music.enName)) {
-                        loacalFileInfo?.add(music)
+    private fun initData() {
+        if (localFileName != null) {
+            musicList?.forEachIndexed { index, musicBean ->
+                musicBean.musics.forEachIndexed { index, music ->
+                    localFileName?.forEach {
+                        if (music != null && !music.enName.isNullOrEmpty())
+                            if (it.contains(music.enName)) {
+                                loacalFileInfo?.add(music)
+                            }
                     }
-                }
 
+                }
             }
+            uiHandler.sendEmptyMessage(1)
         }
-        uiHandler.sendEmptyMessage(1)
     }
-}
+
     private var mAdapter: CollectionListAdapter? = null
     private var musicList: ArrayList<MusicBean>? = null
     private var localFileName: ArrayList<String>? = null
@@ -94,7 +95,6 @@ private fun initData(){
                 var deleteItem = SwipeMenuItem(this@LocalDownloadActivity).setText("删除").setWidth(width).setHeight(height).setTextColor(Color.WHITE).setBackgroundColor(resources.getColor(R.color.color_d0a670))
                 // 各种文字和图标属性设置。
                 swipeRightMenu?.addMenuItem(deleteItem) // 在Item右侧添加一个菜单。
-
             }
 
         }
@@ -109,19 +109,21 @@ private fun initData(){
             val direction = menuBridge.direction // 左侧还是右侧菜单。
             val adapterPosition = menuBridge.adapterPosition // RecyclerView的Item的position。
             val menuPosition = menuBridge.position // 菜单在RecyclerView的Item中的Position。
+            DownLoadFilesUtils.getInstance(this@LocalDownloadActivity)?.deletedFile(loacalFileInfo?.get(adapterPosition)?.enName + ".mp3")
             mAdapter?.removeItem(adapterPosition)
+//            loacalFileInfo?.removeAt(adapterPosition)
         }
         // 菜单点击监听。
         rv_list.setSwipeMenuItemClickListener(mMenuItemClickListener)
         rv_list.adapter = mAdapter
-        mAdapter?.setListerner(object :RVAdapterItemOnClick{
+        mAdapter?.setListerner(object : RVAdapterItemOnClick {
             override fun onItemClicked(data: Any) {
-                var bean=data as MusicBean.Music
+                var bean = data as MusicBean.Music
                 if (bean.isbuy) {
                     var bund = Bundle()
                     bund.putString("id", "" + bean?.id)
                     jump<MemberListActivity>(dataBundle = bund)
-                }else{
+                } else {
                     var bundle = Bundle()
                     bundle.putString("id", "" + bean.id)
                     jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
@@ -136,7 +138,7 @@ private fun initData(){
 
             rv_list.postDelayed({
                 uiHandler.sendEmptyMessage(2)
-            },1000)
+            }, 1000)
         }
     }
 

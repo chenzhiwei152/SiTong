@@ -1,5 +1,6 @@
 package com.sevenstringedzithers.sitong.utils.files
 
+import android.graphics.Bitmap
 import android.util.Log
 import com.jyall.android.common.utils.LogUtils
 import com.sevenstringedzithers.sitong.mvp.model.bean.FileInfo
@@ -81,6 +82,17 @@ class FilesUtils {
             }
             val split = name.split("/")
             return split[split.size - 1]
+        }
+
+        /**
+         * 把Bitmap转Byte
+         * @Author
+         * @EditTime
+         */
+        fun Bitmap2Bytes(bm: Bitmap): ByteArray {
+            var baos = ByteArrayOutputStream()
+            bm.compress(Bitmap.CompressFormat.PNG, 100, baos)
+            return baos.toByteArray()
         }
 
         /**

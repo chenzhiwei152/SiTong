@@ -19,6 +19,12 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
     private var max: Float? = null
     private var maxTime: String? = null
     var list = arrayListOf<FileInfo>()
+    var shareListerner: RVAdapterItemOnClick? = null
+
+    fun setShareListerne(shareListerner: RVAdapterItemOnClick) {
+        this.shareListerner = shareListerner
+    }
+
     fun setData(all: ArrayList<FileInfo>) {
         list = all
         notifyDataSetChanged()
@@ -42,9 +48,6 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
     private var onItemClick: RVAdapterItemOnClick? = null
     private var onPlayMusic: onPlayListerner? = null
     private var onProgress: BubbleSeekBar.OnProgressChangedListener? = null
-     fun getProgressListener(): BubbleSeekBar.OnProgressChangedListener {
-        return onProgress!!
-    }
 
     fun setListerner(onItemClick: RVAdapterItemOnClick) {
         this.onItemClick = onItemClick
@@ -78,14 +81,17 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
                 }
             }
             holder.viewLayout.seek_bar.onProgressChangedListener = onProgress
-            holder.viewLayout.tv_delete.setOnClickListener{
+            holder.viewLayout.tv_delete.setOnClickListener {
                 removeItem(position)
-                RecordFilesUtils.getInstance(context)?.deleteFiles(list[position].absolutePath)
+                RecordFilesUtils.getInstance(context)?.deleteFiles(list[position].name)
                 notifyDataSetChanged()
+            }
+            holder.viewLayout.tv_share.setOnClickListener {
+                shareListerner?.onItemClicked("")
             }
 
             holder.viewLayout.iv_more.setOnClickListener {
-                onPlayMusic?.onItemClicked(position,holder.viewLayout.seek_bar,list[position].absolutePath)
+                onPlayMusic?.onItemClicked(position, holder.viewLayout.seek_bar, list[position].absolutePath)
             }
             holder.viewLayout.setOnClickListener {
                 onItemClick?.onItemClicked(list[position])
@@ -108,7 +114,7 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
 
     class ViewHolder(val viewLayout: View) : RecyclerView.ViewHolder(viewLayout)
 
-    interface onPlayListerner{
-        fun onItemClicked(pos:Int,bubble:BubbleSeekBar,data: String)
+    interface onPlayListerner {
+        fun onItemClicked(pos: Int, bubble: BubbleSeekBar, data: String)
     }
 }

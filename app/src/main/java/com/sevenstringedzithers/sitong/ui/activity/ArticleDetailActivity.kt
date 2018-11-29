@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 
 class ArticleDetailActivity : BaseActivity<ArticleListContract.View, ArticleListPresenter>(), ArticleListContract.View, ScrollLayout.OnScrollChangedListener {
     private var id: String? = null
+    private var bean: QinguanDetailBean? = null
     private var mAdapter: QinHallDetilListAdapter? = null
     override fun onScrollFinished(currentStatus: ScrollLayout.Status?) {
         if (currentStatus == ScrollLayout.Status.EXIT) {
@@ -58,6 +59,7 @@ class ArticleDetailActivity : BaseActivity<ArticleListContract.View, ArticleList
     }
 
     override fun getArticleDetailSuccess(bean: QinguanDetailBean) {
+        this.bean = bean
         iv_fengmian.loadImage(this@ArticleDetailActivity, bean.img)
         tv_title.setText(bean.name)
         tv_titles.setText(bean.name)
@@ -135,7 +137,12 @@ class ArticleDetailActivity : BaseActivity<ArticleListContract.View, ArticleList
         iv_menu.visibility = View.GONE
         iv_menu.setImageResource(R.mipmap.ic_share)
         iv_menu.setOnClickListener {
-            var dialog = ShareDialog(this, "", "", "")
+            if (bean == null) {
+                return@setOnClickListener
+            }
+            var list = arrayListOf<String>()
+            list.add("http://stsystem.oss-cn-beijing.aliyuncs.com/img/fengqiuhuang/normal/2%402x.png")
+            var dialog = ShareDialog(this@ArticleDetailActivity, "录音文件", "测试", "www.baidu.com", list)
             dialog.setShareCallback(object : RVAdapterItemOnClick {
                 override fun onItemClicked(data: Any) {
                     toast_msg(data as String)

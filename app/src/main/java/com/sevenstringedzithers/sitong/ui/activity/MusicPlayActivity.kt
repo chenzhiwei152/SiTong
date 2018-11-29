@@ -34,6 +34,7 @@ import com.smp.soundtouchandroid.SoundTouch
 import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.activity_music_play.*
 import kotlinx.android.synthetic.main.layout_play_title.*
+import java.util.*
 
 
 /**
@@ -83,7 +84,6 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             override fun onProgressCallback(progress: Double) {
                                 mLoadDialog?.getSeekBarLister()?.onProgressCallback(progress)
                             }
-
                             override fun onProgressFailed() {
 //                                dismissLoading()
                                 isLoading = false
@@ -181,6 +181,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         adapter?.setList(musicBean.score)
         musicBean.score.forEachIndexed { index, score ->
             if (score.start_second?.size > 0 && score.end_second?.size > 0 && score.start_second[0] > 0) {
+                Collections.sort(score.start_second)
+                Collections.sort(score.end_second)
                 score.start_second.forEachIndexed { i, d ->
                     var bean = QinViewPointBean(index, d, score.end_second[i], score.duration, score.percent, score.string)
                     pointList?.add(bean)

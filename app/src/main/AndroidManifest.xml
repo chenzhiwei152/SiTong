@@ -30,6 +30,7 @@
         android:networkSecurityConfig="@xml/xg_network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <meta-data android:name="android.notch_support" android:value="true"/>
         <activity
             android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait">

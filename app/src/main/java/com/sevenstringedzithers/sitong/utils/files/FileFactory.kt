@@ -2,6 +2,7 @@ package com.sevenstringedzithers.sitong.utils.files
 
 import android.content.Context
 import com.sevenstringedzithers.sitong.mvp.model.bean.FileInfo
+import java.io.File
 
 abstract class FileFactory(mContext: Context) {
 
@@ -27,7 +28,9 @@ abstract class FileFactory(mContext: Context) {
 
 
     fun deleteFiles(file: String) {
-        mContext?.deleteFile(file)
+        var file = File(getCurrentUri()+"/"+file)
+        file.delete()
+//        mContext?.deleteFile(file)
     }
 
     abstract fun deletedFile(path: String)

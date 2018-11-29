@@ -10,11 +10,14 @@ import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
+import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.mvp.model.bean.FileInfo
 import com.sevenstringedzithers.sitong.ui.adapter.RecordListAdapter
+import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
 import com.sevenstringedzithers.sitong.utils.ExtraUtils
 import com.sevenstringedzithers.sitong.utils.files.RecordFilesUtils
+import com.sevenstringedzithers.sitong.view.ShareDialog
 import com.smp.soundtouchandroid.OnProgressChangedListener
 import com.smp.soundtouchandroid.SoundStreamAudioPlayer
 import com.xw.repo.BubbleSeekBar
@@ -47,22 +50,21 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
         mAdapter = RecordListAdapter(this)
         rv_list.layoutManager = LinearLayoutManager(this)
         rv_list.adapter = mAdapter
-//        mAdapter?.setListerner(object : RVAdapterItemOnClick {
-//            override fun onItemClicked(data: Any) {
-//                var bean = data as MusicBean.Music
-//                if (bean.isbuy) {
-//                    var bund = Bundle()
-//                    bund.putString("id", "" + bean?.id)
-//                    jump<MemberListActivity>(dataBundle = bund)
-//                } else {
-//                    var bundle = Bundle()
-//                    bundle.putString("id", "" + bean.id)
-//                    jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
-//                }
-//
-//            }
-//
-//        })
+        mAdapter?.setShareListerne(object : RVAdapterItemOnClick {
+            override fun onItemClicked(data: Any) {
+                var list= arrayListOf<String>()
+                list.add("http://stsystem.oss-cn-beijing.aliyuncs.com/img/fengqiuhuang/normal/2%402x.png")
+                var dialog = ShareDialog(this@LocalRecordActivity, "录音文件", "测试", "www.baidu.com", list)
+                dialog.setShareCallback(object : RVAdapterItemOnClick {
+                    override fun onItemClicked(data: Any) {
+                        toast(data as String)
+                    }
+
+                })
+                dialog.show()
+            }
+
+        })
         localFileName = RecordFilesUtils.getInstance(this)?.getFilesInfoByPath("")
         mAdapter?.setData(localFileName!!)
 
@@ -71,8 +73,8 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
                 if (!currentUrl.equals(data)) {
                     player?.onStop()
 
-                    setButtonState(pos,false)
-                    currentPos=pos
+                    setButtonState(pos, false)
+                    currentPos = pos
                     currentUrl = data
                     player = null
                 }
@@ -122,7 +124,7 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
                 player?.setRate(rate)
                 Thread(player).start()
                 player?.start()
-                setButtonState(pos,!player!!.isPaused)
+                setButtonState(pos, !player!!.isPaused)
                 dismissLoading()
 
             } else {
@@ -132,7 +134,7 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
                     player!!.pause()
                 }
 //                setButtonState()
-                setButtonState(pos,!player!!.isPaused)
+                setButtonState(pos, !player!!.isPaused)
             }
 
             du = ExtraUtils.getMP3FileInfo(f?.absolutePath!!) / 1000
@@ -147,7 +149,7 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
     private fun setButtonState(pos: Int, isPlay: Boolean) {
         if (isPlay) {
             rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<ImageView>(R.id.iv_more)?.setBackgroundResource(R.drawable.selector_pause)
-        }else{
+        } else {
             rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<ImageView>(R.id.iv_more)?.setBackgroundResource(R.drawable.selector_play)
 
         }
