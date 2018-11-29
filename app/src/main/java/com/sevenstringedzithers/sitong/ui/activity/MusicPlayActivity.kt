@@ -226,7 +226,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         if (getVolum()) {
             isSlience = true
         }
-        rv_list.isNestedScrollingEnabled = false
+//        rv_list.isNestedScrollingEnabled = false
         var bundle = intent.extras
         if (bundle != null) {
             id = bundle.getString("id")
