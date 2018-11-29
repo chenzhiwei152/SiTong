@@ -149,12 +149,7 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
             iv_vip.visibility = View.GONE
         }
         tv_message.text = "消息 " + bean.msgs
-//        tv_rank.text = bean.level
-        val typeface1 = Typeface.createFromAsset(assets, "fonts/agaramondpro_regular.otf")
-        tv_rank.setTypeface(typeface1)
-
-//        val typeface = Typeface.createFromAsset(assets, "fonts/chinese.ttf")
-//        tv_rank_1.setTypeface(typeface)
+        tv_rank.text = bean.level
         tv_duration.tv_duration.text = bean.duration
         tv_days.tv_days.text = bean.days
 
@@ -172,7 +167,16 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
     override fun getLayoutId(): Int = R.layout.fragment_mine
 
     override fun initViewsAndEvents() {
-
+        val typeface1 = Typeface.createFromAsset(assets, "fonts/agaramondproregular.otf")
+        tv_rank.setTypeface(typeface1)
+        tv_rank_title.setTypeface(typeface1)
+        tv_rank_title_en.setTypeface(typeface1)
+        tv_days.setTypeface(typeface1)
+        tv_days_title.setTypeface(typeface1)
+        tv_days_title_en.setTypeface(typeface1)
+        tv_duration.setTypeface(typeface1)
+        tv_duration_title.setTypeface(typeface1)
+        tv_duration_title_en.setTypeface(typeface1)
         view_pager.offscreenPageLimit = 4
         tabsTitle.add(resources.getString(R.string.information))
         tabsTitle.add(resources.getString(R.string.task))

@@ -9,10 +9,10 @@
         android:id="@+id/rl_information"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:visibility="gone"
         android:background="@color/color_20232b"
         android:paddingLeft="@dimen/dp_20"
-        android:paddingRight="@dimen/dp_20">
+        android:paddingRight="@dimen/dp_20"
+        android:visibility="gone">
 
         <TextView
             style="@style/textStyle_d0a670_14"
@@ -105,29 +105,29 @@
             android:gravity="center_horizontal|top">
 
             <TextView
+                android:layout_marginTop="-10dp"
                 android:id="@+id/tv_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:text="5"
                 android:textColor="@color/color_20232b"
-                android:textSize="40sp"
-                app:fontFamily="@fonts/agaramondpro_regular" />
+                android:textSize="40sp" />
 
             <com.sevenstringedzithers.sitong.view.PlumbTextView
-                android:id="@+id/tv_rank_1"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_rank_title"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 app:text="@string/rank"
                 app:textColor="@color/color_d0a670"
-                app:textSize="11sp" />
+                app:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_rank_title"
+                android:id="@+id/tv_rank_title_en"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:fontFamily="@fonts/chinese"
+                android:layout_marginLeft="-10dp"
                 android:rotation="90"
                 android:text="@string/rank_e"
                 android:textColor="@color/color_20232b"
@@ -145,24 +145,28 @@
 
             <TextView
                 android:id="@+id/tv_duration"
+                android:layout_marginTop="-10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@fonts/agaramondpro_regular"
                 android:text="32"
                 android:textColor="@color/color_20232b"
                 android:textSize="40sp" />
 
             <com.sevenstringedzithers.sitong.view.PlumbTextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_duration_title"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 app:text="@string/experience_time"
                 app:textColor="@color/color_d0a670"
-                app:textSize="11sp" />
+                app:textSize="12sp" />
+
             <TextView
+                android:id="@+id/tv_duration_title_en"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:rotation="90"
+                android:layout_marginLeft="-10dp"
                 android:text="@string/experience_time_e"
                 android:textColor="@color/color_20232b"
                 android:textSize="10sp"
@@ -180,6 +184,7 @@
             <TextView
                 android:id="@+id/tv_days"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="-10dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@fonts/agaramondpro_regular"
                 android:text="19"
@@ -187,15 +192,19 @@
                 android:textSize="40sp" />
 
             <com.sevenstringedzithers.sitong.view.PlumbTextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_days_title"
+                android:layout_width="@dimen/dp_20"
                 android:layout_height="wrap_content"
                 app:text="@string/punch_time"
                 app:textColor="@color/color_d0a670"
-                app:textSize="11sp" />
+                app:textSize="12sp" />
+
             <TextView
+                android:id="@+id/tv_days_title_en"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
+                android:layout_marginLeft="-10dp"
                 android:rotation="90"
                 android:text="@string/punch_time_e"
                 android:textColor="@color/color_20232b"
