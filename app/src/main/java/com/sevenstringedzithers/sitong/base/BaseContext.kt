@@ -18,6 +18,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo
 import com.sevenstringedzithers.sitong.utils.ActivityStackManager
+import com.squareup.leakcanary.LeakCanary
 import com.tencent.android.tpush.XGIOperateCallback
 import com.tencent.android.tpush.XGPushConfig
 import com.tencent.android.tpush.XGPushManager
@@ -71,14 +72,14 @@ class BaseContext : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-//        if (isApkDebugable(instance)){
-//            if (LeakCanary.isInAnalyzerProcess(this)) {
-//                // This process is dedicated to LeakCanary for heap analysis.
-//                // You should not init your app in this process.
-//                return
-//            }
-//            LeakCanary.install(this)
-//        }
+        if (isApkDebugable(instance)){
+            if (LeakCanary.isInAnalyzerProcess(this)) {
+                // This process is dedicated to LeakCanary for heap analysis.
+                // You should not init your app in this process.
+                return
+            }
+            LeakCanary.install(this)
+        }
         LogUtils.setUp(isApkDebugable(this))
         LogUtils.customTagPrefix = this.resources.getString(R.string.app_name)
 //        ShareUtils.initShare(this)
