@@ -184,6 +184,7 @@ abstract class BaseActivity<T : IBaseView, K : BasePresenter<T>> : AppCompatActi
      */
     override fun onDestroy() {
         super.onDestroy()
+        dismissLoading()
         mPresenter?.detachView()
         if (isRegistEventBus()) EventBus.getDefault().unregister(this)
         ActivityStackManager.getInstance().removeActivity(this)

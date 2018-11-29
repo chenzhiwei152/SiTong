@@ -74,6 +74,12 @@ public class SoundStreamAudioPlayer extends SoundStreamRunnable {
         }
     }
 
+    public void destroy() {
+        if (track != null) {
+            track.close();
+        }
+    }
+
     @Override
     public void onStop() {
     }

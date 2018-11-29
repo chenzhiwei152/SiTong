@@ -60,7 +60,9 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         when (v?.id) {
             R.id.iv_play -> {
                 if (musicBean != null && !musicBean!!.url.isNullOrEmpty()) {
-                    checkFile(musicBean!!.url)
+                    runOnUiThread {
+                        checkFile(musicBean!!.url)
+                    }
                 } else {
                     toast_msg("获取视频失败")
                 }
@@ -84,6 +86,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             override fun onProgressCallback(progress: Double) {
                                 mLoadDialog?.getSeekBarLister()?.onProgressCallback(progress)
                             }
+
                             override fun onProgressFailed() {
 //                                dismissLoading()
                                 isLoading = false
@@ -353,8 +356,12 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
                 override fun onProgressSuccess() {
                     dismissLoading()
-                    f = DownLoadFilesUtils.getInstance(this@MusicPlayActivity)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
-                    initPlayer()
+                    runOnUiThread {
+                        checkFile(url)
+                    }
+
+//                    f = DownLoadFilesUtils.getInstance(this@MusicPlayActivity)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
+//                    initPlayer()
                 }
             })
         }
@@ -368,9 +375,9 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 player?.setOnProgressChangedListener(object : OnProgressChangedListener {
                     override fun onProgressChanged(track: Int, currentPercentage: Double, position: Long) {
 //                        Log.e("onProgressChanged", "" + currentPercentage)
-                        seek_bar.setProgress((currentPercentage * du!!).toFloat())
+                            seek_bar.setProgress((currentPercentage * du!!).toFloat())
 //                        时间
-                        tv_start_time.text = ExtraUtils.secToTime((currentPercentage * du!!).toInt())
+                            tv_start_time.text = ExtraUtils.secToTime((currentPercentage * du!!).toInt())
 //                       琴谱上面的打点
 
                         getPoints((currentPercentage * du!!).toFloat())
@@ -387,12 +394,14 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                                 hol?.setBackgroundResource(R.color.color_d0a670)
                             }
                             rv_list.layoutManager.scrollToPosition(nextSort!!)
-                            cq_view.setmMoveMap(mMoveMap, musicBean?.score?.get(nextSort!!)?.overtone!!, musicBean?.score?.get(nextSort!!)?.portamento!!, musicBean?.score?.get(nextSort!!)?.duration, musicBean?.score?.get(nextSort!!)?.toposition)
-                            if (musicBean?.score?.get(nextSort!!)?.portamento!!) {
-                                cq_view.startAnim()
+                            if (rl_qin.visibility == View.VISIBLE) {
+                                cq_view.setmMoveMap(mMoveMap, musicBean?.score?.get(nextSort!!)?.overtone!!, musicBean?.score?.get(nextSort!!)?.portamento!!, musicBean?.score?.get(nextSort!!)?.duration, musicBean?.score?.get(nextSort!!)?.toposition)
+                                if (musicBean?.score?.get(nextSort!!)?.portamento!!) {
+                                    cq_view.startAnim()
+                                }
+                                tv_left.text = musicBean?.score?.get(nextSort!!)?.left_str
+                                tv_right.text = musicBean?.score?.get(nextSort!!)?.right_str
                             }
-                            tv_left.text = musicBean?.score?.get(nextSort!!)?.left_str
-                            tv_right.text = musicBean?.score?.get(nextSort!!)?.right_str
                             currentSort = nextSort
                         }
                         if (currentPercentage >= 1) {
@@ -427,8 +436,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             }
 //                    var du=player?.playedDuration!!.toFloat()/1000
             du = ExtraUtils.getMP3FileInfo(f!!) / 1000
-            seek_bar.getConfigBuilder().max(du!!.toFloat()).min(0f)
-            tv_end_time.setText(ExtraUtils.secToTime((du!!).toInt()))
+            runOnUiThread {
+                seek_bar.getConfigBuilder().max(du!!.toFloat()).min(0f)
+                tv_end_time.setText(ExtraUtils.secToTime((du!!).toInt()))
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
@@ -438,22 +449,25 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     /*获取琴上面的点*/
     private fun getPoints(currenttime: Float) {
         mMoveMap.clear()
-        pointList?.forEachIndexed { index, qinViewPointBean ->
-            if (qinViewPointBean.start_second <= currenttime && qinViewPointBean.end_second >= currenttime) {
-                if (!qinViewPointBean.string.isNullOrEmpty()) {
-                    if (!qinViewPointBean.string.contains("+")) {
-                        mMoveMap.put(qinViewPointBean.string.toInt(), qinViewPointBean.percent.toFloat())
-                    } else {
-                        var ss = qinViewPointBean.string.split("+")
-                        var pp = qinViewPointBean.percent.split("+")
-                        ss.forEachIndexed { index, s ->
-                            mMoveMap.put(s.toInt(), pp[index].toFloat())
+        Runnable {
+            pointList?.forEachIndexed { index, qinViewPointBean ->
+                if (qinViewPointBean.start_second <= currenttime && qinViewPointBean.end_second >= currenttime) {
+                    if (!qinViewPointBean.string.isNullOrEmpty()) {
+                        if (!qinViewPointBean.string.contains("+")) {
+                            mMoveMap.put(qinViewPointBean.string.toInt(), qinViewPointBean.percent.toFloat())
+                        } else {
+                            var ss = qinViewPointBean.string.split("+")
+                            var pp = qinViewPointBean.percent.split("+")
+                            ss.forEachIndexed { index, s ->
+                                mMoveMap.put(s.toInt(), pp[index].toFloat())
+                            }
                         }
                     }
+                    nextSort = qinViewPointBean.index
+                    return@forEachIndexed
                 }
-                nextSort = qinViewPointBean.index
-                return@forEachIndexed
-            }
+        }
+
 
         }
 
@@ -511,7 +525,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     }
 
     override fun onDestroy() {
-        player?.stop()
+        player?.destroy()
         player = null
         try {
             if (isRecording) {
