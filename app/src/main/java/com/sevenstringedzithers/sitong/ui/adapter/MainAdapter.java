@@ -35,6 +35,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     private Context mContext;
     private boolean isSelected = false;
     private TreeMap<Integer, Integer> yanyinSet = new TreeMap<>();
+    private TreeMap<Integer, Integer> yanyinSetWithNum = new TreeMap<>();
     private ArrayList<MusicDetailBean.Score> list;
     private boolean isScrolling = false;
 
@@ -130,7 +131,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             if (list.get(position).getJianziwidth() > 0) {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.iv_shoushi.getLayoutParams();
                 params.width = (int) (list.get(position).getJianziwidth() * 1.5);
-                params.height = (int) (list.get(position).getJianziheight() * 1.5);
+                params.height = (int) (list.get(position).getJianziheight() * 2);
                 holder.iv_shoushi.setLayoutParams(params);
             }
         } else {
@@ -164,16 +165,33 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 //符号位置
                 case 0:
 //                        小结顶部
-                    try {
-                        String ss[] = new String[2];
-                        if (!TextUtils.isEmpty(symbol.getParam()))
-                            ss = symbol.getParam().split("\\.");
-                        if (ss.length > 0) {
-                            yanyinSet.put(position, Integer.parseInt(ss[0]));
-                        }
-                    } catch (Exception e) {
-                        LogUtils.e("解析异常", e.getMessage());
+                    switch (symbol.getNamecode()) {
+                        case 17:
+                            try {
+                                String ss[] = new String[2];
+                                if (!TextUtils.isEmpty(symbol.getParam()))
+                                    ss = symbol.getParam().split("\\.");
+                                if (ss.length > 0) {
+                                    yanyinSet.put(position, Integer.parseInt(ss[0]));
+                                }
+                            } catch (Exception e) {
+                                LogUtils.e("解析异常", e.getMessage());
+                            }
+                            break;
+                        case 18:
+                            try {
+                                String ss[] = new String[2];
+                                if (!TextUtils.isEmpty(symbol.getParam()))
+                                    ss = symbol.getParam().split("\\.");
+                                if (ss.length > 0) {
+                                    yanyinSetWithNum.put(position, Integer.parseInt(ss[0]));
+                                }
+                            } catch (Exception e) {
+                                LogUtils.e("解析异常", e.getMessage());
+                            }
+                            break;
                     }
+
                     break;
                 case 1:
 //                    左上
@@ -196,11 +214,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                             break;
                         case 14:
 //泛音
-//                                ImageView v1 = new ImageView(mContext);
-//                                v1.setImageResource(R.drawable.bg_transparent);
                             ImageView v2 = new ImageView(mContext);
                             v2.setImageResource(R.mipmap.ic_point_virtual);
-//                                holder.ll_center_top.addView(v1);
                             holder.ll_center_top.addView(v2);
                             break;
                         case 15:
@@ -397,19 +412,22 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                     break;
             }
         }
+        boolean isAdded = false;//是否加载了，加载一次就跳出，减少循环次数
         for (Integer key : yanyinSet.keySet()) {
 //            LogUtils.e("key:" + key + "----value:" + yanyinSet.get(key));
 //            System.out.println("Key = " + key);
+            float value = 10;
+
             if (position == key) {
 
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ll_limit_left.getLayoutParams();
-                params.width = UIUtil.dip2px(mContext, 10);
+                params.width = UIUtil.dip2px(mContext, value);
                 holder.ll_limit_left.setLayoutParams(params);
                 LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) holder.ll_limit_top.getLayoutParams();
-                params1.width = UIUtil.dip2px(mContext, 10);
+                params1.width = UIUtil.dip2px(mContext, value);
                 holder.ll_limit_top.setLayoutParams(params1);
                 LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) holder.ll_limit_right.getLayoutParams();
-                params2.width = UIUtil.dip2px(mContext, 10);
+                params2.width = UIUtil.dip2px(mContext, value);
                 holder.ll_limit_right.setLayoutParams(params2);
 
                 ImageView imageView2 = new ImageView(mContext);
@@ -418,25 +436,27 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
 
                 ImageView imageView = new ImageView(mContext);
+//                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setBackgroundResource(R.mipmap.ic_oval_left_small);
                 holder.ll_limit_top.addView(imageView);
 
 
                 ImageView imageView1 = new ImageView(mContext);
+//                imageView1.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_right.addView(imageView1);
+                isAdded = true;
                 break;
             } else if (position == (key + yanyinSet.get(key) - 1)) {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ll_limit_left.getLayoutParams();
-                params.width = UIUtil.dip2px(mContext, 10);
+                params.width = UIUtil.dip2px(mContext, value);
                 holder.ll_limit_left.setLayoutParams(params);
                 LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) holder.ll_limit_top.getLayoutParams();
-                params1.width = UIUtil.dip2px(mContext, 10);
+                params1.width = UIUtil.dip2px(mContext, value);
                 holder.ll_limit_top.setLayoutParams(params1);
                 LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) holder.ll_limit_right.getLayoutParams();
-                params2.width = UIUtil.dip2px(mContext, 10);
+                params2.width = UIUtil.dip2px(mContext, value);
                 holder.ll_limit_right.setLayoutParams(params2);
-
 
                 ImageView imageView1 = new ImageView(mContext);
                 imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
@@ -449,18 +469,20 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                 ImageView imageView2 = new ImageView(mContext);
                 imageView2.setBackgroundResource(R.drawable.bg_transparent_5);
                 holder.ll_limit_right.addView(imageView2);
+
+                isAdded = true;
                 break;
             } else if (position > key && position < (key + yanyinSet.get(key) - 1)) {
 
 //
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ll_limit_left.getLayoutParams();
-                params.width = UIUtil.dip2px(mContext, 10);
+                params.width = UIUtil.dip2px(mContext, value);
                 holder.ll_limit_left.setLayoutParams(params);
                 LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) holder.ll_limit_top.getLayoutParams();
-                params1.width = UIUtil.dip2px(mContext, 10);
+                params1.width = UIUtil.dip2px(mContext, value);
                 holder.ll_limit_top.setLayoutParams(params1);
                 LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) holder.ll_limit_right.getLayoutParams();
-                params2.width = UIUtil.dip2px(mContext, 10);
+                params2.width = UIUtil.dip2px(mContext, value);
                 holder.ll_limit_right.setLayoutParams(params2);
 
 
@@ -475,9 +497,154 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                 ImageView imageView2 = new ImageView(mContext);
                 imageView2.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_right.addView(imageView2);
+                isAdded = true;
                 break;
             }
+            if (isAdded) {
+                break;
+            }
+        }
+        if (!isAdded) {
+            for (Integer key : yanyinSetWithNum.keySet()) {
+//            LogUtils.e("key:" + key + "----value:" + yanyinSet.get(key));
+//            System.out.println("Key = " + key);
+                float value = 10;
+                boolean isAdded1 = false;//是否加载了，加载一次就跳出，减少循环次数
+
+                if (position == key) {
+
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ll_limit_left.getLayoutParams();
+                    params.width = UIUtil.dip2px(mContext, value);
+                    holder.ll_limit_left.setLayoutParams(params);
+                    LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) holder.ll_limit_top.getLayoutParams();
+                    params1.width = UIUtil.dip2px(mContext, value);
+                    holder.ll_limit_top.setLayoutParams(params1);
+                    LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) holder.ll_limit_right.getLayoutParams();
+                    params2.width = UIUtil.dip2px(mContext, value);
+                    holder.ll_limit_right.setLayoutParams(params2);
+
+                    ImageView imageView2 = new ImageView(mContext);
+                    imageView2.setImageResource(R.drawable.bg_transparent_5);
+                    holder.ll_limit_left.addView(imageView2);
+
+
+                    ImageView imageView = new ImageView(mContext);
+//                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    imageView.setBackgroundResource(R.mipmap.ic_oval_left_small);
+                    holder.ll_limit_top.addView(imageView);
+
+
+                    ImageView imageView1 = new ImageView(mContext);
+//                imageView1.setScaleType(ImageView.ScaleType.FIT_XY);
+                    imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
+                    holder.ll_limit_right.addView(imageView1);
+                    isAdded1 = true;
+                    break;
+                } else if (position == (key + yanyinSetWithNum.get(key) - 1)) {
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ll_limit_left.getLayoutParams();
+                    params.width = UIUtil.dip2px(mContext, value);
+                    holder.ll_limit_left.setLayoutParams(params);
+                    LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) holder.ll_limit_top.getLayoutParams();
+                    params1.width = UIUtil.dip2px(mContext, value);
+                    holder.ll_limit_top.setLayoutParams(params1);
+                    LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) holder.ll_limit_right.getLayoutParams();
+                    params2.width = UIUtil.dip2px(mContext, value);
+                    holder.ll_limit_right.setLayoutParams(params2);
+
+//需要显示数字
+                    if (key % 2 == 0) {
+                        //偶数
+                        int needShowNum = key + yanyinSetWithNum.get(key) / 2;
+                        if (position == needShowNum) {
+                            TextView v = new TextView(mContext);
+                            v.setTextSize(UIUtil.sp2px(mContext, 3));
+                            v.setText(yanyinSetWithNum.get(key) + "");
+                            holder.ll_limit_left.addView(v);
+                            LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) v.getLayoutParams();
+                            params3.topMargin = -UIUtil.dip2px(mContext, 3.5f);
+                            v.setLayoutParams(params3);
+                        }
+                    } else {
+
+                    }
+
+                    ImageView imageView1 = new ImageView(mContext);
+                    imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
+                    holder.ll_limit_left.addView(imageView1);
+
+                    ImageView imageView = new ImageView(mContext);
+                    imageView.setBackgroundResource(R.mipmap.ic_oval_right_small);
+                    holder.ll_limit_top.addView(imageView);
+
+                    ImageView imageView2 = new ImageView(mContext);
+                    imageView2.setBackgroundResource(R.drawable.bg_transparent_5);
+                    holder.ll_limit_right.addView(imageView2);
+
+                    isAdded1 = true;
+                    break;
+                } else if (position > key && position < (key + yanyinSetWithNum.get(key) - 1)) {
+
 //
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ll_limit_left.getLayoutParams();
+                    params.width = UIUtil.dip2px(mContext, value);
+                    holder.ll_limit_left.setLayoutParams(params);
+                    LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) holder.ll_limit_top.getLayoutParams();
+                    params1.width = UIUtil.dip2px(mContext, value);
+                    holder.ll_limit_top.setLayoutParams(params1);
+                    LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) holder.ll_limit_right.getLayoutParams();
+                    params2.width = UIUtil.dip2px(mContext, value);
+                    holder.ll_limit_right.setLayoutParams(params2);
+
+                    boolean isHasNum = false;
+//需要显示数字
+                    if (key % 2 == 0) {
+                        //偶数
+                        int needShowNum = key + yanyinSetWithNum.get(key) / 2;
+                        if (position == needShowNum) {
+                            TextView v = new TextView(mContext);
+                            v.setTextSize(UIUtil.sp2px(mContext, 3));
+                            v.setText(yanyinSetWithNum.get(key) + "");
+                            holder.ll_limit_left.addView(v);
+                            LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) v.getLayoutParams();
+                            params3.topMargin = -UIUtil.dip2px(mContext, 3.5f);
+                            v.setLayoutParams(params3);
+//                            isHasNum = true;
+                        }
+                    } else {
+                        int needShowNum = key + (yanyinSetWithNum.get(key) - 1) / 2;
+                        if (position == needShowNum) {
+
+                            TextView v = new TextView(mContext);
+                            v.setTextSize(UIUtil.sp2px(mContext, 3));
+                            v.setText(yanyinSetWithNum.get(key) + "");
+                            holder.ll_limit_top.addView(v);
+                            LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) v.getLayoutParams();
+                            params3.topMargin = -UIUtil.dip2px(mContext, 3.5f);
+                            v.setLayoutParams(params3);
+                            isHasNum = true;
+                        }
+                    }
+
+
+                    ImageView imageView1 = new ImageView(mContext);
+                    imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
+                    holder.ll_limit_left.addView(imageView1);
+                    if (!isHasNum) {
+                        ImageView imageView = new ImageView(mContext);
+                        imageView.setBackgroundResource(R.mipmap.ic_oval_middle_small);
+                        holder.ll_limit_top.addView(imageView);
+                    }
+
+                    ImageView imageView2 = new ImageView(mContext);
+                    imageView2.setBackgroundResource(R.mipmap.ic_oval_middle_small);
+                    holder.ll_limit_right.addView(imageView2);
+                    isAdded1 = true;
+                    break;
+                }
+                if (isAdded1) {
+                    break;
+                }
+            }
         }
 
 
