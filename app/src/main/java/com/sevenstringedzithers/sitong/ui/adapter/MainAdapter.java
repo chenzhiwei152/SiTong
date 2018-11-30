@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -552,7 +553,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                     holder.ll_limit_right.setLayoutParams(params2);
 
 //需要显示数字
-                    if (key % 2 == 0) {
+                    if (yanyinSetWithNum.get(key) % 2 == 0) {
                         //偶数
                         int needShowNum = key + yanyinSetWithNum.get(key) / 2;
                         if (position == needShowNum) {
@@ -595,9 +596,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                     params2.width = UIUtil.dip2px(mContext, value);
                     holder.ll_limit_right.setLayoutParams(params2);
 
-                    boolean isHasNum = false;
+                    boolean isCenterHasNum = false;
+                    boolean isLeftHasNum = false;
 //需要显示数字
-                    if (key % 2 == 0) {
+                    if (yanyinSetWithNum.get(key) % 2 == 0) {
                         //偶数
                         int needShowNum = key + yanyinSetWithNum.get(key) / 2;
                         if (position == needShowNum) {
@@ -605,10 +607,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                             v.setTextSize(UIUtil.sp2px(mContext, 3));
                             v.setText(yanyinSetWithNum.get(key) + "");
                             holder.ll_limit_left.addView(v);
+                            holder.ll_limit_left.setGravity(Gravity.RIGHT);
                             LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) v.getLayoutParams();
                             params3.topMargin = -UIUtil.dip2px(mContext, 3.5f);
                             v.setLayoutParams(params3);
-//                            isHasNum = true;
+                            isLeftHasNum = true;
                         }
                     } else {
                         int needShowNum = key + (yanyinSetWithNum.get(key) - 1) / 2;
@@ -621,15 +624,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                             LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) v.getLayoutParams();
                             params3.topMargin = -UIUtil.dip2px(mContext, 3.5f);
                             v.setLayoutParams(params3);
-                            isHasNum = true;
+                            isCenterHasNum = true;
                         }
                     }
 
+                    if (!isLeftHasNum) {
+                        ImageView imageView1 = new ImageView(mContext);
+                        imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
+                        holder.ll_limit_left.addView(imageView1);
+                    }
 
-                    ImageView imageView1 = new ImageView(mContext);
-                    imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
-                    holder.ll_limit_left.addView(imageView1);
-                    if (!isHasNum) {
+                    if (!isCenterHasNum) {
                         ImageView imageView = new ImageView(mContext);
                         imageView.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                         holder.ll_limit_top.addView(imageView);
