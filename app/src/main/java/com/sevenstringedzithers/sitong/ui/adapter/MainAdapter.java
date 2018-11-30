@@ -22,6 +22,7 @@ import com.sevenstringedzithers.sitong.view.dragselectrecyclerview.IDragSelectAd
 import com.sevenstringedzithers.sitong.view.dragselectrecyclerview.RectangleView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -32,12 +33,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         implements IDragSelectAdapter {
     private final List<Integer> selectedIndices;
     private Context mContext;
+    private boolean isSelected = false;
     private TreeMap<Integer, Integer> yanyinSet = new TreeMap<>();
     private ArrayList<MusicDetailBean.Score> list;
     private boolean isScrolling = false;
+
     public void setScrolling(boolean scrolling) {
         isScrolling = scrolling;
     }
+
     public void setList(ArrayList<MusicDetailBean.Score> list) {
         this.list = list;
         notifyDataSetChanged();
@@ -75,6 +79,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             clearSelected();
             selectedIndices.add(index);
         }
+        Collections.sort(selectedIndices);
         notifyItemChanged(index);
         if (callback != null) {
             callback.onSelectionChanged(selectedIndices.size());
@@ -102,7 +107,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     @Override
     public void onBindViewHolder(MainViewHolder holder, int position) {
-
+        isSelected = selectedIndices.contains(position);
         holder.ll_center.removeAllViews();
         holder.ll_right.removeAllViews();
         holder.ll_left_center.removeAllViews();
@@ -115,17 +120,20 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         holder.ll_limit_left.removeAllViews();
         holder.ll_left_top.removeAllViews();
 //        最下面的图片
-        if (!isScrolling&&!TextUtils.isEmpty(list.get(position).getJianzipu())){
-            ImageLoadedrManager.getInstance().display(mContext, list.get(position).getJianzipu(), holder.iv_shoushi,R.drawable.bg_transparent);
+        if (!isScrolling && !TextUtils.isEmpty(list.get(position).getJianzipu())) {
+
+            String url = list.get(position).getJianzipu();
+            if (isSelected) {
+                url = url.replace("normal", "highlight");
+            }
+            ImageLoadedrManager.getInstance().display(mContext, url, holder.iv_shoushi, R.drawable.bg_transparent);
             if (list.get(position).getJianziwidth() > 0) {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.iv_shoushi.getLayoutParams();
-//            params.width = UIUtil.dip2px(mContext,(float) list.get(position).getJianziwidth()/2);
-                params.width = (int) (list.get(position).getJianziwidth()*1.5);
-//            params.height =UIUtil.dip2px(mContext,(float) list.get(position).getJianziheight()/2);
-                params.height = (int) (list.get(position).getJianziheight()*1.5);
+                params.width = (int) (list.get(position).getJianziwidth() * 1.5);
+                params.height = (int) (list.get(position).getJianziheight() * 1.5);
                 holder.iv_shoushi.setLayoutParams(params);
             }
-        }else {
+        } else {
             holder.iv_shoushi.setImageResource(R.drawable.bg_transparent);
         }
 
@@ -139,27 +147,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         }
         if (list.get(position).getSound_type() == 0) {
             //        中间的数字
-            holder.ll_center.addView(ImageUtils.Companion.getImageView(mContext, ImageUtils.Companion.getNumber(list.get(position).getNumbered_music(), false, false), 0, 0));
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music(), 1, isSelected);
         } else if (list.get(position).getSound_type() == 1) {
-            holder.ll_center.addView(ImageUtils.Companion.getImageView(mContext, ImageUtils.Companion.getNumber(list.get(position).getNumbered_music_up(), true, false), 0, 0));
-            holder.ll_center.addView(ImageUtils.Companion.getImageView(mContext, ImageUtils.Companion.getNumber(list.get(position).getNumbered_music(), true, false), 0, 0));
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music_up(), 2, isSelected);
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music(), 2, isSelected);
         } else {
-            TextView textviewUp = new TextView(mContext);
-            textviewUp.setTextSize(3);
-            textviewUp.setText(list.get(position).getNumbered_music_up());
-
-            TextView textviewMiddle = new TextView(mContext);
-            textviewMiddle.setTextSize(3);
-            textviewMiddle.setText(list.get(position).getNumbered_music_middle());
-
-            TextView textview = new TextView(mContext);
-            textview.setTextSize(3);
-            textview.setText(list.get(position).getNumbered_music());
-
-            holder.ll_center.addView(textviewUp);
-            holder.ll_center.addView(textviewMiddle);
-            holder.ll_center.addView(textview);
-
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music_up(), 3, isSelected);
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music_middle(), 3, isSelected);
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music(), 3, isSelected);
         }
 
 //下方的
@@ -221,15 +216,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                             v5.setLayoutParams(params2);
                             break;
                         case 23:
-//                                ImageView v7 = new ImageView(mContext);
-//                                v7.setImageResource(R.drawable.line_black_5);
-                            ImageView v4 = new ImageView(mContext);
-                            v4.setImageResource(R.drawable.bg_transparent);
                             ImageView v = new ImageView(mContext);
                             v.setImageResource(R.drawable.line_black_vertical_5);
-//                                holder.ll_right.addView(v7);
-                            holder.ll_center_top.addView(v4);
                             holder.ll_center_top.addView(v);
+                            LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) v.getLayoutParams();
+                            params3.topMargin = UIUtil.dip2px(mContext, 2);
+                            v.setLayoutParams(params3);
                             break;
                     }
 
@@ -245,7 +237,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                             v3.setImageResource(R.mipmap.ic_point_black);
                             holder.ll_right.addView(v3);
                             LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) v3.getLayoutParams();
-                            params1.topMargin = UIUtil.dip2px(mContext, 2);
+                            params1.leftMargin = UIUtil.dip2px(mContext, 2);
                             v3.setLayoutParams(params1);
                             break;
                         case 9:
@@ -254,6 +246,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                                 ImageView v1 = new ImageView(mContext);
                                 v1.setImageResource(image);
                                 holder.ll_right.addView(v1);
+                                LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) v1.getLayoutParams();
+                                params2.leftMargin = UIUtil.dip2px(mContext, 2);
+                                v1.setLayoutParams(params2);
                             }
                             break;
 
@@ -263,29 +258,24 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                             holder.ll_right.addView(v);
                             LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) v.getLayoutParams();
                             params2.leftMargin = UIUtil.dip2px(mContext, 4);
+                            params2.rightMargin = UIUtil.dip2px(mContext, 4);
                             v.setLayoutParams(params2);
                             break;
                         case 24:
-//                                ImageView v6 = new ImageView(mContext);
-//                                v6.setImageResource(R.drawable.line_black_5);
-                            ImageView v5 = new ImageView(mContext);
-                            v5.setImageResource(R.drawable.bg_transparent);
                             ImageView v4 = new ImageView(mContext);
                             v4.setImageResource(R.mipmap.ic_line_double);
-//                                holder.ll_right.addView(v6);
-                            holder.ll_right.addView(v5);
                             holder.ll_right.addView(v4);
+                            LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) v4.getLayoutParams();
+                            params3.leftMargin = UIUtil.dip2px(mContext, 4);
+                            v4.setLayoutParams(params3);
                             break;
                         case 26:
-//                                ImageView v6 = new ImageView(mContext);
-//                                v6.setImageResource(R.drawable.line_black_5);
-                            ImageView v7 = new ImageView(mContext);
-                            v7.setImageResource(R.drawable.bg_transparent);
                             ImageView v8 = new ImageView(mContext);
                             v8.setImageResource(R.mipmap.ic_repeat_end);
-//                                holder.ll_right.addView(v6);
-                            holder.ll_right.addView(v7);
                             holder.ll_right.addView(v8);
+                            LinearLayout.LayoutParams params4 = (LinearLayout.LayoutParams) v8.getLayoutParams();
+                            params4.leftMargin = UIUtil.dip2px(mContext, 4);
+                            v8.setLayoutParams(params4);
                             break;
                     }
                     break;
@@ -373,6 +363,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                                 ImageView v = new ImageView(mContext);
                                 v.setImageResource(image);
                                 holder.ll_left_center.addView(v);
+                                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) v.getLayoutParams();
+                                params.rightMargin = UIUtil.dip2px(mContext, 2);
+                                v.setLayoutParams(params);
                             }
 
                             break;
@@ -380,19 +373,25 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                             ImageView v1 = new ImageView(mContext);
                             v1.setImageResource(R.mipmap.ic_shanghuayin);
                             holder.ll_left_center.addView(v1);
+                            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) v1.getLayoutParams();
+                            params.rightMargin = UIUtil.dip2px(mContext, 2);
+                            v1.setLayoutParams(params);
                             break;
                         case 12:
                             ImageView v2 = new ImageView(mContext);
                             v2.setImageResource(R.mipmap.ic_xiahuaxin);
                             holder.ll_left_center.addView(v2);
+                            LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) v2.getLayoutParams();
+                            params1.rightMargin = UIUtil.dip2px(mContext, 2);
+                            v2.setLayoutParams(params1);
                             break;
                         case 25:
-                            ImageView v7 = new ImageView(mContext);
-                            v7.setImageResource(R.drawable.bg_transparent);
                             ImageView v8 = new ImageView(mContext);
                             v8.setImageResource(R.mipmap.ic_repeat_start);
                             holder.ll_left_center.addView(v8);
-                            holder.ll_left_center.addView(v7);
+                            LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) v8.getLayoutParams();
+                            params2.rightMargin = UIUtil.dip2px(mContext, 4);
+                            v8.setLayoutParams(params2);
                             break;
                     }
                     break;
@@ -423,7 +422,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                 holder.ll_limit_top.addView(imageView);
 
 
-
                 ImageView imageView1 = new ImageView(mContext);
                 imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_right.addView(imageView1);
@@ -440,37 +438,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                 holder.ll_limit_right.setLayoutParams(params2);
 
 
-//                LinearLayout.LayoutParams params_left = (LinearLayout.LayoutParams) holder.ll_left_content.getLayoutParams();
-//                int width = params_left.width;
-
                 ImageView imageView1 = new ImageView(mContext);
                 imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_left.addView(imageView1);
-//                    LinearLayout.LayoutParams params_image1 = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
-//                    params_image1.width = width;
-//                    imageView1.setLayoutParams(params_image1);
-
-
-//                LinearLayout.LayoutParams params_center = (LinearLayout.LayoutParams) holder.ll_center_content.getLayoutParams();
-//                int width1 = params_center.width;
 
                 ImageView imageView = new ImageView(mContext);
                 imageView.setBackgroundResource(R.mipmap.ic_oval_right_small);
                 holder.ll_limit_top.addView(imageView);
-//                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-//                    params_image.width = width1 / 2;
-//                    imageView.setLayoutParams(params_image);
-
-
-//                LinearLayout.LayoutParams params_right = (LinearLayout.LayoutParams) holder.ll_right_content.getLayoutParams();
-//                int width2 = params_right.width;
 
                 ImageView imageView2 = new ImageView(mContext);
                 imageView2.setBackgroundResource(R.drawable.bg_transparent_5);
                 holder.ll_limit_right.addView(imageView2);
-//                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
-//                    params_image2.width = width2 + width1 / 2;
-//                    imageView2.setLayoutParams(params_image2);
                 break;
             } else if (position > key && position < (key + yanyinSet.get(key) - 1)) {
 
@@ -486,81 +464,60 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                 holder.ll_limit_right.setLayoutParams(params2);
 
 
-//                LinearLayout.LayoutParams params_left = (LinearLayout.LayoutParams) holder.ll_left_content.getLayoutParams();
-//                int width = params_left.width;
-
                 ImageView imageView1 = new ImageView(mContext);
                 imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_left.addView(imageView1);
-//                    LinearLayout.LayoutParams params_image = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
-//                    params_image.width = width;
-//                    imageView1.setLayoutParams(params_image);
-
-
-//                LinearLayout.LayoutParams params_center = (LinearLayout.LayoutParams) holder.ll_center_content.getLayoutParams();
-//                int width1 = params_center.width;
 
                 ImageView imageView = new ImageView(mContext);
                 imageView.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_top.addView(imageView);
-//                    LinearLayout.LayoutParams params_image1 = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-//                    params_image1.width = width1;
-//                    imageView.setLayoutParams(params_image1);
-
-//                LinearLayout.LayoutParams params_right = (LinearLayout.LayoutParams) holder.ll_right_content.getLayoutParams();
-//                int width2 = params_right.width;
 
                 ImageView imageView2 = new ImageView(mContext);
                 imageView2.setBackgroundResource(R.mipmap.ic_oval_middle_small);
                 holder.ll_limit_right.addView(imageView2);
-//                    LinearLayout.LayoutParams params_image2 = (LinearLayout.LayoutParams) imageView2.getLayoutParams();
-//                    params_image2.width = width2;
-//                    imageView2.setLayoutParams(params_image2);
                 break;
             }
 //
         }
 
 
-
-
-        if (selectedIndices.contains(position)) {
-            holder.ll_all.setBackgroundResource( R.color.color_d0a670);
+        if (isSelected) {
+            holder.ll_all.setBackgroundResource(R.color.color_99d0a670);
         } else {
-            holder.ll_all.setBackgroundResource( R.color.albumTransparent);
+            holder.ll_all.setBackgroundResource(R.color.albumTransparent);
         }
 
-//        Collections.sort(selectedIndices);
-//        if (selectedIndices.size() > 0 && position >= selectedIndices.get(0) && position <= selectedIndices.get(selectedIndices.size() - 1)) {
-//            if (selectedIndices.size() == 1) {
-//                if (selectedIndices.get(0) == position) {
-//                    holder.left.setVisibility(View.VISIBLE);
-//                    holder.right.setVisibility(View.VISIBLE);
-//                } else {
-//                    holder.left.setVisibility(View.INVISIBLE);
-//                    holder.right.setVisibility(View.INVISIBLE);
-//                }
-//            } else if (position >= selectedIndices.get(0) && position <= selectedIndices.get(selectedIndices.size() - 1)) {
-//                if (selectedIndices.get(0) == position) {
-//                    holder.left.setVisibility(View.VISIBLE);
-//                    holder.right.setVisibility(View.INVISIBLE);
-//                } else if (selectedIndices.get(selectedIndices.size() - 1) == position) {
-//                    holder.right.setVisibility(View.VISIBLE);
-//                    holder.left.setVisibility(View.INVISIBLE);
-//                } else {
-//                    holder.left.setVisibility(View.INVISIBLE);
-//                    holder.right.setVisibility(View.INVISIBLE);
-//                }
-//
-//            } else {
-//                holder.left.setVisibility(View.INVISIBLE);
-//                holder.right.setVisibility(View.INVISIBLE);
-//            }
-//
-//        } else {
-//            holder.left.setVisibility(View.INVISIBLE);
-//            holder.right.setVisibility(View.INVISIBLE);
-//        }
+
+        if (selectedIndices.size() > 0 && position >= selectedIndices.get(0) && position <= selectedIndices.get(selectedIndices.size() - 1)) {
+            if (selectedIndices.size() == 1) {
+                if (selectedIndices.get(0) == position) {
+                    holder.left.setVisibility(View.VISIBLE);
+                    holder.right.setVisibility(View.VISIBLE);
+                } else {
+                    holder.left.setVisibility(View.INVISIBLE);
+                    holder.right.setVisibility(View.INVISIBLE);
+                }
+            } else if (position >= selectedIndices.get(0) && position <= selectedIndices.get(selectedIndices.size() - 1)) {
+                if (selectedIndices.get(0) == position) {
+                    holder.left.setVisibility(View.VISIBLE);
+                    holder.right.setVisibility(View.INVISIBLE);
+                } else if (selectedIndices.get(selectedIndices.size() - 1) == position) {
+                    holder.right.setVisibility(View.VISIBLE);
+                    holder.left.setVisibility(View.INVISIBLE);
+                } else {
+                    holder.left.setVisibility(View.INVISIBLE);
+                    holder.right.setVisibility(View.INVISIBLE);
+                }
+
+            } else {
+                holder.left.setVisibility(View.INVISIBLE);
+                holder.right.setVisibility(View.INVISIBLE);
+            }
+
+        } else {
+            holder.left.setVisibility(View.INVISIBLE);
+            holder.right.setVisibility(View.INVISIBLE);
+        }
 
 //是否换行
         ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
@@ -586,6 +543,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         } else if (!selectedIndices.contains(index)) {
             selectedIndices.add(index);
         }
+        Collections.sort(selectedIndices);
         notifyItemChanged(index);
         if (callback != null) {
             callback.onSelectionChanged(selectedIndices.size());

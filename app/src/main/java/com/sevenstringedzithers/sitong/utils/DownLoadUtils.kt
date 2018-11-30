@@ -14,6 +14,7 @@ import retrofit2.Response
 
 class DownLoadUtils {
     companion object {
+        private var ossService: OssService? = null
         fun downLoadMusic(mContext: Context, url: String, callback: ProgressCallback) {
 //            var map = hashMapOf<String, String>()
 //            map.put("path", url)
@@ -41,13 +42,13 @@ class DownLoadUtils {
 
         fun downLoad(mContext: Context, url: String, callback: ProgressCallback, oss: OSSPermissionBean) {
             //初始化OssService类，参数分别是Content，accessKeyId，accessKeySecret，endpoint，bucketName（后4个参数是您自己阿里云Oss中参数）
-            var ossService = OssService(mContext, oss.token.AccessKeyId, oss.token.AccessKeySecret, oss.endpoint, oss.bucket, oss.token.SecurityToken)
+            ossService = OssService(mContext, oss.token.AccessKeyId, oss.token.AccessKeySecret, oss.endpoint, oss.bucket, oss.token.SecurityToken)
 ////初始化OSSClient
-            ossService.initOSSClient()
+            ossService?.initOSSClient()
 ////开始上传，参数分别为content，上传的文件名filename，上传的文件路径filePath
-            ossService.beginLoad(url, oss)
+            ossService?.beginLoad(url, oss)
 ////上传的进度回调
-            ossService.progressCallback = object : ProgressCallback {
+            ossService?.progressCallback = object : ProgressCallback {
                 override fun onProgressSuccess() {
                     callback.onProgressSuccess()
                 }
@@ -65,5 +66,8 @@ class DownLoadUtils {
 
         }
 
+        fun cancle() {
+            ossService?.cancle()
+        }
     }
 }

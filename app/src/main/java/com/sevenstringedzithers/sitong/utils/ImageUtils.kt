@@ -2,6 +2,8 @@ package com.sevenstringedzithers.sitong.utils
 
 import android.content.Context
 import android.widget.ImageView
+import android.widget.LinearLayout
+import com.jyall.android.common.utils.UIUtil
 import com.sevenstringedzithers.sitong.R
 
 class ImageUtils {
@@ -13,23 +15,34 @@ class ImageUtils {
             return image
         }
 
-        fun getNumber(type: String,isSmall:Boolean, isPressed: Boolean = false): Int? {
+        fun getNumber(ll_center: LinearLayout, mContext: Context, type: String, isSmall: Int = 1, isPressed: Boolean = false) {
             var image: Int? = null
+            var imageView = ImageView(mContext)
             if (isPressed) {
-                if (isSmall){
-                    image = number_small_pressed[type] ?: return 0
-                }else{
-                    image = number_pressed[type] ?: return 0
-                }
-
+                image = number_pressed[type]
             } else {
-                if (isSmall){
-                    image = number_small_black[type] ?: return 0
-                }else{
-                    image = number_black[type] ?: return 0
-                }
+                image = number_black[type]
             }
-            return image
+            if (image != null) {
+                imageView.setImageResource(image!!)
+                ll_center.addView(imageView)
+                var para = imageView.layoutParams as LinearLayout.LayoutParams
+
+                if (isSmall == 1) {
+
+                } else if (isSmall == 2) {
+                    para.width = UIUtil.dip2px(mContext, 8f)
+                    para.height = UIUtil.dip2px(mContext, 8f)
+                    para.topMargin= UIUtil.dip2px(mContext, 2f)
+                } else {
+                    para.width = UIUtil.dip2px(mContext, 4f)
+                    para.height =UIUtil.dip2px(mContext, 4f)
+                    para.topMargin= UIUtil.dip2px(mContext, 2f)
+                }
+                imageView.layoutParams = para
+            }
+
+
         }
 
         fun getImageView(mContext: Context, id: Int, widths: Int = -1, height: Int = -1): ImageView? {
@@ -71,30 +84,6 @@ class ImageUtils {
 
         }
         var number_pressed = hashMapOf<String, Int>().apply {
-            put("0", R.mipmap.ic_0_p)
-            put("1", R.mipmap.ic_1_p)
-            put("2", R.mipmap.ic_2_p)
-            put("3", R.mipmap.ic_3_p)
-            put("4", R.mipmap.ic_4_p)
-            put("5", R.mipmap.ic_5_p)
-            put("6", R.mipmap.ic_6_p)
-            put("7", R.mipmap.ic_7_p)
-            put("8", R.mipmap.ic_8_p)
-
-        }
-        var number_small_black = hashMapOf<String, Int>().apply {
-            put("0", R.mipmap.ic_0_s)
-            put("1", R.mipmap.ic_1_s)
-            put("2", R.mipmap.ic_2_s)
-            put("3", R.mipmap.ic_3_s)
-            put("4", R.mipmap.ic_4_s)
-            put("5", R.mipmap.ic_5_s)
-            put("6", R.mipmap.ic_6_s)
-            put("7", R.mipmap.ic_7_s)
-            put("8", R.mipmap.ic_8_s)
-
-        }
-        var number_small_pressed = hashMapOf<String, Int>().apply {
             put("0", R.mipmap.ic_0_p)
             put("1", R.mipmap.ic_1_p)
             put("2", R.mipmap.ic_2_p)

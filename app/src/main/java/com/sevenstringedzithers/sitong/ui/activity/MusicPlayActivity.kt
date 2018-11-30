@@ -539,7 +539,6 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         } catch (e: java.lang.Exception) {
 
         }
-
         try {
             if (isRecording) {
                 RecordFilesUtils.getInstance(this)?.deleteFiles(soundTouchRec?.stopRecord()!!)
@@ -549,6 +548,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         } catch (e: java.lang.Exception) {
 
         }
+        DownLoadUtils.cancle()
         super.onDestroy()
     }
 

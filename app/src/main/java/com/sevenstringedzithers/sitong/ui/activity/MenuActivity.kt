@@ -7,36 +7,35 @@ import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
-import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.MainActivity
+import com.sevenstringedzithers.sitong.R
 import kotlinx.android.synthetic.main.activity_menu.*
 
 /**
  * create by chen.zhiwei on 2018-8-15
  */
 class MenuActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseView, View.OnClickListener {
+    private var isAnimation: Boolean = false
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.tv_close -> back()
             R.id.iv_qin -> {
-                jump<MainActivity>(isAnimation = false)
-                back()
+
+                back(1)
             }
             R.id.iv_search -> {
-                jump<MusicSearchActivity>(isAnimation = false)
-                back()
-//                ActivityStackManager.getInstance().finishActivity(MineActivity::class.java)
-//                ActivityStackManager.getInstance().finishActivity(AboutActivity::class.java)
+                back(2)
+
             }
             R.id.iv_me -> {
-                jump<MineActivity>(isAnimation = false)
-                back()
+
+                back(3)
 //                ActivityStackManager.getInstance().finishActivity(MusicSearchActivity::class.java)
 //                ActivityStackManager.getInstance().finishActivity(AboutActivity::class.java)
             }
             R.id.iv_story -> {
-                jump<AboutActivity>(isAnimation = false)
-                back()
+
+                back(4)
 //                ActivityStackManager.getInstance().finishActivity(MineActivity::class.java)
 //                ActivityStackManager.getInstance().finishActivity(MusicSearchActivity::class.java)
             }
@@ -73,7 +72,11 @@ class MenuActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseV
         back()
     }
 
-    fun back() {
+    fun back(type: Int = 0) {
+        if (isAnimation) {
+            return
+        }
+        isAnimation = true
         val left_out = AnimationUtils.loadAnimation(this@MenuActivity, R.anim.animation_menu_left_out)
         val right_out = AnimationUtils.loadAnimation(this@MenuActivity, R.anim.animation_menu_right_out)
         ll_left.animation = left_out
@@ -85,6 +88,21 @@ class MenuActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseV
             }
 
             override fun onAnimationEnd(p0: Animation?) {
+                when (type) {
+                    1 -> {
+                        jump<MainActivity>(isAnimation = false)
+                    }
+                    2 -> {
+                        jump<MusicSearchActivity>(isAnimation = false)
+                    }
+                    3 -> {
+                        jump<MineActivity>(isAnimation = false)
+                    }
+                    4 -> {
+                        jump<AboutActivity>(isAnimation = false)
+                    }
+                }
+                isAnimation = false
                 finish()
             }
 

@@ -37,6 +37,7 @@ public class OssService {
     private String endpoint;
     private String SecurityToken;
     private Context context;
+    private  OSSAsyncTask task;
 
     private ProgressCallback progressCallback;
 
@@ -65,7 +66,6 @@ public class OssService {
 
         // oss为全局变量，endpoint是一个OSS区域地址
         oss = new OSSClient(context, endpoint, credentialProvider, conf);
-
     }
 
 
@@ -141,7 +141,7 @@ public class OssService {
 
     public void beginLoad(final String filename, final OSSPermissionBean bb) {
         // 构造下载文件请求
-        GetObjectRequest get = new GetObjectRequest(bb.getBucket(),"music/"+ FilesUtils.Companion.getFileName(filename));
+        GetObjectRequest get = new GetObjectRequest(bb.getBucket(), "music/" + FilesUtils.Companion.getFileName(filename));
         get.setProgressListener(new OSSProgressCallback<GetObjectRequest>() {
             @Override
             public void onProgress(GetObjectRequest request, long currentSize, long totalSize) {
@@ -153,7 +153,7 @@ public class OssService {
                 }
             }
         });
-        OSSAsyncTask task = oss.asyncGetObject(get, new OSSCompletedCallback<GetObjectRequest, GetObjectResult>() {
+         task = oss.asyncGetObject(get, new OSSCompletedCallback<GetObjectRequest, GetObjectResult>() {
             @Override
             public void onSuccess(GetObjectRequest request, GetObjectResult result) {
                 // 请求成功
@@ -166,7 +166,7 @@ public class OssService {
                 int len;
 
                 try {
-                    os = new FileOutputStream(DownLoadFilesUtils.Companion.getInstance(context).getCurrentUri()+"/"+FilesUtils.Companion.getFileName(filename));
+                    os = new FileOutputStream(DownLoadFilesUtils.Companion.getInstance(context).getCurrentUri() + "/" + FilesUtils.Companion.getFileName(filename));
                     while ((len = inputStream.read(buffer)) != -1) {
                         // 处理下载的数据
                         os.write(buffer, 0, len);
@@ -205,6 +205,12 @@ public class OssService {
 // task.waitUntilFinished(); // 如果需要等待任务完成
     }
 
+    public void cancle() {
+
+        if (task!=null&&!task.isCompleted()){
+            task.cancel(); // 可以取消任务
+        }
+    }
 
     public ProgressCallback getProgressCallback() {
         return progressCallback;

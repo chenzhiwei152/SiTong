@@ -43,6 +43,10 @@ public class Constants {
         public static final int WX_PAY = 0x27;//微信支付
         public static final int REGISTER_SUCCESS = 0x28;//注册成功
         public static final int REGISTER_FINISH = 0x29;//finish注册页面
+        public static final int SEARCH_FINISH = 0x30;//finish search页面
+        public static final int MINE_FINISH = 0x31;//finish mine页面
+        public static final int ABOUT_FINISH = 0x32;//finish about页面
+
     }
 
 }

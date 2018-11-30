@@ -5,11 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
+import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.ui.adapter.SearchFragmentAdapter
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.Constants
 import kotlinx.android.synthetic.main.activity_search.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * 寻
@@ -42,7 +45,7 @@ class MusicSearchActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
         tablayout.setupWithViewPager(view_pager)
         setUpTabBadge(tabsTitle)
 
-        tablayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+        tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
 
@@ -57,10 +60,19 @@ class MusicSearchActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
         iv_menu.setOnClickListener {
             jump<MenuActivity>(isAnimation = false)
         }
-
+        EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.MINE_FINISH))
+        EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.ABOUT_FINISH))
     }
 
-    override fun isRegistEventBus(): Boolean = false
+    override fun isRegistEventBus(): Boolean = true
+    override fun onMessageEvent(eventBusCenter: EventBusCenter<Object>) {
+        super.onMessageEvent(eventBusCenter)
+        if (eventBusCenter != null) {
+            if (eventBusCenter.evenCode == Constants.Tag.SEARCH_FINISH) {
+                finish()
+            }
+        }
+    }
 
     override fun isNeedLec(): View? = null
     /**
@@ -80,7 +92,7 @@ class MusicSearchActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
                 }
             }
             // 更新CustomView
-           tab?.customView = pageAdapter?.getTabItemView(i,i==tablayout.selectedTabPosition)
+            tab?.customView = pageAdapter?.getTabItemView(i, i == tablayout.selectedTabPosition)
         }
         // 需加上以下代码,不然会出现更新Tab角标后,选中的Tab字体颜色不是选中状态的颜色
         tablayout.getTabAt(tablayout.selectedTabPosition)?.customView?.isSelected = true

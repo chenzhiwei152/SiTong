@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class ActivityStackManager {
     private static ActivityStackManager mInstance;
-    private static Stack<Activity> mActivityStack;
+    private static  Stack<Activity> mActivityStack;
     public static ActivityStackManager getInstance() {
         if (null == mInstance) {
             mInstance = new ActivityStackManager();

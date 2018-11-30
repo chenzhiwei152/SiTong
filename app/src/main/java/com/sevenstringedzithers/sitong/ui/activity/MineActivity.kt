@@ -130,6 +130,8 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
             }
 
         }
+        EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.SEARCH_FINISH))
+        EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.ABOUT_FINISH))
     }
 
 
@@ -274,6 +276,9 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
         if (eventBusCenter != null) {
             if (eventBusCenter.evenCode == RELOAD_USERINFO)
                 mPresenter?.getUserInfo()
+            else if (eventBusCenter.evenCode == Constants.Tag.MINE_FINISH) {
+                finish()
+            }
         }
     }
 
