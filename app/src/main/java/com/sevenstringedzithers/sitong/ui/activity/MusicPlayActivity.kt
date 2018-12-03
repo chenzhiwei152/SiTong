@@ -57,6 +57,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     private var currentSort: Int? = null
     private var nextSort: Int? = null
     private var musicBean: MusicDetailBean? = null
+    private var startTime: Double? = null
+    private var endTime: Double? = null
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_play -> {
@@ -65,7 +67,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                         checkFile(musicBean!!.url)
                     }
                 } else {
-                    toast_msg("获取视频失败")
+                    toast_msg("数据加载中，请稍后再试")
                 }
             }
             R.id.iv_load -> {
@@ -167,6 +169,9 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 }
                 isABStyle = !isABStyle
             }
+            R.id.iv_learn -> {
+                jump<MusicSearchActivity>()
+            }
         }
     }
 
@@ -205,8 +210,6 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun onLongClick(index: Int) {
         if (isABStyle) {
             rv_list.setDragSelectActive(true, index)
-        } else {
-            rv_list.setDragSelectActive(false, index)
         }
     }
 
@@ -237,6 +240,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         iv_voice.setOnClickListener(this)
         iv_record.setOnClickListener(this)
         iv_ab.setOnClickListener(this)
+        iv_learn.setOnClickListener(this)
         pointList = arrayListOf()
 
         var map: HashMap<String, String>? = null
@@ -392,7 +396,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             if (!isABStyle) {
 //                                adapter?.setSelected(nextSort!!, true)
                                 var hol = rv_list.findViewHolderForLayoutPosition(nextSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
-                                hol?.setBackgroundResource(R.color.color_d0a670)
+                                hol?.setBackgroundResource(R.color.color_99d0a670)
                             }
                             rv_list.layoutManager.scrollToPosition(nextSort!!)
                             if (rl_qin.visibility == View.VISIBLE) {
@@ -404,6 +408,12 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                                 tv_right.text = musicBean?.score?.get(nextSort!!)?.right_str
                             }
                             currentSort = nextSort
+                        }
+                        if (isABStyle && endTime != null) {
+                            if (currentPercentage >= endTime!!) {
+                                player!!.pause()
+                                setButtonState()
+                            }
                         }
                         if (currentPercentage >= 1) {
                             player?.seekTo(0, true)
@@ -432,7 +442,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 dismissLoading()
 
             } else {
-                if (player!!.isPaused() || player!!.isFinished) {
+                if (isABStyle) {
+                    initABRange()
+                }
+                if (player!!.isPaused || player!!.isFinished) {
                     player?.start()
                 } else {
                     player!!.pause()
@@ -442,8 +455,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 //                    var du=player?.playedDuration!!.toFloat()/1000
             du = ExtraUtils.getMP3FileInfo(f!!) / 1000
             runOnUiThread {
-                seek_bar.getConfigBuilder().max(du!!.toFloat()).min(0f)
-                tv_end_time.setText(ExtraUtils.secToTime((du!!).toInt()))
+                seek_bar.configBuilder.max(du!!.toFloat()).min(0f)
+                tv_end_time.text = ExtraUtils.secToTime((du!!).toInt())
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -451,31 +464,34 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         }
     }
 
+    private fun initABRange() {
+        if (isABStyle && player != null && adapter?.selectedIndices!!.size > 0) {
+            startTime = musicBean?.score!![adapter?.selectedIndices!![0]].start_second[0]
+            endTime = musicBean?.score!![adapter?.selectedIndices!![adapter?.selectedIndices!!.size - 1]].end_second[0]
+            player?.seekTo((startTime!! / du!!), false)
+        }
+    }
+
     /*获取琴上面的点*/
     private fun getPoints(currenttime: Float) {
         mMoveMap.clear()
-        Runnable {
-            pointList?.forEachIndexed { index, qinViewPointBean ->
-                if (qinViewPointBean.start_second <= currenttime && qinViewPointBean.end_second >= currenttime) {
-                    if (!qinViewPointBean.string.isNullOrEmpty()) {
-                        if (!qinViewPointBean.string.contains("+")) {
-                            mMoveMap.put(qinViewPointBean.string.toInt(), qinViewPointBean.percent.toFloat())
-                        } else {
-                            var ss = qinViewPointBean.string.split("+")
-                            var pp = qinViewPointBean.percent.split("+")
-                            ss.forEachIndexed { index, s ->
-                                mMoveMap.put(s.toInt(), pp[index].toFloat())
-                            }
+        pointList?.forEachIndexed { index, qinViewPointBean ->
+            if (qinViewPointBean.start_second <= currenttime && qinViewPointBean.end_second >= currenttime) {
+                if (!qinViewPointBean.string.isNullOrEmpty()) {
+                    if (!qinViewPointBean.string.contains("+")) {
+                        mMoveMap.put(qinViewPointBean.string.toInt(), qinViewPointBean.percent.toFloat())
+                    } else {
+                        var ss = qinViewPointBean.string.split("+")
+                        var pp = qinViewPointBean.percent.split("+")
+                        ss.forEachIndexed { index, s ->
+                            mMoveMap.put(s.toInt(), pp[index].toFloat())
                         }
                     }
-                    nextSort = qinViewPointBean.index
-                    return@forEachIndexed
                 }
+                nextSort = qinViewPointBean.index
+                return@forEachIndexed
             }
-
-
         }
-
     }
 
 
@@ -525,8 +541,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
     override fun onPause() {
         super.onPause()
-        player?.onPause()
-        setButtonState()
+        if (player != null) {
+            player?.pause()
+            setButtonState()
+        }
+
     }
 
     override fun onDestroy() {

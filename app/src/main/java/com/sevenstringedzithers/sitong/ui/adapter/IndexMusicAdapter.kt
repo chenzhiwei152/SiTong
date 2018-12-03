@@ -48,7 +48,7 @@ class IndexMusicAdapter(var context: Context, lists: ArrayList<MusicBean.Music>)
         }else{
             holder.viewLayout.iv_image1.visibility=View.GONE
             holder.viewLayout.iv_image.visibility=View.VISIBLE
-            holder.viewLayout.iv_image.loadImage(context, list.get(position).icon)
+            holder.viewLayout.iv_image.loadImage(context, list.get(position).icon,R.drawable.bg_transparent)
         }
         holder.viewLayout.setOnClickListener{
             onItemClick?.onItemClicked(list[position])

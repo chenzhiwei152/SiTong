@@ -68,7 +68,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     }
 
 
-    List<Integer> getSelectedIndices() {
+    public List<Integer> getSelectedIndices() {
         return selectedIndices;
     }
 

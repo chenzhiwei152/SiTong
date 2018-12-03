@@ -288,6 +288,7 @@ public abstract class SoundStreamRunnable implements Runnable {
         synchronized (pauseLock) {
             onPause();
             paused = true;
+            pauseLock.notifyAll();
         }
     }
 
