@@ -11,15 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="1111111111111111111111111"
-        android:textSize="16sp" />
+        android:text="" />
 
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_menu_qin"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tv_video"
+        style="@style/textStyle_d0a670_14"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-
 </LinearLayout>
