@@ -109,7 +109,7 @@ class LocalDownloadActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(
             val direction = menuBridge.direction // 左侧还是右侧菜单。
             val adapterPosition = menuBridge.adapterPosition // RecyclerView的Item的position。
             val menuPosition = menuBridge.position // 菜单在RecyclerView的Item中的Position。
-            DownLoadFilesUtils.getInstance(this@LocalDownloadActivity)?.deletedFile(loacalFileInfo?.get(adapterPosition)?.enName + ".mp3")
+            DownLoadFilesUtils.getInstance()?.deletedFile(loacalFileInfo?.get(adapterPosition)?.enName + ".mp3")
             mAdapter?.removeItem(adapterPosition)
 //            loacalFileInfo?.removeAt(adapterPosition)
         }
@@ -134,7 +134,7 @@ class LocalDownloadActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(
         })
         kotlin.run {
             musicList = SharedPrefUtil.getObj(this@LocalDownloadActivity, Constants.musicList) as ArrayList<MusicBean>?
-            localFileName = DownLoadFilesUtils.getInstance(this)?.getFilesByPath("")
+            localFileName = DownLoadFilesUtils.getInstance()?.getFilesByPath("")
 
             rv_list.postDelayed({
                 uiHandler.sendEmptyMessage(2)

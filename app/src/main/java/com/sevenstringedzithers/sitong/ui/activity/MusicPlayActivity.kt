@@ -1,7 +1,10 @@
 package com.sevenstringedzithers.sitong.ui.activity
 
+import android.annotation.SuppressLint
 import android.app.Service
 import android.media.AudioManager
+import android.os.Handler
+import android.os.Message
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
@@ -10,6 +13,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
@@ -21,6 +25,7 @@ import com.sevenstringedzithers.sitong.mvp.persenter.MusicPlayPresenter
 import com.sevenstringedzithers.sitong.ui.adapter.MainAdapter
 import com.sevenstringedzithers.sitong.ui.listerner.ProgressCallback
 import com.sevenstringedzithers.sitong.utils.DownLoadUtils
+import com.sevenstringedzithers.sitong.utils.ExerciseRecordUploadUtils
 import com.sevenstringedzithers.sitong.utils.ExtraUtils
 import com.sevenstringedzithers.sitong.utils.files.DownLoadFilesUtils
 import com.sevenstringedzithers.sitong.utils.files.FilesUtils
@@ -134,14 +139,14 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     mRecordDialog.setLeftTitleListerner(object : View.OnClickListener {
                         override fun onClick(v: View?) {
                             kotlin.run {
-                                FilesUtils.makePCMFileToWAVFile(lastRecordFile!!, RecordFilesUtils.getInstance(this@MusicPlayActivity)!!.getCurrentUri() + "/" + mRecordDialog.getEdittext() + ".wav", true)
+                                FilesUtils.makePCMFileToWAVFile(lastRecordFile!!, RecordFilesUtils.getInstance()!!.getCurrentUri() + "/" + mRecordDialog.getEdittext() + ".wav", true)
                             }
                         }
 
                     })
                     mRecordDialog.setRightTitleListerner(object : View.OnClickListener {
                         override fun onClick(v: View?) {
-                            RecordFilesUtils.getInstance(this@MusicPlayActivity)?.deletedFile(lastRecordFile!!)
+                            RecordFilesUtils.getInstance()?.deletedFile(lastRecordFile!!)
                         }
 
                     })
@@ -338,7 +343,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
     /*检查文件本地是否有*/
     private fun chenckIsLoaded(url: String): Boolean {
-        isLoaded = DownLoadFilesUtils.getInstance(this)!!.isExist(FilesUtils.getFileName(url))
+        isLoaded = DownLoadFilesUtils.getInstance()!!.isExist(FilesUtils.getFileName(url))
         setButtonState()
         return isLoaded
     }
@@ -350,7 +355,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
 
         if (chenckIsLoaded(url)) {
-            f = DownLoadFilesUtils.getInstance(this)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
+            f = DownLoadFilesUtils.getInstance()!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
             initPlayer()
         } else {
 //开始下载
@@ -443,24 +448,29 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 }
                 playThread?.start()
                 player?.start()
+                playTimeCountThread=Thread(MyThread())
+                playTimeCountThread?.start()
+                isPlaying = true
                 setButtonState()
                 dismissLoading()
-
+                du = ExtraUtils.getMP3FileInfo(f!!) / 1000
+                seek_bar.configBuilder.max(du!!.toFloat()).min(0f).build()
+                tv_end_time.text = ExtraUtils.secToTime((du!!).toInt())
             } else {
                 if (isABStyle) {
                     initABRange()
                 }
                 if (player!!.isPaused || player!!.isFinished) {
                     player?.start()
+                    isPlaying = true
                 } else {
                     player!!.pause()
+                    isPlaying = false
                 }
                 setButtonState()
             }
 //                    var du=player?.playedDuration!!.toFloat()/1000
-            du = ExtraUtils.getMP3FileInfo(f!!) / 1000
-            seek_bar.configBuilder.max(du!!.toFloat()).min(0f).build()
-            tv_end_time.text = ExtraUtils.secToTime((du!!).toInt())
+
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
@@ -558,15 +568,25 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         super.onPause()
         if (player != null) {
             player?.pause()
+            isPlaying = false
             setButtonState()
         }
 
     }
 
     override fun onDestroy() {
+        if (playTime>0&&id!=null){
+            var map= hashMapOf<String,String>()
+            map.put("duration",""+playTime)
+            map.put("musicid",id!!)
+            ExerciseRecordUploadUtils.uploadRecord(map)
+        }
         try {
             if (playThread != null) {
                 playThread?.interrupt()
+            }
+            if (playTimeCountThread!=null){
+                playTimeCountThread?.interrupt()
             }
         } catch (e: java.lang.Exception) {
 
@@ -575,7 +595,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         player = null
         try {
             if (isRecording) {
-                RecordFilesUtils.getInstance(this)?.deleteFiles(soundTouchRec?.stopRecord()!!)
+                RecordFilesUtils.getInstance()?.deleteFiles(soundTouchRec?.stopRecord()!!)
             }
             soundTouchRec = null
             soundTouch = null
@@ -583,10 +603,44 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
         }
         DownLoadUtils.cancle()
+        LogUtils.e("播放时长：" + playTime)
         super.onDestroy()
     }
 
     private fun initTitle() {
         iv_back.setOnClickListener { finish() }
     }
+
+    /*
+    * 播放时长统计*/
+    val handler: Handler = @SuppressLint("HandlerLeak")
+    object : Handler() {
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            when (msg?.what) {
+                1 -> {
+                    playTime++
+                }
+            }
+        }
+    }
+    private var isPlaying = false
+    private var playTime: Int = 0
+    private var playTimeCountThread: Thread? = null
+
+    inner class MyThread : Runnable {
+        override fun run() {
+            while (isPlaying) {
+                try {
+                    Thread.sleep(1000)        // sleep 1000ms
+                    val message = Message()
+                    message.what = 1
+                    handler.sendMessage(message)
+                } catch (e: Exception) {
+                }
+
+            }
+        }
+    }
+
 }

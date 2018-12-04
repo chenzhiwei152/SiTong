@@ -11,7 +11,9 @@ import com.sevenstringedzithers.sitong.ui.listerner.ProgressCallback
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import retrofit2.Response
-
+/*
+* 文件下载公共类
+* */
 class DownLoadUtils {
     companion object {
         private var ossService: OssService? = null

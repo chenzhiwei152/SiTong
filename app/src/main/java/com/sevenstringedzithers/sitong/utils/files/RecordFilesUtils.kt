@@ -1,16 +1,16 @@
 package com.sevenstringedzithers.sitong.utils.files
 
-import android.content.Context
+import com.jyall.bbzf.base.BaseContext
 import com.sevenstringedzithers.sitong.mvp.model.bean.FileInfo
 
-class RecordFilesUtils(mContext: Context) : FileFactory(mContext) {
+class RecordFilesUtils() : FileFactory() {
 
-    private var mContext: Context? = null
+//    private var mContext: Context? = null
     //    private var mLoadUri = "Downloads"
     private var mRecordUri = "Records"
 
     init {
-        this.mContext = mContext
+//        this.mContext = mContext
 //        mContext.getExternalFilesDir(mLoadUri)
 //        mContext.getExternalFilesDir(mRecordUri)
     }
@@ -19,11 +19,11 @@ class RecordFilesUtils(mContext: Context) : FileFactory(mContext) {
         @Volatile
         private var instance_: RecordFilesUtils? = null
 
-        fun getInstance(mContext: Context): RecordFilesUtils? {
+        fun getInstance(): RecordFilesUtils? {
             if (null == instance_) {
                 synchronized(RecordFilesUtils::class.java) {
                     if (null == instance_) {
-                        instance_ = RecordFilesUtils(mContext)
+                        instance_ = RecordFilesUtils()
                     }
                 }
             }
@@ -49,6 +49,6 @@ class RecordFilesUtils(mContext: Context) : FileFactory(mContext) {
 
 
     override fun getCurrentUri(): String {
-        return mContext?.getExternalFilesDir(mRecordUri)!!.absolutePath
+        return BaseContext.instance?.getExternalFilesDir(mRecordUri)!!.absolutePath
     }
 }

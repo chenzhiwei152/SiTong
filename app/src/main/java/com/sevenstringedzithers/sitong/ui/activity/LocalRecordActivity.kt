@@ -69,7 +69,7 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
             }
 
         })
-        localFileName = RecordFilesUtils.getInstance(this)?.getFilesInfoByPath("")
+        localFileName = RecordFilesUtils.getInstance()?.getFilesInfoByPath("")
         mAdapter?.setData(localFileName!!)
 
         mAdapter?.setPlayMusic(object : RecordListAdapter.onPlayListerner {

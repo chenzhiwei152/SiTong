@@ -29,6 +29,7 @@ import com.jyall.bbzf.api.scheduler.APIAddressConstants.SEND_SHORT_MESSAGE
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.SET_BELONG
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.SET_MESSAGE_READ
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.UPDATE_USER_INFOs
+import com.jyall.bbzf.api.scheduler.APIAddressConstants.UPLOAD_EXERCISE_RECRD
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.UPLOAD_FEEDBACK
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.UPLOAD_HEAD
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.USER_LOGIN
@@ -252,4 +253,9 @@ interface Jyapi {
     * */
     @POST(NOMAL_PROBLEM_DETAIL)
     fun get_problem_detail(@Body map: HashMap<String, String>): Observable<Response<BaseBean<ArrayList<QuestionDetailBean>>>>
+    /*
+    * 上传练琴记录
+    * */
+    @POST(UPLOAD_EXERCISE_RECRD)
+    fun upload_exercise_record(@Body map: HashMap<String, String>): Observable<Response<BaseBean<ResultBean>>>
 }

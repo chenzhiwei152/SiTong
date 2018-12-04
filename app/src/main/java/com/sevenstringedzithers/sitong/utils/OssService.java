@@ -166,7 +166,7 @@ public class OssService {
                 int len;
 
                 try {
-                    os = new FileOutputStream(DownLoadFilesUtils.Companion.getInstance(context).getCurrentUri() + "/" + FilesUtils.Companion.getFileName(filename));
+                    os = new FileOutputStream(DownLoadFilesUtils.Companion.getInstance().getCurrentUri() + "/" + FilesUtils.Companion.getFileName(filename));
                     while ((len = inputStream.read(buffer)) != -1) {
                         // 处理下载的数据
                         os.write(buffer, 0, len);

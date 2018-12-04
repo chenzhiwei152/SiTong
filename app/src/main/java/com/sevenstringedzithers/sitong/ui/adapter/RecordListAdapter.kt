@@ -83,7 +83,7 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
             holder.viewLayout.seek_bar.onProgressChangedListener = onProgress
             holder.viewLayout.tv_delete.setOnClickListener {
                 removeItem(position)
-                RecordFilesUtils.getInstance(context)?.deleteFiles(list[position].name)
+                RecordFilesUtils.getInstance()?.deleteFiles(list[position].name)
                 notifyDataSetChanged()
             }
             holder.viewLayout.tv_share.setOnClickListener {

@@ -1,12 +1,12 @@
 package com.sevenstringedzithers.sitong.utils.files
 
-import android.content.Context
+import com.jyall.bbzf.base.BaseContext
 import com.sevenstringedzithers.sitong.mvp.model.bean.FileInfo
 import java.io.File
 
-abstract class FileFactory(mContext: Context) {
+abstract class FileFactory() {
 
-    private var mContext: Context? = null
+//    private var mContext: Context? = null
 
     companion object {
 //        fun getDownLoadUtils(): ArrayList<String> {
@@ -15,15 +15,15 @@ abstract class FileFactory(mContext: Context) {
     }
 
     init {
-        this.mContext = mContext
+//        this.mContext = mContext
     }
 
     fun getUri(path: String, isJustName: Boolean = false): ArrayList<String>? {
-        return FilesUtils.getFilesAllName(mContext?.getExternalFilesDir(path)!!.absolutePath, isJustName)
+        return FilesUtils.getFilesAllName(BaseContext.instance?.getExternalFilesDir(path)!!.absolutePath, isJustName)
     }
 
     fun getFilesInfo(path: String, isJustName: Boolean = false): ArrayList<FileInfo>? {
-        return FilesUtils.getFilesAllInfo(mContext?.getExternalFilesDir(path)!!.absolutePath, isJustName)
+        return FilesUtils.getFilesAllInfo(BaseContext.instance?.getExternalFilesDir(path)!!.absolutePath, isJustName)
     }
 
 

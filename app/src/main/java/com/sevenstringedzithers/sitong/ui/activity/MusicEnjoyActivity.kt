@@ -149,7 +149,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
     private var rate = 1.0f//这个参数是变速又变声的，这个参数大于0，否则会报错
     /*检查文件本地是否有*/
     private fun chenckIsLoaded(url: String): Boolean {
-        isLoaded = DownLoadFilesUtils.getInstance(this)!!.isExist(FilesUtils.getFileName(url))
+        isLoaded = DownLoadFilesUtils.getInstance()!!.isExist(FilesUtils.getFileName(url))
         setButtonState()
         return isLoaded
     }
@@ -239,8 +239,8 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 //        f = File(Environment.getExternalStorageDirectory().absolutePath + "/Download/Downloada.mp3")
 
         showLoading()
-        if (DownLoadFilesUtils.getInstance(this)!!.isExist(FilesUtils.getFileName(url))) {
-            f =DownLoadFilesUtils.getInstance(this)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
+        if (DownLoadFilesUtils.getInstance()!!.isExist(FilesUtils.getFileName(url))) {
+            f =DownLoadFilesUtils.getInstance()!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
             initPlayer()
         } else {
 //开始下载
@@ -255,7 +255,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
                 override fun onProgressSuccess() {
                     dismissLoading()
-                    f =DownLoadFilesUtils.getInstance(this@MusicEnjoyActivity)!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
+                    f =DownLoadFilesUtils.getInstance()!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
                     initPlayer()
                 }
             })

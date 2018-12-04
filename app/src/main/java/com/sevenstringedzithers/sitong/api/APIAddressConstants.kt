@@ -165,4 +165,11 @@ object APIAddressConstants {
     获取常见问题详情
     * */
     const val NOMAL_PROBLEM_DETAIL = "/system/getsolutions/"
+
+    /*
+    上传练琴记录
+    * */
+    const val UPLOAD_EXERCISE_RECRD = "/task/practicing/"
+
+
 }
