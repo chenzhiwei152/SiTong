@@ -54,6 +54,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     var mLoadDialog: MusicDownloadDialog? = null
     private var pointList: ArrayList<QinViewPointBean>? = null
     private var mMoveMap: HashMap<Int, Float> = hashMapOf()//在线上动态显示的点
+    private var mEndMap: HashMap<Int, Float> = hashMapOf()//在线上动态显示的点的结束位置
+
     private var currentSort: Int? = null
     private var nextSort: Int? = null
     private var musicBean: MusicDetailBean? = null
@@ -193,7 +195,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 Collections.sort(score.start_second)
                 Collections.sort(score.end_second)
                 score.start_second.forEachIndexed { i, d ->
-                    var bean = QinViewPointBean(index, d, score.end_second[i], score.duration, score.percent, score.string)
+                    var bean = QinViewPointBean(index, d, score.end_second[i], score.duration, score.percent, score.string, score.toposition)
                     pointList?.add(bean)
                 }
             }
@@ -260,8 +262,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             }
 
             override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
+                try {
+                    player?.seekTo((progressFloat.toDouble() / du!!), false)
+                } catch (ex: java.lang.Exception) {
+                }
 
-                player?.seekTo((progressFloat.toDouble() / du!!), false)
             }
         }
     }
@@ -400,7 +405,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             }
                             rv_list.layoutManager.scrollToPosition(nextSort!!)
                             if (rl_qin.visibility == View.VISIBLE) {
-                                cq_view.setmMoveMap(mMoveMap, musicBean?.score?.get(nextSort!!)?.overtone!!, musicBean?.score?.get(nextSort!!)?.portamento!!, musicBean?.score?.get(nextSort!!)?.duration, musicBean?.score?.get(nextSort!!)?.toposition)
+                                cq_view.setmMoveMap(mMoveMap, musicBean?.score?.get(nextSort!!)?.overtone!!, musicBean?.score?.get(nextSort!!)?.portamento!!, musicBean?.score?.get(nextSort!!)?.duration, mEndMap)
                                 if (musicBean?.score?.get(nextSort!!)?.portamento!!) {
                                     cq_view.startAnim()
                                 }
@@ -454,10 +459,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             }
 //                    var du=player?.playedDuration!!.toFloat()/1000
             du = ExtraUtils.getMP3FileInfo(f!!) / 1000
-            runOnUiThread {
-                seek_bar.configBuilder.max(du!!.toFloat()).min(0f)
-                tv_end_time.text = ExtraUtils.secToTime((du!!).toInt())
-            }
+            seek_bar.configBuilder.max(du!!.toFloat()).min(0f).build()
+            tv_end_time.text = ExtraUtils.secToTime((du!!).toInt())
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
@@ -475,6 +478,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     /*获取琴上面的点*/
     private fun getPoints(currenttime: Float) {
         mMoveMap.clear()
+        mEndMap.clear()
         pointList?.forEachIndexed { index, qinViewPointBean ->
             if (qinViewPointBean.start_second <= currenttime && qinViewPointBean.end_second >= currenttime) {
                 if (!qinViewPointBean.string.isNullOrEmpty()) {
@@ -485,6 +489,17 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                         var pp = qinViewPointBean.percent.split("+")
                         ss.forEachIndexed { index, s ->
                             mMoveMap.put(s.toInt(), pp[index].toFloat())
+                        }
+                    }
+                }
+                if (!qinViewPointBean.toPosition.isNullOrEmpty() && !qinViewPointBean.string.isNullOrEmpty()) {
+                    if (!qinViewPointBean.toPosition.contains("+")) {
+                        mEndMap.put(qinViewPointBean.string.toInt(), qinViewPointBean.toPosition.toFloat())
+                    } else {
+                        var ss = qinViewPointBean.string.split("+")
+                        var pp = qinViewPointBean.toPosition.split("+")
+                        ss.forEachIndexed { index, s ->
+                            mEndMap.put(s.toInt(), pp[index].toFloat())
                         }
                     }
                 }
@@ -549,8 +564,6 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     }
 
     override fun onDestroy() {
-        player?.destroy()
-        player = null
         try {
             if (playThread != null) {
                 playThread?.interrupt()
@@ -558,6 +571,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         } catch (e: java.lang.Exception) {
 
         }
+        player?.stop()
+        player = null
         try {
             if (isRecording) {
                 RecordFilesUtils.getInstance(this)?.deleteFiles(soundTouchRec?.stopRecord()!!)

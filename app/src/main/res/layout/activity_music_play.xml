@@ -123,7 +123,7 @@
             android:layout_toRightOf="@+id/tv_start_time"
             app:bsb_bubble_color="@color/color_d0a670"
             app:bsb_bubble_text_color="@color/color_ffffff"
-            app:bsb_max="80"
+            app:bsb_max="500"
             app:bsb_min="0"
             app:bsb_progress="0"
             app:bsb_second_track_color="@color/color_d0a670"

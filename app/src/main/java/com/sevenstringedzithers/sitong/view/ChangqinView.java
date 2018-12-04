@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.animation.Animation;
@@ -48,7 +47,7 @@ public class ChangqinView extends LinearLayout {
     private Map<Integer, Float> mMoveMap = new HashMap<>();//在线上动态显示的点
     private boolean isYanyin = false;
     private boolean ishuayin = false;
-    private String toPercent;
+    private HashMap<Integer, Float> toPercent;
     private Context mContext;
 
     private int mCyclerviewRadius = 4;//最右边圆的半径
@@ -126,7 +125,7 @@ public class ChangqinView extends LinearLayout {
     }
 
 
-    public void setmMoveMap(Map<Integer, Float> mMoveMap, boolean isYanyin, boolean ishuayin, Double duration, String toPercent) {
+    public void setmMoveMap(Map<Integer, Float> mMoveMap, boolean isYanyin, boolean ishuayin, Double duration, HashMap<Integer, Float> toPercent) {
         this.mMoveMap = mMoveMap;
         this.isYanyin = isYanyin;
         this.DURATION = (int) (duration * 1000);
@@ -250,15 +249,16 @@ public class ChangqinView extends LinearLayout {
 
         for (Integer key : mMoveMap.keySet()) {
             Float value = mMoveMap.get(key);
-            if (ishuayin && !TextUtils.isEmpty(toPercent)) {
-                value += (Float.parseFloat(toPercent) - value) * mInterpolatedTime;
+
+            if (ishuayin && toPercent.size() > 0) {
+                value += (toPercent.get(key) - value) * mInterpolatedTime;
             }
             PointF f1 = new PointF(pointLists.get((key - 1) * 4), pointLists.get((key - 1) * 4 + 1));
             PointF f2 = new PointF(pointLists.get((key - 1) * 4 + 2), pointLists.get((key - 1) * 4 + 3));
             PointF result = ExtraUtils.Companion.CalculateBezierPointForQuadratic1(value, f1, f2);
-            if (isYanyin){
+            if (isYanyin) {
                 canvas.drawCircle(result.x, result.y, mActiveCyclerviewRadius, mPintStroke);
-            }else {
+            } else {
                 canvas.drawCircle(result.x, result.y, mActiveCyclerviewRadius, mRightPointPaint);
             }
         }
@@ -282,6 +282,7 @@ public class ChangqinView extends LinearLayout {
         startAnimation(move);
 
     }
+
     public void startAnim() {
         this.startAnimation(new BarAnimation());
     }
@@ -294,6 +295,7 @@ public class ChangqinView extends LinearLayout {
             postInvalidate();
             Log.e("AmountView", "tempcount:" + mInterpolatedTime);
         }
+
         @Override
         public void initialize(int width, int height, int parentWidth, int parentHeight) {
             super.initialize(width, height, parentWidth, parentHeight);
@@ -303,6 +305,7 @@ public class ChangqinView extends LinearLayout {
             setInterpolator(new LinearInterpolator());
         }
     }
+
     private void LogUtils(String s) {
         Log.e(TAG, s);
     }
