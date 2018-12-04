@@ -46,7 +46,7 @@ class ExerciseRecordTimeListAdapter(var context: Context) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.viewLayout.tv_name.text = ""+list[position].date
-        holder.viewLayout.tv_name_content.text = ""+list[position].duration
+        holder.viewLayout.tv_name_content.text = ""+list[position].duration+"分钟"
 
     }
 
