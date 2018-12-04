@@ -131,8 +131,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             ImageLoadedrManager.getInstance().display(mContext, url, holder.iv_shoushi, R.drawable.bg_transparent);
             if (list.get(position).getJianziwidth() > 0) {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.iv_shoushi.getLayoutParams();
-                params.width = (int) (list.get(position).getJianziwidth() * 2.5);
-                params.height = (int) (list.get(position).getJianziheight() * 2.5);
+                params.width = (int) (list.get(position).getJianziwidth() * 2.2);
+                params.height = (int) (list.get(position).getJianziheight() * 2.2);
                 holder.iv_shoushi.setLayoutParams(params);
             }
         } else {
