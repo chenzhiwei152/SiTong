@@ -106,6 +106,7 @@
             android:background="@drawable/bg_d0a670_90"
             android:gravity="center"
             android:padding="5dp"
+            android:textSize="12sp"
             android:textColor="@color/color_ffffff"
             android:text="@string/send_message_code" />
     </RelativeLayout>
