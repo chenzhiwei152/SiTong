@@ -46,6 +46,8 @@ public class Constants {
         public static final int SEARCH_FINISH = 0x30;//finish search页面
         public static final int MINE_FINISH = 0x31;//finish mine页面
         public static final int ABOUT_FINISH = 0x32;//finish about页面
+        public static final int SETTING_DELAY = 0x33;//设置延音
+
 
     }
 

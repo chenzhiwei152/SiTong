@@ -15,9 +15,11 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
+import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.Constants
 import com.sevenstringedzithers.sitong.mvp.contract.MusicPlayContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicDetailBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.QinViewPointBean
@@ -276,7 +278,16 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         }
     }
 
-    override fun isRegistEventBus(): Boolean = false
+    override fun isRegistEventBus(): Boolean = true
+    override fun onMessageEvent(eventBusCenter: EventBusCenter<Object>) {
+        super.onMessageEvent(eventBusCenter)
+        if (eventBusCenter != null) {
+            if (eventBusCenter.evenCode == Constants.Tag.SETTING_DELAY) {
+                tempo = eventBusCenter.data as Float
+                player?.tempo = tempo
+            }
+        }
+    }
 
     override fun isNeedLec(): View? = null
 
@@ -448,7 +459,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 }
                 playThread?.start()
                 player?.start()
-                playTimeCountThread=Thread(MyThread())
+                playTimeCountThread = Thread(MyThread())
                 playTimeCountThread?.start()
                 isPlaying = true
                 setButtonState()
@@ -575,17 +586,17 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     }
 
     override fun onDestroy() {
-        if (playTime>0&&id!=null){
-            var map= hashMapOf<String,String>()
-            map.put("duration",""+playTime)
-            map.put("musicid",id!!)
+        if (playTime > 0 && id != null) {
+            var map = hashMapOf<String, String>()
+            map.put("duration", "" + playTime)
+            map.put("musicid", id!!)
             ExerciseRecordUploadUtils.uploadRecord(map)
         }
         try {
             if (playThread != null) {
                 playThread?.interrupt()
             }
-            if (playTimeCountThread!=null){
+            if (playTimeCountThread != null) {
                 playTimeCountThread?.interrupt()
             }
         } catch (e: java.lang.Exception) {
