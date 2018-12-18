@@ -5,6 +5,7 @@ import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.view.pickview.ScrollPickerView
 import kotlinx.android.synthetic.main.fragment_metronome.*
 
 /**
@@ -25,6 +26,20 @@ class MetronomeFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), I
 
         picker_01.data = list_1 as List<CharSequence>?
         picker_02.data = list_2 as List<CharSequence>?
+
+        picker_01.setOnSelectedListener(object : ScrollPickerView.OnSelectedListener {
+            override fun onSelected(scrollPickerView: ScrollPickerView<*>?, position: Int) {
+                var nn = list_1.get(position)
+                iv_points.setNums(nn.split("/").get(0).toInt())
+            }
+
+        })
+        picker_02.setOnSelectedListener(object : ScrollPickerView.OnSelectedListener {
+            override fun onSelected(scrollPickerView: ScrollPickerView<*>?, position: Int) {
+            }
+
+        })
+
     }
 
     override fun isRegistEventBus(): Boolean = false

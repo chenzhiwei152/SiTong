@@ -8,6 +8,7 @@ import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.view.pickview.ScrollPickerView
 import kotlinx.android.synthetic.main.fragment_tuner.*
 
 /**
@@ -22,6 +23,7 @@ class TunerFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
     override fun lazyLoad() {
     }
 
+    private var list: ArrayList<ArrayList<Float>>? = null
     private var currentValue: Float = 0.toFloat()
     private var minValue: Float = 0.toFloat()
     private var maxValue: Float = 0.toFloat()
@@ -40,9 +42,9 @@ class TunerFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
             val pitchInHz = result.pitch
             try {
                 activity?.runOnUiThread {
-                    ver_line.setValue(pitchInHz - 100, pitchInHz + 100, pitchInHz)
+                    ver_line.setCurrentValue(pitchInHz)
                 }
-            }catch (ex:java.lang.Exception){
+            } catch (ex: java.lang.Exception) {
             }
 
         }
@@ -50,10 +52,37 @@ class TunerFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
         dispatcher.addAudioProcessor(p)
         try {
             mThread = Thread(dispatcher, "Audio Dispatcher")
-            mThread?.start()
-        }catch (e:java.lang.Exception){
+        } catch (e: java.lang.Exception) {
         }
+        var postion1: Int = 1
+        var postion2: Int = 1
+        list = arrayListOf()
+        var list1 = arrayListOf<Float>(11f, 22f, 33f, 44f, 55f, 66f, 77f)
+        var list2 = arrayListOf<Float>(110f, 220f, 330f, 440f, 550f, 660f, 770f)
+        var list3 = arrayListOf<Float>(65f, 73f, 87f, 98f, 110f, 130f, 147f)
+        list?.add(list1)
+        list?.add(list2)
+        list?.add(list3)
+        picker_01.setOnSelectedListener(object : ScrollPickerView.OnSelectedListener {
+            override fun onSelected(scrollPickerView: ScrollPickerView<*>?, position: Int) {
+                postion1 = position
+                setValue(postion1, postion2)
+            }
 
+        })
+        var num2 = 1
+        picker_02.setOnSelectedListener(object : ScrollPickerView.OnSelectedListener {
+            override fun onSelected(scrollPickerView: ScrollPickerView<*>?, position: Int) {
+                postion2 = position
+                setValue(postion1, postion2)
+            }
+
+        })
+
+    }
+
+    private fun setValue(p1: Int, p2: Int) {
+        ver_line.setValue(0f, list?.get(p1)!!.get(p2) * 2, ""+list?.get(p1)!!.get(p2).toInt())
 
     }
 
@@ -77,6 +106,12 @@ class TunerFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
 
     override fun onResume() {
         super.onResume()
+        try {
+            mThread?.start()
+        }catch (e:java.lang.Exception){
+
+        }
+
 //        mThread?.resume()
     }
 

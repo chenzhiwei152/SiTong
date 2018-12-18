@@ -16,7 +16,7 @@ public class VerticalScaleView3 extends View {
     private RVAdapterItemOnClick onclick;
     private float max;
     private float min;
-    private int nums = 10;//多少个模块
+    private int nums = 4;//多少个模块
 
     private int largePointRadius = 20;//长一点的线的长度
     private int smallPointRadius = 10;//长一点的线的宽度
@@ -33,7 +33,7 @@ public class VerticalScaleView3 extends View {
     private static int mDividerLines = 5;//分割线之间的间距
 
 
-    private int selectedNum = 2;
+    private int selectedNum = -1;
 
 
     public VerticalScaleView3(Context context) {
@@ -102,6 +102,11 @@ public class VerticalScaleView3 extends View {
 
     public void setSelectedNum(int selectedNum) {
         this.selectedNum = selectedNum;
+        invalidate();
+    }
+
+    public void setNums(int nums) {
+        this.nums = nums;
         invalidate();
     }
 }

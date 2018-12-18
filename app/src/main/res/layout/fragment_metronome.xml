@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_40"
             android:layout_marginBottom="@dimen/dp_40"
             android:layout_weight="1"
             app:spv_center_item_position="2"

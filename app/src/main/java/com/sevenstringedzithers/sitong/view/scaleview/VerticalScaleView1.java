@@ -138,6 +138,8 @@ public class VerticalScaleView1 extends View {
 
     public void setCurrentValue(float currentValue) {
         this.currentValue = currentValue;
+        calu();
+        invalidate();
     }
 
     public void setMinValue(float minValue) {
@@ -152,15 +154,21 @@ public class VerticalScaleView1 extends View {
         invalidate();
     }
 
-    public void setValue(float min, float max, float current) {
-        this.currentValue = current;
+    public void setValue(float min, float max, String value) {
+        this.value = value;
         this.minValue = min;
         this.maxValue = max;
-        calu();
+//        calu();
         invalidate();
     }
 
     private void calu() {
-        percentValue = currentValue/(maxValue - minValue);
+        if (currentValue>=maxValue){
+            percentValue=1f;
+        }else if (currentValue<=minValue){
+            percentValue=0f;
+        }else {
+            percentValue = currentValue/(maxValue - minValue);
+        }
     }
 }
