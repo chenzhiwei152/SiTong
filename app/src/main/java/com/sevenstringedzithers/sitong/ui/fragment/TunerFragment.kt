@@ -41,9 +41,7 @@ class TunerFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
         val pdh = PitchDetectionHandler { result, e ->
             val pitchInHz = result.pitch
             try {
-                activity?.runOnUiThread {
                     ver_line.setCurrentValue(pitchInHz)
-                }
             } catch (ex: java.lang.Exception) {
             }
 

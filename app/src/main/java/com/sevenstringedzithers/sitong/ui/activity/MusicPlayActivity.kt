@@ -137,7 +137,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     lastRecordFile = soundTouchRec?.stopRecord()
 //                    弹窗
 
-                    var mRecordDialog = MusicRecordDialog(this, "存储", "删除", "0:0")
+                    var mRecordDialog = MusicRecordDialog(this, "存储", "删除", ExtraUtils.secToTime(((System.currentTimeMillis()-recordTime)/1000).toInt()))
                     mRecordDialog.setLeftTitleListerner(object : View.OnClickListener {
                         override fun onClick(v: View?) {
                             kotlin.run {
@@ -156,6 +156,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     isRecording = false
                 } else {
                     isRecording = true
+                    recordTime=System.currentTimeMillis()
                     soundTouchRec?.startRecord()
                 }
                 setButtonState()
@@ -632,11 +633,15 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 1 -> {
                     playTime++
                 }
+                2 -> {
+                    recordTime++
+                }
             }
         }
     }
     private var isPlaying = false
     private var playTime: Int = 0
+    private var recordTime: Long = 0
     private var playTimeCountThread: Thread? = null
 
     inner class MyThread : Runnable {
@@ -653,5 +658,6 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             }
         }
     }
+
 
 }

@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dp_10"
-        android:layout_toLeftOf="@+id/iv_ab"
+        android:layout_toLeftOf="@+id/iv_collection"
         android:background="@drawable/selector_load_music" />
 
     <ImageView
@@ -48,7 +48,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_toLeftOf="@+id/iv_voice"
-        android:background="@mipmap/ic_round_collection_normal" />
+        android:src="@mipmap/ic_round_collection_normal" />
 
     <ImageView
         android:id="@+id/iv_voice"

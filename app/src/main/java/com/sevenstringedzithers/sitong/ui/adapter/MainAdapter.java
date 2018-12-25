@@ -198,7 +198,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 //                    左上
                     switch (symbol.getNamecode()) {
                         case 0:
-                            holder.ll_left_top.addView(ImageUtils.Companion.getImageView(mContext, R.mipmap.ic_point_black, 0, 0));
+                            holder.ll_left_top.addView(ImageUtils.Companion.getImageView(mContext, R.mipmap.ic_one_double, 0, 0));
                             break;
                     }
                     break;

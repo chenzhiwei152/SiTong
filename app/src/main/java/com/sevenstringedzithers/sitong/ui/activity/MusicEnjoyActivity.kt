@@ -238,12 +238,13 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 //        f = File("/sdcard/Download.mp3")
 //        f = File(Environment.getExternalStorageDirectory().absolutePath + "/Download/Downloada.mp3")
 
-        showLoading()
+
         if (DownLoadFilesUtils.getInstance()!!.isExist(FilesUtils.getFileName(url))) {
             f =DownLoadFilesUtils.getInstance()!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
             initPlayer()
         } else {
 //开始下载
+            showLoading()
             DownLoadUtils.downLoadMusic(this@MusicEnjoyActivity, url, object : ProgressCallback {
                 override fun onProgressCallback(progress: Double) {
                 }
@@ -255,8 +256,10 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
                 override fun onProgressSuccess() {
                     dismissLoading()
-                    f =DownLoadFilesUtils.getInstance()!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
-                    initPlayer()
+                    runOnUiThread {
+                        checkFile(url)
+                    }
+
                 }
             })
         }
@@ -326,9 +329,9 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
     fun setCollection(isCollection: Boolean) {
         if (isCollection) {
-            iv_collection.setImageResource(R.mipmap.ic_collectioned)
+            iv_collection.setImageResource(R.mipmap.ic_round_collection_pressed)
         } else {
-            iv_collection.setImageResource(R.mipmap.ic_collection_normal)
+            iv_collection.setImageResource(R.mipmap.ic_round_collection_normal)
         }
     }
 
