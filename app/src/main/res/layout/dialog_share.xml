@@ -8,23 +8,44 @@
     android:paddingTop="@dimen/dp_30"
     android:paddingBottom="@dimen/dp_30">
 
-    <ImageView
+
+    <TextView
         android:id="@+id/iv_qq"
+        style="@style/textStyle_d0a670_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/selector_login_qq" />
+        android:drawableTop="@drawable/selector_login_qq"
+        android:drawablePadding="4dp"
+        android:text="qq好友" />
 
-    <ImageView
+    <TextView
+        android:id="@+id/iv_qq_friend"
+        style="@style/textStyle_d0a670_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:drawableTop="@drawable/selector_login_qq"
+        android:drawablePadding="4dp"
+        android:text="qq空间" />
+
+
+    <TextView
         android:id="@+id/iv_weixin"
+        style="@style/textStyle_d0a670_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_30"
         android:layout_marginRight="@dimen/dp_30"
-        android:src="@drawable/selector_login_wx" />
+        android:drawableTop="@drawable/selector_login_wx"
+        android:drawablePadding="4dp"
+        android:text="微信好友" />
 
-    <ImageView
+    <TextView
         android:id="@+id/iv_weixin_friend"
+        style="@style/textStyle_d0a670_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/selector_login_wx" />
+        android:drawableTop="@drawable/selector_login_wx"
+        android:drawablePadding="4dp"
+        android:text="微信朋友圈" />
 </LinearLayout>

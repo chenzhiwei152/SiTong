@@ -57,8 +57,7 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
         mAdapter?.setShareListerne(object : RVAdapterItemOnClick {
             override fun onItemClicked(data: Any) {
                 var list = arrayListOf<String>()
-                list.add("http://stsystem.oss-cn-beijing.aliyuncs.com/img/fengqiuhuang/normal/2%402x.png")
-                dialog = ShareDialog(this@LocalRecordActivity, "录音文件", "测试", "www.baidu.com", list)
+                dialog = ShareDialog(this@LocalRecordActivity, "录音文件", "Sitong",com.sevenstringedzithers.sitong.base.Constants.SHARE_URL, list,1)
                 dialog?.setShareCallback(object : RVAdapterItemOnClick {
                     override fun onItemClicked(data: Any) {
                         toast(data as String)

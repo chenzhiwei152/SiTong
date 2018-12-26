@@ -33,6 +33,8 @@ import java.util.TreeMap;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder>
         implements IDragSelectAdapter {
     private final List<Integer> selectedIndices;
+    private int mPlayPosition = -1;
+    private int cachePositoin = -1;
     private Context mContext;
     private boolean isSelected = false;
     private TreeMap<Integer, Integer> yanyinSet = new TreeMap<>();
@@ -99,6 +101,19 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         }
     }
 
+    public void setPlayPosition(int position) {
+        this.cachePositoin = mPlayPosition;
+        this.mPlayPosition = position;
+//        notifyItemChanged(cachePositoin);
+        notifyDataSetChanged();
+        if (mPlayPosition > cachePositoin) {
+            notifyItemRangeChanged(cachePositoin, mPlayPosition);
+        } else {
+            notifyItemRangeChanged(mPlayPosition, cachePositoin);
+
+        }
+
+    }
 
     @Override
     public MainViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -125,7 +140,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         if (!isScrolling && !TextUtils.isEmpty(list.get(position).getJianzipu())) {
 
             String url = list.get(position).getJianzipu();
-            if (isSelected) {
+            if (mPlayPosition == position) {
                 url = url.replace("normal", "highlight");
             }
             ImageLoadedrManager.getInstance().display(mContext, url, holder.iv_shoushi, R.drawable.bg_transparent);
@@ -149,14 +164,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         }
         if (list.get(position).getSound_type() == 0) {
             //        中间的数字
-            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music(), 1, isSelected);
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music(), 1, mPlayPosition == position);
         } else if (list.get(position).getSound_type() == 1) {
-            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music_up(), 2, isSelected);
-            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music(), 2, isSelected);
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music_up(), 2, mPlayPosition == position);
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music(), 2, mPlayPosition == position);
         } else {
-            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music_up(), 3, isSelected);
-            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music_middle(), 3, isSelected);
-            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music(), 3, isSelected);
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music_up(), 3, mPlayPosition == position);
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music_middle(), 3, mPlayPosition == position);
+            ImageUtils.Companion.getNumber(holder.ll_center, mContext, list.get(position).getNumbered_music(), 3, mPlayPosition == position);
         }
 
 //下方的

@@ -170,6 +170,14 @@ object APIAddressConstants {
     上传练琴记录
     * */
     const val UPLOAD_EXERCISE_RECRD = "/task/practicing/"
+    /*
+    上传分享APP记录
+    * */
+    const val UPLOAD_SHARE_APP = "/task/shareapp/"
+    /*
+    上传分享录音记录
+    * */
+    const val UPLOAD_SHARE_RECORD = "/task/sharerecord/"
 
 
 }

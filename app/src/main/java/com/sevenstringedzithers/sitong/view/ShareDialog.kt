@@ -14,6 +14,7 @@ import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.base.Constants
 import com.sevenstringedzithers.sitong.mvp.model.bean.WeiXin
 import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
+import com.sevenstringedzithers.sitong.utils.ExerciseRecordUploadUtils
 import com.sevenstringedzithers.sitong.utils.files.FilesUtils
 import com.tencent.connect.share.QQShare
 import com.tencent.connect.share.QzoneShare
@@ -34,9 +35,12 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * create by chen.zhiwei on 2018-8-15
  */
-class ShareDialog(context: Context?, title:String,summary:String,url:String,imageUrls:ArrayList<String>) : Dialog(context), IUiListener {
+class ShareDialog(context: Context?, title: String, summary: String, url: String, imageUrls: ArrayList<String>, var type: Int = 0) : Dialog(context), IUiListener {
     override fun onComplete(p0: Any?) {
         shareCallBack?.onItemClicked("分享成功")
+        if (type==1){
+            ExerciseRecordUploadUtils.uploadShreRecord()
+        }
     }
 
     override fun onCancel() {
@@ -45,7 +49,7 @@ class ShareDialog(context: Context?, title:String,summary:String,url:String,imag
 
     override fun onError(p0: UiError?) {
 //        shareCallBack?.onItemClicked("分享失败")
-        shareCallBack?.onItemClicked(""+p0?.errorMessage+"------"+p0?.errorDetail)
+        shareCallBack?.onItemClicked("" + p0?.errorMessage + "------" + p0?.errorDetail)
     }
 
     var mContext: Context? = null
@@ -55,10 +59,10 @@ class ShareDialog(context: Context?, title:String,summary:String,url:String,imag
 
     init {
         this.mContext = context
-        init(title, summary, url,imageUrls)
+        init(title, summary, url, imageUrls)
     }
 
-    fun init( title:String,summary:String,url:String,imageUrls:ArrayList<String>) {
+    fun init(title: String, summary: String, url: String, imageUrls: ArrayList<String>) {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window!!.setBackgroundDrawableResource(android.R.color.transparent)
@@ -69,15 +73,18 @@ class ShareDialog(context: Context?, title:String,summary:String,url:String,imag
         wlp.width = WindowManager.LayoutParams.MATCH_PARENT
         wlp.height = WindowManager.LayoutParams.WRAP_CONTENT
         window.attributes = wlp
+        iv_qq_friend.setOnClickListener {
+            qqShare(true, title, summary, url, imageUrls)
+        }
         iv_qq.setOnClickListener {
-            qqShare(false,title,summary,url,imageUrls)
+            qqShare(false, title, summary, url, imageUrls)
         }
         iv_weixin.setOnClickListener {
-            weixinShare(false,title,summary,url,imageUrls)
+            weixinShare(false, title, summary, url, imageUrls)
 
         }
         iv_weixin_friend.setOnClickListener {
-            weixinShare(true,title,summary,url,imageUrls)
+            weixinShare(true, title, summary, url, imageUrls)
         }
         EventBus.getDefault().register(this)
     }
@@ -109,13 +116,13 @@ class ShareDialog(context: Context?, title:String,summary:String,url:String,imag
         }
     }
 
-    private fun weixinShare(friendsCircle: Boolean,title:String,summary:String,url:String,imageUrls:ArrayList<String>) {
+    private fun weixinShare(friendsCircle: Boolean, title: String, summary: String, url: String, imageUrls: ArrayList<String>) {
         val webpage = WXWebpageObject()
-        webpage.webpageUrl =url//分享url
+        webpage.webpageUrl = url//分享url
         var msg = WXMediaMessage(webpage)
         msg.title = title
         msg.description = summary
-        msg.thumbData=FilesUtils.Bitmap2Bytes(BitmapFactory.decodeResource(context.resources, R.drawable.ic_launcher))//封面图片byte数组
+        msg.thumbData = FilesUtils.Bitmap2Bytes(BitmapFactory.decodeResource(context.resources, R.drawable.ic_launcher))//封面图片byte数组
         var req = SendMessageToWX.Req()
         req.transaction = System.currentTimeMillis().toString()
         req.message = msg
@@ -131,7 +138,7 @@ class ShareDialog(context: Context?, title:String,summary:String,url:String,imag
         wxAPI?.sendReq(req)
     }
 
-    private fun qqShare(isFriend: Boolean,title:String,summary:String,url:String,imageUrls:ArrayList<String>) {
+    private fun qqShare(isFriend: Boolean, title: String, summary: String, url: String, imageUrls: ArrayList<String>) {
         /*Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
         if (requestCode == Constants.REQUEST_API) {
             if (resultCode == Constants.REQUEST_QQ_SHARE || resultCode == Constants.REQUEST_QZONE_SHARE || resultCode == Constants.REQUEST_OLD_SHARE) {
@@ -144,19 +151,19 @@ class ShareDialog(context: Context?, title:String,summary:String,url:String,imag
             mTencent = Tencent.createInstance(Constants.WECHAT_APPID, context)
         }
         if (isFriend) {
-            shareToQQZone(title,summary,url,imageUrls)
+            shareToQQZone(title, summary, url, imageUrls)
         } else {
-            shareToQQ(title,summary,url,imageUrls)
+            shareToQQ(title, summary, url, imageUrls)
         }
     }
 
-    private fun shareToQQ(title:String,summary:String,url:String,imageUrls:ArrayList<String>) {
+    private fun shareToQQ(title: String, summary: String, url: String, imageUrls: ArrayList<String>) {
         val params = Bundle()
         params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT)
         params.putString(QQShare.SHARE_TO_QQ_TITLE, title)// 标题
         params.putString(QQShare.SHARE_TO_QQ_SUMMARY, summary)// 摘要
         params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, url)// 内容地址
-        if (imageUrls.size>0){
+        if (imageUrls.size > 0) {
             params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, imageUrls[0])// 网络图片地址　　
         }
         params.putString(QQShare.SHARE_TO_QQ_APP_NAME, context.resources.getString(R.string.app_name))// 应用名称
@@ -165,7 +172,7 @@ class ShareDialog(context: Context?, title:String,summary:String,url:String,imag
         mTencent?.shareToQQ(scanForActivity(context), params, this)
     }
 
-    private fun shareToQQZone(title:String,summary:String,url:String,imageUrls:ArrayList<String>) {
+    private fun shareToQQZone(title: String, summary: String, url: String, imageUrls: ArrayList<String>) {
         val params = Bundle()
         params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT)
         params.putString(QzoneShare.SHARE_TO_QQ_TITLE, title)//必填
@@ -175,13 +182,13 @@ class ShareDialog(context: Context?, title:String,summary:String,url:String,imag
         mTencent?.shareToQzone(context as Activity, params, this)
     }
 
-    private fun  scanForActivity( cont:Context):Activity?{
+    private fun scanForActivity(cont: Context): Activity? {
         if (cont == null)
             return null
         else if (cont is Activity)
-            return  cont
+            return cont
         else if (cont is ContextWrapper)
-            return scanForActivity(( cont ).getBaseContext())
+            return scanForActivity((cont).getBaseContext())
 
         return null
     }

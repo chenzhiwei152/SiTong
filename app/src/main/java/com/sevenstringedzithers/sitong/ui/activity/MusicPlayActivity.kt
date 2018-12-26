@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Message
 import android.view.MotionEvent
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -410,16 +409,16 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                         getPoints((currentPercentage * du!!).toFloat())
 //                        LogUtils.e("currentSort:"+currentSort+"------nextSort:"+nextSort)
                         if (currentSort != nextSort && nextSort != null) {
-                            if (!isABStyle && currentSort != null) {
-//                                adapter?.setSelected(currentSort!!, false)
-                                var hol = rv_list.findViewHolderForLayoutPosition(currentSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
-                                hol?.setBackgroundResource(R.color.albumTransparent)
+                            if (currentSort != null) {
+                                adapter?.setPlayPosition(currentSort!!)
+//                                var hol = rv_list.findViewHolderForLayoutPosition(currentSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
+//                                hol?.setBackgroundResource(R.color.albumTransparent)
                             }
-                            if (!isABStyle) {
+//                            if (!isABStyle) {
 //                                adapter?.setSelected(nextSort!!, true)
-                                var hol = rv_list.findViewHolderForLayoutPosition(nextSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
-                                hol?.setBackgroundResource(R.color.color_99d0a670)
-                            }
+//                                var hol = rv_list.findViewHolderForLayoutPosition(nextSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
+//                                hol?.setBackgroundResource(R.color.color_99d0a670)
+//                            }
                             rv_list.layoutManager.scrollToPosition(nextSort!!)
                             if (rl_qin.visibility == View.VISIBLE) {
                                 cq_view.setmMoveMap(mMoveMap, musicBean?.score?.get(nextSort!!)?.overtone!!, musicBean?.score?.get(nextSort!!)?.portamento!!, musicBean?.score?.get(nextSort!!)?.duration, mEndMap)
@@ -432,12 +431,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             currentSort = nextSort
                         }
                         if (isABStyle && endTime != null) {
-                            if (currentPercentage >= endTime!!) {
-                                player!!.pause()
-                                setButtonState()
+                            if (currentPercentage >= endTime!!/ du!!) {
+                                player!!.seekTo((startTime!! / du!!), false)
+//                                setButtonState()
                             }
-                        }
-                        if (currentPercentage >= 1) {
+                        }else  if (currentPercentage >= 1) {
                             player?.seekTo(0, true)
                             seek_bar?.setProgress(0f)
                             setButtonState()
@@ -458,16 +456,20 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 if (playThread == null) {
                     playThread = Thread(player)
                 }
-                playThread?.start()
-                player?.start()
-                playTimeCountThread = Thread(MyThread())
-                playTimeCountThread?.start()
-                isPlaying = true
-                setButtonState()
-                dismissLoading()
+
                 du = ExtraUtils.getMP3FileInfo(f!!) / 1000
                 seek_bar.configBuilder.max(du!!.toFloat()).min(0f).build()
                 tv_end_time.text = ExtraUtils.secToTime((du!!).toInt())
+                playTimeCountThread = Thread(MyThread())
+                playTimeCountThread?.start()
+                isPlaying = true
+                playThread?.start()
+                if (isABStyle) {
+                    initABRange()
+                }
+                player?.start()
+                setButtonState()
+                dismissLoading()
             } else {
                 if (isABStyle) {
                     initABRange()
@@ -490,9 +492,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     }
 
     private fun initABRange() {
-        if (isABStyle && player != null && adapter?.selectedIndices!!.size > 0) {
+        if (isABStyle && adapter?.selectedIndices!!.size > 0) {
             startTime = musicBean?.score!![adapter?.selectedIndices!![0]].start_second[0]
             endTime = musicBean?.score!![adapter?.selectedIndices!![adapter?.selectedIndices!!.size - 1]].end_second[0]
+            LogUtils.e("PlayActivity---"+"startTime:"+startTime+"-----endTime:"+endTime)
             player?.seekTo((startTime!! / du!!), false)
         }
     }

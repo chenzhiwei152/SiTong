@@ -30,6 +30,8 @@ public class Constants {
     public static String SCOPE="";
     public static String musicList="musicList";
     public static String VIDOE_URL="video_url";
+    public static String SHARE_URL="www.7stringedzithers.com";
+
 
 
     public static class Tag {

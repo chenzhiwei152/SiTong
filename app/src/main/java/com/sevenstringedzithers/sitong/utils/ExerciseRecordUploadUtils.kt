@@ -25,7 +25,22 @@ class ExerciseRecordUploadUtils {
                         override fun onFail(errorResponseBean: BaseBean<ResultBean>): Boolean = false
 
                         override fun onSuccess(body: BaseBean<ResultBean>) {
-                            ExtraUtils.toasts(body.message)
+//                            ExtraUtils.toasts(body.message)
+                        }
+
+                    })
+        }
+        fun uploadShreRecord() {
+            var ss: Observable<Response<BaseBean<ResultBean>>>? = null
+            ss = APIManager.jyApi.upload_share_record().compose(SchedulerUtils.ioToMain())
+            ss.observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(object : CommonObserver<BaseBean<ResultBean>>() {
+                        override fun onError(errorResponseBean: ErrorResponseBean): Boolean = false
+
+                        override fun onFail(errorResponseBean: BaseBean<ResultBean>): Boolean = false
+
+                        override fun onSuccess(body: BaseBean<ResultBean>) {
+//                            ExtraUtils.toasts(body.message)
                         }
 
                     })

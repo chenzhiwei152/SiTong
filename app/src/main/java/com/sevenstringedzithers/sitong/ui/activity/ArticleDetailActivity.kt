@@ -151,12 +151,15 @@ class ArticleDetailActivity : BaseActivity<ArticleListContract.View, ArticleList
         iv_menu.visibility = View.GONE
         iv_menu.setImageResource(R.mipmap.ic_share)
         iv_menu.setOnClickListener {
-            if (bean == null) {
+            if (bean == null || bean?.name == null || bean?.desc == null) {
+                toast_msg("信息不完整")
                 return@setOnClickListener
             }
             var list = arrayListOf<String>()
-            list.add("http://stsystem.oss-cn-beijing.aliyuncs.com/img/fengqiuhuang/normal/2%402x.png")
-            dialog = ShareDialog(this@ArticleDetailActivity, "录音文件", "测试", "www.baidu.com", list)
+            if (bean?.img != null) {
+                list.add(bean?.img!!)
+            }
+            dialog = ShareDialog(this@ArticleDetailActivity, bean?.name!!, bean?.desc!!, com.sevenstringedzithers.sitong.base.Constants.SHARE_URL, list)
             dialog?.setShareCallback(object : RVAdapterItemOnClick {
                 override fun onItemClicked(data: Any) {
                     toast_msg(data as String)

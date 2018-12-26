@@ -6,11 +6,18 @@ import android.view.View
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
+import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
+import com.sevenstringedzithers.sitong.view.ShareDialog
 import kotlinx.android.synthetic.main.activity_message_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
 class MessageDetailActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseView {
+    private var title: String = ""
+    private var content: String = ""
+    private var dialog: ShareDialog? = null
     override fun getPresenter(): BasePresenter<IBaseView> = BasePresenter()
 
     override fun getRootView(): IBaseView = this
@@ -19,9 +26,11 @@ class MessageDetailActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(
 
     override fun initViewsAndEvents() {
         initTitle()
-        if (intent.extras!=null){
-            tv_titles.text = intent.extras.getString("title")
-            tv_content.text = intent.extras.getString("content")
+        if (intent.extras != null) {
+            title=intent.extras.getString("title")
+            content=intent.extras.getString("content")
+            tv_titles.text = title
+            tv_content.text = content
         }
     }
 
@@ -37,9 +46,24 @@ class MessageDetailActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(
             mContext.startActivity(intents)
         }
     }
+
     private fun initTitle() {
         iv_back.setOnClickListener { finish() }
         tv_title.setText("消息")
-        iv_menu.visibility = View.GONE
+        iv_menu.setImageResource(R.mipmap.ic_share)
+        iv_menu.setOnClickListener {
+            if (title == null) {
+                return@setOnClickListener
+            }
+            var list = arrayListOf<String>()
+            dialog = ShareDialog(this@MessageDetailActivity, title, content, Constants.SHARE_URL, arrayListOf())
+            dialog?.setShareCallback(object : RVAdapterItemOnClick {
+                override fun onItemClicked(data: Any) {
+                    toast(data as String)
+                }
+
+            })
+            dialog?.show()
+        }
     }
 }
