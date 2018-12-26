@@ -1,11 +1,9 @@
 package com.sevenstringedzithers.sitong.ui.fragment
 
-import android.annotation.SuppressLint
 import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
-import android.os.Handler
-import android.os.Message
 import android.view.View
+import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
@@ -27,7 +25,7 @@ class MetronomeFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), I
     var afd: AssetFileDescriptor? = null
     var mThread: Thread? = null
     private var count = 0
-    private  var nn=4
+    private var nn = 4
     private var currentCount = 0
     private var playTime = 0
     override fun lazyLoad() {
@@ -43,108 +41,112 @@ class MetronomeFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), I
 
         picker_01.setOnSelectedListener(object : ScrollPickerView.OnSelectedListener {
             override fun onSelected(scrollPickerView: ScrollPickerView<*>?, position: Int) {
-                 nn = list_1.get(position).split("/").get(0).toInt()
-                iv_points.selectedNum=-1
+                nn = list_1.get(position).split("/").get(0).toInt()
+                iv_points.selectedNum = -1
                 iv_points.setNums(nn)
-                currentCount=0
+                currentCount = 0
             }
 
         })
         picker_02.setOnSelectedListener(object : ScrollPickerView.OnSelectedListener {
             override fun onSelected(scrollPickerView: ScrollPickerView<*>?, position: Int) {
                 playTime = list_2.get(position).toInt()
-                currentCount=0
+                currentCount = 0
             }
 
         })
 
         iv_play.setOnClickListener {
             if (mThread == null) {
-                mThread = Thread(MyThread())
-            }
-            if (!mThread?.isAlive!!){
-                isPlaying=true
-                currentCount=0
-                mThread?.run()
-            }
+                mThread = Thread(Runnable() {
+                    //创建一个新线程
+                    try {
+                        while (isPlaying) {
+                            try {
+                                activity?.runOnUiThread { iv_points.selectedNum = currentCount }
+                                initPlayer()
+                                Thread.sleep(1000)
+                                if (currentCount < nn - 1) {
+                                    currentCount++
+                                } else {
+                                    currentCount = 0
+//                                    isPlaying = false
+                                }
+                            } catch (e: Exception) {
+                            }
+                        }
+                    } catch (e: java.lang.Exception) {
+
+                    }
+
+                })
+                mThread?.start()
+            } else {
+                isPlaying = true
+                currentCount = 0
+                LogUtils.e("Thread----", mThread?.state.toString())
+                if (mThread?.isAlive!!) {
+//                isPlaying = true
+//                currentCount = 0
+                    LogUtils.e("Thread----", "isAlive")
+                    isPlaying = false
+//                    mThread?.interrupt()
+//                    mThread=null
+                } else if (mThread?.state == Thread.State.TERMINATED) {
+                    mThread?.start()
+
+                } else if (mThread?.state == Thread.State.TIMED_WAITING) {
+//                    Object.notifyAll()
+                }
+
         }
+
+
     }
+}
 
-    override fun isRegistEventBus(): Boolean = false
+override fun isRegistEventBus(): Boolean = false
 
-    override fun isNeedLec(): View? = null
+override fun isNeedLec(): View? = null
 
-    companion object {
-        fun newInstance(): MetronomeFragment {
-            return MetronomeFragment()
-        }
+companion object {
+    fun newInstance(): MetronomeFragment {
+        return MetronomeFragment()
     }
+}
 
-    private fun initPlayer() {
-        try {
-            if (mPlayer == null) {
-                mPlayer = MediaPlayer()
-                // 打开指定音乐文件,获取assets目录下指定文件的AssetFileDescriptor对象
-                afd = activity?.getAssets()?.openFd("dida.mp3")
-            }
+private fun initPlayer() {
+    try {
+        if (mPlayer == null) {
+            mPlayer = MediaPlayer()
+            // 打开指定音乐文件,获取assets目录下指定文件的AssetFileDescriptor对象
+            afd = activity?.getAssets()?.openFd("dida.mp3")
             mPlayer?.reset()
 // 使用MediaPlayer加载指定的声音文件。
             mPlayer?.setDataSource(afd?.getFileDescriptor(),
                     afd?.getStartOffset()!!, afd?.getLength()!!)
 // 准备声音
             mPlayer?.prepare()
+        }
 // 播放
-//            iv_points.selectedNum=currentCount
-//            iv_points.postInvalidate()
-            handler.sendEmptyMessage(1)
-            mPlayer?.start()
-        } catch (e: IOException) {
+        mPlayer?.start()
+    } catch (e: IOException) {
 
-        }
-
-    }
-    /*
-       * 播放时长统计*/
-    val handler: Handler = @SuppressLint("HandlerLeak")
-    object : Handler() {
-        override fun handleMessage(msg: Message?) {
-            super.handleMessage(msg)
-            when (msg?.what) {
-                1 -> {
-                    iv_points.selectedNum=currentCount
-                }
-            }
-        }
-    }
-    private var isPlaying = true
-
-    inner class MyThread : Runnable {
-        override fun run() {
-            while (isPlaying) {
-                try {
-                    Thread.sleep(1000)
-//                    requireActivity().runOnUiThread(Runnable {  })
-                    initPlayer()
-                    if (currentCount<nn-1){
-                        currentCount++
-                    }else{
-                        isPlaying=false
-                        mThread?.interrupt()
-                    }
-
-                } catch (e: Exception) {
-                }
-
-            }
-        }
+    } finally {
+        afd?.close()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (mThread != null) {
-            isPlaying = false
-            mThread?.interrupt()
-            mThread = null
-        }
+}
+
+private var isPlaying = true
+
+
+override fun onDestroy() {
+    super.onDestroy()
+    if (mThread != null) {
+        isPlaying = false
+        mThread?.interrupt()
+        mThread = null
     }
+}
 }

@@ -2,7 +2,6 @@ package com.sevenstringedzithers.sitong.ui.activity
 
 import android.app.Service
 import android.media.AudioManager
-import android.text.Html
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -62,7 +61,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
                 }
                 tv_type.text = musicBean!!.level
                 tv_source.text = musicBean!!.from_detail
-                tv_content.text = Html.fromHtml(musicBean!!.introduce)
+                tv_content.text = musicBean!!.introduce.replace("</n>","\n")
                 ll_info.visibility = View.VISIBLE
             }
             R.id.iv_back -> {

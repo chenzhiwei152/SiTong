@@ -52,6 +52,7 @@ public class VerticalScaleView3 extends View {
     }
 
     private void init() {
+        setWillNotDraw(false);
         mLinesPaint = new Paint();
         mLinesPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mLinesPaint.setAntiAlias(true);
@@ -81,6 +82,7 @@ public class VerticalScaleView3 extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 //        super.onDraw(canvas);
+        LogUtils.e("不执行啊：：：onDraw：",""+selectedNum);
         for (int i = 0; i < nums; i++) {
             if (selectedNum==i){
                 canvas.drawCircle( (maxWidth-largePointRadius*nums*2-mDividerLines*nums)/2+ largePointRadius * (i) * 2 +mDividerLines*i, maxHeight / 2 ,
@@ -102,7 +104,13 @@ public class VerticalScaleView3 extends View {
 
     public void setSelectedNum(int selectedNum) {
         this.selectedNum = selectedNum;
+        LogUtils.e("不执行啊：：：setSelectedNum：",""+selectedNum);
         invalidate();
+//        postInvalidate();
+//        forceLayout();
+//        requestLayout();
+//        getParent().requestLayout();
+//        requestLayout();
     }
 
     public void setNums(int nums) {

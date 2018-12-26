@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -669,9 +670,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
 
         if (isSelected) {
-            holder.ll_all.setBackgroundResource(R.color.color_99d0a670);
+            holder.fl_foreground.setForeground(mContext.getResources().getDrawable(R.drawable.bg_99d0a670));
         } else {
-            holder.ll_all.setBackgroundResource(R.color.albumTransparent);
+            holder.fl_foreground.setForeground(mContext.getResources().getDrawable(R.drawable.bg_transparent));
         }
 
 
@@ -776,6 +777,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         private LinearLayout ll_center_content;
         private LinearLayout ll_left_top;
         private LinearLayout ll_all;
+        private FrameLayout fl_foreground;
         private ImageView iv_shoushi;
 
         MainViewHolder(View itemView, Listener callback) {
@@ -800,6 +802,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             this.ll_center_content = itemView.findViewById(R.id.ll_center_content);
             this.ll_left_top = itemView.findViewById(R.id.ll_left_top);
             this.ll_all = itemView.findViewById(R.id.ll_all);
+            this.fl_foreground = itemView.findViewById(R.id.fl_foreground);
 
             this.itemView.setOnClickListener(this);
             this.itemView.setOnLongClickListener(this);
