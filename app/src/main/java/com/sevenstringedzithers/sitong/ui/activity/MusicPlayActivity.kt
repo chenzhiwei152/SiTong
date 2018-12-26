@@ -460,8 +460,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 du = ExtraUtils.getMP3FileInfo(f!!) / 1000
                 seek_bar.configBuilder.max(du!!.toFloat()).min(0f).build()
                 tv_end_time.text = ExtraUtils.secToTime((du!!).toInt())
-                playTimeCountThread = Thread(MyThread())
-                playTimeCountThread?.start()
+                if (playTimeCountThread==null){
+                    playTimeCountThread = Thread(MyThread())
+                    playTimeCountThread?.start()
+                }
+
                 isPlaying = true
                 playThread?.start()
                 if (isABStyle) {
@@ -592,7 +595,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun onDestroy() {
         if (playTime > 0 && id != null) {
             var map = hashMapOf<String, String>()
-            map.put("duration", "" + playTime)
+            map.put("duration", "" + playTime/60)
             map.put("musicid", id!!)
             ExerciseRecordUploadUtils.uploadRecord(map)
         }
@@ -649,12 +652,14 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
     inner class MyThread : Runnable {
         override fun run() {
-            while (isPlaying) {
+            while (true) {
                 try {
                     Thread.sleep(1000)        // sleep 1000ms
-                    val message = Message()
-                    message.what = 1
-                    handler.sendMessage(message)
+                    if (isPlaying){
+                        val message = Message()
+                        message.what = 1
+                        handler.sendMessage(message)
+                    }
                 } catch (e: Exception) {
                 }
 

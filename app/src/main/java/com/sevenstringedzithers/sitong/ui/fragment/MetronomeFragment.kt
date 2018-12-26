@@ -3,7 +3,6 @@ package com.sevenstringedzithers.sitong.ui.fragment
 import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
 import android.view.View
-import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.IBaseView
@@ -61,16 +60,17 @@ class MetronomeFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), I
                 mThread = Thread(Runnable() {
                     //创建一个新线程
                     try {
-                        while (isPlaying) {
+                        while (!isStopThread) {
                             try {
-                                activity?.runOnUiThread { iv_points.selectedNum = currentCount }
-                                initPlayer()
+                                if (isPlaying){
+                                    activity?.runOnUiThread { iv_points.selectedNum = currentCount }
+                                    initPlayer()
+                                }
                                 Thread.sleep(1000)
                                 if (currentCount < nn - 1) {
                                     currentCount++
                                 } else {
                                     currentCount = 0
-//                                    isPlaying = false
                                 }
                             } catch (e: Exception) {
                             }
@@ -82,71 +82,58 @@ class MetronomeFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), I
                 })
                 mThread?.start()
             } else {
-                isPlaying = true
+                isPlaying = !isPlaying
                 currentCount = 0
-                LogUtils.e("Thread----", mThread?.state.toString())
-                if (mThread?.isAlive!!) {
-//                isPlaying = true
-//                currentCount = 0
-                    LogUtils.e("Thread----", "isAlive")
-                    isPlaying = false
-//                    mThread?.interrupt()
-//                    mThread=null
-                } else if (mThread?.state == Thread.State.TERMINATED) {
-                    mThread?.start()
+            }
 
-                } else if (mThread?.state == Thread.State.TIMED_WAITING) {
-//                    Object.notifyAll()
-                }
 
         }
-
-
     }
-}
 
-override fun isRegistEventBus(): Boolean = false
+    override fun isRegistEventBus(): Boolean = false
 
-override fun isNeedLec(): View? = null
+    override fun isNeedLec(): View? = null
 
-companion object {
-    fun newInstance(): MetronomeFragment {
-        return MetronomeFragment()
+    companion object {
+        fun newInstance(): MetronomeFragment {
+            return MetronomeFragment()
+        }
     }
-}
 
-private fun initPlayer() {
-    try {
-        if (mPlayer == null) {
-            mPlayer = MediaPlayer()
-            // 打开指定音乐文件,获取assets目录下指定文件的AssetFileDescriptor对象
-            afd = activity?.getAssets()?.openFd("dida.mp3")
-            mPlayer?.reset()
+    private fun initPlayer() {
+        try {
+            if (mPlayer == null) {
+                mPlayer = MediaPlayer()
+                // 打开指定音乐文件,获取assets目录下指定文件的AssetFileDescriptor对象
+                afd = activity?.getAssets()?.openFd("dida.mp3")
+                mPlayer?.reset()
 // 使用MediaPlayer加载指定的声音文件。
-            mPlayer?.setDataSource(afd?.getFileDescriptor(),
-                    afd?.getStartOffset()!!, afd?.getLength()!!)
+                mPlayer?.setDataSource(afd?.getFileDescriptor(),
+                        afd?.getStartOffset()!!, afd?.getLength()!!)
 // 准备声音
-            mPlayer?.prepare()
-        }
+                mPlayer?.prepare()
+            }
 // 播放
-        mPlayer?.start()
-    } catch (e: IOException) {
+            mPlayer?.start()
+        } catch (e: IOException) {
 
-    } finally {
-        afd?.close()
+        } finally {
+            afd?.close()
+        }
+
     }
 
-}
+    private var isPlaying = true
+    private var isStopThread = false
 
-private var isPlaying = true
 
-
-override fun onDestroy() {
-    super.onDestroy()
-    if (mThread != null) {
-        isPlaying = false
-        mThread?.interrupt()
-        mThread = null
+    override fun onDestroy() {
+        super.onDestroy()
+        if (mThread != null) {
+            isPlaying = false
+            isStopThread = true
+            mThread?.interrupt()
+            mThread = null
+        }
     }
-}
 }

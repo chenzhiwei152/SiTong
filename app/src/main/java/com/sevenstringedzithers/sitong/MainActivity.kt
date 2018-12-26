@@ -11,6 +11,7 @@ import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.SharedPrefUtil
 import com.jyall.app.home.utils.ApkUpdateManager
 import com.jyall.bbzf.base.BaseActivity
+import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.base.Constants
@@ -137,13 +138,13 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                             musicPayDialog.show()
 
                         } else {
-                        if (bean.onshelf == 1) {
-                            var bundle = Bundle()
-                            bundle.putString("id", "" + bean.id)
-                            jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
-                        } else {
-                            toast_msg("该曲目未上架")
-                        }
+                            if (bean.onshelf == 1) {
+                                var bundle = Bundle()
+                                bundle.putString("id", "" + bean.id)
+                                jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
+                            } else {
+                                toast_msg("该曲目未上架")
+                            }
 
                         }
 
@@ -276,7 +277,15 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         controlLetters(false)
     }
 
-    override fun isRegistEventBus(): Boolean = false
+    override fun isRegistEventBus(): Boolean = true
+    override fun onMessageEvent(eventBusCenter: EventBusCenter<Object>) {
+        super.onMessageEvent(eventBusCenter)
+        if (eventBusCenter != null) {
+            if (eventBusCenter.evenCode == Constants.Tag.RELOAD_USERINFO) {
+                mPresenter?.getMusicList("1")
+            }
+        }
+    }
 
     override fun isNeedLec(): View? = null
 
