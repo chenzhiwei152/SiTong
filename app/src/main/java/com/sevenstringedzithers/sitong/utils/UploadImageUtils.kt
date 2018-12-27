@@ -54,8 +54,6 @@ class UploadImageUtils {
             var ossService = OssService(mContext, oss.token.AccessKeyId, oss.token.AccessKeySecret, oss.endpoint, oss.bucket,oss.token.SecurityToken)
 ////初始化OSSClient
             ossService.initOSSClient()
-////开始上传，参数分别为content，上传的文件名filename，上传的文件路径filePath
-            ossService.beginupload(mContext, "url1", url,oss)
 ////上传的进度回调
             ossService.progressCallback = object : ProgressCallback {
                 override fun onProgressSuccess() {
@@ -72,6 +70,8 @@ class UploadImageUtils {
 
 
             }
+            ////开始上传，参数分别为content，上传的文件名filename，上传的文件路径filePath
+            ossService.beginupload(mContext, "url1", url,oss)
 
         }
 
