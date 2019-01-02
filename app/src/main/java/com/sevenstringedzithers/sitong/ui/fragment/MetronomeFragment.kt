@@ -26,7 +26,7 @@ class MetronomeFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), I
     private var count = 0
     private var nn = 4
     private var currentCount = 0
-    private var playTime = 0
+    private var playTime = 0L
     override fun lazyLoad() {
     }
 
@@ -49,7 +49,7 @@ class MetronomeFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), I
         })
         picker_02.setOnSelectedListener(object : ScrollPickerView.OnSelectedListener {
             override fun onSelected(scrollPickerView: ScrollPickerView<*>?, position: Int) {
-                playTime = list_2.get(position).toInt()
+                playTime = 60L/list_2.get(position).toLong()
                 currentCount = 0
             }
 
@@ -66,7 +66,7 @@ class MetronomeFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), I
                                     activity?.runOnUiThread { iv_points.selectedNum = currentCount }
                                     initPlayer()
                                 }
-                                Thread.sleep(1000)
+                                Thread.sleep(playTime)
                                 if (currentCount < nn - 1) {
                                     currentCount++
                                 } else {
