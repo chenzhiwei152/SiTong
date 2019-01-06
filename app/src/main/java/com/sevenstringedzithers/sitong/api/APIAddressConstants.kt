@@ -12,6 +12,7 @@ object APIAddressConstants {
      */
 //    const val baseUrl: String = "server.7stringedzithers.com"
     const val baseUrl: String = "test.server.7stringedzithers.com"
+//    const val baseUrl: String = "172.18.137.49:8787"
     val APP_HOST = "http://$baseUrl"
     const val USER_API: String = "/user"
 
