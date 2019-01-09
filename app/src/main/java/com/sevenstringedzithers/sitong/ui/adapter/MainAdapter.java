@@ -33,7 +33,8 @@ import java.util.TreeMap;
  */
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder>
         implements IDragSelectAdapter {
-    private final List<Integer> selectedIndices;
+    private final List<Integer> selectedIndices;//选中的items
+    List<Integer> selectedIndicesCopy = new ArrayList<>();
     private int mPlayPosition = -1;
     private int cachePositoin = -1;
     private Context mContext;
@@ -42,6 +43,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     private TreeMap<Integer, Integer> yanyinSetWithNum = new TreeMap<>();
     private ArrayList<MusicDetailBean.Score> list;
     private boolean isScrolling = false;
+    private boolean isReloadImage = true;
 
     public void setScrolling(boolean scrolling) {
         isScrolling = scrolling;
@@ -76,15 +78,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     }
 
     public void toggleSelected(int index) {
-
-        if (selectedIndices.contains(index)) {
-            selectedIndices.remove((Integer) index);
-            clearSelected();
+//        isReloadImage=false;
+        if (selectedIndices.size() > 0) {
+            if (selectedIndices.contains(index)&&selectedIndices.size()==1) {
+                selectedIndices.remove((Integer) index);
+            } else {
+                clearSelected();
+                selectedIndices.add(index);
+            }
         } else {
-            clearSelected();
             selectedIndices.add(index);
         }
-        Collections.sort(selectedIndices);
         notifyItemChanged(index);
         if (callback != null) {
             callback.onSelectionChanged(selectedIndices.size());
@@ -95,24 +99,27 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         if (selectedIndices.isEmpty()) {
             return;
         }
+        for (int j = 0; j < selectedIndices.size(); j++) {
+            selectedIndicesCopy.add(selectedIndices.get(j));
+        }
         selectedIndices.clear();
-        notifyDataSetChanged();
+        for (int i = 0; i < selectedIndicesCopy.size(); i++) {
+            notifyItemChanged(selectedIndicesCopy.get(i));
+        }
+        selectedIndicesCopy.clear();
         if (callback != null) {
             callback.onSelectionChanged(0);
         }
     }
 
-    public void setPlayPosition(int position) {
-        this.cachePositoin = mPlayPosition;
-        this.mPlayPosition = position;
-//        notifyItemChanged(cachePositoin);
-        notifyDataSetChanged();
-        if (mPlayPosition > cachePositoin) {
-            notifyItemRangeChanged(cachePositoin, mPlayPosition);
-        } else {
-            notifyItemRangeChanged(mPlayPosition, cachePositoin);
-
+    public void setPlayPosition(int pre, int curent) {
+        this.cachePositoin = pre;
+        this.mPlayPosition = curent;
+        if (cachePositoin != -1) {
+            notifyItemChanged(cachePositoin);
         }
+        notifyItemChanged(mPlayPosition);
+//        LogUtils.e("currentPosition:"+mPlayPosition+"------------cachePosition:"+cachePositoin);
 
     }
 
@@ -125,7 +132,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     @Override
     public void onBindViewHolder(MainViewHolder holder, int position) {
+        LogUtils.e("CurrentPosition:" + position);
         isSelected = selectedIndices.contains(position);
+        if (isSelected) {
+            holder.fl_foreground.setForeground(mContext.getResources().getDrawable(R.drawable.bg_99d0a670));
+        } else {
+            holder.fl_foreground.setForeground(mContext.getResources().getDrawable(R.drawable.bg_transparent));
+        }
         holder.ll_center.removeAllViews();
         holder.ll_right.removeAllViews();
         holder.ll_left_center.removeAllViews();
@@ -140,17 +153,22 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 //        最下面的图片
         if (!isScrolling && !TextUtils.isEmpty(list.get(position).getJianzipu())) {
 
-            String url = list.get(position).getJianzipu();
-            if (mPlayPosition == position) {
-                url = url.replace("normal", "highlight");
+            if (isReloadImage) {
+                String url = list.get(position).getJianzipu();
+                if (mPlayPosition == position) {
+                    url = url.replace("normal", "highlight");
+                }
+                ImageLoadedrManager.getInstance().display(mContext, url, holder.iv_shoushi, R.drawable.bg_transparent);
+                if (list.get(position).getJianziwidth() > 0) {
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.iv_shoushi.getLayoutParams();
+                    params.width = (int) (list.get(position).getJianziwidth() * 2.2);
+                    params.height = (int) (list.get(position).getJianziheight() * 2.2);
+                    holder.iv_shoushi.setLayoutParams(params);
+                }
+            } else {
+                isReloadImage = true;
             }
-            ImageLoadedrManager.getInstance().display(mContext, url, holder.iv_shoushi, R.drawable.bg_transparent);
-            if (list.get(position).getJianziwidth() > 0) {
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.iv_shoushi.getLayoutParams();
-                params.width = (int) (list.get(position).getJianziwidth() * 2.2);
-                params.height = (int) (list.get(position).getJianziheight() * 2.2);
-                holder.iv_shoushi.setLayoutParams(params);
-            }
+
         } else {
             holder.iv_shoushi.setImageResource(R.drawable.bg_transparent);
         }
@@ -666,13 +684,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                     break;
                 }
             }
-        }
-
-
-        if (isSelected) {
-            holder.fl_foreground.setForeground(mContext.getResources().getDrawable(R.drawable.bg_99d0a670));
-        } else {
-            holder.fl_foreground.setForeground(mContext.getResources().getDrawable(R.drawable.bg_transparent));
         }
 
 

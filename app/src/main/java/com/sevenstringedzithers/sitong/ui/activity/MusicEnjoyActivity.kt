@@ -4,8 +4,8 @@ import android.app.Service
 import android.media.AudioManager
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
-import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.loadImage
 import com.jyall.bbzf.extension.toast
@@ -201,7 +201,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
         seek_bar.onProgressChangedListener = object : BubbleSeekBar.OnProgressChangedListenerAdapter() {
             override fun onProgressChanged(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
                 super.onProgressChanged(bubbleSeekBar, progress, progressFloat, fromUser)
-                LogUtils.e("progress:" + progress + "-------" + progressFloat)
+//                LogUtils.e("progress:" + progress + "-------" + progressFloat)
 //                tv_start_time.setText(ExtraUtils.secToTime(progress))
             }
 
@@ -211,7 +211,10 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
             }
 
             override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
-                super.getProgressOnActionUp(bubbleSeekBar, progress, progressFloat)
+                try {
+                    player?.seekTo((progressFloat.toDouble() / du!!), false)
+                } catch (ex: java.lang.Exception) {
+                }
             }
         }
     }
@@ -346,7 +349,18 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
         var current = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
         return current <= 0
     }
-
+    override fun onPause() {
+        super.onPause()
+        if (player != null) {
+            player?.pause()
+            setButtonState()
+        }
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
+    override fun onResume() {
+        super.onResume()
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
     /*
    * 按钮状态*/
     private fun setButtonState() {

@@ -29,7 +29,6 @@ class ImageUtils {
                 var para = imageView.layoutParams as LinearLayout.LayoutParams
 
                 if (isSmall == 1) {
-
                 } else if (isSmall == 2) {
                     para.width = UIUtil.dip2px(mContext, 8f)
                     para.height = UIUtil.dip2px(mContext, 8f)

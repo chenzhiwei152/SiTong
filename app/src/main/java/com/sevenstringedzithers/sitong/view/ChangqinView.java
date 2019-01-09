@@ -52,7 +52,7 @@ public class ChangqinView extends LinearLayout {
 
     private int mCyclerviewRadius = 4;//最右边圆的半径
     private int mActiveCyclerviewRadius = 7;//动态点半径
-    private int mPointCyclerviewRadius = 12;//锚点的半径
+    private int mPointCyclerviewRadius = 9;//锚点的半径
 
 
     private float[] mLinesPoints;//所有琴弦点

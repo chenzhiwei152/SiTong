@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Message
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -136,7 +137,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     lastRecordFile = soundTouchRec?.stopRecord()
 //                    弹窗
 
-                    var mRecordDialog = MusicRecordDialog(this, "存储", "删除", ExtraUtils.secToTime(((System.currentTimeMillis()-recordTime)/1000).toInt()))
+                    var mRecordDialog = MusicRecordDialog(this, "存储", "删除", ExtraUtils.secToTime(((System.currentTimeMillis() - recordTime) / 1000).toInt()))
                     mRecordDialog.setLeftTitleListerner(object : View.OnClickListener {
                         override fun onClick(v: View?) {
                             kotlin.run {
@@ -155,7 +156,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     isRecording = false
                 } else {
                     isRecording = true
-                    recordTime=System.currentTimeMillis()
+                    recordTime = System.currentTimeMillis()
                     soundTouchRec?.startRecord()
                 }
                 setButtonState()
@@ -218,6 +219,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
     override fun onLongClick(index: Int) {
         if (isABStyle) {
+            adapter?.clearSelected()
             rv_list.setDragSelectActive(true, index)
         }
     }
@@ -408,9 +410,21 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
                         getPoints((currentPercentage * du!!).toFloat())
 //                        LogUtils.e("currentSort:"+currentSort+"------nextSort:"+nextSort)
+                        if (currentSort == null && nextSort != null) {
+                            var msg = Message()
+                            msg.what = 3
+
+                            msg.arg1 = -1
+                            msg.arg2 = nextSort!!
+                            handler.sendMessage(msg)
+                        }
                         if (currentSort != nextSort && nextSort != null) {
                             if (currentSort != null) {
-                                adapter?.setPlayPosition(currentSort!!)
+                                var msg = Message()
+                                msg.what = 3
+                                msg.arg1 = currentSort!!
+                                msg.arg2 = nextSort!!
+                                handler.sendMessage(msg)
 //                                var hol = rv_list.findViewHolderForLayoutPosition(currentSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
 //                                hol?.setBackgroundResource(R.color.albumTransparent)
                             }
@@ -431,11 +445,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             currentSort = nextSort
                         }
                         if (isABStyle && endTime != null) {
-                            if (currentPercentage >= endTime!!/ du!!) {
+                            if (currentPercentage >= endTime!! / du!!) {
                                 player!!.seekTo((startTime!! / du!!), false)
 //                                setButtonState()
                             }
-                        }else  if (currentPercentage >= 1) {
+                        } else if (currentPercentage >= 1) {
                             player?.seekTo(0, true)
                             seek_bar?.setProgress(0f)
                             setButtonState()
@@ -460,7 +474,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 du = ExtraUtils.getMP3FileInfo(f!!) / 1000
                 seek_bar.configBuilder.max(du!!.toFloat()).min(0f).build()
                 tv_end_time.text = ExtraUtils.secToTime((du!!).toInt())
-                if (playTimeCountThread==null){
+                if (playTimeCountThread == null) {
                     playTimeCountThread = Thread(MyThread())
                     playTimeCountThread?.start()
                 }
@@ -498,7 +512,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         if (isABStyle && adapter?.selectedIndices!!.size > 0) {
             startTime = musicBean?.score!![adapter?.selectedIndices!![0]].start_second[0]
             endTime = musicBean?.score!![adapter?.selectedIndices!![adapter?.selectedIndices!!.size - 1]].end_second[0]
-            LogUtils.e("PlayActivity---"+"startTime:"+startTime+"-----endTime:"+endTime)
+            LogUtils.e("PlayActivity---" + "startTime:" + startTime + "-----endTime:" + endTime)
             player?.seekTo((startTime!! / du!!), false)
         }
     }
@@ -589,13 +603,17 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             isPlaying = false
             setButtonState()
         }
-
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
+    override fun onResume() {
+        super.onResume()
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
     override fun onDestroy() {
         if (playTime > 0 && id != null) {
             var map = hashMapOf<String, String>()
-            map.put("duration", "" + playTime/60)
+            map.put("duration", "" + playTime / 60)
             map.put("musicid", id!!)
             ExerciseRecordUploadUtils.uploadRecord(map)
         }
@@ -642,6 +660,9 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 2 -> {
                     recordTime++
                 }
+                3 -> {
+                    adapter?.setPlayPosition(msg?.arg1, msg?.arg2)
+                }
             }
         }
     }
@@ -655,7 +676,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             while (true) {
                 try {
                     Thread.sleep(1000)        // sleep 1000ms
-                    if (isPlaying){
+                    if (isPlaying) {
                         val message = Message()
                         message.what = 1
                         handler.sendMessage(message)
