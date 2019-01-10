@@ -8,6 +8,7 @@ import android.os.Message
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.Toast
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -214,8 +215,43 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun onClick(index: Int) {
         if (isABStyle) {
             adapter?.toggleSelected(index)
+//            var hol = rv_list.findViewHolderForLayoutPosition(index!!)?.itemView?.findViewById<FrameLayout>(R.id.fl_foreground)
+//            hol?.foreground = resources.getDrawable(R.drawable.bg_99d0a670)
+//            setSelected(index)
         }
     }
+
+    private val selectedIndices = arrayListOf<Int>()//选中的items
+    fun clearSelectedItem() {
+        if (selectedIndices.isEmpty()) {
+            return
+        }
+        selectedIndices.forEach {
+            var hol = rv_list.findViewHolderForLayoutPosition(it)?.itemView?.findViewById<FrameLayout>(R.id.fl_foreground)
+            hol?.foreground = resources.getDrawable(R.drawable.bg_transparent)
+        }
+        selectedIndices.clear()
+    }
+
+    fun setSelected(index: Int) {
+        if (selectedIndices.size > 0) {
+            if (selectedIndices.contains(index) && selectedIndices.size == 1) {
+                selectedIndices.remove(index)
+                var hol = rv_list.findViewHolderForLayoutPosition(index)?.itemView?.findViewById<FrameLayout>(R.id.fl_foreground)
+                hol?.foreground = resources.getDrawable(R.drawable.bg_transparent)
+            } else {
+                clearSelectedItem()
+                selectedIndices.add(index)
+                var hol = rv_list.findViewHolderForLayoutPosition(index)?.itemView?.findViewById<FrameLayout>(R.id.fl_foreground)
+                hol?.foreground = resources.getDrawable(R.drawable.bg_99d0a670)
+            }
+        } else {
+            var hol = rv_list.findViewHolderForLayoutPosition(index)?.itemView?.findViewById<FrameLayout>(R.id.fl_foreground)
+            hol?.foreground = resources.getDrawable(R.drawable.bg_99d0a670)
+            selectedIndices.add(index)
+        }
+    }
+
 
     override fun onLongClick(index: Int) {
         if (isABStyle) {
@@ -312,6 +348,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         layoutManager.justifyContent = JustifyContent.CENTER
         rv_list.layoutManager = layoutManager
         adapter = MainAdapter(this, this)
+        adapter?.setmRecyclerView(rv_list)
 //        rv_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 //            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
 //                if (newState == RecyclerView.SCROLL_STATE_IDLE) { // 滚动静止时才加载图片资源，极大提升流畅度
@@ -609,6 +646,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         super.onResume()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
+
     override fun onDestroy() {
         if (playTime > 0 && id != null) {
             var map = hashMapOf<String, String>()
