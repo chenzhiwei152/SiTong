@@ -176,7 +176,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 } else {
                     iv_ab.setImageResource(R.mipmap.ic_ab_pressed)
 //                    设置ab句模式
-
+                    player?.pause()
                 }
                 isABStyle = !isABStyle
             }
