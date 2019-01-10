@@ -43,6 +43,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     private TreeMap<Integer, Integer> yanyinSetWithNum = new TreeMap<>();
     private ArrayList<MusicDetailBean.Score> list;
     private boolean isScrolling = false;
+    float value = 12;
     private boolean isReloadImage = true;
 
     public void setScrolling(boolean scrolling) {
@@ -356,6 +357,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                                 holder.ll_right_down.addView(v1);
                                 LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) v1.getLayoutParams();
                                 params1.topMargin = UIUtil.dip2px(mContext, 2);
+                                params1.width = UIUtil.dip2px(mContext, value);
                                 v1.setLayoutParams(params1);
                             }
 
@@ -380,6 +382,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                                 holder.ll_left_down.addView(v2);
                                 LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) v2.getLayoutParams();
                                 params1.topMargin = UIUtil.dip2px(mContext, 2);
+                                params1.width = UIUtil.dip2px(mContext, value);
                                 v2.setLayoutParams(params1);
                             }
 
@@ -388,6 +391,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                             holder.ll_center_dowm.addView(v);
                             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) v.getLayoutParams();
                             params.topMargin = UIUtil.dip2px(mContext, 2);
+                            params.width = UIUtil.dip2px(mContext, value);
                             v.setLayoutParams(params);
 
                             break;
@@ -451,7 +455,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         for (Integer key : yanyinSet.keySet()) {
 //            LogUtils.e("key:" + key + "----value:" + yanyinSet.get(key));
 //            System.out.println("Key = " + key);
-            float value = 10;
+
 
             if (position == key) {
 
@@ -543,7 +547,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             for (Integer key : yanyinSetWithNum.keySet()) {
 //            LogUtils.e("key:" + key + "----value:" + yanyinSet.get(key));
 //            System.out.println("Key = " + key);
-                float value = 10;
                 boolean isAdded1 = false;//是否加载了，加载一次就跳出，减少循环次数
 
                 if (position == key) {
