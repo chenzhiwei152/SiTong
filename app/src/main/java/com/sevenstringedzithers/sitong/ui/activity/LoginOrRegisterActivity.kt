@@ -2,6 +2,7 @@ package com.sevenstringedzithers.sitong.ui.activity
 
 import android.animation.ObjectAnimator
 import android.view.View
+import com.jyall.android.common.utils.UIUtil
 import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.base.BasePresenter
 import com.jyall.bbzf.base.EventBusCenter
@@ -47,13 +48,13 @@ class LoginOrRegisterActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>
     override fun isNeedLec(): View? = null
     fun translate() {
 
-        val animator = ObjectAnimator.ofFloat(ll_right, "translationX", 0f, -250f)
+        val animator = ObjectAnimator.ofFloat(ll_right, "translationX", 0f, -UIUtil.dip2px(this,80f).toFloat())
         animator.duration = 1000
         animator.start()
-        val animator1 = ObjectAnimator.ofFloat(ll_left, "translationX", 0f, -250f)
+        val animator1 = ObjectAnimator.ofFloat(ll_left, "translationX", 0f, -UIUtil.dip2px(this,80f).toFloat())
         animator1.duration = 1000
         animator1.start()
-        val animator2 = ObjectAnimator.ofFloat(iv_spl, "translationX", 0f, 250f)
+        val animator2 = ObjectAnimator.ofFloat(iv_spl, "translationX", 0f, UIUtil.dip2px(this,40f).toFloat())
         animator2.duration = 1000
         animator2.start()
 

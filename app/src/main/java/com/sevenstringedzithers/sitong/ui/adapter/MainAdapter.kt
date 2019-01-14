@@ -29,7 +29,7 @@ import kotlin.collections.ArrayList
  */
 class MainAdapter(private val mContext: Context, private val callback: Listener?) : RecyclerView.Adapter<MainAdapter.MainViewHolder>(), IDragSelectAdapter {
     val selectedIndices: ArrayList<Int>//选中的items
-    internal var selectedIndicesCopy: MutableList<Int> = ArrayList()
+    internal var selectedIndicesCopy: ArrayList<Int> = arrayListOf()
     private var mPlayPosition = -1
     private var cachePositoin = -1
     private var isSelected = false
@@ -37,8 +37,13 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
     private val yanyinSetWithNum = TreeMap<Int, Int>()
     private var list: ArrayList<MusicDetailBean.Score>? = null
     private var isScrolling = false
-    internal var value = 12f
-    private var isReloadImage = true
+    private var value = 12f
+
+    private var mLinesMap = hashMapOf<Int, Array<Int>>()
+
+    fun setLinesMap(map: HashMap<Int, Array<Int>>) {
+        this.mLinesMap = map
+    }
 
     private var rv_list: DragSelectRecyclerView? = null
 
@@ -113,11 +118,131 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
     fun setPlayPosition(pre: Int, curent: Int) {
         this.cachePositoin = pre
         this.mPlayPosition = curent
+        LogUtils.e("currentPo:" + mPlayPosition + "---cachePositoin:" + cachePositoin)
+
+
         if (cachePositoin != -1) {
-            notifyItemChanged(cachePositoin)
+
+//            notifyItemChanged(cachePositoin)
+
+
+//            if (rv_list?.findViewHolderForLayoutPosition(cachePositoin)?.itemView==null||rv_list?.findViewHolderForLayoutPosition(cachePositoin)?.itemView?.parent==null){
+//                return
+//            }
+            try {
+//                if (cachePositoin >= (rv_list?.layoutManager as FlexboxLayoutManager).findFirstCompletelyVisibleItemPosition() && cachePositoin < (rv_list?.layoutManager as FlexboxLayoutManager).findLastVisibleItemPosition()){
+//                    notifyItemChanged(cachePositoin)
+//                }
+
+//            notifyItemChanged(mPlayPosition)
+//            return
+                var iv_image = rv_list?.findViewHolderForLayoutPosition(cachePositoin)?.itemView?.findViewById<LinearLayout>(R.id.iv_image)
+                var iv_shoushi = rv_list?.findViewHolderForLayoutPosition(cachePositoin)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi)
+                var ll_num = rv_list?.findViewHolderForLayoutPosition(cachePositoin)?.itemView?.findViewById<LinearLayout>(R.id.ll_center)
+
+//                    最下面的图片
+//                iv_image?.removeAllViews()
+                if (!isScrolling && !TextUtils.isEmpty(list!![cachePositoin].jianzipu)) {
+
+//                var url = list!![cachePositoin].jianzipu
+//                if (list!![cachePositoin].jianziwidth > 0) {
+//                    if (jianzipu?.layoutParams!=null){
+//                        var params =  LinearLayout.LayoutParams((list!![mPlayPosition].jianziwidth * 2.2).toInt(),(list!![mPlayPosition].jianziheight * 2.2).toInt())
+
+//                        val params = jianzipu?.layoutParams as LinearLayout.LayoutParams
+//                        params.width = (list!![mPlayPosition].jianziwidth * 2.2).toInt()
+//                        params.height = (list!![mPlayPosition].jianziheight * 2.2).toInt()
+//                        jianzipu?.layoutParams = params
+//                    }
+//                }
+//                    var imge = ImageView(mContext)
+//                    ImageLoadedrManager.getInstance().displayNoDefult(mContext, list!![cachePositoin].jianzipu, imge)
+                    ImageLoadedrManager.getInstance().displayNoDefult(mContext, list!![cachePositoin].jianzipu, iv_shoushi)
+//                    iv_image?.addView(imge)
+                } else {
+//                iv_image?.setImageResource(R.drawable.bg_transparent)
+                }
+
+
+//            ll_num?.removeAllViews()
+
+                if (list!![cachePositoin].numbered_music == "-1" || list!![cachePositoin].numbered_music == "8") {
+                    val textview = TextView(mContext)
+                    textview.text = ""
+                    ll_num?.removeAllViews()
+                    ll_num?.addView(textview)
+                } else {
+                    ll_num?.removeAllViews()
+                    if (list!![cachePositoin].sound_type == 0) {
+                        //        中间的数字
+//                    LogUtils.e("开始获取数字："+list!![cachePositoin].numbered_music)
+                        ImageUtils.getNumber(ll_num, mContext, list!![cachePositoin].numbered_music, 1, false)
+//                    LogUtils.e("获取到的数字："+list!![cachePositoin].numbered_music)
+                    } else if (list!![cachePositoin].sound_type == 1) {
+                        ImageUtils.getNumber(ll_num, mContext, list!![cachePositoin].numbered_music_up, 2, false)
+                        ImageUtils.getNumber(ll_num, mContext, list!![cachePositoin].numbered_music, 2, false)
+                    } else {
+                        ImageUtils.getNumber(ll_num, mContext, list!![cachePositoin].numbered_music_up, 3, false)
+                        ImageUtils.getNumber(ll_num, mContext, list!![cachePositoin].numbered_music_middle, 3, false)
+                        ImageUtils.getNumber(ll_num, mContext, list!![cachePositoin].numbered_music, 3, false)
+                    }
+                }
+            } catch (e: java.lang.Exception) {
+            }
+
         }
-        notifyItemChanged(mPlayPosition)
-        //        LogUtils.e("currentPosition:"+mPlayPosition+"------------cachePosition:"+cachePositoin);
+//        notifyItemChanged(mPlayPosition)
+//        return
+//        if (rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView==null||rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.parent==null){
+//            return
+//        }
+        var iv_image = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<LinearLayout>(R.id.iv_image)
+        var iv_shoushi = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi)
+        var ll_num = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<LinearLayout>(R.id.ll_center)
+
+        //        最下面的图片
+//        iv_image?.removeAllViews()
+        if (!isScrolling && !TextUtils.isEmpty(list!![mPlayPosition].jianzipu)) {
+
+            var url = list!![mPlayPosition].jianzipu
+            url = url.replace("normal", "highlight")
+//            if (list!![mPlayPosition].jianziwidth > 0) {
+//                if (jianzipu?.layoutParams!=null){
+//                    var params =  LinearLayout.LayoutParams((list!![mPlayPosition].jianziwidth * 2.2).toInt(),(list!![mPlayPosition].jianziheight * 2.2).toInt())
+//                    params.width = (list!![mPlayPosition].jianziwidth * 2.2).toInt()
+//                    params.height = (list!![mPlayPosition].jianziheight * 2.2).toInt()
+//                    jianzipu?.layoutParams = params
+//                }
+//            }
+//            var imge = ImageView(mContext)
+            ImageLoadedrManager.getInstance().displayNoDefult(mContext, url, iv_shoushi)
+//            iv_image?.addView(imge)
+        } else {
+//            jianzipu?.setImageResource(R.drawable.bg_transparent)
+        }
+
+
+
+        if (list!![mPlayPosition].numbered_music == "-1" || list!![mPlayPosition].numbered_music == "8") {
+            val textview = TextView(mContext)
+            textview.text = ""
+            ll_num?.removeAllViews()
+            ll_num?.addView(textview)
+        } else {
+            ll_num?.removeAllViews()
+            if (list!![mPlayPosition].sound_type == 0) {
+                //        中间的数字
+                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music, 1, true)
+            } else if (list!![mPlayPosition].sound_type == 1) {
+                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music_up, 2, true)
+                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music, 2, true)
+            } else {
+                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music_up, 3, true)
+                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music_middle, 3, true)
+                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music, 3, true)
+            }
+        }
+
 
     }
 
@@ -141,33 +266,27 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         holder.ll_limit_right.removeAllViews()
         holder.ll_limit_left.removeAllViews()
         holder.ll_left_top.removeAllViews()
+//        holder.iv_image.removeAllViews()
         //        最下面的图片
         if (!isScrolling && !TextUtils.isEmpty(list!![position].jianzipu)) {
 
-            if (isReloadImage) {
-                var url = list!![position].jianzipu
-                if (mPlayPosition == position) {
-                    url = url.replace("normal", "highlight")
-                }
-                ImageLoadedrManager.getInstance().display(mContext, url, holder.iv_shoushi, R.drawable.bg_transparent)
-                if (list!![position].jianziwidth > 0) {
-                    val params = holder.iv_shoushi.layoutParams as LinearLayout.LayoutParams
-                    params.width = (list!![position].jianziwidth * 2.2).toInt()
-                    params.height = (list!![position].jianziheight * 2.2).toInt()
-                    holder.iv_shoushi.layoutParams = params
-                }
-            } else {
-                isReloadImage = true
+            var url = list!![position].jianzipu
+            if (mPlayPosition == position) {
+                url = url.replace("normal", "highlight")
             }
+//            var imge = ImageView(mContext)
+//            ImageLoadedrManager.getInstance().displayNoDefult(mContext, url, imge)
+            ImageLoadedrManager.getInstance().displayNoDefult(mContext, url, holder.iv_shoushi)
+//            holder.iv_image.addView(imge)
 
-        } else {
-            holder.iv_shoushi.setImageResource(R.drawable.bg_transparent)
         }
 
         if (list!![position].numbered_music == "-1" || list!![position].numbered_music == "8") {
             val textview = TextView(mContext)
             textview.text = ""
             holder.ll_center.addView(textview)
+            val textview1 = TextView(mContext)
+            holder.ll_left_center.addView(textview1)
         }
         if (list!![position].numbered_music == "8") {
             holder.ll_right.addView(ImageUtils.getImageView(mContext, R.drawable.line_black_5, 0, 0))
@@ -663,7 +782,11 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                 }
             }
         }
-
+        if (holder.ll_right.childCount == 0 && holder.ll_right_down.childCount == 0) {
+            var vv = ImageView(mContext)
+            vv.setImageResource(R.drawable.bg_transparent_5)
+            holder.ll_right.addView(vv)
+        }
         if (isSelected) {
             holder.fl_foreground.foreground = mContext.resources.getDrawable(R.drawable.bg_99d0a670)
         } else {
@@ -672,32 +795,39 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         if (selectedIndices.size > 0 && position >= selectedIndices[0] && position <= selectedIndices[selectedIndices.size - 1]) {
             if (selectedIndices.size == 1) {
                 if (selectedIndices[0] == position) {
+
                     holder.left.visibility = View.VISIBLE
                     holder.right.visibility = View.VISIBLE
                 } else {
                     holder.left.visibility = View.INVISIBLE
-                    holder.right.visibility = View.INVISIBLE
+                    holder.right.visibility = View.GONE
                 }
             } else if (position >= selectedIndices[0] && position <= selectedIndices[selectedIndices.size - 1]) {
                 if (selectedIndices[0] == position) {
                     holder.left.visibility = View.VISIBLE
-                    holder.right.visibility = View.INVISIBLE
+                    holder.right.visibility = View.GONE
                 } else if (selectedIndices[selectedIndices.size - 1] == position) {
-                    holder.right.visibility = View.VISIBLE
                     holder.left.visibility = View.INVISIBLE
+                    holder.right.visibility = View.VISIBLE
                 } else {
                     holder.left.visibility = View.INVISIBLE
-                    holder.right.visibility = View.INVISIBLE
+                    holder.right.visibility = View.GONE
                 }
 
             } else {
-                holder.left.visibility = View.INVISIBLE
-                holder.right.visibility = View.INVISIBLE
+                if (getCurrentEndLine(position) - getSelectEndLines() >= 1) {
+
+                    holder.left.visibility = View.GONE
+                } else {
+
+                    holder.left.visibility = View.INVISIBLE
+                }
+                holder.right.visibility = View.GONE
             }
 
         } else {
             holder.left.visibility = View.INVISIBLE
-            holder.right.visibility = View.INVISIBLE
+            holder.right.visibility = View.GONE
         }
 
         //是否换行
@@ -763,7 +893,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         val ll_left_content: LinearLayout
         val ll_center_content: LinearLayout
         val ll_left_top: LinearLayout
-        val ll_all: LinearLayout
+        //        val ll_all: LinearLayout
+        val iv_image: LinearLayout
         val fl_foreground: FrameLayout
         val iv_shoushi: ImageView
 
@@ -786,7 +917,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             this.ll_left_content = itemView.findViewById(R.id.ll_left_content)
             this.ll_center_content = itemView.findViewById(R.id.ll_center_content)
             this.ll_left_top = itemView.findViewById(R.id.ll_left_top)
-            this.ll_all = itemView.findViewById(R.id.ll_all)
+//            this.ll_all = itemView.findViewById(R.id.ll_all)
+            this.iv_image = itemView.findViewById(R.id.iv_image)
             this.fl_foreground = itemView.findViewById(R.id.fl_foreground)
 
             this.itemView.setOnClickListener(this)
@@ -819,28 +951,36 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                         right?.visibility = View.VISIBLE
                     } else {
                         left?.visibility = View.INVISIBLE
-                        right?.visibility = View.INVISIBLE
+                        right?.visibility = View.GONE
                     }
                 } else if (pos >= selectedIndices[0] && pos <= selectedIndices[selectedIndices.size - 1]) {
                     if (selectedIndices[0] == pos) {
                         left?.visibility = View.VISIBLE
-                        right?.visibility = View.INVISIBLE
+                        right?.visibility = View.GONE
                     } else if (selectedIndices[selectedIndices.size - 1] == pos) {
                         right?.visibility = View.VISIBLE
                         left?.visibility = View.INVISIBLE
                     } else {
                         left?.visibility = View.INVISIBLE
-                        right?.visibility = View.INVISIBLE
+                        right?.visibility = View.GONE
                     }
 
                 } else {
-                    left?.visibility = View.INVISIBLE
-                    right?.visibility = View.INVISIBLE
+                    if (getCurrentEndLine(pos) - getSelectEndLines() >= 1) {
+
+                        left?.visibility = View.GONE
+                    } else {
+
+                        left?.visibility = View.INVISIBLE
+                    }
+                    right?.visibility = View.GONE
+//                    left?.visibility = View.INVISIBLE
+//                    right?.visibility = View.INVISIBLE
                 }
 
             } else {
                 left?.visibility = View.INVISIBLE
-                right?.visibility = View.INVISIBLE
+                right?.visibility = View.GONE
             }
         }
     }
@@ -850,5 +990,29 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         var right = rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<TextView>(R.id.right)
         left?.visibility = View.INVISIBLE
         right?.visibility = View.INVISIBLE
+    }
+
+    fun getSelectEndLines(): Int {
+        var endLine = -1
+        mLinesMap.forEach {
+            if (selectedIndices.get(selectedIndices.size - 1) <= it.value[1] && selectedIndices.get(selectedIndices.size - 1) >= it.value[0]) {
+                endLine = it.key
+                return@forEach
+            }
+        }
+        LogUtils.e("getSelectEndLines:"+endLine)
+        return endLine
+    }
+
+    fun getCurrentEndLine(index: Int): Int {
+        var endLine = -1
+        mLinesMap.forEach {
+            if (index <= it.value[1] && index >= it.value[0]) {
+                endLine = it.key
+                return@forEach
+            }
+        }
+        LogUtils.e("getCurrentEndLine:"+endLine)
+        return endLine
     }
 }

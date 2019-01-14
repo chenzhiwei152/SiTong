@@ -14,6 +14,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 
+import com.jyall.android.common.utils.UIUtil;
 import com.sevenstringedzithers.sitong.R;
 import com.sevenstringedzithers.sitong.utils.ExtraUtils;
 
@@ -91,6 +92,11 @@ public class ChangqinView extends LinearLayout {
 
     @SuppressLint("ResourceAsColor")
     private void init() {
+
+        mCyclerviewRadius=UIUtil.dip2px(mContext,1f);
+        mActiveCyclerviewRadius=UIUtil.dip2px(mContext,2f);
+        mPointCyclerviewRadius=UIUtil.dip2px(mContext,3f);
+
 
         mLinesPaint = new Paint();
         mLinesPaint.setStyle(Paint.Style.FILL_AND_STROKE);

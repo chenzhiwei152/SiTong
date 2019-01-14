@@ -22,10 +22,8 @@ import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.jyall.android.common.R;
 
-
 import java.io.File;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by sun.luwei on 2016/11/24.
@@ -62,16 +60,32 @@ public class ImageLoadedrManager {
     }
 
     public void display(Context context, String url, ImageView imageView) {
+        if (imageView==null||url==null){
+            return;
+        }
         url = compatibleUrl(url);
         Glide.with(context).load(url).placeholder(R.mipmap.ic_default).error(R.mipmap.ic_default).into(imageView);
     }
 
     public void display(Context context, String url, ImageView imageView, int defaultId) {
+        if (imageView==null||url==null){
+            return;
+        }
         url = compatibleUrl(url);
         Glide.with(context).load(url).placeholder(defaultId).into(imageView);
     }
+    public void displayNoDefult(Context context, String url, ImageView imageView) {
+        if (imageView==null||url==null){
+            return;
+        }
+        url = compatibleUrl(url);
+        Glide.with(context).load(url).dontAnimate().dontTransform().into(imageView);
+    }
 
     public void display(Context context, String url, ImageView imageView, int defaultId, int errorId) {
+        if (imageView==null||url==null){
+            return;
+        }
         url = compatibleUrl(url);
         Glide.with(context).load(url).placeholder(defaultId).error(errorId).into(imageView);
     }

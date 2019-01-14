@@ -265,6 +265,10 @@
         <meta-data
             android:name="XG_V2_ACCESS_KEY"
             android:value="AFCQ1M7521HR" />
+
+        <meta-data
+            android:name="com.jyall.android.common.utils.MyGlideMoudle"
+            android:value="GlideModule"/>
     </application>
 
 </manifest>

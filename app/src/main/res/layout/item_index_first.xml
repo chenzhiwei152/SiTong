@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/color_ffffff"
     android:orientation="vertical"
     android:paddingLeft="@dimen/dp_15">
 
@@ -10,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:background="@color/color_ffffff"
         android:orientation="horizontal"
         android:tag="sticky">
 
@@ -28,6 +30,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_below="@+id/ll_tag"
         android:id="@+id/rv_music_list"
+        android:background="@color/color_ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10" />
@@ -37,6 +40,7 @@
         android:layout_marginTop="@dimen/dp_10"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dp_5" />
 </RelativeLayout>

@@ -142,7 +142,7 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
     }
 
     override fun getDataSuccess(bean: UserInfo) {
-        iv_head.loadRoundImage(this, bean.header)
+        iv_head.loadRoundImage(this, bean.header,defaultResId = R.mipmap.ic_head_default)
         tv_nick_name.text = bean.nickname
 
         if (bean.vip) {

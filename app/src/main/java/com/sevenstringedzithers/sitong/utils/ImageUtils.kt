@@ -15,7 +15,10 @@ class ImageUtils {
             return image
         }
 
-        fun getNumber(ll_center: LinearLayout, mContext: Context, type: String, isSmall: Int = 1, isPressed: Boolean = false) {
+        fun getNumber(ll_center: LinearLayout?, mContext: Context, type: String, isSmall: Int = 1, isPressed: Boolean = false) {
+            if (ll_center==null){
+                return
+            }
             var image: Int? = null
             var imageView = ImageView(mContext)
             if (isPressed) {
@@ -25,7 +28,8 @@ class ImageUtils {
             }
             if (image != null) {
                 imageView.setImageResource(image!!)
-                ll_center.addView(imageView)
+                ll_center?.addView(imageView)
+
                 var para = imageView.layoutParams as LinearLayout.LayoutParams
 
                 if (isSmall == 1) {
@@ -79,7 +83,6 @@ class ImageUtils {
             put("5", R.mipmap.ic_5)
             put("6", R.mipmap.ic_6)
             put("7", R.mipmap.ic_7)
-            put("8", R.mipmap.ic_8)
 
         }
         var number_pressed = hashMapOf<String, Int>().apply {
@@ -91,8 +94,6 @@ class ImageUtils {
             put("5", R.mipmap.ic_5_p)
             put("6", R.mipmap.ic_6_p)
             put("7", R.mipmap.ic_7_p)
-            put("8", R.mipmap.ic_8_p)
-
         }
     }
 }

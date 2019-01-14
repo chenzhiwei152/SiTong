@@ -70,17 +70,13 @@
                 android:layout_marginTop="3dp" />
         </LinearLayout>
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_marginBottom="@dimen/dp_50"
-            android:layout_height="match_parent">
 
             <com.sevenstringedzithers.sitong.view.dragselectrecyclerview.DragSelectRecyclerView
                 android:id="@+id/rv_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp_50"
                 android:background="@color/color_ffffff" />
-        </android.support.v4.widget.NestedScrollView>
 
 
     </LinearLayout>

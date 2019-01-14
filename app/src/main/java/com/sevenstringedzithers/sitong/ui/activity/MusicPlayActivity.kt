@@ -64,8 +64,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     private var mMoveMap: HashMap<Int, Float> = hashMapOf()//在线上动态显示的点
     private var mEndMap: HashMap<Int, Float> = hashMapOf()//在线上动态显示的点的结束位置
 
-    private var currentSort: Int? = null
-    private var nextSort: Int? = null
+    private var currentSort: Int? = null//上一个
+    private var nextSort: Int? = null//当前的
     private var musicBean: MusicDetailBean? = null
     private var startTime: Double? = null
     private var endTime: Double? = null
@@ -192,13 +192,17 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     private var pitchSemi = 1.0f//这个是音调，1.0表示正常，
     private var rate = 1.0f//这个参数是变速又变声的，这个参数大于0，否则会报错
 
-
+    private var mLinesMap = hashMapOf<Int, Array<Int>>()
     override fun getDataSuccess(musicBean: MusicDetailBean) {
         this.musicBean = musicBean
         iv_music_title.text = musicBean.name
 
         chenckIsLoaded(musicBean.url)
         adapter?.setList(musicBean.score)
+        var line = 0
+        var start = 0
+        var end = 0
+        mLinesMap.clear()
         musicBean.score.forEachIndexed { index, score ->
             if (score.start_second?.size > 0 && score.end_second?.size > 0 && score.start_second[0] > 0) {
                 Collections.sort(score.start_second)
@@ -208,7 +212,14 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     pointList?.add(bean)
                 }
             }
+            if (score.islinefeed == 1) {
+                end = index
+                mLinesMap[line] = arrayOf(start, end)
+                line++
+                start = end
+            }
         }
+//        LogUtils.e("Lines:"+mLinesMap.size)
     }
 
     //ab句 单选，多选
@@ -347,8 +358,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         layoutManager.flexWrap = FlexWrap.WRAP
         layoutManager.justifyContent = JustifyContent.CENTER
         rv_list.layoutManager = layoutManager
+        rv_list.setItemViewCacheSize(100)
         adapter = MainAdapter(this, this)
         adapter?.setmRecyclerView(rv_list)
+        adapter?.setLinesMap(mLinesMap)
 //        rv_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 //            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
 //                if (newState == RecyclerView.SCROLL_STATE_IDLE) { // 滚动静止时才加载图片资源，极大提升流畅度
@@ -438,7 +451,19 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 //播放器进度条
                 player?.setOnProgressChangedListener(object : OnProgressChangedListener {
                     override fun onProgressChanged(track: Int, currentPercentage: Double, position: Long) {
-//                        Log.e("onProgressChanged", "" + currentPercentage)
+                        if (isABStyle && endTime != null) {
+                            if (currentPercentage >= endTime!! / du!!) {
+                                player!!.seekTo((startTime!! / du!!), false)
+//                                setButtonState()
+                                return
+                            }
+                        } else if (currentPercentage >= 1) {
+                            player?.seekTo(0, true)
+                            seek_bar?.setProgress(0f)
+                            setButtonState()
+                            adapter?.clearSelected()
+                            return
+                        }
                         seek_bar.setProgress((currentPercentage * du!!).toFloat())
 //                        时间
                         tv_start_time.text = ExtraUtils.secToTime((currentPercentage * du!!).toInt())
@@ -449,7 +474,6 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                         if (currentSort == null && nextSort != null) {
                             var msg = Message()
                             msg.what = 3
-
                             msg.arg1 = -1
                             msg.arg2 = nextSort!!
                             handler.sendMessage(msg)
@@ -458,18 +482,20 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             if (currentSort != null) {
                                 var msg = Message()
                                 msg.what = 3
+//                                if (rv_list.layoutManager)
                                 msg.arg1 = currentSort!!
                                 msg.arg2 = nextSort!!
                                 handler.sendMessage(msg)
 //                                var hol = rv_list.findViewHolderForLayoutPosition(currentSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
 //                                hol?.setBackgroundResource(R.color.albumTransparent)
+                                rv_list.smoothScrollToPosition(currentSort!!)
                             }
 //                            if (!isABStyle) {
 //                                adapter?.setSelected(nextSort!!, true)
 //                                var hol = rv_list.findViewHolderForLayoutPosition(nextSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
 //                                hol?.setBackgroundResource(R.color.color_99d0a670)
 //                            }
-                            rv_list.layoutManager.scrollToPosition(nextSort!!)
+
                             if (rl_qin.visibility == View.VISIBLE) {
                                 cq_view.setmMoveMap(mMoveMap, musicBean?.score?.get(nextSort!!)?.overtone!!, musicBean?.score?.get(nextSort!!)?.portamento!!, musicBean?.score?.get(nextSort!!)?.duration, mEndMap)
                                 if (musicBean?.score?.get(nextSort!!)?.portamento!!) {
@@ -480,17 +506,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             }
                             currentSort = nextSort
                         }
-                        if (isABStyle && endTime != null) {
-                            if (currentPercentage >= endTime!! / du!!) {
-                                player!!.seekTo((startTime!! / du!!), false)
-//                                setButtonState()
-                            }
-                        } else if (currentPercentage >= 1) {
-                            player?.seekTo(0, true)
-                            seek_bar?.setProgress(0f)
-                            setButtonState()
-                            adapter?.clearSelected()
-                        }
+
                     }
 
                     override fun onTrackEnd(track: Int) {
