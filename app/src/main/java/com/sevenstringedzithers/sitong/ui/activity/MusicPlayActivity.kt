@@ -8,7 +8,6 @@ import android.os.Message
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.FrameLayout
 import android.widget.Toast
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -226,47 +225,13 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     override fun onClick(index: Int) {
         if (isABStyle) {
             adapter?.toggleSelected(index)
-//            var hol = rv_list.findViewHolderForLayoutPosition(index!!)?.itemView?.findViewById<FrameLayout>(R.id.fl_foreground)
-//            hol?.foreground = resources.getDrawable(R.drawable.bg_99d0a670)
-//            setSelected(index)
         }
     }
-
-    private val selectedIndices = arrayListOf<Int>()//选中的items
-    fun clearSelectedItem() {
-        if (selectedIndices.isEmpty()) {
-            return
-        }
-        selectedIndices.forEach {
-            var hol = rv_list.findViewHolderForLayoutPosition(it)?.itemView?.findViewById<FrameLayout>(R.id.fl_foreground)
-            hol?.foreground = resources.getDrawable(R.drawable.bg_transparent)
-        }
-        selectedIndices.clear()
-    }
-
-    fun setSelected(index: Int) {
-        if (selectedIndices.size > 0) {
-            if (selectedIndices.contains(index) && selectedIndices.size == 1) {
-                selectedIndices.remove(index)
-                var hol = rv_list.findViewHolderForLayoutPosition(index)?.itemView?.findViewById<FrameLayout>(R.id.fl_foreground)
-                hol?.foreground = resources.getDrawable(R.drawable.bg_transparent)
-            } else {
-                clearSelectedItem()
-                selectedIndices.add(index)
-                var hol = rv_list.findViewHolderForLayoutPosition(index)?.itemView?.findViewById<FrameLayout>(R.id.fl_foreground)
-                hol?.foreground = resources.getDrawable(R.drawable.bg_99d0a670)
-            }
-        } else {
-            var hol = rv_list.findViewHolderForLayoutPosition(index)?.itemView?.findViewById<FrameLayout>(R.id.fl_foreground)
-            hol?.foreground = resources.getDrawable(R.drawable.bg_99d0a670)
-            selectedIndices.add(index)
-        }
-    }
-
 
     override fun onLongClick(index: Int) {
         if (isABStyle) {
             adapter?.clearSelected()
+            player?.pause()
             rv_list.setDragSelectActive(true, index)
         }
     }
@@ -358,7 +323,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         layoutManager.flexWrap = FlexWrap.WRAP
         layoutManager.justifyContent = JustifyContent.CENTER
         rv_list.layoutManager = layoutManager
-        rv_list.setItemViewCacheSize(100)
+        rv_list.setItemViewCacheSize(50)
         adapter = MainAdapter(this, this)
         adapter?.setmRecyclerView(rv_list)
         adapter?.setLinesMap(mLinesMap)
@@ -462,6 +427,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             seek_bar?.setProgress(0f)
                             setButtonState()
                             adapter?.clearSelected()
+                            tv_start_time.text = "00:00"
                             return
                         }
                         seek_bar.setProgress((currentPercentage * du!!).toFloat())
@@ -488,7 +454,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                                 handler.sendMessage(msg)
 //                                var hol = rv_list.findViewHolderForLayoutPosition(currentSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
 //                                hol?.setBackgroundResource(R.color.albumTransparent)
-                                rv_list.smoothScrollToPosition(currentSort!!)
+                                if (isABStyle) {
+                                    rv_list.smoothScrollToPosition(currentSort!!)
+                                } else {
+                                    rv_list.smoothScrollToPosition(nextSort!!)
+                                }
                             }
 //                            if (!isABStyle) {
 //                                adapter?.setSelected(nextSort!!, true)

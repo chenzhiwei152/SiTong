@@ -17,8 +17,6 @@ import org.greenrobot.eventbus.EventBus
  */
 class DelayFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBaseView {
     override fun getLayoutId(): Int = R.layout.fragment_delay
-    private var list_1 = arrayListOf<String>("紧五弦", "紧二五弦", "正调")
-    private var list_2 = arrayListOf<String>("1", "2", "3", "4", "5", "6", "7")
     override fun lazyLoad() {
     }
 

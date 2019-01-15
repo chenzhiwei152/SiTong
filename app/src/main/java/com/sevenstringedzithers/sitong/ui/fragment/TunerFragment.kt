@@ -80,7 +80,7 @@ class TunerFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBase
     }
 
     private fun setValue(p1: Int, p2: Int) {
-        ver_line.setValue(0f, list?.get(p1)!!.get(p2) * 2, ""+list?.get(p1)!!.get(p2).toInt())
+        ver_line.setValue(list?.get(p1)!!.get(p2)-50, list?.get(p1)!!.get(p2) +50, ""+list?.get(p1)!!.get(p2).toInt())
 
     }
 

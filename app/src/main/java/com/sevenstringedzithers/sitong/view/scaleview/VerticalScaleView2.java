@@ -51,10 +51,10 @@ public class VerticalScaleView2 extends View {
     private int paddingLeft = 200;
     private int paddingTop = 50;
 
-    private String currentValues[] = {"1.5", "0.25", "1", "2", "4", "16"};
+    private String currentValues[] = {"0.2", "0.4", "0.6", "0.8", "1.0", "1.2"};
 
 
-    private int selectedNum = 2;
+    private int selectedNum = 4;
 
 
     public VerticalScaleView2(Context context) {

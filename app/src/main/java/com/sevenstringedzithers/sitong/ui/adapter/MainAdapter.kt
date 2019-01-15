@@ -16,6 +16,7 @@ import com.jyall.android.common.utils.ImageLoadedrManager
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.UIUtil
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.R.attr.maxSize
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicDetailBean
 import com.sevenstringedzithers.sitong.utils.ImageUtils
 import com.sevenstringedzithers.sitong.view.dragselectrecyclerview.DragSelectRecyclerView
@@ -782,11 +783,40 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                 }
             }
         }
-        if (holder.ll_right.childCount == 0 && holder.ll_right_down.childCount == 0) {
-            var vv = ImageView(mContext)
-            vv.setImageResource(R.drawable.bg_transparent_5)
-            holder.ll_right.addView(vv)
+//
+
+
+        var rightChildCount = 0
+        rightChildCount = holder.ll_right.childCount
+        if (holder.ll_right_down.childCount > rightChildCount) {
+            rightChildCount = holder.ll_right_down.childCount
         }
+
+
+        var leftChildCount = 0
+        leftChildCount = holder.ll_left_center.childCount
+        if (holder.ll_left_down.childCount > leftChildCount) {
+            leftChildCount = holder.ll_left_down.childCount
+        }
+        if (holder.ll_left_top.childCount > maxSize) {
+            leftChildCount = holder.ll_left_top.childCount
+        }
+
+        if (leftChildCount > rightChildCount) {
+            for (i in 1..(leftChildCount - rightChildCount)) {
+                var vv = ImageView(mContext)
+                vv.setImageResource(R.drawable.bg_transparent_5)
+                holder.ll_right.addView(vv)
+            }
+        } else if (rightChildCount > leftChildCount) {
+            for (i in 1..(rightChildCount - leftChildCount)) {
+                var vv = ImageView(mContext)
+                vv.setImageResource(R.drawable.bg_transparent_5)
+                holder.ll_left_center.addView(vv)
+            }
+        }
+
+
         if (isSelected) {
             holder.fl_foreground.foreground = mContext.resources.getDrawable(R.drawable.bg_99d0a670)
         } else {
@@ -989,7 +1019,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         var left = rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<TextView>(R.id.left)
         var right = rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<TextView>(R.id.right)
         left?.visibility = View.INVISIBLE
-        right?.visibility = View.INVISIBLE
+        right?.visibility = View.GONE
     }
 
     fun getSelectEndLines(): Int {
@@ -1000,7 +1030,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                 return@forEach
             }
         }
-        LogUtils.e("getSelectEndLines:"+endLine)
+        LogUtils.e("getSelectEndLines:" + endLine)
         return endLine
     }
 
@@ -1012,7 +1042,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                 return@forEach
             }
         }
-        LogUtils.e("getCurrentEndLine:"+endLine)
+        LogUtils.e("getCurrentEndLine:" + endLine)
         return endLine
     }
 }
