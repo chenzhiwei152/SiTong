@@ -137,8 +137,9 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
 
 //            notifyItemChanged(mPlayPosition)
 //            return
-                var iv_image = rv_list?.findViewHolderForLayoutPosition(cachePositoin)?.itemView?.findViewById<LinearLayout>(R.id.iv_image)
+//                var iv_image = rv_list?.findViewHolderForLayoutPosition(cachePositoin)?.itemView?.findViewById<LinearLayout>(R.id.iv_image)
                 var iv_shoushi = rv_list?.findViewHolderForLayoutPosition(cachePositoin)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi)
+                var iv_shoushi_selected = rv_list?.findViewHolderForLayoutPosition(cachePositoin)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi_selected)
                 var ll_num = rv_list?.findViewHolderForLayoutPosition(cachePositoin)?.itemView?.findViewById<LinearLayout>(R.id.ll_center)
 
 //                    最下面的图片
@@ -158,7 +159,9 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
 //                }
 //                    var imge = ImageView(mContext)
 //                    ImageLoadedrManager.getInstance().displayNoDefult(mContext, list!![cachePositoin].jianzipu, imge)
-                    ImageLoadedrManager.getInstance().displayNoDefult(mContext, list!![cachePositoin].jianzipu, iv_shoushi)
+//                    ImageLoadedrManager.getInstance().displayNoDefult(mContext, list!![cachePositoin].jianzipu, iv_shoushi)
+                    iv_shoushi_selected?.visibility=View.GONE
+                    iv_shoushi?.visibility=View.VISIBLE
 //                    iv_image?.addView(imge)
                 } else {
 //                iv_image?.setImageResource(R.drawable.bg_transparent)
@@ -197,16 +200,17 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
 //        if (rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView==null||rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.parent==null){
 //            return
 //        }
-        var iv_image = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<LinearLayout>(R.id.iv_image)
+//        var iv_image = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<LinearLayout>(R.id.iv_image)
         var iv_shoushi = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi)
+        var iv_shoushi_selected = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi_selected)
         var ll_num = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<LinearLayout>(R.id.ll_center)
 
         //        最下面的图片
 //        iv_image?.removeAllViews()
         if (!isScrolling && !TextUtils.isEmpty(list!![mPlayPosition].jianzipu)) {
 
-            var url = list!![mPlayPosition].jianzipu
-            url = url.replace("normal", "highlight")
+//            var url = list!![mPlayPosition].jianzipu
+//            url = url.replace("normal", "highlight")
 //            if (list!![mPlayPosition].jianziwidth > 0) {
 //                if (jianzipu?.layoutParams!=null){
 //                    var params =  LinearLayout.LayoutParams((list!![mPlayPosition].jianziwidth * 2.2).toInt(),(list!![mPlayPosition].jianziheight * 2.2).toInt())
@@ -216,7 +220,9 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
 //                }
 //            }
 //            var imge = ImageView(mContext)
-            ImageLoadedrManager.getInstance().displayNoDefult(mContext, url, iv_shoushi)
+//            ImageLoadedrManager.getInstance().displayNoDefult(mContext, url, iv_shoushi)
+            iv_shoushi_selected?.visibility=View.VISIBLE
+            iv_shoushi?.visibility=View.GONE
 //            iv_image?.addView(imge)
         } else {
 //            jianzipu?.setImageResource(R.drawable.bg_transparent)
@@ -272,12 +278,19 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         if (!isScrolling && !TextUtils.isEmpty(list!![position].jianzipu)) {
 
             var url = list!![position].jianzipu
+            url = url.replace("normal", "highlight")
             if (mPlayPosition == position) {
-                url = url.replace("normal", "highlight")
+                holder.iv_shoushi.visibility=View.GONE
+                holder.iv_shoushi_selected.visibility=View.VISIBLE
+            }else{
+                holder.iv_shoushi.visibility=View.VISIBLE
+                holder.iv_shoushi_selected.visibility=View.GONE
+
             }
 //            var imge = ImageView(mContext)
 //            ImageLoadedrManager.getInstance().displayNoDefult(mContext, url, imge)
-            ImageLoadedrManager.getInstance().displayNoDefult(mContext, url, holder.iv_shoushi)
+            ImageLoadedrManager.getInstance().displayNoDefult(mContext, list!![position].jianzipu, holder.iv_shoushi)
+            ImageLoadedrManager.getInstance().displayNoDefult(mContext, url, holder.iv_shoushi_selected)
 //            holder.iv_image.addView(imge)
 
         }
@@ -924,9 +937,10 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         val ll_center_content: LinearLayout
         val ll_left_top: LinearLayout
         //        val ll_all: LinearLayout
-        val iv_image: LinearLayout
+//        val iv_image: RelativeLayout
         val fl_foreground: FrameLayout
         val iv_shoushi: ImageView
+        val iv_shoushi_selected: ImageView
 
         init {
             this.colorSquare = itemView.findViewById(R.id.colorSquare)
@@ -948,7 +962,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             this.ll_center_content = itemView.findViewById(R.id.ll_center_content)
             this.ll_left_top = itemView.findViewById(R.id.ll_left_top)
 //            this.ll_all = itemView.findViewById(R.id.ll_all)
-            this.iv_image = itemView.findViewById(R.id.iv_image)
+//            this.iv_image = itemView.findViewById(R.id.iv_image)
+            this.iv_shoushi_selected = itemView.findViewById(R.id.iv_shoushi_selected)
             this.fl_foreground = itemView.findViewById(R.id.fl_foreground)
 
             this.itemView.setOnClickListener(this)

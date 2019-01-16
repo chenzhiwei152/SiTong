@@ -203,68 +203,68 @@
                 <action android:name="com.tencent.android.tpush.action.FEEDBACK" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name="com.tencent.android.tpush.XGPushReceiver"
-            android:process=":xg_service_v3">
-            <intent-filter android:priority="0x7fffffff">
-                <!-- 【必须】 信鸽SDK的内部广播 -->
-                <action android:name="com.tencent.android.tpush.action.SDK" />
-                <action android:name="com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE" />
-                <!-- 【必须】 系统广播：开屏和网络切换 -->
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <!-- 【可选】 一些常用的系统广播，增强信鸽service的复活机会，请根据需要选择。当然，你也可以添加APP自定义的一些广播让启动service -->
-                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver-->
+            <!--android:name="com.tencent.android.tpush.XGPushReceiver"-->
+            <!--android:process=":xg_service_v3">-->
+            <!--<intent-filter android:priority="0x7fffffff">-->
+                <!--&lt;!&ndash; 【必须】 信鸽SDK的内部广播 &ndash;&gt;-->
+                <!--<action android:name="com.tencent.android.tpush.action.SDK" />-->
+                <!--<action android:name="com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE" />-->
+                <!--&lt;!&ndash; 【必须】 系统广播：开屏和网络切换 &ndash;&gt;-->
+                <!--<action android:name="android.intent.action.USER_PRESENT" />-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+                <!--&lt;!&ndash; 【可选】 一些常用的系统广播，增强信鸽service的复活机会，请根据需要选择。当然，你也可以添加APP自定义的一些广播让启动service &ndash;&gt;-->
+                <!--<action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />-->
+                <!--<action android:name="android.intent.action.ACTION_POWER_CONNECTED" />-->
+                <!--<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
-        <!-- 【必须】 信鸽service -->
-        <service
-            android:name="com.tencent.android.tpush.service.XGPushServiceV3"
-            android:exported="true"
-            android:persistent="true"
-            android:process=":xg_service_v3" />
-
-
-        <!-- 【必须】 提高service的存活率 -->
-        <service
-            android:name="com.tencent.android.tpush.rpc.XGRemoteService"
-            android:exported="true">
-            <intent-filter>
-                <!-- 【必须】 请修改为当前APP包名 .PUSH_ACTION, 如demo的包名为：com.qq.xgdemo -->
-                <action android:name="com.sevenstringedzithers.sitong.PUSH_ACTION" />
-            </intent-filter>
-        </service>
+        <!--&lt;!&ndash; 【必须】 信鸽service &ndash;&gt;-->
+        <!--<service-->
+            <!--android:name="com.tencent.android.tpush.service.XGPushServiceV3"-->
+            <!--android:exported="true"-->
+            <!--android:persistent="true"-->
+            <!--android:process=":xg_service_v3" />-->
 
 
-        <!-- 【必须】 【注意】authorities修改为 包名.AUTH_XGPUSH, 如demo的包名为：com.qq.xgdemo-->
-        <provider
-            android:name="com.tencent.android.tpush.XGPushProvider"
-            android:authorities="com.sevenstringedzithers.sitong.AUTH_XGPUSH"
-            android:exported="true" />
+        <!--&lt;!&ndash; 【必须】 提高service的存活率 &ndash;&gt;-->
+        <!--<service-->
+            <!--android:name="com.tencent.android.tpush.rpc.XGRemoteService"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--&lt;!&ndash; 【必须】 请修改为当前APP包名 .PUSH_ACTION, 如demo的包名为：com.qq.xgdemo &ndash;&gt;-->
+                <!--<action android:name="com.sevenstringedzithers.sitong.PUSH_ACTION" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
 
-        <!-- 【必须】 【注意】authorities修改为 包名.TPUSH_PROVIDER, 如demo的包名为：com.qq.xgdemo-->
-        <provider
-            android:name="com.tencent.android.tpush.SettingsContentProvider"
-            android:authorities="com.sevenstringedzithers.sitong.TPUSH_PROVIDER"
-            android:exported="false" />
 
-        <!-- 【必须】 【注意】authorities修改为 包名.TENCENT.MID.V3, 如demo的包名为：com.qq.xgdemo-->
-        <provider
-            android:name="com.tencent.mid.api.MidProvider"
-            android:authorities="com.sevenstringedzithers.sitong.TENCENT.MID.V3"
-            android:exported="true"></provider>
+        <!--&lt;!&ndash; 【必须】 【注意】authorities修改为 包名.AUTH_XGPUSH, 如demo的包名为：com.qq.xgdemo&ndash;&gt;-->
+        <!--<provider-->
+            <!--android:name="com.tencent.android.tpush.XGPushProvider"-->
+            <!--android:authorities="com.sevenstringedzithers.sitong.AUTH_XGPUSH"-->
+            <!--android:exported="true" />-->
 
-        <!-- 【必须】 请将YOUR_ACCESS_ID修改为APP的AccessId，“21”开头的10位数字，中间没空格 -->
-        <meta-data
-            android:name="XG_V2_ACCESS_ID"
-            android:value="2100318789" />
-        <!-- 【必须】 请将YOUR_ACCESS_KEY修改为APP的AccessKey，“A”开头的12位字符串，中间没空格 -->
-        <meta-data
-            android:name="XG_V2_ACCESS_KEY"
-            android:value="AFCQ1M7521HR" />
+        <!--&lt;!&ndash; 【必须】 【注意】authorities修改为 包名.TPUSH_PROVIDER, 如demo的包名为：com.qq.xgdemo&ndash;&gt;-->
+        <!--<provider-->
+            <!--android:name="com.tencent.android.tpush.SettingsContentProvider"-->
+            <!--android:authorities="com.sevenstringedzithers.sitong.TPUSH_PROVIDER"-->
+            <!--android:exported="false" />-->
+
+        <!--&lt;!&ndash; 【必须】 【注意】authorities修改为 包名.TENCENT.MID.V3, 如demo的包名为：com.qq.xgdemo&ndash;&gt;-->
+        <!--<provider-->
+            <!--android:name="com.tencent.mid.api.MidProvider"-->
+            <!--android:authorities="com.sevenstringedzithers.sitong.TENCENT.MID.V3"-->
+            <!--android:exported="true"></provider>-->
+
+        <!--&lt;!&ndash; 【必须】 请将YOUR_ACCESS_ID修改为APP的AccessId，“21”开头的10位数字，中间没空格 &ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="XG_V2_ACCESS_ID"-->
+            <!--android:value="2100318789" />-->
+        <!--&lt;!&ndash; 【必须】 请将YOUR_ACCESS_KEY修改为APP的AccessKey，“A”开头的12位字符串，中间没空格 &ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="XG_V2_ACCESS_KEY"-->
+            <!--android:value="AFCQ1M7521HR" />-->
 
         <meta-data
             android:name="com.jyall.android.common.utils.MyGlideMoudle"

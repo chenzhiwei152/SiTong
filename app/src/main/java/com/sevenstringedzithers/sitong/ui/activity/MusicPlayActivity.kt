@@ -323,7 +323,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         layoutManager.flexWrap = FlexWrap.WRAP
         layoutManager.justifyContent = JustifyContent.CENTER
         rv_list.layoutManager = layoutManager
-        rv_list.setItemViewCacheSize(50)
+        rv_list.setItemViewCacheSize(40)
         adapter = MainAdapter(this, this)
         adapter?.setmRecyclerView(rv_list)
         adapter?.setLinesMap(mLinesMap)

@@ -17,7 +17,7 @@ public class MyGlideMoudle implements GlideModule {
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
 //        ViewTarget.setTagId(R.id.glide_tag_id);
-        builder.setDecodeFormat(DecodeFormat.PREFER_RGB_565);
+        builder.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
         builder.setDiskCache(new InternalCacheDiskCacheFactory(context,"glide_cache", 400 * 1024 * 1024));
     }
 
