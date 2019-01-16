@@ -144,7 +144,7 @@ class BaseContext : MultiDexApplication() {
 
     var isForeground = false
 
-    var regId: String? = null
+//    var regId: String? = null
     /**
      * 腾讯信鸽推送
      */

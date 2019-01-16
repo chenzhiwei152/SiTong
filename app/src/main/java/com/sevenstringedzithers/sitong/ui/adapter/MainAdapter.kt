@@ -38,6 +38,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
     private val yanyinSetWithNum = TreeMap<Int, Int>()
     private var list: ArrayList<MusicDetailBean.Score>? = null
     private var isScrolling = false
+    var isAdded=false
+    var isAdded1=false
     private var value = 12f
 
     private var mLinesMap = hashMapOf<Int, Array<Int>>()
@@ -559,11 +561,39 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             //                    右下
             //                    左下
         }
-        var isAdded = false//是否加载了，加载一次就跳出，减少循环次数
+        var rightChildCount = 0
+        rightChildCount = holder.ll_right.childCount
+        if (holder.ll_right_down.childCount > rightChildCount) {
+            rightChildCount = holder.ll_right_down.childCount
+        }
+
+
+        var leftChildCount = 0
+        leftChildCount = holder.ll_left_center.childCount
+        if (holder.ll_left_down.childCount > leftChildCount) {
+            leftChildCount = holder.ll_left_down.childCount
+        }
+        if (holder.ll_left_top.childCount > maxSize) {
+            leftChildCount = holder.ll_left_top.childCount
+        }
+
+        if (leftChildCount > rightChildCount) {
+            for (i in 1..(leftChildCount - rightChildCount)) {
+                var vv = ImageView(mContext)
+                vv.setImageResource(R.drawable.bg_transparent_5)
+                holder.ll_right.addView(vv)
+            }
+        } else if (rightChildCount > leftChildCount) {
+            for (i in 1..(rightChildCount - leftChildCount)) {
+                var vv = ImageView(mContext)
+                vv.setImageResource(R.drawable.bg_transparent_5)
+                holder.ll_left_center.addView(vv)
+            }
+        }
+         isAdded = false//是否加载了，加载一次就跳出，减少循环次数
         for (key in yanyinSet.keys) {
             //            LogUtils.e("key:" + key + "----value:" + yanyinSet.get(key));
             //            System.out.println("Key = " + key);
-
 
             if (position == key) {
 
@@ -655,7 +685,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             for (key in yanyinSetWithNum.keys) {
                 //            LogUtils.e("key:" + key + "----value:" + yanyinSet.get(key));
                 //            System.out.println("Key = " + key);
-                var isAdded1 = false//是否加载了，加载一次就跳出，减少循环次数
+                 isAdded1 = false//是否加载了，加载一次就跳出，减少循环次数
 
                 if (position == key) {
 
@@ -799,35 +829,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
 //
 
 
-        var rightChildCount = 0
-        rightChildCount = holder.ll_right.childCount
-        if (holder.ll_right_down.childCount > rightChildCount) {
-            rightChildCount = holder.ll_right_down.childCount
-        }
 
-
-        var leftChildCount = 0
-        leftChildCount = holder.ll_left_center.childCount
-        if (holder.ll_left_down.childCount > leftChildCount) {
-            leftChildCount = holder.ll_left_down.childCount
-        }
-        if (holder.ll_left_top.childCount > maxSize) {
-            leftChildCount = holder.ll_left_top.childCount
-        }
-
-        if (leftChildCount > rightChildCount) {
-            for (i in 1..(leftChildCount - rightChildCount)) {
-                var vv = ImageView(mContext)
-                vv.setImageResource(R.drawable.bg_transparent_5)
-                holder.ll_right.addView(vv)
-            }
-        } else if (rightChildCount > leftChildCount) {
-            for (i in 1..(rightChildCount - leftChildCount)) {
-                var vv = ImageView(mContext)
-                vv.setImageResource(R.drawable.bg_transparent_5)
-                holder.ll_left_center.addView(vv)
-            }
-        }
 
 
         if (isSelected) {
