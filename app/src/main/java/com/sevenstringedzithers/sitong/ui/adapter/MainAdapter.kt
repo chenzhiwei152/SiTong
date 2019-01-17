@@ -7,10 +7,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.jyall.android.common.utils.ImageLoadedrManager
 import com.jyall.android.common.utils.LogUtils
@@ -38,8 +35,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
     private val yanyinSetWithNum = TreeMap<Int, Int>()
     private var list: ArrayList<MusicDetailBean.Score>? = null
     private var isScrolling = false
-    var isAdded=false
-    var isAdded1=false
+    var isAdded = false
+    var isAdded1 = false
     private var value = 12f
 
     private var mLinesMap = hashMapOf<Int, Array<Int>>()
@@ -162,8 +159,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
 //                    var imge = ImageView(mContext)
 //                    ImageLoadedrManager.getInstance().displayNoDefult(mContext, list!![cachePositoin].jianzipu, imge)
 //                    ImageLoadedrManager.getInstance().displayNoDefult(mContext, list!![cachePositoin].jianzipu, iv_shoushi)
-                    iv_shoushi_selected?.visibility=View.GONE
-                    iv_shoushi?.visibility=View.VISIBLE
+                    iv_shoushi_selected?.visibility = View.GONE
+                    iv_shoushi?.visibility = View.VISIBLE
 //                    iv_image?.addView(imge)
                 } else {
 //                iv_image?.setImageResource(R.drawable.bg_transparent)
@@ -223,8 +220,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
 //            }
 //            var imge = ImageView(mContext)
 //            ImageLoadedrManager.getInstance().displayNoDefult(mContext, url, iv_shoushi)
-            iv_shoushi_selected?.visibility=View.VISIBLE
-            iv_shoushi?.visibility=View.GONE
+            iv_shoushi_selected?.visibility = View.VISIBLE
+            iv_shoushi?.visibility = View.GONE
 //            iv_image?.addView(imge)
         } else {
 //            jianzipu?.setImageResource(R.drawable.bg_transparent)
@@ -282,11 +279,11 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             var url = list!![position].jianzipu
             url = url.replace("normal", "highlight")
             if (mPlayPosition == position) {
-                holder.iv_shoushi.visibility=View.GONE
-                holder.iv_shoushi_selected.visibility=View.VISIBLE
-            }else{
-                holder.iv_shoushi.visibility=View.VISIBLE
-                holder.iv_shoushi_selected.visibility=View.GONE
+                holder.iv_shoushi.visibility = View.GONE
+                holder.iv_shoushi_selected.visibility = View.VISIBLE
+            } else {
+                holder.iv_shoushi.visibility = View.VISIBLE
+                holder.iv_shoushi_selected.visibility = View.GONE
 
             }
 //            var imge = ImageView(mContext)
@@ -590,102 +587,154 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                 holder.ll_left_center.addView(vv)
             }
         }
-         isAdded = false//是否加载了，加载一次就跳出，减少循环次数
-        for (key in yanyinSet.keys) {
-            //            LogUtils.e("key:" + key + "----value:" + yanyinSet.get(key));
-            //            System.out.println("Key = " + key);
-
-            if (position == key) {
-
-                val params = holder.ll_limit_left.layoutParams as LinearLayout.LayoutParams
-                params.width = UIUtil.dip2px(mContext, value)
-                holder.ll_limit_left.layoutParams = params
-                val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
-                params1.width = UIUtil.dip2px(mContext, value)
-                holder.ll_limit_top.layoutParams = params1
-                val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
-                params2.width = UIUtil.dip2px(mContext, value)
-                holder.ll_limit_right.layoutParams = params2
-
-                val imageView2 = ImageView(mContext)
-                imageView2.setImageResource(R.drawable.bg_transparent_5)
-                holder.ll_limit_left.addView(imageView2)
-
-
-                val imageView = ImageView(mContext)
-                //                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                imageView.setBackgroundResource(R.mipmap.ic_oval_left_small)
-                holder.ll_limit_top.addView(imageView)
-
-
-                val imageView1 = ImageView(mContext)
-                //                imageView1.setScaleType(ImageView.ScaleType.FIT_XY);
-                imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
-                holder.ll_limit_right.addView(imageView1)
-                isAdded = true
-                break
-            } else if (position == key + yanyinSet[key]!! - 1) {
-                val params = holder.ll_limit_left.layoutParams as LinearLayout.LayoutParams
-                params.width = UIUtil.dip2px(mContext, value)
-                holder.ll_limit_left.layoutParams = params
-                val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
-                params1.width = UIUtil.dip2px(mContext, value)
-                holder.ll_limit_top.layoutParams = params1
-                val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
-                params2.width = UIUtil.dip2px(mContext, value)
-                holder.ll_limit_right.layoutParams = params2
-
-                val imageView1 = ImageView(mContext)
-                imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
-                holder.ll_limit_left.addView(imageView1)
-
-                val imageView = ImageView(mContext)
-                imageView.setBackgroundResource(R.mipmap.ic_oval_right_small)
-                holder.ll_limit_top.addView(imageView)
-
-                val imageView2 = ImageView(mContext)
-                imageView2.setBackgroundResource(R.drawable.bg_transparent_5)
-                holder.ll_limit_right.addView(imageView2)
-
-                isAdded = true
-                break
-            } else if (position > key && position < key + yanyinSet[key]!! - 1) {
-
-                //
-                val params = holder.ll_limit_left.layoutParams as LinearLayout.LayoutParams
-                params.width = UIUtil.dip2px(mContext, value)
-                holder.ll_limit_left.layoutParams = params
-                val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
-                params1.width = UIUtil.dip2px(mContext, value)
-                holder.ll_limit_top.layoutParams = params1
-                val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
-                params2.width = UIUtil.dip2px(mContext, value)
-                holder.ll_limit_right.layoutParams = params2
-
-
-                val imageView1 = ImageView(mContext)
-                imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
-                holder.ll_limit_left.addView(imageView1)
-
-                val imageView = ImageView(mContext)
-                imageView.setBackgroundResource(R.mipmap.ic_oval_middle_small)
-                holder.ll_limit_top.addView(imageView)
-
-                val imageView2 = ImageView(mContext)
-                imageView2.setBackgroundResource(R.mipmap.ic_oval_middle_small)
-                holder.ll_limit_right.addView(imageView2)
-                isAdded = true
-                break
+//是否是首位一起的
+        var isPreAlign = false
+        var isNextAlign = false
+        if (yanyinSet.size > 1) {
+            for (key in yanyinSet.keys) {
+                if (position == key + yanyinSet[key]!! - 1) {
+                    isPreAlign = true
+                }
+                if (position == key) {
+                    isNextAlign = true
+                }
             }
-            if (isAdded) {
-                break
+        }
+
+        isAdded = false//是否加载了，加载一次就跳出，减少循环次数
+
+        if (isPreAlign && isNextAlign) {
+//            首尾在一个位置上面的
+            val params = holder.ll_limit_left.layoutParams as LinearLayout.LayoutParams
+            params.width = UIUtil.dip2px(mContext, value)
+            holder.ll_limit_left.layoutParams = params
+            val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
+            params1.width = UIUtil.dip2px(mContext, value)
+            holder.ll_limit_top.layoutParams = params1
+            val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
+            params2.width = UIUtil.dip2px(mContext, value)
+            holder.ll_limit_right.layoutParams = params2
+
+            val imageView2 = ImageView(mContext)
+            imageView2.setImageResource(R.mipmap.ic_oval_right_small)
+            holder.ll_limit_left.addView(imageView2)
+            val param3=imageView2.layoutParams as RelativeLayout.LayoutParams
+            param3.topMargin=-3
+            imageView2.layoutParams=param3
+
+            val imageView = ImageView(mContext)
+            imageView.setBackgroundResource(R.drawable.bg_transparent_5)
+            holder.ll_limit_top.addView(imageView)
+
+
+            val imageView1 = ImageView(mContext)
+            imageView1.setBackgroundResource(R.mipmap.ic_oval_left_small)
+            holder.ll_limit_right.addView(imageView1)
+            isAdded = true
+        } else {
+            for (key in yanyinSet.keys) {
+                //            LogUtils.e("key:" + key + "----value:" + yanyinSet.get(key));
+                //            System.out.println("Key = " + key);
+
+                if (position == key) {
+
+                    val params = holder.ll_limit_left.layoutParams as LinearLayout.LayoutParams
+                    params.width = UIUtil.dip2px(mContext, value)
+                    holder.ll_limit_left.layoutParams = params
+                    val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
+                    params1.width = UIUtil.dip2px(mContext, value)
+                    holder.ll_limit_top.layoutParams = params1
+                    val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
+                    params2.width = UIUtil.dip2px(mContext, value)
+                    holder.ll_limit_right.layoutParams = params2
+
+                    val imageView2 = ImageView(mContext)
+                    imageView2.setImageResource(R.drawable.bg_transparent_5)
+                    holder.ll_limit_left.addView(imageView2)
+
+
+                    val imageView = ImageView(mContext)
+                    //                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    imageView.setBackgroundResource(R.mipmap.ic_oval_left_small)
+                    holder.ll_limit_top.addView(imageView)
+
+
+                    val imageView1 = ImageView(mContext)
+                    //                imageView1.setScaleType(ImageView.ScaleType.FIT_XY);
+                    imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
+                    holder.ll_limit_right.addView(imageView1)
+                    isAdded = true
+//                break
+                }
+                if (position == key + yanyinSet[key]!! - 1) {
+                    if (!isAdded) {
+                        val params = holder.ll_limit_left.layoutParams as LinearLayout.LayoutParams
+                        params.width = UIUtil.dip2px(mContext, value)
+                        holder.ll_limit_left.layoutParams = params
+                        val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
+                        params1.width = UIUtil.dip2px(mContext, value)
+                        holder.ll_limit_top.layoutParams = params1
+                        val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
+                        params2.width = UIUtil.dip2px(mContext, value)
+                        holder.ll_limit_right.layoutParams = params2
+                    }
+
+                    val imageView1 = ImageView(mContext)
+                    imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
+                    holder.ll_limit_left.addView(imageView1)
+
+                    val imageView = ImageView(mContext)
+                    imageView.setBackgroundResource(R.mipmap.ic_oval_right_small)
+                    holder.ll_limit_top.addView(imageView)
+
+                    val imageView2 = ImageView(mContext)
+                    imageView2.setBackgroundResource(R.drawable.bg_transparent_5)
+                    holder.ll_limit_right.addView(imageView2)
+
+                    isAdded = true
+//                break
+                }
+                if (position > key && position < key + yanyinSet[key]!! - 1) {
+
+                    //
+                    if (!isAdded) {
+                        val params = holder.ll_limit_left.layoutParams as LinearLayout.LayoutParams
+                        params.width = UIUtil.dip2px(mContext, value)
+                        holder.ll_limit_left.layoutParams = params
+                        val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
+                        params1.width = UIUtil.dip2px(mContext, value)
+                        holder.ll_limit_top.layoutParams = params1
+                        val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
+                        params2.width = UIUtil.dip2px(mContext, value)
+                        holder.ll_limit_right.layoutParams = params2
+                    }
+
+
+                    val imageView1 = ImageView(mContext)
+                    imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
+                    holder.ll_limit_left.addView(imageView1)
+
+                    val imageView = ImageView(mContext)
+                    imageView.setBackgroundResource(R.mipmap.ic_oval_middle_small)
+                    holder.ll_limit_top.addView(imageView)
+
+                    val imageView2 = ImageView(mContext)
+                    imageView2.setBackgroundResource(R.mipmap.ic_oval_middle_small)
+                    holder.ll_limit_right.addView(imageView2)
+                    isAdded = true
+//                break
+                }
+//            if (isAdded) {
+//                break
+//            }
             }
+
         }
         if (!isAdded) {
             for (key in yanyinSetWithNum.keys) {
                 //            LogUtils.e("key:" + key + "----value:" + yanyinSet.get(key));
                 //            System.out.println("Key = " + key);
-                 isAdded1 = false//是否加载了，加载一次就跳出，减少循环次数
+                isAdded1 = false//是否加载了，加载一次就跳出，减少循环次数
 
                 if (position == key) {
 
@@ -829,9 +878,6 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
 //
 
 
-
-
-
         if (isSelected) {
             holder.fl_foreground.foreground = mContext.resources.getDrawable(R.drawable.bg_99d0a670)
         } else {
@@ -927,13 +973,13 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         val ll_center: LinearLayout
         val ll_center_dowm: LinearLayout
         val ll_center_top: LinearLayout
-        val ll_limit_top: LinearLayout
+        val ll_limit_top: RelativeLayout
         val ll_left_center: LinearLayout
         val ll_left_down: LinearLayout
         val ll_right: LinearLayout
         val ll_right_down: LinearLayout
-        val ll_limit_left: LinearLayout
-        val ll_limit_right: LinearLayout
+        val ll_limit_left: RelativeLayout
+        val ll_limit_right: RelativeLayout
         val ll_right_content: LinearLayout
         val ll_left_content: LinearLayout
         val ll_center_content: LinearLayout

@@ -46,13 +46,11 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:id="@+id/ll_limit_left"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_10"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:orientation="horizontal" />
+                            android:orientation="vertical" />
 
                         <LinearLayout
                             android:id="@+id/ll_left_top"
@@ -63,7 +61,7 @@
                         <LinearLayout
                             android:id="@+id/ll_left_center"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/dp_18"
+                            android:layout_height="@dimen/dp_20"
                             android:orientation="horizontal" />
 
                         <LinearLayout
@@ -80,12 +78,11 @@
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:id="@+id/ll_limit_top"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_10"
-                            android:gravity="center"
-                            android:orientation="horizontal" />
+                            android:orientation="vertical" />
 
                         <LinearLayout
                             android:id="@+id/ll_center_top"
@@ -96,7 +93,7 @@
                         <LinearLayout
                             android:id="@+id/ll_center"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/dp_18"
+                            android:layout_height="@dimen/dp_20"
                             android:gravity="center"
                             android:orientation="vertical" />
 
@@ -116,12 +113,11 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:id="@+id/ll_limit_right"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_10"
-                            android:gravity="center"
-                            android:orientation="horizontal" />
+                            android:orientation="vertical" />
 
                         <LinearLayout
                             android:id="@+id/ll_right_top"
@@ -132,7 +128,7 @@
                         <LinearLayout
                             android:id="@+id/ll_right"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/dp_18"
+                            android:layout_height="@dimen/dp_20"
                             android:gravity="center_vertical"
                             android:orientation="horizontal" />
 
