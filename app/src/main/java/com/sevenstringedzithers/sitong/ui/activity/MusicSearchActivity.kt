@@ -11,6 +11,7 @@ import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.ui.adapter.SearchFragmentAdapter
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.utils.TypefaceUtil
 import kotlinx.android.synthetic.main.activity_search.*
 import org.greenrobot.eventbus.EventBus
 
@@ -33,7 +34,9 @@ class MusicSearchActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
     override fun getLayoutId(): Int = R.layout.activity_search
 
     override fun initViewsAndEvents() {
-
+        val typeface1 = TypefaceUtil.createagaTypeface(this)
+        ct_layout.setCollapsedTitleTypeface(typeface1)
+        ct_layout.setExpandedTitleTypeface(typeface1)
         tabsTitle.add(resources.getString(R.string.qin_hall))
         tabsTitle.add(resources.getString(R.string.video))
         tabsTitle.add(resources.getString(R.string.article))

@@ -2,7 +2,6 @@ package com.sevenstringedzithers.sitong.ui.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Typeface
 import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -29,6 +28,7 @@ import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo
 import com.sevenstringedzithers.sitong.mvp.persenter.MinePresenter
 import com.sevenstringedzithers.sitong.ui.adapter.ExerciseRecordTimeListAdapter
 import com.sevenstringedzithers.sitong.ui.listerner.ProgressCallback
+import com.sevenstringedzithers.sitong.utils.TypefaceUtil
 import com.sevenstringedzithers.sitong.utils.UploadImageUtils
 import com.sevenstringedzithers.sitong.view.DailyPunchDialog
 import com.sevenstringedzithers.sitong.view.ImageDialog
@@ -169,7 +169,7 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
     override fun getLayoutId(): Int = R.layout.fragment_mine
 
     override fun initViewsAndEvents() {
-        val typeface1 = Typeface.createFromAsset(assets, "fonts/agaramondproregular.otf")
+        val typeface1 = TypefaceUtil.createagaTypeface(this)
         tv_rank.setTypeface(typeface1)
         tv_rank_title.setTypeface(typeface1)
         tv_rank_title_en.setTypeface(typeface1)

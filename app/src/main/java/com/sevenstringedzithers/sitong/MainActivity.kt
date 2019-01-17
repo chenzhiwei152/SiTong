@@ -27,6 +27,7 @@ import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
 import com.sevenstringedzithers.sitong.ui.listerner.ResultCallback
 import com.sevenstringedzithers.sitong.utils.CollectionUtils
 import com.sevenstringedzithers.sitong.utils.DownUtils.permission.JsPermissionUtils
+import com.sevenstringedzithers.sitong.utils.TypefaceUtil
 import com.sevenstringedzithers.sitong.view.MusicDialog
 import com.sevenstringedzithers.sitong.view.MusicPayDialog
 import kotlinx.android.synthetic.main.activity_main.*
@@ -79,6 +80,9 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
             JsPermissionUtils.getInstance().requestPermission(this, 100, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
         }
         setSupportActionBar(toolbar)
+        val typeface1 = TypefaceUtil.createagaTypeface(this)
+        ct_layout.setCollapsedTitleTypeface(typeface1)
+        ct_layout.setExpandedTitleTypeface(typeface1)
         iv_menu.setOnClickListener {
             jump<MenuActivity>(isAnimation = false)
         }

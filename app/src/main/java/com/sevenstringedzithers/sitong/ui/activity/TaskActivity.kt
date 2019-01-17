@@ -28,6 +28,12 @@ class TaskActivity : BaseActivity<TaskContract.View, TaskPresenter>(), TaskContr
         rv_list.adapter = mAdapter
         if (intent?.extras != null) {
             mPresenter?.getTasks(intent.extras.getString("type"))
+            when(intent.extras.getString("type")){
+                "0"->tv_title.text = "日常任务"
+                "1"->tv_title.text = "临时任务"
+                "2"->tv_title.text = "长期任务"
+                "3"->tv_title.text = "特殊任务"
+            }
         }
     }
 
@@ -44,7 +50,7 @@ class TaskActivity : BaseActivity<TaskContract.View, TaskPresenter>(), TaskContr
 
     private fun initTitle() {
         iv_back.setOnClickListener { finish() }
-        tv_title.setText("任务")
+        tv_title.text = "任务"
         iv_menu.visibility=View.GONE
     }
 

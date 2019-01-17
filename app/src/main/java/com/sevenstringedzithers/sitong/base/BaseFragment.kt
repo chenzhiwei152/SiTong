@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.jyall.multiplestatusview.EmptyLayout
 import com.sevenstringedzithers.sitong.utils.EmptyLayoutEnum
 import com.sevenstringedzithers.sitong.utils.StatusBarUtil
+import com.sevenstringedzithers.sitong.utils.TypefaceUtil
 import com.sevenstringedzithers.sitong.view.CustomProgressDialog
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -74,6 +75,7 @@ abstract class BaseFragment<T : IBaseView, K : BasePresenter<T>> : Fragment(), I
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        TypefaceUtil.replaceFont(requireActivity(), "fonts/agaramondproregular.otf")
         isViewPrepare = true
         mPresenter = getPresenter()
         mPresenter?.attachView(getRootView())

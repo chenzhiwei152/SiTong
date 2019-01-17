@@ -7,6 +7,7 @@ import android.view.View
 import com.jyall.multiplestatusview.EmptyLayout
 import com.sevenstringedzithers.sitong.utils.EmptyLayoutEnum
 import com.sevenstringedzithers.sitong.utils.StatusBarUtil
+import com.sevenstringedzithers.sitong.utils.TypefaceUtil
 import com.sevenstringedzithers.sitong.view.CustomProgressDialog
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -32,6 +33,7 @@ abstract class BaseActivity<T : IBaseView, K : BasePresenter<T>> : AppCompatActi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
+        TypefaceUtil.replaceFont(this, "fonts/agaramondproregular.otf")
         mPresenter = getPresenter()
 //        ActivityStackManager.getInstance().addActivity(this)
 
@@ -39,7 +41,7 @@ abstract class BaseActivity<T : IBaseView, K : BasePresenter<T>> : AppCompatActi
         if (isRegistEventBus()) EventBus.getDefault().register(this)
         if (null != isNeedLec()) intEmptyLayout()
         initViewsAndEvents()
-//        JPushHelper.getRegisterationID()
+//        JPushHelper.getRegisterationID()h
     }
 
     fun statusBarDark() {

@@ -8,6 +8,7 @@ import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.utils.TypefaceUtil
 import kotlinx.android.synthetic.main.activity_about.*
 import org.greenrobot.eventbus.EventBus
 
@@ -22,6 +23,9 @@ class AboutActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBase
         iv_menu.setOnClickListener {
             jump<MenuActivity>(isAnimation = false)
         }
+        val typeface1 = TypefaceUtil.createagaTypeface(this)
+        ct_layout.setCollapsedTitleTypeface(typeface1)
+        ct_layout.setExpandedTitleTypeface(typeface1)
         EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.MINE_FINISH))
         EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.SEARCH_FINISH))
     }

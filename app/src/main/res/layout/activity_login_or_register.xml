@@ -50,9 +50,11 @@
         <TextView
             android:id="@+id/tv_login"
             style="@style/textStyle_20232b_20"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:ems="1"
+            android:lineSpacingExtra="@dimen/dp_5"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/login" />
@@ -67,9 +69,11 @@
         <TextView
             android:id="@+id/tv_register"
             style="@style/textStyle_20232b_20"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:lineSpacingExtra="@dimen/dp_5"
+            android:ems="1"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/register" />
