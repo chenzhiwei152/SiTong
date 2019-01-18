@@ -785,8 +785,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                             v.textSize = UIUtil.sp2px(mContext, 3f).toFloat()
                             v.text = yanyinSetWithNum[key].toString() + ""
                             holder.ll_limit_left.addView(v)
-                            val params3 = v.layoutParams as LinearLayout.LayoutParams
-                            params3.topMargin = -UIUtil.dip2px(mContext, 3.5f)
+                            val params3 = v.layoutParams as RelativeLayout.LayoutParams
+                            params3.topMargin = -UIUtil.dip2px(mContext, 3.0f)
                             v.layoutParams = params3
                         }
                     } else {
@@ -832,8 +832,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                             v.text = yanyinSetWithNum[key].toString() + ""
                             holder.ll_limit_left.addView(v)
                             holder.ll_limit_left.gravity = Gravity.RIGHT
-                            val params3 = v.layoutParams as LinearLayout.LayoutParams
-                            params3.topMargin = -UIUtil.dip2px(mContext, 3.5f)
+                            val params3 = v.layoutParams as RelativeLayout.LayoutParams
+                            params3.topMargin = -UIUtil.dip2px(mContext, 3.0f)
                             v.layoutParams = params3
                             isLeftHasNum = true
                         }
@@ -845,8 +845,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                             v.textSize = UIUtil.sp2px(mContext, 3f).toFloat()
                             v.text = yanyinSetWithNum[key].toString() + ""
                             holder.ll_limit_top.addView(v)
-                            val params3 = v.layoutParams as LinearLayout.LayoutParams
-                            params3.topMargin = -UIUtil.dip2px(mContext, 3.5f)
+                            val params3 = v.layoutParams as RelativeLayout.LayoutParams
+                            params3.topMargin = -UIUtil.dip2px(mContext, 3.0f)
                             v.layoutParams = params3
                             isCenterHasNum = true
                         }
