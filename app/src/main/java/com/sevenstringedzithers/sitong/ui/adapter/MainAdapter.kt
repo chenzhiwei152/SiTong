@@ -13,7 +13,6 @@ import com.jyall.android.common.utils.ImageLoadedrManager
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.UIUtil
 import com.sevenstringedzithers.sitong.R
-import com.sevenstringedzithers.sitong.R.attr.maxSize
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicDetailBean
 import com.sevenstringedzithers.sitong.utils.ImageUtils
 import com.sevenstringedzithers.sitong.view.dragselectrecyclerview.DragSelectRecyclerView
@@ -38,6 +37,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
     var isAdded = false
     var isAdded1 = false
     private var value = 12f
+    private var value1 = 18
 
     private var mLinesMap = hashMapOf<Int, Array<Int>>()
 
@@ -272,8 +272,12 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         holder.ll_limit_right.removeAllViews()
         holder.ll_limit_left.removeAllViews()
         holder.ll_left_top.removeAllViews()
-//        holder.iv_image.removeAllViews()
-        //        最下面的图片
+
+        value1 = UIUtil.dip2px(mContext, value)
+        if (list!![position].jianziwidth > 14) {
+            value1 = (list!![position].jianziwidth * 2.2).toInt()
+        }
+//        最下面的图片
         if (!isScrolling && !TextUtils.isEmpty(list!![position].jianzipu)) {
 
             var url = list!![position].jianzipu
@@ -292,8 +296,10 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             ImageLoadedrManager.getInstance().displayNoDefult(mContext, url, holder.iv_shoushi_selected)
 //            holder.iv_image.addView(imge)
 
+        } else {
+            holder.iv_shoushi.visibility = View.GONE
+            holder.iv_shoushi_selected.visibility = View.GONE
         }
-
         if (list!![position].numbered_music == "-1" || list!![position].numbered_music == "8") {
             val textview = TextView(mContext)
             textview.text = ""
@@ -463,11 +469,16 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
 
                             if (hasLineNext!!) {
                                 v1 = ImageView(mContext)
-                                v1.setImageResource(R.drawable.line_black_10)
+//                                v1.setImageResource(R.drawable.line_black_10)
+                                v1.setBackgroundColor(mContext.resources.getColor(R.color.color_000000))
                                 holder.ll_right_down.addView(v1)
+//                                var para=v1.layoutParams as LinearLayout.LayoutParams
+//                                para.width=list!![position].jianziwidth.toInt()*2
+//                                v1.layoutParams=para
                                 val params1 = v1.layoutParams as LinearLayout.LayoutParams
                                 params1.topMargin = UIUtil.dip2px(mContext, 2f)
                                 params1.width = UIUtil.dip2px(mContext, value)
+                                params1.height = UIUtil.dip2px(mContext, 1f)
                                 v1.layoutParams = params1
                             }
 
@@ -487,21 +498,40 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                             }
 
                             if (hasLinePre!!) {
+                                var leftCount=0
+                                for (i in 0 until list!![position].symbol.size){
+//                                    list!![position].symbol[i].namecode==-1||list!![position].symbol[i].namecode==8||
+                                    if (list!![position].symbol[i].namecode==9||list!![position].symbol[i].namecode==11||list!![position].symbol[i].namecode==12){
+                                        leftCount++
+                                    }
+                                }
+                                if (leftCount==0)leftCount++
                                 v2 = ImageView(mContext)
-                                v2.setImageResource(R.drawable.line_black_10)
+//                                v2.setImageResource(R.drawable.line_black_10)
+                                v2.setBackgroundColor(mContext.resources.getColor(R.color.color_000000))
                                 holder.ll_left_down.addView(v2)
+//                                var para=v2.layoutParams as LinearLayout.LayoutParams
+//                                para.width=list!![position].jianziwidth.toInt()*2
+//                                v2.layoutParams=para
                                 val params1 = v2.layoutParams as LinearLayout.LayoutParams
                                 params1.topMargin = UIUtil.dip2px(mContext, 2f)
-                                params1.width = UIUtil.dip2px(mContext, value)
+                                params1.width = UIUtil.dip2px(mContext, value*leftCount)
+                                params1.height = UIUtil.dip2px(mContext, 1f)
                                 v2.layoutParams = params1
                             }
 
                             val v = ImageView(mContext)
-                            v.setImageResource(R.drawable.line_black_10)
+//                            v.setImageResource(R.drawable.line_black_10)
+                            v.setBackgroundColor(mContext.resources.getColor(R.color.color_000000))
                             holder.ll_center_dowm.addView(v)
+//                            var para=v.layoutParams as LinearLayout.LayoutParams
+//                            para.width=list!![position].jianziwidth.toInt()*2
+//                            v.layoutParams=para
                             val params = v.layoutParams as LinearLayout.LayoutParams
                             params.topMargin = UIUtil.dip2px(mContext, 2f)
-                            params.width = UIUtil.dip2px(mContext, value)
+//                            params.width = UIUtil.dip2px(mContext, value)
+                            params.width = value1
+                            params.height = UIUtil.dip2px(mContext, 1f)
                             v.layoutParams = params
                         }
                         8 -> {
@@ -558,35 +588,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             //                    右下
             //                    左下
         }
-        var rightChildCount = 0
-        rightChildCount = holder.ll_right.childCount
-        if (holder.ll_right_down.childCount > rightChildCount) {
-            rightChildCount = holder.ll_right_down.childCount
-        }
 
 
-        var leftChildCount = 0
-        leftChildCount = holder.ll_left_center.childCount
-        if (holder.ll_left_down.childCount > leftChildCount) {
-            leftChildCount = holder.ll_left_down.childCount
-        }
-        if (holder.ll_left_top.childCount > maxSize) {
-            leftChildCount = holder.ll_left_top.childCount
-        }
-
-        if (leftChildCount > rightChildCount) {
-            for (i in 1..(leftChildCount - rightChildCount)) {
-                var vv = ImageView(mContext)
-                vv.setImageResource(R.drawable.bg_transparent_5)
-                holder.ll_right.addView(vv)
-            }
-        } else if (rightChildCount > leftChildCount) {
-            for (i in 1..(rightChildCount - leftChildCount)) {
-                var vv = ImageView(mContext)
-                vv.setImageResource(R.drawable.bg_transparent_5)
-                holder.ll_left_center.addView(vv)
-            }
-        }
 //是否是首位一起的
         var isPreAlign = false
         var isNextAlign = false
@@ -609,7 +612,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             params.width = UIUtil.dip2px(mContext, value)
             holder.ll_limit_left.layoutParams = params
             val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
-            params1.width = UIUtil.dip2px(mContext, value)
+            params1.width = value1
             holder.ll_limit_top.layoutParams = params1
             val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
             params2.width = UIUtil.dip2px(mContext, value)
@@ -618,9 +621,9 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             val imageView2 = ImageView(mContext)
             imageView2.setImageResource(R.mipmap.ic_oval_right_small)
             holder.ll_limit_left.addView(imageView2)
-            val param3=imageView2.layoutParams as RelativeLayout.LayoutParams
-            param3.topMargin=-3
-            imageView2.layoutParams=param3
+            val param3 = imageView2.layoutParams as RelativeLayout.LayoutParams
+            param3.topMargin = -3
+            imageView2.layoutParams = param3
 
             val imageView = ImageView(mContext)
             imageView.setBackgroundResource(R.drawable.bg_transparent_5)
@@ -642,7 +645,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                     params.width = UIUtil.dip2px(mContext, value)
                     holder.ll_limit_left.layoutParams = params
                     val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
-                    params1.width = UIUtil.dip2px(mContext, value)
+                    params1.width = value1
                     holder.ll_limit_top.layoutParams = params1
                     val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
                     params2.width = UIUtil.dip2px(mContext, value)
@@ -653,16 +656,19 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                     holder.ll_limit_left.addView(imageView2)
 
 
-                    val imageView = ImageView(mContext)
+                    var imageView = ImageView(mContext)
                     //                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     imageView.setBackgroundResource(R.mipmap.ic_oval_left_small)
                     holder.ll_limit_top.addView(imageView)
-
+                    var param = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView.layoutParams = param
 
                     val imageView1 = ImageView(mContext)
                     //                imageView1.setScaleType(ImageView.ScaleType.FIT_XY);
                     imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
                     holder.ll_limit_right.addView(imageView1)
+                    var param1 = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView.layoutParams = param1
                     isAdded = true
 //                break
                 }
@@ -672,7 +678,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                         params.width = UIUtil.dip2px(mContext, value)
                         holder.ll_limit_left.layoutParams = params
                         val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
-                        params1.width = UIUtil.dip2px(mContext, value)
+                        params1.width = value1
                         holder.ll_limit_top.layoutParams = params1
                         val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
                         params2.width = UIUtil.dip2px(mContext, value)
@@ -682,14 +688,20 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                     val imageView1 = ImageView(mContext)
                     imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
                     holder.ll_limit_left.addView(imageView1)
+                    var param = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView1.layoutParams = param
 
                     val imageView = ImageView(mContext)
                     imageView.setBackgroundResource(R.mipmap.ic_oval_right_small)
                     holder.ll_limit_top.addView(imageView)
+                    var param1 = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView.layoutParams = param1
 
                     val imageView2 = ImageView(mContext)
                     imageView2.setBackgroundResource(R.drawable.bg_transparent_5)
                     holder.ll_limit_right.addView(imageView2)
+                    var param2 = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView2.layoutParams = param2
 
                     isAdded = true
 //                break
@@ -702,7 +714,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                         params.width = UIUtil.dip2px(mContext, value)
                         holder.ll_limit_left.layoutParams = params
                         val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
-                        params1.width = UIUtil.dip2px(mContext, value)
+                        params1.width = value1
                         holder.ll_limit_top.layoutParams = params1
                         val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
                         params2.width = UIUtil.dip2px(mContext, value)
@@ -713,14 +725,20 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                     val imageView1 = ImageView(mContext)
                     imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
                     holder.ll_limit_left.addView(imageView1)
+                    var param = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView1.layoutParams = param
 
                     val imageView = ImageView(mContext)
                     imageView.setBackgroundResource(R.mipmap.ic_oval_middle_small)
                     holder.ll_limit_top.addView(imageView)
+                    var param1 = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView.layoutParams = param1
 
                     val imageView2 = ImageView(mContext)
                     imageView2.setBackgroundResource(R.mipmap.ic_oval_middle_small)
                     holder.ll_limit_right.addView(imageView2)
+                    var param2 = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView2.layoutParams = param2
                     isAdded = true
 //                break
                 }
@@ -742,7 +760,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                     params.width = UIUtil.dip2px(mContext, value)
                     holder.ll_limit_left.layoutParams = params
                     val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
-                    params1.width = UIUtil.dip2px(mContext, value)
+                    params1.width = value1
                     holder.ll_limit_top.layoutParams = params1
                     val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
                     params2.width = UIUtil.dip2px(mContext, value)
@@ -757,12 +775,15 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                     //                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     imageView.setBackgroundResource(R.mipmap.ic_oval_left_small)
                     holder.ll_limit_top.addView(imageView)
-
+                    var param = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView.layoutParams = param
 
                     val imageView1 = ImageView(mContext)
                     //                imageView1.setScaleType(ImageView.ScaleType.FIT_XY);
                     imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
                     holder.ll_limit_right.addView(imageView1)
+                    var param1 = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView1.layoutParams = param1
                     isAdded1 = true
                     break
                 } else if (position == key + yanyinSetWithNum[key]!! - 1) {
@@ -770,7 +791,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                     params.width = UIUtil.dip2px(mContext, value)
                     holder.ll_limit_left.layoutParams = params
                     val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
-                    params1.width = UIUtil.dip2px(mContext, value)
+                    params1.width = value1
                     holder.ll_limit_top.layoutParams = params1
                     val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
                     params2.width = UIUtil.dip2px(mContext, value)
@@ -796,10 +817,14 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                     val imageView1 = ImageView(mContext)
                     imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
                     holder.ll_limit_left.addView(imageView1)
+                    var param = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView1.layoutParams = param
 
                     val imageView = ImageView(mContext)
                     imageView.setBackgroundResource(R.mipmap.ic_oval_right_small)
                     holder.ll_limit_top.addView(imageView)
+                    var param1 = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView.layoutParams = param1
 
                     val imageView2 = ImageView(mContext)
                     imageView2.setBackgroundResource(R.drawable.bg_transparent_5)
@@ -814,7 +839,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                     params.width = UIUtil.dip2px(mContext, value)
                     holder.ll_limit_left.layoutParams = params
                     val params1 = holder.ll_limit_top.layoutParams as LinearLayout.LayoutParams
-                    params1.width = UIUtil.dip2px(mContext, value)
+                    params1.width = value1
                     holder.ll_limit_top.layoutParams = params1
                     val params2 = holder.ll_limit_right.layoutParams as LinearLayout.LayoutParams
                     params2.width = UIUtil.dip2px(mContext, value)
@@ -856,17 +881,23 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                         val imageView1 = ImageView(mContext)
                         imageView1.setBackgroundResource(R.mipmap.ic_oval_middle_small)
                         holder.ll_limit_left.addView(imageView1)
+                        var param = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                        imageView1.layoutParams = param
                     }
 
                     if (!isCenterHasNum) {
                         val imageView = ImageView(mContext)
                         imageView.setBackgroundResource(R.mipmap.ic_oval_middle_small)
                         holder.ll_limit_top.addView(imageView)
+                        var param = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                        imageView.layoutParams = param
                     }
 
                     val imageView2 = ImageView(mContext)
                     imageView2.setBackgroundResource(R.mipmap.ic_oval_middle_small)
                     holder.ll_limit_right.addView(imageView2)
+                    var param = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                    imageView2.layoutParams = param
                     isAdded1 = true
                     break
                 }
@@ -877,7 +908,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         }
 //
 
-
+//前景色
         if (isSelected) {
             holder.fl_foreground.foreground = mContext.resources.getDrawable(R.drawable.bg_99d0a670)
         } else {
@@ -920,6 +951,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             holder.left.visibility = View.INVISIBLE
             holder.right.visibility = View.GONE
         }
+
 
         //是否换行
         val lp = holder.itemView.layoutParams

@@ -70,6 +70,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_18"
                             android:orientation="vertical" />
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_25" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -105,8 +109,22 @@
                             android:layout_height="@dimen/dp_18"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
-
                         </LinearLayout>
+                        <FrameLayout
+                            android:id="@+id/iv_image"
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_height="25dp">
+                            <ImageView
+                                android:id="@+id/iv_shoushi_selected"
+                                android:layout_width="wrap_content"
+                                android:visibility="gone"
+                                android:layout_height="wrap_content" />
+                            <ImageView
+                                android:id="@+id/iv_shoushi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </FrameLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -140,28 +158,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_18"
                             android:orientation="vertical">
-
                         </LinearLayout>
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_25" />
                     </LinearLayout>
 
 
                 </LinearLayout>
 
-                <FrameLayout
-                    android:id="@+id/iv_image"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_height="25dp">
-                    <ImageView
-                        android:id="@+id/iv_shoushi_selected"
-                        android:layout_width="wrap_content"
-                        android:visibility="gone"
-                        android:layout_height="wrap_content" />
-                    <ImageView
-                        android:id="@+id/iv_shoushi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </FrameLayout>
 
             </LinearLayout>
         </FrameLayout>
