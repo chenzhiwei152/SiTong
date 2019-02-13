@@ -100,7 +100,7 @@ dependencies {
     implementation 'com.tencent.mid:mid:4.0.6-release'
 
     //  内存泄露检测工具
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
 }
