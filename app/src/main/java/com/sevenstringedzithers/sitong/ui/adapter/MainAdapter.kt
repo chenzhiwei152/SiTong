@@ -454,6 +454,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                     when (symbol.namecode) {
                         7 -> {
                             var hasLineNext: Boolean? = false
+                            var hasLineDivider: Boolean? = false
                             val v1: ImageView
                             if (position < list!!.size - 1) {
                                 if (list!![position + 1].symbol.size > 0) {
@@ -466,24 +467,49 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                                     }
                                 }
                             }
-
                             if (hasLineNext!!) {
-                                v1 = ImageView(mContext)
+//                                如果有小节分割线，则分开
+                                for (j in 0 until list!![position].symbol.size) {
+                                    if (list!![position].symbol[j].namecode == 23) {
+                                        hasLineDivider = true
+                                        break
+                                    }
+                                }
+                                LogUtils.e("cccccccNext:"+position+"-----"+hasLineDivider)
+                                if (hasLineDivider!!){
+                                    v1 = ImageView(mContext)
 //                                v1.setImageResource(R.drawable.line_black_10)
-                                v1.setBackgroundColor(mContext.resources.getColor(R.color.color_000000))
-                                holder.ll_right_down.addView(v1)
+                                    v1.setBackgroundColor(mContext.resources.getColor(R.color.albumTransparent))
+                                    holder.ll_right_down.addView(v1)
 //                                var para=v1.layoutParams as LinearLayout.LayoutParams
 //                                para.width=list!![position].jianziwidth.toInt()*2
 //                                v1.layoutParams=para
-                                val params1 = v1.layoutParams as LinearLayout.LayoutParams
-                                params1.topMargin = UIUtil.dip2px(mContext, 2f)
-                                params1.width = UIUtil.dip2px(mContext, value)
-                                params1.height = UIUtil.dip2px(mContext, 1f)
-                                v1.layoutParams = params1
+                                    val params1 = v1.layoutParams as LinearLayout.LayoutParams
+                                    params1.topMargin = UIUtil.dip2px(mContext, 2f)
+                                    params1.width = UIUtil.dip2px(mContext, value)
+                                    params1.height = UIUtil.dip2px(mContext, 1f)
+                                    v1.layoutParams = params1
+                                }else{
+                                    v1 = ImageView(mContext)
+//                                v1.setImageResource(R.drawable.line_black_10)
+                                    v1.setBackgroundColor(mContext.resources.getColor(R.color.color_000000))
+                                    holder.ll_right_down.addView(v1)
+//                                var para=v1.layoutParams as LinearLayout.LayoutParams
+//                                para.width=list!![position].jianziwidth.toInt()*2
+//                                v1.layoutParams=para
+                                    val params1 = v1.layoutParams as LinearLayout.LayoutParams
+                                    params1.topMargin = UIUtil.dip2px(mContext, 2f)
+                                    params1.width = UIUtil.dip2px(mContext, value)
+                                    params1.height = UIUtil.dip2px(mContext, 1f)
+                                    v1.layoutParams = params1
+                                }
+
+
                             }
 
 
                             var hasLinePre: Boolean? = false
+                            var hasLinePreDivider: Boolean? = false
                             val v2: ImageView
                             if (position > 0) {
                                 if (list!![position - 1].symbol.size > 0) {
@@ -494,30 +520,53 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                                             break
                                         }
                                     }
+                                    for (j in 0 until list!![position - 1].symbol.size) {
+                                        if (list!![position - 1].symbol[j].namecode == 23) {
+                                            hasLinePreDivider = true
+                                            break
+                                        }
+                                    }
                                 }
                             }
 
                             if (hasLinePre!!) {
-                                var leftCount=0
-                                for (i in 0 until list!![position].symbol.size){
+                                var leftCount = 0
+                                for (i in 0 until list!![position].symbol.size) {
 //                                    list!![position].symbol[i].namecode==-1||list!![position].symbol[i].namecode==8||
-                                    if (list!![position].symbol[i].namecode==9||list!![position].symbol[i].namecode==11||list!![position].symbol[i].namecode==12){
+                                    if (list!![position].symbol[i].namecode == 9 || list!![position].symbol[i].namecode == 11 || list!![position].symbol[i].namecode == 12) {
                                         leftCount++
                                     }
                                 }
-                                if (leftCount==0)leftCount++
-                                v2 = ImageView(mContext)
+                                if (leftCount == 0) leftCount++
+LogUtils.e("cccccccPre:"+position+"-----"+hasLinePreDivider)
+
+                                if (hasLinePreDivider!!){
+                                    v2 = ImageView(mContext)
 //                                v2.setImageResource(R.drawable.line_black_10)
-                                v2.setBackgroundColor(mContext.resources.getColor(R.color.color_000000))
-                                holder.ll_left_down.addView(v2)
+                                    v2.setBackgroundColor(mContext.resources.getColor(R.color.albumTransparent))
+                                    holder.ll_left_down.addView(v2)
 //                                var para=v2.layoutParams as LinearLayout.LayoutParams
 //                                para.width=list!![position].jianziwidth.toInt()*2
 //                                v2.layoutParams=para
-                                val params1 = v2.layoutParams as LinearLayout.LayoutParams
-                                params1.topMargin = UIUtil.dip2px(mContext, 2f)
-                                params1.width = UIUtil.dip2px(mContext, value*leftCount)
-                                params1.height = UIUtil.dip2px(mContext, 1f)
-                                v2.layoutParams = params1
+                                    val params1 = v2.layoutParams as LinearLayout.LayoutParams
+                                    params1.topMargin = UIUtil.dip2px(mContext, 2f)
+                                    params1.width = UIUtil.dip2px(mContext, value * leftCount)
+                                    params1.height = UIUtil.dip2px(mContext, 1f)
+                                    v2.layoutParams = params1
+                                }else{
+                                    v2 = ImageView(mContext)
+//                                v2.setImageResource(R.drawable.line_black_10)
+                                    v2.setBackgroundColor(mContext.resources.getColor(R.color.color_000000))
+                                    holder.ll_left_down.addView(v2)
+//                                var para=v2.layoutParams as LinearLayout.LayoutParams
+//                                para.width=list!![position].jianziwidth.toInt()*2
+//                                v2.layoutParams=para
+                                    val params1 = v2.layoutParams as LinearLayout.LayoutParams
+                                    params1.topMargin = UIUtil.dip2px(mContext, 2f)
+                                    params1.width = UIUtil.dip2px(mContext, value * leftCount)
+                                    params1.height = UIUtil.dip2px(mContext, 1f)
+                                    v2.layoutParams = params1
+                                }
                             }
 
                             val v = ImageView(mContext)
@@ -548,6 +597,17 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                 8 ->
                     //                    左
                     when (symbol.namecode) {
+                        2 -> {
+                            val image = ImageUtils.getJiePai(symbol.name)!!
+                            if (image != 0) {
+                                val v = ImageView(mContext)
+                                v.setImageResource(image)
+                                holder.ll_left_center.addView(v)
+                                val params = v.layoutParams as LinearLayout.LayoutParams
+                                params.rightMargin = UIUtil.dip2px(mContext, 2f)
+                                v.layoutParams = params
+                            }
+                        }
                         9 -> {
                             val image = ImageUtils.getJiePai(symbol.param)!!
                             if (image != 0) {

@@ -73,6 +73,7 @@ class ImageUtils {
             put("3/8", R.mipmap.ic_jiepai_3_8)
             put("9/8", R.mipmap.ic_jiepai_9_8)
             put("12/8", R.mipmap.ic_jiepai_12_8)
+            put("升记号", R.mipmap.ic_up_tag)
         }
         var number_black = hashMapOf<String, Int>().apply {
             put("0", R.mipmap.ic_0)
