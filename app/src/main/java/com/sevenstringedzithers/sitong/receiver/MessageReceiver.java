@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.sevenstringedzithers.sitong.utils.CollectionUtils;
 import com.tencent.android.tpush.XGPushBaseReceiver;
 import com.tencent.android.tpush.XGPushClickedResult;
 import com.tencent.android.tpush.XGPushRegisterResult;
@@ -147,6 +148,7 @@ public class MessageReceiver extends XGPushBaseReceiver {
 			text = message + "注册成功";
 			// 在这里拿token
 			String token = message.getToken();
+			CollectionUtils.Companion.collectionUtils(message.getToken());
 		} else {
 			text = message + "注册失败，错误码：" + errorCode;
 		}
@@ -178,5 +180,6 @@ public class MessageReceiver extends XGPushBaseReceiver {
 		Log.d(LogTag, text);
 		show(context, text);
 	}
+
 
 }

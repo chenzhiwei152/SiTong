@@ -3,12 +3,10 @@ package com.sevenstringedzithers.sitong.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.jyall.bbzf.base.EventBusCenter;
 import com.sevenstringedzithers.sitong.base.Constants;
 import com.sevenstringedzithers.sitong.mvp.model.bean.WeiXin;
-import com.sevenstringedzithers.sitong.utils.ExtraUtils;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -45,14 +43,14 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 	@Override
 	public void onResp(BaseResp resp) {
-		Log.i("ansen", "微信支付回调 返回错误码:"+resp.errCode+" 错误名称:"+resp.errStr);
-		final BaseResp bean=resp;
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				ExtraUtils.Companion.toasts("微信支付回调 返回错误码:"+bean.errCode+" 错误名称:"+bean.errStr);
-			}
-		});
+//		Log.i("ansen", "微信支付回调 返回错误码:"+resp.errCode+" 错误名称:"+resp.errStr);
+//		final BaseResp bean=resp;
+//		runOnUiThread(new Runnable() {
+//			@Override
+//			public void run() {
+//				ExtraUtils.Companion.toasts("微信支付回调 返回错误码:"+bean.errCode+" 错误名称:"+bean.errStr);
+//			}
+//		});
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX){//微信支付
 			WeiXin weiXin=new WeiXin(3,resp.errCode,"");
 //			EventBus.getDefault().post(weiXin);

@@ -12,7 +12,7 @@ object APIAddressConstants {
      */
 //    const val baseUrl: String = "server.7stringedzithers.com"
     const val baseUrl: String = "test.server.7stringedzithers.com"
-//    const val baseUrl: String = "172.18.137.49:8787"
+//    const val baseUrl: String = "192.168.43.112:8787"
     val APP_HOST = "http://$baseUrl"
     const val USER_API: String = "/user"
 
@@ -179,6 +179,10 @@ object APIAddressConstants {
     上传分享录音记录
     * */
     const val UPLOAD_SHARE_RECORD = "/task/sharerecord/"
+    /*
+    上传推送token
+    * */
+    const val UPLOAD_MESSAGE_TOKEN = "/system/reportpushdevicetoken/"
 
 
 }
