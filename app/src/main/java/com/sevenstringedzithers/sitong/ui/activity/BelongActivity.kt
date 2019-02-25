@@ -3,6 +3,7 @@ package com.sevenstringedzithers.sitong.ui.activity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jyall.bbzf.base.BaseActivity
+import com.jyall.bbzf.base.BaseContext
 import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
@@ -24,6 +25,12 @@ class BelongActivity : BaseActivity<QinHallContract.View, QinHallPresenter>(), Q
 
     override fun getDataSuccess(list: ArrayList<QinHallBean>) {
         this.list = list
+        list?.forEachIndexed { index, qinHallBean ->
+            if (qinHallBean.name==BaseContext.instance.getUserInfo()?.carillon){
+                mAdapter?.setPosition(index)
+                return@forEachIndexed
+            }
+        }
         mAdapter?.setData(list)
     }
 
@@ -48,6 +55,7 @@ class BelongActivity : BaseActivity<QinHallContract.View, QinHallPresenter>(), Q
         rv_list.layoutManager = LinearLayoutManager(this)
         mAdapter = QinHallListNameAdapter(this)
         rv_list.adapter = mAdapter
+        BaseContext.instance.getUserInfo()?.carillon
         mPresenter?.getHallList()
         tv_confirm.setOnClickListener {
             if (list != null && list?.size!! > 0) {

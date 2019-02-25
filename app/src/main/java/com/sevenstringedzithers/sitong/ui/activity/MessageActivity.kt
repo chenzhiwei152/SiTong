@@ -24,13 +24,13 @@ import kotlinx.android.synthetic.main.layout_common_title.*
  */
 class MessageActivity : BaseActivity<MessageContract.View, MessagePresenter>(), MessageContract.View {
     override fun setMessageRead(bean: ResultBean) {
-//        mPresenter?.getList(false)
+//        mPresenter?.getList(true)
 
     }
 
     override fun getRewardResult(bean: GetRewardBean) {
-        mPresenter?.getList(false)
-        var mDialog = NormalRewardDialog(this@MessageActivity, "", "3")
+        mPresenter?.getList(true)
+        var mDialog = NormalRewardDialog(this@MessageActivity, bean?.reason, bean?.award)
         mDialog.show()
 
     }
@@ -43,14 +43,8 @@ class MessageActivity : BaseActivity<MessageContract.View, MessagePresenter>(), 
         } else {
             sm_layout.finishLoadmore()
         }
-        sm_layout.setEnableAutoLoadmore(isLoadMore)
+        sm_layout.isEnableAutoLoadmore = isLoadMore
         messageAdapter?.setData(list)
-        var listBean = arrayListOf<MessageListBean>()
-        listBean.add(MessageListBean(10, "测试", "123", "haaaaaaaaaaaa", "", "2017-3-1", "", true, 1, ""))
-        listBean.add(MessageListBean(10, "测试", "123", "haaaaaaaaaaaa", "", "2017-3-1", "", false, 1, ""))
-        listBean.add(MessageListBean(10, "测试", "123", "haaaaaaaaaaaa", "", "2017-3-1", "", true, 1, ""))
-        listBean.add(MessageListBean(10, "测试", "123", "haaaaaaaaaaaa", "", "2017-3-1", "", false, 1, ""))
-        messageAdapter?.setData(listBean)
     }
 
     override fun getPresenter(): MessagePresenter = MessagePresenter()
@@ -85,7 +79,9 @@ class MessageActivity : BaseActivity<MessageContract.View, MessagePresenter>(), 
 //item点击
                 var bean = data as MessageListBean
                 MessageDetailActivity.newIntentce(this@MessageActivity, bean?.title, bean?.content)
-//                mPresenter?.setRead()
+                var map = hashMapOf<String, String>()
+                map.put("messageid", bean.id)
+                mPresenter?.setRead(map)
             }
 
         })

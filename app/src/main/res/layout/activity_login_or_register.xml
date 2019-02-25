@@ -29,8 +29,7 @@
                 android:id="@+id/iv_spl2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginRight="12dp"
+                android:layout_marginTop="@dimen/dp_20"
                 android:src="@mipmap/ic_qin" />
         </LinearLayout>
 

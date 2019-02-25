@@ -118,7 +118,7 @@ class CollectionActivity : BaseActivity<IndexContract.View, IndexPresenter>(), I
                 } else {
                     var bundle = Bundle()
                     bundle.putString("id", "" + bean.id)
-                    jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
+                    jump<MusicEnjoyActivity>(isAnimation = false, dataBundle = bundle)
                 }
 
             }

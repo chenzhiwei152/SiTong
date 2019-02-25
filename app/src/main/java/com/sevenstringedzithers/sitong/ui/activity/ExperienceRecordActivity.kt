@@ -30,7 +30,9 @@ class ExperienceRecordActivity : BaseActivity<ExerciseRecordContract.View, Exerc
     override fun getRootView(): ExerciseRecordContract.View=this
 
     override fun loginSuccess(bean: ExerciseRecordBean) {
-        mAdapter?.setData(bean.music)
+        runOnUiThread {
+            mAdapter?.setData(bean.music)
+        }
     }
 
 

@@ -48,7 +48,7 @@ class MessageListAdapter(var context: Context) : RecyclerView.Adapter<MessageLis
         }
         holder.viewLayout.tv_title.text = list[position].title
         holder.viewLayout.tv_time.text = list[position].sendtime
-        if (list[position].isreceivereward) {
+        if (!list[position].isreceivereward) {
             holder.viewLayout.tv_get_reward.visibility = View.GONE
         } else {
             holder.viewLayout.tv_get_reward.visibility = View.VISIBLE

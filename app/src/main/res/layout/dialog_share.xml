@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableTop="@drawable/selector_login_qq"
+        android:visibility="gone"
         android:drawablePadding="4dp"
         android:text="qq好友" />
 
@@ -24,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_30"
+        android:visibility="gone"
         android:drawableTop="@drawable/selector_login_qq"
         android:drawablePadding="4dp"
         android:text="qq空间" />

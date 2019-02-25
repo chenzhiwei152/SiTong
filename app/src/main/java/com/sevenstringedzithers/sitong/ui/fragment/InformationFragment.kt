@@ -24,13 +24,13 @@ class InformationFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(),
                 activity?.jump<BelongActivity>()
             }
             R.id.rl_email -> {
-                EditActivity.newInstance(requireActivity(),"1","编辑邮箱","邮箱")
+                EditActivity.newInstance(requireActivity(),"3","编辑邮箱","邮箱")
             }
             R.id.rl_phone -> {
-                EditActivity.newInstance(requireActivity(),"1","编辑电话","电话")
+                EditActivity.newInstance(requireActivity(),"2","编辑电话","电话")
             }
             R.id.rl_address -> {
-                EditActivity.newInstance(requireActivity(),"1","编辑地址","地址")
+                EditActivity.newInstance(requireActivity(),"4","编辑地址","地址")
             }
             R.id.rl_exp_record -> {
                 activity?.jump<ExperienceRecordActivity>()

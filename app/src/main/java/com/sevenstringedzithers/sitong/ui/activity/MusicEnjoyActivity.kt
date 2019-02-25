@@ -310,8 +310,8 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
             }
 //                    var du=player?.playedDuration!!.toFloat()/1000
             du = ExtraUtils.getMP3FileInfo(f!!) / 1000
-            seek_bar.getConfigBuilder().max(du!!.toFloat()).min(0f)
-            tv_end_time.setText(ExtraUtils.secToTime((du!!).toInt()))
+            seek_bar.configBuilder.max(du!!.toFloat()).min(0f).build()
+            tv_end_time.text = ExtraUtils.secToTime((du!!).toInt())
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()

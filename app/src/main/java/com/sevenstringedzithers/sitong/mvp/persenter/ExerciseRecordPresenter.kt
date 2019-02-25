@@ -38,7 +38,7 @@ class ExerciseRecordPresenter : BasePresenter<ExerciseRecordContract.View>(), Ex
                 }
             }
 
-            APIManager.jyApi.getExerciseRecord().subscribe(observer)
+            APIManager.jyApi.get_exe_record().subscribe(observer)
             addSubscription(observer.disposable!!)
         }
 

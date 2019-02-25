@@ -11,6 +11,7 @@ import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
 import kotlinx.android.synthetic.main.item_qinhanll_name.view.*
 
 /**
+ * 师承
  * create by chen.zhiwei on 2018-8-14
  */
 class QinHallListNameAdapter(var context: Context) : RecyclerView.Adapter<QinHallListNameAdapter.ViewHolder>() {

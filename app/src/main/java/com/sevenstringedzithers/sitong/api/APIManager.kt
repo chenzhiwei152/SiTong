@@ -1,6 +1,7 @@
 package com.jyall.bbzf.api.scheduler
 
 import com.jyall.android.common.utils.LogUtils
+import com.jyall.android.common.utils.MyDeviceInfo
 import com.jyall.android.common.utils.SysUtils
 import com.jyall.bbzf.base.BaseContext
 import io.reactivex.schedulers.Schedulers
@@ -67,7 +68,7 @@ object APIManager {
                     .header("version", SysUtils.getVersionName(BaseContext.instance))// 版本号
 //                    .header("channel", getChannel())
 //                    .header("Authorization", getAuthorization(original))
-//                    .header("deviceId",MyDeviceInfo.getDeviceId(BaseContext.instance))//设备id
+                    .header("uuid", MyDeviceInfo.getDeviceId(BaseContext.instance))//设备id
 //                    .header("devicebrand", MyDeviceInfo.getDeviceName())//设备型号
 //                    .header("systembrand",MyDeviceInfo.getOsVersion())//操作系统版本
             val request = requestBuilder.build()

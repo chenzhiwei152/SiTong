@@ -78,8 +78,8 @@ class MessagePresenter : BasePresenter<MessageContract.View>(), MessageContract.
                     if (body.data.size <= 0) {
                         mRootView?.getListSuccess(body.data, page == 0, false)
                     } else {
-                        page++
                         mRootView?.getListSuccess(body.data, page == 0, ((page + 1) * range < body.data[0].total))
+                        page++
                     }
                 }
             }
