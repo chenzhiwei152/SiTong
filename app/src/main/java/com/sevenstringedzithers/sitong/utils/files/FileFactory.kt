@@ -28,9 +28,13 @@ abstract class FileFactory() {
 
 
     fun deleteFiles(file: String) {
-        var file = File(getCurrentUri()+"/"+file)
-        file.delete()
-//        mContext?.deleteFile(file)
+        try {
+            var file = File(getCurrentUri()+"/"+file)
+            file.delete()
+            var file1 = File(getCurrentUri()+"/"+"storage")
+            file1.delete()
+        }catch (e:Exception){}
+
     }
 
     abstract fun deletedFile(path: String)

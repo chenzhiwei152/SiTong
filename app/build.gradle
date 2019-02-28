@@ -89,6 +89,7 @@ dependencies {
     implementation project(':soundtouch_library')
     implementation project(':bubbleseekbar')
     implementation files('libs/open_sdk_r6008_lite.jar')
+    implementation 'cn.qssq666:recordutil:0.1'
 
     //信鸽jar
     implementation 'com.tencent.xinge:xinge:3.2.7-Release'

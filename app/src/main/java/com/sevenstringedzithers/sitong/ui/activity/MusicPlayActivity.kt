@@ -9,6 +9,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import cn.qssq666.voiceutil.record.RecordFactory
+import cn.qssq666.voiceutil.record.RecordManagerI
+import cn.qssq666.voiceutil.utils.MediaDirectoryUtils
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -41,6 +44,8 @@ import com.smp.soundtouchandroid.SoundTouch
 import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.activity_music_play.*
 import kotlinx.android.synthetic.main.layout_play_title.*
+import java.io.File
+import java.io.IOException
 import java.util.*
 
 
@@ -49,11 +54,12 @@ import java.util.*
  */
 class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresenter>(), MusicPlayContract.View, MainAdapter.Listener, View.OnClickListener {
     private var du: Long? = null
+    private var recordManager: RecordManagerI? = null
     private var playThread: Thread? = null
     private var soundTouchRec: SoundStreamAduioRecorder? = null
     private var soundTouch: SoundTouch? = null
     private var lastRecordFile: String? = null
-    private var isRecording = false
+    private var lastRecordFileName: String? = null
     private var isLoaded = false
     private var isLoading = false
     private var isSlience: Boolean = false
@@ -133,31 +139,49 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 setButtonState()
             }
             R.id.iv_record -> {
-                if (isRecording) {
-                    lastRecordFile = soundTouchRec?.stopRecord()
+                if (getRecordManager()?.isRecordIng) {
+//                    lastRecordFile = soundTouchRec?.stopRecord()
+                    getRecordManager().stopRecord()//否则停止
 //                    弹窗
 
-                    var mRecordDialog = MusicRecordDialog(this, "存储", "删除", ExtraUtils.secToTime(((System.currentTimeMillis() - recordTime) / 1000).toInt()))
+                    var mRecordDialog = MusicRecordDialog(this, "存储", "删除", ExtraUtils.secToTime((recordTime / 1000)))
                     mRecordDialog.setLeftTitleListerner(object : View.OnClickListener {
                         override fun onClick(v: View?) {
                             kotlin.run {
-                                FilesUtils.makePCMFileToWAVFile(lastRecordFile!!, RecordFilesUtils.getInstance()!!.getCurrentUri() + "/" + mRecordDialog.getEdittext() + ".wav", true)
+                                lastRecordFileName = mRecordDialog.getEdittext()
+
+                                val tempCacheMp3FileName = MediaDirectoryUtils.getTempMp3FileName()
+                                try {
+                                    tempCacheMp3FileName.createNewFile()
+                                    var ff=File(lastRecordFile)
+                                    ff.renameTo(tempCacheMp3FileName)
+                                    RecordFilesUtils.getInstance()?.deletedFile(lastRecordFile!!)
+                                    lastRecordFileName=""
+                                } catch (e: IOException) {
+                                    e.printStackTrace()
+                                }
+//                                FilesUtils.makePCMFileToWAVFile(lastRecordFile!!, RecordFilesUtils.getInstance()!!.getCurrentUri() + "/" + mRecordDialog.getEdittext() + ".wav", true)
                             }
                         }
 
                     })
                     mRecordDialog.setRightTitleListerner(object : View.OnClickListener {
                         override fun onClick(v: View?) {
-                            RecordFilesUtils.getInstance()?.deletedFile(lastRecordFile!!)
+                            var ff=File(lastRecordFile)
+                            ff.delete()
+//                            RecordFilesUtils.getInstance()?.deletedFile(lastRecordFile!!)
                         }
 
                     })
                     mRecordDialog.show()
-                    isRecording = false
                 } else {
-                    isRecording = true
-                    recordTime = System.currentTimeMillis()
-                    soundTouchRec?.startRecord()
+                    try {
+                        getRecordManager().startRecordCreateFile(60)
+                    } catch (e: IOException) {
+                        getRecordManager().stopRecord()
+                        e.printStackTrace()
+                        Toast.makeText(this, "无法录制 $e", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 setButtonState()
             }
@@ -366,6 +390,39 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 
             }
         })
+//录音
+        MediaDirectoryUtils.setMediaManagerProvider(object : MediaDirectoryUtils.MediaManagerProvider {
+            override fun getTempMp3FileName(): File? {
+                return File(if (lastRecordFileName.isNullOrEmpty()) (RecordFilesUtils.getInstance()!!.getCurrentUri() + "/"+System.currentTimeMillis()) else (RecordFilesUtils.getInstance()!!.getCurrentUri() + "/"+lastRecordFileName+".mp3")
+                )
+            }
+
+            override fun getTempAmrFileName(): File? {
+                return null
+            }
+
+            override fun getTempCachePcmFileName(): File? {
+                return null
+            }
+
+            override fun productFileName(postfix: String?): String? {
+                return null
+            }
+
+            override fun getTempCacheWavFileName(): File? {
+                return null
+            }
+
+            override fun getTempAACFileName(): File? {
+                return null
+            }
+
+            override fun getCachePath(): File? {
+                return File(RecordFilesUtils.getInstance()!!.getCurrentUri()+"cache")
+            }
+
+        })
+
     }
 
     /*检查文件本地是否有*/
@@ -598,7 +655,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         } else {
             iv_voice.setImageResource(R.mipmap.ic_voice)
         }
-        if (isRecording) {
+        if (recordManager != null && getRecordManager()?.isRecordIng) {
             iv_record.setImageResource(R.mipmap.ic_record_pressed)
         } else {
             iv_record.setImageResource(R.mipmap.ic_record_normal)
@@ -624,6 +681,9 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             player?.pause()
             isPlaying = false
             setButtonState()
+        }
+        if (getRecordManager()?.isRecordIng){
+            getRecordManager()?.stopRecord()
         }
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
@@ -653,8 +713,13 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         player?.stop()
         player = null
         try {
-            if (isRecording) {
-                RecordFilesUtils.getInstance()?.deleteFiles(soundTouchRec?.stopRecord()!!)
+            if (recordManager != null && getRecordManager()?.isRecordIng) {
+                getRecordManager()?.stopRecord()
+                RecordFactory.release(recordManager)
+                recordManager=null
+                if (!lastRecordFile.isNullOrEmpty()){
+                    File(lastRecordFile).delete()
+                }
             }
             soundTouchRec = null
             soundTouch = null
@@ -691,7 +756,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
     }
     private var isPlaying = false
     private var playTime: Int = 0
-    private var recordTime: Long = 0
+    private var recordTime: Int = 0
     private var playTimeCountThread: Thread? = null
 
     inner class MyThread : Runnable {
@@ -711,5 +776,33 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         }
     }
 
+    fun getRecordManager(): RecordManagerI {
+        if (recordManager == null) {
+            recordManager = RecordFactory.getWavRecordMp3OutInstance()
+            recordManager?.setOnTimeSecondChanage(object : RecordManagerI.OnTimeSecondChanage {
+                override fun onSecondChnage(duration: Int) {
+                    recordTime = duration
+                }
+
+            })
+            recordManager?.setOnTimeOutStopListener(object : RecordManagerI.OnTimeOutStopListener {
+                override fun onStop() {
+//                    mAudioFile = recordManager.getFile()
+//                    tvPath.setText("audioPth:" + if (mAudioFile == null) null else mAudioFile.getAbsolutePath())
+                    lastRecordFile = if (recordManager?.file == null) null else recordManager?.file?.getAbsolutePath()
+                    runOnUiThread { toast_msg("保存路径："+lastRecordFile) }
+                    LogUtils.e("保存路径："+lastRecordFile)
+//                    val tempCacheMp3FileName = MediaDirectoryUtils.getTempMp3FileName()
+//                    try {
+//                        tempCacheMp3FileName.createNewFile()
+//                    } catch (e: IOException) {
+//                        e.printStackTrace()
+//                    }
+
+                }
+            })
+        }
+        return recordManager!!
+    }
 
 }
