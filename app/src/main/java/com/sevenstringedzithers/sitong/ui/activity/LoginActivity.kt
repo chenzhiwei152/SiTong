@@ -4,14 +4,14 @@ import android.content.Intent
 import android.view.View
 import com.google.gson.Gson
 import com.google.gson.JsonParser
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BaseContext
-import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.MainActivity
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BaseContext
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.EventBusCenter
 import com.sevenstringedzithers.sitong.mvp.contract.LoginContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo
 import com.sevenstringedzithers.sitong.mvp.model.bean.WeiXin

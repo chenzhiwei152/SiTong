@@ -100,7 +100,7 @@ public class MyAdapter
 
     private class ItemDecoration extends RecyclerView.ItemDecoration {
 
-        int itemOffset = mContext.getResources().getDimensionPixelSize(R.dimen.album_dp_10);
+        int itemOffset = mContext.getResources().getDimensionPixelSize(R.dimen.dp_10);
 
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent,

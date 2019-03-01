@@ -1,12 +1,8 @@
 package com.sevenstringedzithers.sitong.ui.fragment
 
 import android.view.View
-import com.jyall.bbzf.base.BaseFragment
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.EventBusCenter
-import com.jyall.bbzf.base.IBaseView
 import com.sevenstringedzithers.sitong.R
-import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.*
 import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
 import kotlinx.android.synthetic.main.fragment_delay.*
 import org.greenrobot.eventbus.EventBus

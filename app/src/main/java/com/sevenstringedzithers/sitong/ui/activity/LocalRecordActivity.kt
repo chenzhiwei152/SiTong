@@ -7,12 +7,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BasePresenter
+import com.sevenstringedzithers.sitong.base.IBaseView
 import com.sevenstringedzithers.sitong.mvp.model.bean.FileInfo
 import com.sevenstringedzithers.sitong.ui.adapter.RecordListAdapter
 import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
@@ -80,8 +80,18 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
                     currentPos = pos
                     currentUrl = data
                     player = null
+                    initFile(pos, bubble, data)
+                }else if (player!=null){
+                    if (player!!.isPaused) {
+                        player?.start()
+                    } else {
+                        player!!.pause()
+                    }
+                    setButtonState(pos, !player!!.isPaused)
+                }else{
+                    initFile(pos, bubble, data)
                 }
-                initFile(pos, bubble, data)
+
             }
 
 
@@ -114,6 +124,13 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
 
                         rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<TextView>(R.id.tv_start)?.text = ExtraUtils.secToTime((currentPercentage * du!!).toInt())
                         rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<BubbleSeekBar>(R.id.seek_bar)?.setProgress((currentPercentage * du!!).toFloat())
+                        if (currentPercentage>=1){
+//                            player!!.stop()
+                            player?.seekTo(0, true)
+                            rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<BubbleSeekBar>(R.id.seek_bar)?.setProgress(0f)
+                            rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<TextView>(R.id.tv_start)?.text="00:00"
+                            setButtonState(pos, false)
+                        }
                     }
 
                     override fun onTrackEnd(track: Int) {
@@ -131,7 +148,7 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
                 dismissLoading()
 
             } else {
-                if (player!!.isPaused()) {
+                if (player!!.isPaused) {
                     player?.start()
                 } else {
                     player!!.pause()
@@ -141,7 +158,7 @@ class LocalRecordActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
             }
 
             du = ExtraUtils.getMP3FileInfo(f?.absolutePath!!) / 1000
-            rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<BubbleSeekBar>(R.id.seek_bar)?.configBuilder?.max(du!!.toFloat())?.min(0f)
+            rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<BubbleSeekBar>(R.id.seek_bar)?.configBuilder?.max(du!!.toFloat())?.min(0f)?.build()
             rv_list?.findViewHolderForLayoutPosition(pos)?.itemView?.findViewById<TextView>(R.id.tv_end)?.text = ExtraUtils.secToTime((du!!).toInt())
         } catch (e: Exception) {
             e.printStackTrace()

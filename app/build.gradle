@@ -83,13 +83,13 @@ dependencies {
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     implementation 'com.sina.weibo.sdk:core:4.3.0:openDefaultRelease@aar'
     implementation project(':apkupdate')
-    implementation project(':chooseAlbum')
     implementation project(':multiplestatusview')
     implementation files('libs/TarsosDSP-Android-latest.jar')
     implementation project(':soundtouch_library')
     implementation project(':bubbleseekbar')
     implementation files('libs/open_sdk_r6008_lite.jar')
     implementation 'cn.qssq666:recordutil:0.1'
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
 
     //信鸽jar
     implementation 'com.tencent.xinge:xinge:3.2.7-Release'

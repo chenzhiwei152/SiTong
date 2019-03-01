@@ -5,10 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.jyall.bbzf.base.EventBusCenter;
+import com.sevenstringedzithers.sitong.base.EventBusCenter;
 import com.sevenstringedzithers.sitong.base.Constants;
 import com.sevenstringedzithers.sitong.mvp.model.bean.WeiXin;
-import com.sevenstringedzithers.sitong.utils.ExtraUtils;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;

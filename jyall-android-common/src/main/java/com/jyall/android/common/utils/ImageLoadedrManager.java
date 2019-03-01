@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -23,6 +24,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.jyall.android.common.R;
 
 import java.io.File;
+import java.security.MessageDigest;
 import java.util.Map;
 
 /**
@@ -56,7 +58,7 @@ public class ImageLoadedrManager {
         mheaders = mBuilder.build();
         url = compatibleUrl(url);
         GlideUrl cookie = new GlideUrl(url, mheaders);
-        Glide.with(context).load(cookie).placeholder(R.mipmap.ic_default).error(R.mipmap.ic_default).into(imageView);
+        GlideApp.with(context).load(cookie).placeholder(R.mipmap.ic_default).error(R.mipmap.ic_default).into(imageView);
     }
 
     public void display(Context context, String url, ImageView imageView) {
@@ -64,7 +66,7 @@ public class ImageLoadedrManager {
             return;
         }
         url = compatibleUrl(url);
-        Glide.with(context).load(url).placeholder(R.mipmap.ic_default).error(R.mipmap.ic_default).into(imageView);
+        GlideApp.with(context).load(url).placeholder(R.mipmap.ic_default).error(R.mipmap.ic_default).into(imageView);
     }
 
     public void display(Context context, String url, ImageView imageView, int defaultId) {
@@ -72,14 +74,14 @@ public class ImageLoadedrManager {
             return;
         }
         url = compatibleUrl(url);
-        Glide.with(context).load(url).placeholder(defaultId).into(imageView);
+        GlideApp.with(context).load(url).placeholder(defaultId).into(imageView);
     }
     public void displayNoDefult(Context context, String url, ImageView imageView) {
         if (imageView==null||url==null){
             return;
         }
         url = compatibleUrl(url);
-        Glide.with(context).load(url).dontAnimate().dontTransform().into(imageView);
+        GlideApp.with(context).load(url).dontAnimate().dontTransform().into(imageView);
     }
 
     public void display(Context context, String url, ImageView imageView, int defaultId, int errorId) {
@@ -87,7 +89,7 @@ public class ImageLoadedrManager {
             return;
         }
         url = compatibleUrl(url);
-        Glide.with(context).load(url).placeholder(defaultId).error(errorId).into(imageView);
+        GlideApp.with(context).load(url).placeholder(defaultId).error(errorId).into(imageView);
     }
 
     /**
@@ -98,7 +100,7 @@ public class ImageLoadedrManager {
      */
     public void displayRound(Context context, String url, ImageView imageView, int degree) {
         url = compatibleUrl(url);
-        Glide.with(context).load(url).placeholder(R.mipmap.ic_default).error(R.mipmap.ic_default).transform(new GlideRoundTransform(context, degree)).into(imageView);
+        GlideApp.with(context).load(url).placeholder(R.mipmap.ic_default).error(R.mipmap.ic_default).transform(new GlideRoundTransform(context, degree)).into(imageView);
     }
 
     /**
@@ -110,7 +112,7 @@ public class ImageLoadedrManager {
      */
     public void displayRound(Context context, String url, ImageView imageView, int defaultId, int degree) {
         url = compatibleUrl(url);
-        Glide.with(context).load(url).placeholder(defaultId).error(defaultId).transform(new GlideRoundTransform(context, degree)).into(imageView);
+        GlideApp.with(context).load(url).placeholder(defaultId).error(defaultId).transform(new GlideRoundTransform(context, degree)).into(imageView);
     }
 
     /**
@@ -120,7 +122,7 @@ public class ImageLoadedrManager {
      */
     public void displayCycle(Context context, String url, ImageView imageView) {
         url = compatibleUrl(url);
-        Glide.with(context).load(url).transform(new GlideCircleTransform(context)).into(imageView);
+        GlideApp.with(context).load(url).transform(new GlideCircleTransform(context)).into(imageView);
     }
 
     /**
@@ -134,7 +136,7 @@ public class ImageLoadedrManager {
      */
     public void displayCycle(Context context, String url, ImageView imageView, int borderWidth, int borderColor) {
         url = compatibleUrl(url);
-        Glide.with(context).load(url).transform(new GlideCircleBorderTransform(context, borderWidth, borderColor)).into(imageView);
+        GlideApp.with(context).load(url).transform(new GlideCircleBorderTransform(context, borderWidth, borderColor)).into(imageView);
     }
 
     /**
@@ -149,7 +151,7 @@ public class ImageLoadedrManager {
      */
     public void displayCycle(Context context, String url, ImageView imageView, int defaultId, int borderWidth, int borderColor) {
         url = compatibleUrl(url);
-        Glide.with(context).load(url).placeholder(defaultId).error(defaultId).transform(new GlideCircleBorderTransform(context, borderWidth, borderColor)).into(imageView);
+        GlideApp.with(context).load(url).placeholder(defaultId).error(defaultId).transform(new GlideCircleBorderTransform(context, borderWidth, borderColor)).into(imageView);
     }
 
     /**
@@ -162,23 +164,9 @@ public class ImageLoadedrManager {
      */
     public void displayCycle(Context context, String url, ImageView imageView, int defaultId) {
         url = compatibleUrl(url);
-        Glide.with(context).load(url).placeholder(defaultId).error(defaultId).transform(new GlideCircleTransform(context)).into(imageView);
+        GlideApp.with(context).load(url).placeholder(defaultId).error(defaultId).transform(new GlideCircleTransform(context)).into(imageView);
     }
 
-    /**
-     * @param context
-     * @param url
-     * @return 通过url 获取bitmap
-     * @throws Exception
-     */
-    public Bitmap getBitmapByUrl(Context context, String url) throws Exception {
-        return Glide.with(context)
-                .load(url)
-                .asBitmap() //必须
-                .centerCrop()
-                .into(500, 500)
-                .get();
-    }
 
     /**
      * 带边框的圆形图片
@@ -190,7 +178,7 @@ public class ImageLoadedrManager {
      * @param borderColor
      */
     public void displayFileCycle(Context context, File url, ImageView imageView, int borderWidth, int borderColor) {
-        Glide.with(context).load(url).transform(new GlideCircleBorderTransform(context, borderWidth, borderColor)).into(imageView);
+        GlideApp.with(context).load(url).transform(new GlideCircleBorderTransform(context, borderWidth, borderColor)).into(imageView);
     }
 
 
@@ -230,7 +218,7 @@ public class ImageLoadedrManager {
      */
     public void displayTopRounded(Context context, String url, ImageView imageView, int radius) {
         url = compatibleUrl(url);
-        Glide.with(context).load(url).placeholder(R.mipmap.ic_default).error(R.mipmap.ic_default).bitmapTransform(new RoundedCornersTransformation(context, radius, 0, RoundedCornersTransformation.CornerType.TOP)).into(imageView);
+        GlideApp.with(context).load(url).placeholder(R.mipmap.ic_default).error(R.mipmap.ic_default).transform(new RoundedCornersTransformation(context, radius, 0, RoundedCornersTransformation.CornerType.TOP)).into(imageView);
     }
 
     public static class GlideCircleTransform extends BitmapTransformation {
@@ -266,9 +254,13 @@ public class ImageLoadedrManager {
             return result;
         }
 
-        @Override
         public String getId() {
             return getClass().getName();
+        }
+
+        @Override
+        public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+
         }
     }
 
@@ -322,9 +314,13 @@ public class ImageLoadedrManager {
             return result;
         }
 
-        @Override
         public String getId() {
             return getClass().getName() + Math.round(radius);
+        }
+
+        @Override
+        public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+
         }
     }
 
@@ -380,13 +376,29 @@ public class ImageLoadedrManager {
             return result;
         }
 
-        @Override
+
         public String getId() {
             return getClass().getName();
+        }
+
+        @Override
+        public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+
         }
     }
 
     public static class RoundedCornersTransformation implements Transformation<Bitmap> {
+        @NonNull
+        @Override
+        public Resource<Bitmap> transform(@NonNull Context context, @NonNull Resource<Bitmap> resource, int outWidth, int outHeight) {
+            return null;
+        }
+
+        @Override
+        public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+
+        }
+
         public enum CornerType {
             ALL,
             TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT,
@@ -423,7 +435,6 @@ public class ImageLoadedrManager {
             mCornerType = cornerType;
         }
 
-        @Override
         public Resource<Bitmap> transform(Resource<Bitmap> resource, int outWidth, int outHeight) {
             Bitmap source = resource.get();
 
@@ -604,7 +615,6 @@ public class ImageLoadedrManager {
             canvas.drawRect(new RectF(mMargin + mRadius, mMargin + mRadius, right, bottom), paint);
         }
 
-        @Override
         public String getId() {
             return "RoundedTransformation(radius=" + mRadius + ", margin=" + mMargin + ", diameter="
                     + mDiameter + ", cornerType=" + mCornerType.name() + ")";

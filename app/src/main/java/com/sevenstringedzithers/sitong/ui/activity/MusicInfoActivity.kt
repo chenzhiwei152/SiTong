@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.text.Html
 import android.view.View
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.IBaseView
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BasePresenter
+import com.sevenstringedzithers.sitong.base.IBaseView
 import kotlinx.android.synthetic.main.activity_music_info.*
 import kotlinx.android.synthetic.main.layout_play_title_fff.*
 

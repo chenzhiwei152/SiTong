@@ -36,7 +36,7 @@ import com.jyall.bbzf.api.scheduler.APIAddressConstants.UPLOAD_MESSAGE_TOKEN
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.UPLOAD_SHARE_RECORD
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.USER_LOGIN
 import com.jyall.bbzf.api.scheduler.APIAddressConstants.upload_feedback_image
-import com.jyall.bbzf.base.BaseBean
+import com.sevenstringedzithers.sitong.base.BaseBean
 import com.sevenstringedzithers.sitong.base.OSSPermissionBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.*
 import io.reactivex.Observable

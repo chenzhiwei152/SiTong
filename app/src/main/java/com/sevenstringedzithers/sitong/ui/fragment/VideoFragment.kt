@@ -2,9 +2,9 @@ package com.sevenstringedzithers.sitong.ui.fragment
 
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.jyall.bbzf.base.BaseFragment
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseFragment
 import com.sevenstringedzithers.sitong.mvp.contract.VideoListContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.VideoListBean
 import com.sevenstringedzithers.sitong.mvp.persenter.VideoListPresenter

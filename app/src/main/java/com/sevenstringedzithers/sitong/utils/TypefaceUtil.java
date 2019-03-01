@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.sevenstringedzithers.sitong.view.PlumbTextView;
 
 public class TypefaceUtil {
+    private static Typeface mTypeface;
     /**
      * <p>Replace the font of specified view and it's children</p>
      * @param root The root view.
@@ -72,6 +73,10 @@ public class TypefaceUtil {
         return ((ViewGroup)context.findViewById(android.R.id.content)).getChildAt(0);
     }
     public static Typeface createagaTypeface(Context context) {
-        return Typeface.createFromAsset(context.getAssets(), "fonts/agaramondproregular.otf");
+        if (mTypeface==null){
+            return Typeface.createFromAsset(context.getAssets(), "fonts/agaramondproregular.otf");
+        }else {
+            return mTypeface;
+        }
     }
 }

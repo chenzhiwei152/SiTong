@@ -9,9 +9,9 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.Window
 import android.view.WindowManager
-import com.jyall.bbzf.base.EventBusCenter
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.EventBusCenter
 import com.sevenstringedzithers.sitong.mvp.model.bean.WeiXin
 import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
 import com.sevenstringedzithers.sitong.utils.ExerciseRecordUploadUtils
@@ -122,7 +122,7 @@ class ShareDialog(context: Context?, title: String, summary: String, url: String
         var msg = WXMediaMessage(webpage)
         msg.title = title
         msg.description = summary
-        msg.thumbData = FilesUtils.Bitmap2Bytes(BitmapFactory.decodeResource(context.resources, R.drawable.ic_launcher))//封面图片byte数组
+        msg.thumbData = FilesUtils.Bitmap2Bytes(BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher))//封面图片byte数组
         var req = SendMessageToWX.Req()
         req.transaction = System.currentTimeMillis().toString()
         req.message = msg

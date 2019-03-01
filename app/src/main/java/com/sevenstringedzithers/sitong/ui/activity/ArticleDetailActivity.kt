@@ -5,10 +5,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.MotionEvent
 import android.view.View
 import com.jyall.android.common.utils.UIUtil
-import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.loadImage
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.sevenstringedzithers.sitong.mvp.contract.ArticleListContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.QinguanDetailBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.VideoListBean
@@ -39,7 +39,7 @@ class ArticleDetailActivity : BaseActivity<ArticleListContract.View, ArticleList
             vv_divider.visibility = View.VISIBLE
             iv_menu.visibility = View.VISIBLE
         } else {
-            title2.setBackgroundColor(resources.getColor(R.color.albumTransparent))
+            title2.setBackgroundColor(resources.getColor(R.color.transparent))
             tv_title.visibility = View.GONE
             vv_divider.visibility = View.GONE
             iv_menu.visibility = View.GONE

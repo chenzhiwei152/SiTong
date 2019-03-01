@@ -1,4 +1,4 @@
-package com.jyall.bbzf.base
+package com.sevenstringedzithers.sitong.base
 
 import android.content.ComponentCallbacks2
 import android.os.Bundle

@@ -3,13 +3,9 @@ package com.sevenstringedzithers.sitong.ui.activity
 import android.animation.ObjectAnimator
 import android.view.View
 import com.jyall.android.common.utils.UIUtil
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.EventBusCenter
-import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.sevenstringedzithers.sitong.R
-import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.*
 import kotlinx.android.synthetic.main.activity_login_or_register.*
 
 

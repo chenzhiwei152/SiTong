@@ -2,12 +2,12 @@ package com.sevenstringedzithers.sitong.ui.activity
 
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BaseContext
-import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BaseContext
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.EventBusCenter
 import com.sevenstringedzithers.sitong.mvp.contract.QinHallContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.QinHallBean
 import com.sevenstringedzithers.sitong.mvp.persenter.QinHallPresenter
@@ -26,7 +26,7 @@ class BelongActivity : BaseActivity<QinHallContract.View, QinHallPresenter>(), Q
     override fun getDataSuccess(list: ArrayList<QinHallBean>) {
         this.list = list
         list?.forEachIndexed { index, qinHallBean ->
-            if (qinHallBean.name==BaseContext.instance.getUserInfo()?.carillon){
+            if (qinHallBean.name== BaseContext.instance.getUserInfo()?.carillon){
                 mAdapter?.setPosition(index)
                 return@forEachIndexed
             }

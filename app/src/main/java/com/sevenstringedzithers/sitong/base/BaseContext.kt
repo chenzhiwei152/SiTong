@@ -1,4 +1,4 @@
-package com.jyall.bbzf.base
+package com.sevenstringedzithers.sitong.base
 
 import android.app.Activity
 import android.app.Application

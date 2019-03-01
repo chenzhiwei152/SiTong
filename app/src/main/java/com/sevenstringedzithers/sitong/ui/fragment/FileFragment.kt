@@ -1,11 +1,11 @@
 package com.sevenstringedzithers.sitong.ui.fragment
 
 import android.view.View
-import com.jyall.bbzf.base.BaseFragment
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseFragment
+import com.sevenstringedzithers.sitong.base.BasePresenter
+import com.sevenstringedzithers.sitong.base.IBaseView
 import com.sevenstringedzithers.sitong.ui.activity.CollectionActivity
 import com.sevenstringedzithers.sitong.ui.activity.LocalDownloadActivity
 import com.sevenstringedzithers.sitong.ui.activity.LocalRecordActivity

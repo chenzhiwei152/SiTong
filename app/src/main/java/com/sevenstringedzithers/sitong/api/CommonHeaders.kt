@@ -2,7 +2,7 @@ package com.jyall.bbzf.api.scheduler
 
 import com.jyall.android.common.utils.MyDeviceInfo
 import com.jyall.android.common.utils.SysUtils
-import com.jyall.bbzf.base.BaseContext
+import com.sevenstringedzithers.sitong.base.BaseContext
 import java.util.*
 
 object CommonHeaders {

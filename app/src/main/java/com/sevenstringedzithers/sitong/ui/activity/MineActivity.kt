@@ -1,38 +1,32 @@
 package com.sevenstringedzithers.sitong.ui.activity
 
-import android.app.Activity
 import android.content.Intent
 import android.support.design.widget.TabLayout
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.SharedPrefUtil
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BaseContext
-import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.loadRoundImage
 import com.jyall.bbzf.extension.toast
 import com.jyall.bbzf.ui.adapter.MineInfoFragmentAdapter
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BaseContext
 import com.sevenstringedzithers.sitong.base.Constants
 import com.sevenstringedzithers.sitong.base.Constants.Tag.RELOAD_USERINFO
+import com.sevenstringedzithers.sitong.base.EventBusCenter
 import com.sevenstringedzithers.sitong.mvp.contract.MineContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.ExerciseRecordBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo
 import com.sevenstringedzithers.sitong.mvp.persenter.MinePresenter
 import com.sevenstringedzithers.sitong.ui.adapter.ExerciseRecordTimeListAdapter
-import com.sevenstringedzithers.sitong.ui.listerner.ProgressCallback
 import com.sevenstringedzithers.sitong.utils.TypefaceUtil
-import com.sevenstringedzithers.sitong.utils.UploadImageUtils
+import com.sevenstringedzithers.sitong.utils.uploadimage.PhotoSelectUtils
 import com.sevenstringedzithers.sitong.view.DailyPunchDialog
-import com.sevenstringedzithers.sitong.view.ImageDialog
-import com.yanzhenjie.album.Album
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine.view.*
 import org.greenrobot.eventbus.EventBus
@@ -59,33 +53,30 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
     }
 
     private var mExeTimeAdapter: ExerciseRecordTimeListAdapter? = null
-    private var mDialog: ImageDialog? = null
-    val ACTIVITY_REQUEST_SELECT_PHOTO: Int = 10086
-    private var localImageUrl: String? = null
+    private var photoSelectUtils: PhotoSelectUtils? = null
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_head -> {
-                if (mDialog == null) {
-
-                    mDialog = ImageDialog(this)
+                if (photoSelectUtils == null) {
+                    photoSelectUtils = PhotoSelectUtils(this)
+                    photoSelectUtils!!.setType(2)
+                    photoSelectUtils!!.setOnUploadImagesListener(object :PhotoSelectUtils.OnUploadImagesListener{
+                        override fun uploadComplete(result: List<String>) {
+                            dismissLoading()
+                            mPresenter?.getUserInfo()
+                        }
+                        override fun uploadStart() {
+                            showLoading()
+                        }
+                        override fun uploadError(msg: String) {
+                            dismissLoading()
+                        }
+                    })
                 }
-                mDialog?.setLeftTitleListerner(object : View.OnClickListener {
-                    override fun onClick(v: View?) {
-                        Album.startAlbumWithCrop(this@MineActivity, null, ACTIVITY_REQUEST_SELECT_PHOTO
-                                , ContextCompat.getColor(this@MineActivity, R.color.color_ffffff)
-                                , ContextCompat.getColor(this@MineActivity, R.color.color_20232b))
-                    }
-
-                })
-                mDialog?.setRightTitleListerner(object : View.OnClickListener {
-                    override fun onClick(v: View?) {
-                        Album.startAlbumWithCrop(this@MineActivity, null, ACTIVITY_REQUEST_SELECT_PHOTO
-                                , ContextCompat.getColor(this@MineActivity, R.color.color_ffffff)
-                                , ContextCompat.getColor(this@MineActivity, R.color.color_20232b))
-                    }
-
-                })
-                mDialog?.show()
+                photoSelectUtils?.showPhotoChooseDialog(
+                        null,
+                        maxNum = 1
+                )
             }
             R.id.tv_message -> {
                 jump<MessageActivity>()
@@ -142,7 +133,7 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
     }
 
     override fun getDataSuccess(bean: UserInfo) {
-        iv_head.loadRoundImage(this, bean.header,defaultResId = R.mipmap.ic_head_default)
+        iv_head.loadRoundImage(this, bean.header, defaultResId = R.mipmap.ic_head_default)
         tv_nick_name.text = bean.nickname
 
         if (bean.vip) {
@@ -308,34 +299,6 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == ACTIVITY_REQUEST_SELECT_PHOTO && resultCode == Activity.RESULT_OK) {
-            val hasChoosePath = Album.parseResult(data) as java.util.ArrayList<String>
-            if (hasChoosePath != null) {
-                localImageUrl = hasChoosePath[0]
-
-                showLoading(false)
-                UploadImageUtils.uploadImage(this@MineActivity, 2, localImageUrl!!, object : ProgressCallback {
-                    override fun onProgressCallback(progress: Double) {
-                        LogUtils.e("progress:" + progress)
-                    }
-
-                    override fun onProgressFailed() {
-                        dismissLoading()
-                        toast_msg("上传图片失败")
-                    }
-
-                    override fun onProgressSuccess() {
-//                        uploadedImageurl = result?.requestId
-//                        startUpload()
-                        mPresenter?.getUserInfo()
-                        runOnUiThread {
-                            dismissLoading()
-                        }
-                    }
-
-                })
-            }
-
-        }
+        photoSelectUtils?.onActivityResult(requestCode, resultCode, data)
     }
 }

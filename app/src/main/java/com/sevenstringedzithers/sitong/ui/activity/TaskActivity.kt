@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.sevenstringedzithers.sitong.mvp.contract.TaskContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.TaskBean
 import com.sevenstringedzithers.sitong.mvp.persenter.TaskPresenter

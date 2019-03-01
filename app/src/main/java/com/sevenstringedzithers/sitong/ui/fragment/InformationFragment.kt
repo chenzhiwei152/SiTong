@@ -1,9 +1,9 @@
 package com.sevenstringedzithers.sitong.ui.fragment
 
 import android.view.View
-import com.jyall.bbzf.base.*
 import com.jyall.bbzf.extension.jump
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.*
 import com.sevenstringedzithers.sitong.base.Constants.Tag.UPDATE_USER_INFO
 import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo
 import com.sevenstringedzithers.sitong.ui.activity.*

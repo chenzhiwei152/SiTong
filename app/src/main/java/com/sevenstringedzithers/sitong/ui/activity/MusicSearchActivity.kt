@@ -3,14 +3,10 @@ package com.sevenstringedzithers.sitong.ui.activity
 import android.support.design.widget.TabLayout
 import android.view.View
 import android.view.ViewGroup
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.EventBusCenter
-import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.ui.adapter.SearchFragmentAdapter
 import com.sevenstringedzithers.sitong.R
-import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.*
 import com.sevenstringedzithers.sitong.utils.TypefaceUtil
 import kotlinx.android.synthetic.main.activity_search.*
 import org.greenrobot.eventbus.EventBus

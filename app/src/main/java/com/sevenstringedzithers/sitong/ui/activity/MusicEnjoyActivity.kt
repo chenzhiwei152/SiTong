@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
-import com.jyall.bbzf.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.jyall.bbzf.extension.loadImage
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R

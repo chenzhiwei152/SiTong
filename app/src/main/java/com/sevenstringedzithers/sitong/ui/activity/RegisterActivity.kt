@@ -2,14 +2,14 @@ package com.sevenstringedzithers.sitong.ui.activity
 
 import android.os.Bundle
 import android.view.View
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BaseContext
-import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.MainActivity
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BaseContext
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.EventBusCenter
 import com.sevenstringedzithers.sitong.mvp.contract.RegisterContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo
 import com.sevenstringedzithers.sitong.mvp.persenter.RegisterPresenter

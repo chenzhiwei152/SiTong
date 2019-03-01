@@ -4,7 +4,7 @@ import com.hazz.kotlinmvp.rx.scheduler.SchedulerUtils
 import com.jyall.bbzf.api.scheduler.APIManager
 import com.jyall.bbzf.api.scheduler.CommonObserver
 import com.jyall.bbzf.api.scheduler.ErrorResponseBean
-import com.jyall.bbzf.base.BaseBean
+import com.sevenstringedzithers.sitong.base.BaseBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.ResultBean
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

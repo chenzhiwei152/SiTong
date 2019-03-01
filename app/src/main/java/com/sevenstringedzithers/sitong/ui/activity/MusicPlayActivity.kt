@@ -17,8 +17,8 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.jyall.android.common.utils.LogUtils
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.EventBusCenter
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
@@ -790,7 +790,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 //                    mAudioFile = recordManager.getFile()
 //                    tvPath.setText("audioPth:" + if (mAudioFile == null) null else mAudioFile.getAbsolutePath())
                     lastRecordFile = if (recordManager?.file == null) null else recordManager?.file?.getAbsolutePath()
-                    runOnUiThread { toast_msg("保存路径："+lastRecordFile) }
+//                    runOnUiThread { toast_msg("保存路径："+lastRecordFile) }
                     LogUtils.e("保存路径："+lastRecordFile)
 //                    val tempCacheMp3FileName = MediaDirectoryUtils.getTempMp3FileName()
 //                    try {

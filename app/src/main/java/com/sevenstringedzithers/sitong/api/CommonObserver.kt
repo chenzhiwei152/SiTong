@@ -1,8 +1,8 @@
 package com.jyall.bbzf.api.scheduler
 
 import com.jyall.android.common.utils.LogUtils
-import com.jyall.bbzf.base.BaseBean
-import com.jyall.bbzf.base.BaseContext
+import com.sevenstringedzithers.sitong.base.BaseBean
+import com.sevenstringedzithers.sitong.base.BaseContext
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import retrofit2.Response

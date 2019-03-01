@@ -2,9 +2,9 @@ package com.sevenstringedzithers.sitong.ui.activity
 
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.sevenstringedzithers.sitong.mvp.contract.MemberListContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.MemberBean
 import com.sevenstringedzithers.sitong.mvp.persenter.MenberListPresenter

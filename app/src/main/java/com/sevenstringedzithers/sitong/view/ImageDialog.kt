@@ -24,7 +24,7 @@ class ImageDialog(context: Context?) : Dialog(context) {
     fun init() {
         window!!.setContentView(R.layout.dialog_selected)
         val window = window
-        window.setBackgroundDrawableResource(R.color.albumTransparent)
+        window.setBackgroundDrawableResource(R.color.transparent)
         val wlp = window!!.attributes
         wlp.gravity = Gravity.BOTTOM
         wlp.width = WindowManager.LayoutParams.MATCH_PARENT

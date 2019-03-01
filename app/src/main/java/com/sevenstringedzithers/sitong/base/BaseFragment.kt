@@ -1,4 +1,4 @@
-package com.jyall.bbzf.base
+package com.sevenstringedzithers.sitong.base
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes

@@ -1,4 +1,4 @@
-package com.jyall.bbzf.base
+package com.sevenstringedzithers.sitong.base
 
 
 interface IBaseView {

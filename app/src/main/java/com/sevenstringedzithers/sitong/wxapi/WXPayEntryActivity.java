@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.jyall.bbzf.base.EventBusCenter;
+import com.sevenstringedzithers.sitong.base.EventBusCenter;
 import com.sevenstringedzithers.sitong.base.Constants;
 import com.sevenstringedzithers.sitong.mvp.model.bean.WeiXin;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;

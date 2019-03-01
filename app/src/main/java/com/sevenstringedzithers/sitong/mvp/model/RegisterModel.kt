@@ -2,7 +2,7 @@ package com.sevenstringedzithers.sitong.mvp.model
 
 import com.hazz.kotlinmvp.rx.scheduler.SchedulerUtils
 import com.jyall.bbzf.api.scheduler.APIManager
-import com.jyall.bbzf.base.BaseBean
+import com.sevenstringedzithers.sitong.base.BaseBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo
 import io.reactivex.Observable
 import retrofit2.Response

@@ -479,7 +479,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                                 if (hasLineDivider!!){
                                     v1 = ImageView(mContext)
 //                                v1.setImageResource(R.drawable.line_black_10)
-                                    v1.setBackgroundColor(mContext.resources.getColor(R.color.albumTransparent))
+                                    v1.setBackgroundColor(mContext.resources.getColor(R.color.transparent))
                                     holder.ll_right_down.addView(v1)
 //                                var para=v1.layoutParams as LinearLayout.LayoutParams
 //                                para.width=list!![position].jianziwidth.toInt()*2
@@ -543,7 +543,7 @@ LogUtils.e("cccccccPre:"+position+"-----"+hasLinePreDivider)
                                 if (hasLinePreDivider!!){
                                     v2 = ImageView(mContext)
 //                                v2.setImageResource(R.drawable.line_black_10)
-                                    v2.setBackgroundColor(mContext.resources.getColor(R.color.albumTransparent))
+                                    v2.setBackgroundColor(mContext.resources.getColor(R.color.transparent))
                                     holder.ll_left_down.addView(v2)
 //                                var para=v2.layoutParams as LinearLayout.LayoutParams
 //                                para.width=list!![position].jianziwidth.toInt()*2

@@ -10,11 +10,11 @@ import android.widget.TextView
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.SharedPrefUtil
 import com.jyall.app.home.utils.ApkUpdateManager
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
+import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.EventBusCenter
 import com.sevenstringedzithers.sitong.mvp.contract.IndexContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicBean
 import com.sevenstringedzithers.sitong.mvp.persenter.IndexPresenter

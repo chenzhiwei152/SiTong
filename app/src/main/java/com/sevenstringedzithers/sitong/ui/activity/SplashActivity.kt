@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import com.jyall.android.common.utils.SharedPrefUtil
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BaseContext
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.sevenstringedzithers.sitong.MainActivity
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BaseContext
+import com.sevenstringedzithers.sitong.base.BasePresenter
+import com.sevenstringedzithers.sitong.base.IBaseView
 import com.tencent.android.tpush.XGPushManager
 
 

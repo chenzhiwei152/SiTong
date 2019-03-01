@@ -4,8 +4,8 @@ import com.hazz.kotlinmvp.rx.scheduler.SchedulerUtils
 import com.jyall.bbzf.api.scheduler.APIManager
 import com.jyall.bbzf.api.scheduler.CommonObserver
 import com.jyall.bbzf.api.scheduler.ErrorResponseBean
-import com.jyall.bbzf.base.BaseBean
-import com.jyall.bbzf.base.BasePresenter
+import com.sevenstringedzithers.sitong.base.BaseBean
+import com.sevenstringedzithers.sitong.base.BasePresenter
 import com.sevenstringedzithers.sitong.mvp.contract.MusicPlayContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicDetailBean
 

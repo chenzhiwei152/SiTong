@@ -2,8 +2,8 @@ package com.sevenstringedzithers.sitong.mvp.persenter
 
 import com.jyall.bbzf.api.scheduler.CommonObserver
 import com.jyall.bbzf.api.scheduler.ErrorResponseBean
-import com.jyall.bbzf.base.BaseBean
-import com.jyall.bbzf.base.BasePresenter
+import com.sevenstringedzithers.sitong.base.BaseBean
+import com.sevenstringedzithers.sitong.base.BasePresenter
 import com.sevenstringedzithers.sitong.mvp.contract.LoginContract
 import com.sevenstringedzithers.sitong.mvp.model.LoginModel
 import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo

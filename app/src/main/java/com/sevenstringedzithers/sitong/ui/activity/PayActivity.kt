@@ -14,11 +14,11 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import com.alipay.sdk.app.PayTask
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.EventBusCenter
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.EventBusCenter
 import com.sevenstringedzithers.sitong.mvp.contract.PayContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.*
 import com.sevenstringedzithers.sitong.mvp.persenter.PayPresenter

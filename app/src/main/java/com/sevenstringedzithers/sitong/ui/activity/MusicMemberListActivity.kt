@@ -5,10 +5,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.github.huajianjiang.expandablerecyclerview.widget.ExpandableAdapter
 import com.jyall.android.common.utils.SharedPrefUtil
-import com.jyall.bbzf.base.BaseActivity
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.sevenstringedzithers.sitong.base.Constants
 import com.sevenstringedzithers.sitong.mvp.contract.IndexContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.MemberMusciChild

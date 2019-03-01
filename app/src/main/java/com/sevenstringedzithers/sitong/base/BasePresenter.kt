@@ -1,4 +1,4 @@
-package com.jyall.bbzf.base
+package com.sevenstringedzithers.sitong.base
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

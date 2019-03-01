@@ -1,20 +1,13 @@
 package com.sevenstringedzithers.sitong.ui.activity
 
-import android.app.Activity
 import android.content.Intent
-import android.support.v4.content.ContextCompat
 import android.view.View
-import com.jyall.android.common.utils.LogUtils
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.extension.loadLocalImage
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.sevenstringedzithers.sitong.mvp.contract.FeedbackContract
 import com.sevenstringedzithers.sitong.mvp.persenter.FeedbackPresenter
-import com.sevenstringedzithers.sitong.ui.listerner.ProgressCallback
-import com.sevenstringedzithers.sitong.utils.UploadImageUtils
-import com.sevenstringedzithers.sitong.view.ImageDialog
-import com.yanzhenjie.album.Album
+import com.sevenstringedzithers.sitong.utils.uploadimage.PhotoSelectUtils
 import kotlinx.android.synthetic.main.activity_feed_back.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 
@@ -26,68 +19,39 @@ class FeedbackActivity : BaseActivity<FeedbackContract.View, FeedbackPresenter>(
         toast_msg(msg)
         finish()
     }
-
-    val ACTIVITY_REQUEST_SELECT_PHOTO: Int = 10086
+    private var photoSelectUtils: PhotoSelectUtils? = null
     private var localImageUrl: String? = null
     private var uploadedImageurl: String? = null
-    private var mDialog: ImageDialog? = null
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_pic -> {
-                if (mDialog == null) {
+                if (photoSelectUtils == null) {
+                    photoSelectUtils = PhotoSelectUtils(this)
+                    photoSelectUtils!!.setType(1)
+                    photoSelectUtils!!.setOnUploadImagesListener(object : PhotoSelectUtils.OnUploadImagesListener{
+                        override fun uploadStart() {
+                            showLoading()
+                        }
+                        override fun uploadComplete(result: List<String>) {
+                            if (result.isNotEmpty()){
+                                uploadedImageurl=result[0]
+                                dismissLoading()
+                            }
+                        }
 
-                    mDialog = ImageDialog(this)
+                        override fun uploadError(msg: String) {
+                            dismissLoading()
+                        }
+                    })
                 }
-                mDialog?.setLeftTitleListerner(object : View.OnClickListener {
-                    override fun onClick(v: View?) {
-                        Album.startAlbumWithCrop(this@FeedbackActivity, null, ACTIVITY_REQUEST_SELECT_PHOTO
-                                , ContextCompat.getColor(this@FeedbackActivity, R.color.color_ffffff)
-                                , ContextCompat.getColor(this@FeedbackActivity, R.color.color_20232b))
-                    }
-
-                })
-                mDialog?.setRightTitleListerner(object : View.OnClickListener {
-                    override fun onClick(v: View?) {
-                        Album.startAlbumWithCrop(this@FeedbackActivity, null, ACTIVITY_REQUEST_SELECT_PHOTO
-                                , ContextCompat.getColor(this@FeedbackActivity, R.color.color_ffffff)
-                                , ContextCompat.getColor(this@FeedbackActivity, R.color.color_20232b))
-                    }
-
-                })
-                mDialog?.show()
-
+                photoSelectUtils?.showPhotoChooseDialog(
+                        null,
+                        maxNum = 1
+                )
             }
             R.id.tv_send -> {
                 if (!et_content.text.toString().isNullOrEmpty()) {
-
-                    if (!localImageUrl.isNullOrEmpty()) {
-                        if (!uploadedImageurl.isNullOrEmpty()) {
-                            startUpload()
-                        } else {
-                            showLoading(false)
-                            UploadImageUtils.uploadImage(this@FeedbackActivity,1, localImageUrl!!, object : ProgressCallback {
-                                override fun onProgressCallback(progress: Double) {
-                                    LogUtils.e("progress:" + progress)
-                                }
-
-                                override fun onProgressFailed() {
-                                    dismissLoading()
-                                    toast_msg("上传图片失败")
-                                }
-
-                                override fun onProgressSuccess() {
-//                                    uploadedImageurl = result?.requestId
-                                    startUpload()
-                                    dismissLoading()
-                                }
-
-                            })
-                        }
-
-                    } else {
-                        startUpload()
-                    }
-
+                    startUpload()
                 } else {
                     toast_msg("编辑内容不能为空")
                 }
@@ -130,15 +94,7 @@ class FeedbackActivity : BaseActivity<FeedbackContract.View, FeedbackPresenter>(
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == ACTIVITY_REQUEST_SELECT_PHOTO && resultCode == Activity.RESULT_OK) {
-            val hasChoosePath = Album.parseResult(data) as java.util.ArrayList<String>
-            if (hasChoosePath != null) {
-                localImageUrl = hasChoosePath[0]
-                iv_pic.loadLocalImage(this, localImageUrl!!)
-
-            }
-
-        }
+        photoSelectUtils?.onActivityResult(requestCode, resultCode, data)
     }
     private fun initTitle() {
         iv_back.setOnClickListener { finish() }

@@ -1,7 +1,7 @@
 package com.sevenstringedzithers.sitong.mvp.contract
 
-import com.jyall.bbzf.base.IBaseView
-import com.jyall.bbzf.base.IPresenter
+import com.sevenstringedzithers.sitong.base.IBaseView
+import com.sevenstringedzithers.sitong.base.IPresenter
 import com.sevenstringedzithers.sitong.mvp.model.bean.QinguanDetailBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.VideoListBean
 

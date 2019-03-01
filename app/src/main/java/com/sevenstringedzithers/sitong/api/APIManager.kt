@@ -3,7 +3,7 @@ package com.jyall.bbzf.api.scheduler
 import com.jyall.android.common.utils.LogUtils
 import com.jyall.android.common.utils.MyDeviceInfo
 import com.jyall.android.common.utils.SysUtils
-import com.jyall.bbzf.base.BaseContext
+import com.sevenstringedzithers.sitong.base.BaseContext
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

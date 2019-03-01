@@ -14,9 +14,9 @@ import com.jyall.apkupdate.UpdateInfo
 import com.jyall.bbzf.api.scheduler.APIManager
 import com.jyall.bbzf.api.scheduler.CommonObserver
 import com.jyall.bbzf.api.scheduler.ErrorResponseBean
-import com.jyall.bbzf.base.BaseBean
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.AppVersionBean
 import com.sevenstringedzithers.sitong.utils.ExtraUtils
 

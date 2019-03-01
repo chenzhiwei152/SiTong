@@ -3,10 +3,10 @@ package com.sevenstringedzithers.sitong.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.IBaseView
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BasePresenter
+import com.sevenstringedzithers.sitong.base.IBaseView
 import com.sevenstringedzithers.sitong.view.ShareDialog
 import kotlinx.android.synthetic.main.activity_message_detail.*
 import kotlinx.android.synthetic.main.layout_common_title.*

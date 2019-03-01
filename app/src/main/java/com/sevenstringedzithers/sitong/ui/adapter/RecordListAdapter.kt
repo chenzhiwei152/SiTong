@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.mvp.model.bean.FileInfo
 import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
+import com.sevenstringedzithers.sitong.utils.ExtraUtils
+import com.sevenstringedzithers.sitong.utils.TypefaceUtil
 import com.sevenstringedzithers.sitong.utils.files.RecordFilesUtils
 import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.item_record.view.*
@@ -20,6 +22,7 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
     private var maxTime: String? = null
     var list = arrayListOf<FileInfo>()
     var shareListerner: RVAdapterItemOnClick? = null
+    private var typeface=TypefaceUtil.createagaTypeface(context)
 
     fun setShareListerne(shareListerner: RVAdapterItemOnClick) {
         this.shareListerner = shareListerner
@@ -37,7 +40,7 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
 
     fun removeItem(poi: Int) {
         list.removeAt(poi)
-        notifyItemChanged(poi)
+        notifyDataSetChanged()
     }
 
     fun setMax(max: Float) {
@@ -65,9 +68,14 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var value = list.get(position).name.split(".")
-        if (value.size > 0) {
-
+//        设置样式
+        holder.viewLayout.tv_name.typeface=typeface
+        holder.viewLayout.tv_date.typeface=typeface
+        holder.viewLayout.tv_share.typeface=typeface
+        holder.viewLayout.tv_delete.typeface=typeface
+        var value = list[position].name.split(".")
+        holder.viewLayout.tv_date.text = list[position].lastModified
+        if (value.isNotEmpty()) {
             holder.viewLayout.tv_name.text = value[0]
 
             onProgress = object : BubbleSeekBar.OnProgressChangedListener {
@@ -82,9 +90,13 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
             }
             holder.viewLayout.seek_bar.onProgressChangedListener = onProgress
             holder.viewLayout.tv_delete.setOnClickListener {
-                removeItem(position)
-                RecordFilesUtils.getInstance()?.deleteFiles(list[position].name)
-                notifyDataSetChanged()
+                try {
+                    RecordFilesUtils.getInstance()?.deleteFiles(list[position].name)
+                    removeItem(position)
+                } catch (e: Exception) {
+                    ExtraUtils.toasts("" + e.message)
+                }
+//                notifyDataSetChanged()
             }
             holder.viewLayout.tv_share.setOnClickListener {
                 shareListerner?.onItemClicked("")

@@ -1,11 +1,11 @@
 package com.sevenstringedzithers.sitong.ui.activity
 
 import android.view.View
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.IBaseView
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BasePresenter
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.IBaseView
 import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
 import com.sevenstringedzithers.sitong.utils.TxVideoPlayerController1
 import com.xiao.nicevideoplayer.Clarity

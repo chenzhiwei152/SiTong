@@ -3,11 +3,11 @@ package com.sevenstringedzithers.sitong.ui.activity
 import android.support.design.widget.TabLayout
 import android.view.View
 import android.view.ViewGroup
-import com.jyall.bbzf.base.BaseActivity
-import com.jyall.bbzf.base.BasePresenter
-import com.jyall.bbzf.base.IBaseView
 import com.jyall.bbzf.ui.adapter.KnowledgeFragmentAdapter
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BasePresenter
+import com.sevenstringedzithers.sitong.base.IBaseView
 import kotlinx.android.synthetic.main.activity_knowledge.*
 
 class KnowledgeActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseView {
