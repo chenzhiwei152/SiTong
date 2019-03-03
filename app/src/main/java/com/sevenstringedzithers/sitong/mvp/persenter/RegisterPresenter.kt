@@ -54,6 +54,7 @@ class RegisterPresenter : BasePresenter<RegisterContract.View>(), RegisterContra
                 }
 
                 override fun onFail(errorResponseBean: BaseBean<UserInfo>): Boolean {
+                    mRootView?.toast_msg(errorResponseBean.message)
                     mRootView?.dismissLoading()
                     return true
                 }
