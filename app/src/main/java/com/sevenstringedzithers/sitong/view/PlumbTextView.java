@@ -205,7 +205,8 @@ public class PlumbTextView extends View {
     }
 
     private int getCharHeight() {
-        return charHeight = (int) (Math.abs(textPaint.ascent()) + letterSpacing);
+        return charHeight = (int) (Math.abs(textPaint.ascent())+(Math.abs(textPaint.descent()/2)) + letterSpacing);
+//        return charHeight = (int) (Math.abs(textPaint.ascent())+ letterSpacing);
     }
 
     @Override

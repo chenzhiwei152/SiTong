@@ -80,8 +80,8 @@ public class ImageLoadedrManager {
         if (imageView==null||url==null){
             return;
         }
-        url = compatibleUrl(url);
-        GlideApp.with(context).load(url).dontAnimate().dontTransform().into(imageView);
+//        url = compatibleUrl(url);
+        GlideApp.with(context).load(url).into(imageView);
     }
 
     public void display(Context context, String url, ImageView imageView, int defaultId, int errorId) {
