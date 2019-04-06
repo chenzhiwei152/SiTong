@@ -39,7 +39,7 @@ class ArticleDetailActivity : BaseActivity<ArticleListContract.View, ArticleList
             vv_divider.visibility = View.VISIBLE
             iv_menu.visibility = View.VISIBLE
         } else {
-            title2.setBackgroundColor(resources.getColor(R.color.transparent))
+            title2.setBackgroundColor(resources.getColor(R.color.color_00000000))
             tv_title.visibility = View.GONE
             vv_divider.visibility = View.GONE
             iv_menu.visibility = View.GONE

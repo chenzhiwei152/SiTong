@@ -76,7 +76,6 @@ abstract class CommonObserver<T> : Observer<Response<T>> {
     fun processCode(errorResponseBean: ErrorResponseBean): Boolean {
         when (errorResponseBean.code) {
             ResponseCode.ACCESS_TOKEN_INVALID -> {
-                BaseContext.instance.logout()
             }
             ResponseCode.UPDATE_FORCE -> LogUtils.e(errorResponseBean.message)//TODO
             ResponseCode.TICKET_UNAVALIBLE -> LogUtils.e(errorResponseBean.message)//TODO

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.jyall.multiplestatusview.EmptyLayout
+import com.sevenstringedzithers.sitong.utils.ActivityStackManager
 import com.sevenstringedzithers.sitong.utils.EmptyLayoutEnum
 import com.sevenstringedzithers.sitong.utils.StatusBarUtil
 import com.sevenstringedzithers.sitong.utils.TypefaceUtil
@@ -35,7 +36,7 @@ abstract class BaseActivity<T : IBaseView, K : BasePresenter<T>> : AppCompatActi
         setContentView(getLayoutId())
         TypefaceUtil.replaceFont(this, "fonts/agaramondproregular.otf")
         mPresenter = getPresenter()
-//        ActivityStackManager.getInstance().addActivity(this)
+        ActivityStackManager.getInstance().addActivity(this)
 
         mPresenter?.attachView(getRootView())
         if (isRegistEventBus()) EventBus.getDefault().register(this)
@@ -188,7 +189,7 @@ abstract class BaseActivity<T : IBaseView, K : BasePresenter<T>> : AppCompatActi
         dismissLoading()
         mPresenter?.detachView()
         if (isRegistEventBus()) EventBus.getDefault().unregister(this)
-//        ActivityStackManager.getInstance().removeActivity(this)
+        ActivityStackManager.getInstance().removeActivity(this)
     }
 
 

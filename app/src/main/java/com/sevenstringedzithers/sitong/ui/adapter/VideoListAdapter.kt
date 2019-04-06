@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jyall.bbzf.extension.loadRoundImage
+import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.base.Constants
 import com.sevenstringedzithers.sitong.mvp.model.bean.VideoListBean
@@ -59,14 +60,19 @@ class VideoListAdapter(var context: Context) : RecyclerView.Adapter<VideoListAda
         holder.viewLayout.tv_city.setText(list[position].author)
         holder.viewLayout.iv_image.loadRoundImage(context, list[position].icon)
         holder.viewLayout.setOnClickListener {
-            if (type==0){
-                var intent =Intent(context,ArticleDetailActivity::class.java)
-                intent.putExtra("id",list[position].id)
+            if (type == 0) {
+                var intent = Intent(context, ArticleDetailActivity::class.java)
+                intent.putExtra("id", list[position].id)
                 context.startActivity(intent)
-            }else{
-                var intent =Intent(context,VideoPlayActivity::class.java)
-                intent.putExtra(Constants.VIDOE_URL,list[position].url)
-                context.startActivity(intent)
+            } else {
+                if (list[position].url != null) {
+                    var url = (list[position].url)?.replace("https", "http")
+                    var intent = Intent(context, VideoPlayActivity::class.java)
+                    intent.putExtra(Constants.VIDOE_URL, url)
+                    context.startActivity(intent)
+                } else {
+                    context.toast("url为空")
+                }
             }
         }
     }

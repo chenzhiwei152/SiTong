@@ -17,12 +17,12 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.jyall.android.common.utils.LogUtils
-import com.sevenstringedzithers.sitong.base.BaseActivity
-import com.sevenstringedzithers.sitong.base.EventBusCenter
 import com.jyall.bbzf.extension.jump
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.EventBusCenter
 import com.sevenstringedzithers.sitong.mvp.contract.MusicPlayContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicDetailBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.QinViewPointBean
@@ -202,6 +202,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     player?.pause()
                 }
                 isABStyle = !isABStyle
+                setButtonState()
             }
             R.id.iv_learn -> {
                 jump<MusicSearchActivity>()

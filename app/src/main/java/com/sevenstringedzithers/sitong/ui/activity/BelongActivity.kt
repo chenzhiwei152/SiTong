@@ -71,7 +71,7 @@ class BelongActivity : BaseActivity<QinHallContract.View, QinHallPresenter>(), Q
     override fun isNeedLec(): View? = null
     private fun initTitle() {
         iv_back.setOnClickListener { finish() }
-        tv_title.text = "师从"
+        tv_title.text = "师承"
         iv_menu.visibility = View.GONE
     }
 }

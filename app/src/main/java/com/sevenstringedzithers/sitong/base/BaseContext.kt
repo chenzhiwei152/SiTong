@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo
+import com.sevenstringedzithers.sitong.ui.activity.LoginOrRegisterActivity
 import com.sevenstringedzithers.sitong.utils.ActivityStackManager
 import com.tencent.android.tpush.XGIOperateCallback
 import com.tencent.android.tpush.XGPushConfig
@@ -24,8 +25,6 @@ import com.tencent.android.tpush.XGPushManager
 import com.tencent.android.tpush.XGPushManager.registerPush
 import javax.crypto.SecretKey
 import kotlin.properties.Delegates
-
-
 
 
 class BaseContext : MultiDexApplication() {
@@ -41,7 +40,7 @@ class BaseContext : MultiDexApplication() {
 
     private var secretKey: SecretKey? = null
 
-    private var  userInfo: UserInfo? = null
+    private var userInfo: UserInfo? = null
 
     private var runningActivity: Activity? = null
 
@@ -59,7 +58,6 @@ class BaseContext : MultiDexApplication() {
     companion object {
         var instance: BaseContext by Delegates.notNull()
     }
-
 
 
     /**
@@ -105,7 +103,7 @@ class BaseContext : MultiDexApplication() {
 
 
     fun setUserInfo(userInfo: UserInfo) {
-            this.userInfo = userInfo
+        this.userInfo = userInfo
         SharedPrefUtil.saveObj(instance, "userInfo", userInfo)
     }
 
@@ -125,10 +123,13 @@ class BaseContext : MultiDexApplication() {
         }
         userInfo = null
         SharedPrefUtil.saveObj(instance, "userInfo", null)
-        var intent = getPackageManager()
-                .getLaunchIntentForPackage(getPackageName())
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        startActivity(intent)
+//        var intent = getPackageManager()
+//                .getLaunchIntentForPackage(getPackageName())
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//        startActivity(intent)
+        var mIntent = Intent(this, LoginOrRegisterActivity::class.java)
+        mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(mIntent)
         ActivityStackManager.getInstance().finishAllActivity()
     }
 
@@ -149,14 +150,14 @@ class BaseContext : MultiDexApplication() {
      * 腾讯信鸽推送
      */
     private fun initPush() {
-        XGPushConfig.enableDebug(this,true)
-        XGPushManager.registerPush(this,object :XGIOperateCallback{
+        XGPushConfig.enableDebug(this, true)
+        XGPushManager.registerPush(this, object : XGIOperateCallback {
             override fun onSuccess(p0: Any?, p1: Int) {
-                LogUtils.e("成功XGPushManager:"+p0.toString())
+                LogUtils.e("成功XGPushManager:" + p0.toString())
             }
 
             override fun onFail(p0: Any?, p1: Int, p2: String?) {
-                LogUtils.e("失败XGPushManager:"+p2)
+                LogUtils.e("失败XGPushManager:" + p2)
             }
 
         })

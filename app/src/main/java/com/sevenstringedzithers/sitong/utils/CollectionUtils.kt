@@ -5,6 +5,7 @@ import com.jyall.bbzf.api.scheduler.APIManager
 import com.jyall.bbzf.api.scheduler.CommonObserver
 import com.jyall.bbzf.api.scheduler.ErrorResponseBean
 import com.sevenstringedzithers.sitong.base.BaseBean
+import com.sevenstringedzithers.sitong.base.BaseContext
 import com.sevenstringedzithers.sitong.mvp.model.bean.ResultBean
 import com.sevenstringedzithers.sitong.ui.listerner.ResultCallback
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -43,7 +44,10 @@ class CollectionUtils {
 
         }
 
-        fun collectionUtils( device_token: String) {
+        fun collectionUtils(device_token: String) {
+            if (!BaseContext.instance.isLoginIn()) {
+                return
+            }
             var map = hashMapOf<String, String>()
             map.put("device_token", "" + device_token)
             APIManager.jyApi.upload_message_token(map).compose(SchedulerUtils.ioToMain()).observeOn(AndroidSchedulers.mainThread())

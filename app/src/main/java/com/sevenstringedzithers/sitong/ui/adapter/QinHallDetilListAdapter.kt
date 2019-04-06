@@ -44,12 +44,17 @@ class QinHallDetilListAdapter(var context: Context) : RecyclerView.Adapter<QinHa
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.viewLayout.tv_name.text = "" + list[position].ctn
-        holder.viewLayout.iv_image.loadImage(context, list[position]?.img)
-        holder.viewLayout.tv_video.text=""+list[position].video
+        holder.viewLayout.tv_name.text = list[position].ctn
+        if (!list[position]?.img.isNullOrEmpty()) {
+            holder.viewLayout.iv_image.loadImage(context, list[position]?.img)
+            holder.viewLayout.iv_image.visibility = View.VISIBLE
+        } else {
+            holder.viewLayout.iv_image.visibility = View.GONE
+        }
+        holder.viewLayout.tv_video.text = "" + list[position].video
         holder.viewLayout.tv_video.setOnClickListener {
             var intent = Intent(context, VideoPlayActivity::class.java)
-            intent.putExtra(Constants.VIDOE_URL,list[position].video)
+            intent.putExtra(Constants.VIDOE_URL, list[position].video)
             context.startActivity(intent)
         }
     }
