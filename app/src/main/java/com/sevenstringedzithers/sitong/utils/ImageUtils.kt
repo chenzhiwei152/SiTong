@@ -16,36 +16,42 @@ class ImageUtils {
         }
 
         fun getNumber(ll_center: LinearLayout?, mContext: Context, type: String, isSmall: Int = 1, isPressed: Boolean = false) {
-            if (ll_center==null){
+            if (ll_center == null) {
                 return
             }
+
             var image: Int? = null
-            var imageView = ImageView(mContext)
             if (isPressed) {
                 image = number_pressed[type]
             } else {
                 image = number_black[type]
             }
             if (image != null) {
-                imageView.setImageResource(image!!)
-                ll_center?.addView(imageView)
-
-                var para = imageView.layoutParams as LinearLayout.LayoutParams
-
-                if (isSmall == 1) {
-                } else if (isSmall == 2) {
-                    para.width = UIUtil.dip2px(mContext, 8f)
-                    para.height = UIUtil.dip2px(mContext, 8f)
-                    para.topMargin= UIUtil.dip2px(mContext, 2f)
+                if (ll_center.childCount == 1 && isSmall == 1) {
+                    if (ll_center.getChildAt(0) is ImageView) {
+                        (ll_center.getChildAt(0) as ImageView).setImageResource(image)
+                    }
                 } else {
-                    para.width = UIUtil.dip2px(mContext, 4f)
-                    para.height =UIUtil.dip2px(mContext, 4f)
-                    para.topMargin= UIUtil.dip2px(mContext, 2f)
+                    ll_center?.removeAllViews()
+                    var imageView = ImageView(mContext)
+                    imageView.setImageResource(image!!)
+                    ll_center?.addView(imageView)
+
+                    var para = imageView.layoutParams as LinearLayout.LayoutParams
+
+                    if (isSmall == 1) {
+                    } else if (isSmall == 2) {
+                        para.width = UIUtil.dip2px(mContext, 8f)
+                        para.height = UIUtil.dip2px(mContext, 8f)
+                        para.topMargin = UIUtil.dip2px(mContext, 2f)
+                    } else {
+                        para.width = UIUtil.dip2px(mContext, 4f)
+                        para.height = UIUtil.dip2px(mContext, 4f)
+                        para.topMargin = UIUtil.dip2px(mContext, 2f)
+                    }
+                    imageView.layoutParams = para
                 }
-                imageView.layoutParams = para
             }
-
-
         }
 
         fun getImageView(mContext: Context, id: Int, widths: Int = -1, height: Int = -1): ImageView? {

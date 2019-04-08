@@ -156,9 +156,31 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
                 }).setLeftTitleListerner(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
-                        var bundle = Bundle()
-                        bundle.putString("id", "" + bean.id)
-                        jump<MusicEnjoyActivity>(isAnimation = false, dataBundle = bundle)
+                        if (!bean.isbuy) {
+//                            需要付费的
+                            dia?.dismiss()
+                            var musicPayDialog = MusicPayDialog(this@MainActivity, "取消", "购买", bean.name, bean.enName).setRightTitleListerner(object : View.OnClickListener {
+                                override fun onClick(p0: View?) {
+//                                    跳支付
+                                    var bund = Bundle()
+                                    bund.putString("id", "" + bean?.id)
+                                    jump<MemberListActivity>(dataBundle = bund)
+                                }
+                            })
+                            musicPayDialog.show()
+
+                        } else {
+                            if (bean.onshelf == 1) {
+                                var bundle = Bundle()
+                                bundle.putString("id", "" + bean.id)
+                                bundle.putBoolean("isEnjoy", bean.icon.isEmpty())
+                                jump<MusicEnjoyActivity>(isAnimation = false, dataBundle = bundle)
+                            } else {
+                                toast_msg("该曲目未上架")
+                            }
+
+                        }
+
                     }
 
                 }).setColletionListerner(object : View.OnClickListener {
@@ -267,7 +289,8 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
             }
         }
         if (mKeys?.size <= 0 || mkeysNum != mRankRVAdapter?.list?.size) {
-            mRankRVAdapter?.list?.forEachIndexed { index, value ->
+            mKeys.clear()
+            mRankRVAdapter?.list?.forEachIndexed { index, _ ->
                 var startLocation = IntArray(2)
                 rv_rank.findViewHolderForLayoutPosition(index)?.itemView?.getLocationOnScreen(startLocation)
                 mKeys.add(startLocation[1])

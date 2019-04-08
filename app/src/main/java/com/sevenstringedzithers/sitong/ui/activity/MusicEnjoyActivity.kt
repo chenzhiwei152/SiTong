@@ -6,10 +6,10 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
-import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.jyall.bbzf.extension.loadImage
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.sevenstringedzithers.sitong.mvp.contract.MusicPlayContract
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicDetailBean
 import com.sevenstringedzithers.sitong.mvp.persenter.MusicPlayPresenter
@@ -38,7 +38,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
     private var isLoaded = false
     private var isLoading = false
     private var isSlience: Boolean = false
-//    private var pointList: ArrayList<QinViewPointBean>? = null
+    //    private var pointList: ArrayList<QinViewPointBean>? = null
     var mLoadDialog: MusicDownloadDialog? = null
     //    private var mMoveMap: HashMap<Int, Float> = hashMapOf()//在线上动态显示的点
 //    private var currentSort: Int? = null
@@ -61,7 +61,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
                 }
                 tv_type.text = musicBean!!.level
                 tv_source.text = musicBean!!.from_detail
-                tv_content.text = musicBean!!.introduce.replace("</n>","\n")
+                tv_content.text = musicBean!!.introduce.replace("</n>", "\n")
                 ll_info.visibility = View.VISIBLE
             }
             R.id.iv_back -> {
@@ -155,7 +155,11 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
     override fun getDataSuccess(musicBean: MusicDetailBean) {
         this.musicBean = musicBean
-        iv_image.loadImage(this@MusicEnjoyActivity, musicBean.icon)
+        if (isBeautifulMusic) {
+            iv_image.setImageResource(R.mipmap.ic_enjoy_default)
+        } else {
+            iv_image.loadImage(this@MusicEnjoyActivity, musicBean.icon)
+        }
         iv_title.setText(musicBean.name)
         setCollection(musicBean.iscollection)
     }
@@ -171,6 +175,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
     private var mThread: Thread? = null
     var id: String? = null
+    var isBeautifulMusic = false
     private var adapter: MainAdapter? = null
 
     override fun getRootView(): MusicPlayContract.View = this
@@ -182,6 +187,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
         var bundle = intent.extras
         if (bundle != null) {
             id = bundle.getString("id")
+            isBeautifulMusic = bundle.getBoolean("isEnjoy")
         }
         iv_play.setOnClickListener(this)
         iv_tool.setOnClickListener(this)
@@ -242,7 +248,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
 
 
         if (DownLoadFilesUtils.getInstance()!!.isExist(FilesUtils.getFileName(url))) {
-            f =DownLoadFilesUtils.getInstance()!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
+            f = DownLoadFilesUtils.getInstance()!!.getCurrentUri() + "/" + FilesUtils.getFileName(url)
             initPlayer()
         } else {
 //开始下载
@@ -349,6 +355,7 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
         var current = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
         return current <= 0
     }
+
     override fun onPause() {
         super.onPause()
         if (player != null) {
@@ -357,10 +364,12 @@ class MusicEnjoyActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresent
         }
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
+
     override fun onResume() {
         super.onResume()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
+
     /*
    * 按钮状态*/
     private fun setButtonState() {

@@ -60,14 +60,16 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
                 if (photoSelectUtils == null) {
                     photoSelectUtils = PhotoSelectUtils(this)
                     photoSelectUtils!!.setType(2)
-                    photoSelectUtils!!.setOnUploadImagesListener(object :PhotoSelectUtils.OnUploadImagesListener{
+                    photoSelectUtils!!.setOnUploadImagesListener(object : PhotoSelectUtils.OnUploadImagesListener {
                         override fun uploadComplete(result: List<String>) {
                             dismissLoading()
                             mPresenter?.getUserInfo()
                         }
+
                         override fun uploadStart() {
                             showLoading()
                         }
+
                         override fun uploadError(msg: String) {
                             dismissLoading()
                         }
@@ -142,6 +144,7 @@ class MineActivity : BaseActivity<MineContract.View, MinePresenter>(), MineContr
             iv_vip.visibility = View.GONE
         }
         tv_message.text = "消息 " + bean.msgs
+        tv_qinhiu_number.text = "琴徽章 " + bean.award
         tv_rank.text = bean.level
         tv_duration.tv_duration.text = bean.duration
         tv_days.tv_days.text = bean.days

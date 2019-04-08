@@ -8,12 +8,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import com.jyall.android.common.utils.SharedPrefUtil
-import com.sevenstringedzithers.sitong.base.BaseActivity
-import com.sevenstringedzithers.sitong.base.BasePresenter
-import com.sevenstringedzithers.sitong.base.IBaseView
 import com.jyall.bbzf.extension.jump
 import com.sevenstringedzithers.sitong.R
+import com.sevenstringedzithers.sitong.base.BaseActivity
+import com.sevenstringedzithers.sitong.base.BasePresenter
 import com.sevenstringedzithers.sitong.base.Constants
+import com.sevenstringedzithers.sitong.base.IBaseView
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicBean
 import com.sevenstringedzithers.sitong.ui.adapter.CollectionListAdapter
 import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
@@ -119,7 +119,7 @@ class LocalDownloadActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(
         mAdapter?.setListerner(object : RVAdapterItemOnClick {
             override fun onItemClicked(data: Any) {
                 var bean = data as MusicBean.Music
-                if (bean.isbuy) {
+                if (!bean.isbuy) {
                     var bund = Bundle()
                     bund.putString("id", "" + bean?.id)
                     jump<MemberListActivity>(dataBundle = bund)

@@ -5,6 +5,17 @@ public class FileInfo {
     private String lastModified;
     private String absolutePath;
 
+
+    public long getLength() {
+        return length;
+    }
+
+    public void setLength(long length) {
+        this.length = length;
+    }
+
+    private long length;
+
     public String getAbsolutePath() {
         return absolutePath;
     }

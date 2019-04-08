@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.util.Log
 import com.jyall.android.common.utils.LogUtils
 import com.sevenstringedzithers.sitong.mvp.model.bean.FileInfo
+import com.sevenstringedzithers.sitong.utils.ExtraUtils
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -47,6 +48,7 @@ class FilesUtils {
                     bean.lastModified = time
                     bean.name = getFileName(files!![i].absolutePath)
                     bean.absolutePath = files!![i].absolutePath
+                    bean.length = ExtraUtils.getMP3FileInfo(files!![i].absolutePath!!) / 1000
                     s.add(bean)
                 } else {
                     val time = SimpleDateFormat("yyyy-MM-dd")
@@ -55,6 +57,7 @@ class FilesUtils {
                     bean.lastModified = time
                     bean.name = files!![i].absolutePath
                     bean.absolutePath = files!![i].absolutePath
+                    bean.length = ExtraUtils.getMP3FileInfo(files!![i].absolutePath!!) / 1000
                     s.add(bean)
                 }
             }

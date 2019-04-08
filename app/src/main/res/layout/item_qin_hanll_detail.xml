@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="mmmmmmm\r\nkkkkkkkkkkk" />
+        android:text="" />
 
     <ImageView
         android:id="@+id/iv_image"
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginBottom="@dimen/dp_10"
+        android:adjustViewBounds="true"
         android:scaleType="fitXY" />
 
     <TextView

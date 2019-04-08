@@ -111,7 +111,7 @@ class CollectionActivity : BaseActivity<IndexContract.View, IndexPresenter>(), I
         mAdapter?.setListerner(object : RVAdapterItemOnClick {
             override fun onItemClicked(data: Any) {
                 var bean = data as MusicBean.Music
-                if (bean.isbuy) {
+                if (!bean.isbuy) {
                     var bund = Bundle()
                     bund.putString("id", "" + bean?.id)
                     jump<MemberListActivity>(dataBundle = bund)

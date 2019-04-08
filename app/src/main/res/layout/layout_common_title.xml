@@ -18,7 +18,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:lines="1"
+        android:ellipsize="end"
+        android:paddingLeft="@dimen/dp_50"
         android:paddingTop="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_50"
         android:text="名称" />
 
     <ImageView
@@ -28,13 +32,13 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dp_20"
-        android:src="@drawable/selector_menu"
         android:clickable="true"
-        android:paddingTop="@dimen/dp_20" />
+        android:paddingTop="@dimen/dp_20"
+        android:src="@drawable/selector_menu" />
 
     <View
-        style="@style/divider_d0a670_1"
         android:id="@+id/vv_divider"
+        style="@style/divider_d0a670_1"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginTop="@dimen/dp_5" />

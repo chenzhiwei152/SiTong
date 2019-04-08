@@ -22,7 +22,7 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
     private var maxTime: String? = null
     var list = arrayListOf<FileInfo>()
     var shareListerner: RVAdapterItemOnClick? = null
-    private var typeface=TypefaceUtil.createagaTypeface(context)
+    private var typeface = TypefaceUtil.createagaTypeface(context)
 
     fun setShareListerne(shareListerner: RVAdapterItemOnClick) {
         this.shareListerner = shareListerner
@@ -69,10 +69,10 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 //        设置样式
-        holder.viewLayout.tv_name.typeface=typeface
-        holder.viewLayout.tv_date.typeface=typeface
-        holder.viewLayout.tv_share.typeface=typeface
-        holder.viewLayout.tv_delete.typeface=typeface
+        holder.viewLayout.tv_name.typeface = typeface
+        holder.viewLayout.tv_date.typeface = typeface
+        holder.viewLayout.tv_share.typeface = typeface
+        holder.viewLayout.tv_delete.typeface = typeface
         var value = list[position].name.split(".")
         holder.viewLayout.tv_date.text = list[position].lastModified
         if (value.isNotEmpty()) {
@@ -109,6 +109,8 @@ class RecordListAdapter(var context: Context) : RecyclerView.Adapter<RecordListA
                 onItemClick?.onItemClicked(list[position])
                 if (holder.viewLayout.seek_bar.visibility == View.GONE) {
                     holder.viewLayout.seek_bar.visibility = View.VISIBLE
+//                    holder.viewLayout.seek_bar.configBuilder?.max(list[position].length.toFloat())?.min(0f)?.build()
+                    holder.viewLayout.tv_end?.text = ExtraUtils.secToTime((list[position].length.toFloat()).toInt())
                     holder.viewLayout.ll_button.visibility = View.VISIBLE
                     holder.viewLayout.rl_process.visibility = View.VISIBLE
                     holder.viewLayout.ll_content.setBackgroundColor(context.resources.getColor(R.color.color_f4f3f2))

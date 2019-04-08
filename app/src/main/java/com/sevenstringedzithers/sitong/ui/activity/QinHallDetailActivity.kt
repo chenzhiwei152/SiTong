@@ -75,7 +75,9 @@ class QinHallDetailActivity : BaseActivity<QinHallDetailContract.View, qinHalDet
         this.bean = bean
         iv_fengmian.loadImage(this@QinHallDetailActivity, bean.img)
         tv_title.setText(bean.name)
-        tv_titles.setText(bean.name)
+        var ss = bean.name.replace("「", "﹁")
+        ss = ss.replace("」", "﹂")
+        tv_titles.setText(ss)
         mAdapter?.setData(bean.content)
     }
 

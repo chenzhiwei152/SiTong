@@ -53,7 +53,7 @@ class IndexMusicWithLetterAdapter(var context: Context, lists: ArrayList<MusicBe
         ada.setListerner(object : RVAdapterItemOnClick {
             override fun onItemClicked(data: Any) {
                 var bean=data as MusicBean.Music.Music
-                var bean_relal =MusicBean.Music(bean.levelcode,bean.iscollection,bean.enName,bean.name,bean.isbuy,bean.level,bean.onshelf,bean.id,bean.icon,bean.hasright,"", arrayListOf())
+                var bean_relal =MusicBean.Music(bean.levelcode,bean.iscollection,bean.enName,bean.name,bean.isbuy,bean.level,bean.onshelf,bean.id,"",bean.hasright,"", arrayListOf())
                 onItemClick?.onItemClicked(bean_relal)
             }
         })

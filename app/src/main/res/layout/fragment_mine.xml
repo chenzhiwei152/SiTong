@@ -63,11 +63,12 @@
 
             <TextView
                 android:id="@+id/tv_nick_name"
-                style="@style/textStyle_20232b_42"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/color_20232b"
+                android:textSize="38sp" />
 
             <TextView
                 android:id="@+id/tv_message"
@@ -75,7 +76,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_nick_name"
-                android:text="消息2" />
+                android:text="" />
+
+            <TextView
+                android:id="@+id/tv_qinhiu_number"
+                style="@style/textStyle_20232b_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_message"
+                android:text="" />
 
         </RelativeLayout>
 
@@ -94,23 +103,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginTop="@dimen/dp_15"
             android:layout_marginBottom="@dimen/dp_15"
+            android:layout_weight="1"
             android:gravity="center_horizontal|top">
 
             <TextView
-                android:layout_marginTop="-10dp"
                 android:id="@+id/tv_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
+                android:layout_marginTop="-10dp"
                 android:text="0"
                 android:textColor="@color/color_20232b"
                 android:textSize="40sp" />
@@ -140,17 +148,17 @@
         <LinearLayout
             android:id="@+id/ll_exe_time"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dp_15"
             android:layout_marginBottom="@dimen/dp_15"
-            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/tv_duration"
-                android:layout_marginTop="-10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-10dp"
                 android:text="0"
                 android:textColor="@color/color_20232b"
                 android:textSize="40sp" />
@@ -168,8 +176,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:rotation="90"
                 android:layout_marginLeft="-10dp"
+                android:rotation="90"
                 android:text="@string/experience_time_e"
                 android:textColor="@color/color_20232b"
                 android:textSize="10sp"
@@ -181,16 +189,16 @@
             android:id="@+id/ll_daily_punch"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginTop="@dimen/dp_15"
             android:layout_marginBottom="@dimen/dp_15"
+            android:layout_weight="1"
             android:gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/tv_days"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="-10dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-10dp"
                 android:fontFamily="@fonts/agaramondpro_regular"
                 android:text="0"
                 android:textColor="@color/color_20232b"
