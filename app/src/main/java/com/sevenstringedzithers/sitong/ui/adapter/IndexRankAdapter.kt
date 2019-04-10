@@ -17,7 +17,7 @@ class IndexRankAdapter(var context: Context) : RecyclerView.Adapter<IndexRankAda
     var list = arrayListOf<MusicBean>()
     var posi = 1
     fun setData(all: ArrayList<MusicBean>) {
-        list?.addAll(all)
+        list=all
         notifyDataSetChanged()
     }
 

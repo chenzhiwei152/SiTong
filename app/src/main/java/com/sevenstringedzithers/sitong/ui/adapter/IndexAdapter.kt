@@ -29,7 +29,7 @@ class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.Vie
     }
 
     fun setData(all: ArrayList<MusicBean>) {
-        list?.addAll(all)
+        list=all
         notifyDataSetChanged()
     }
 

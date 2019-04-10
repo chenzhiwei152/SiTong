@@ -57,6 +57,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
         mRVAdapter?.setData(musicList)
         mRankRVAdapter?.setData(musicList)
+        mPosition=1
         if (SharedPrefUtil.getObj(this@MainActivity, "mKeys") != null) {
             rv_rank.post {
                 getValue()
