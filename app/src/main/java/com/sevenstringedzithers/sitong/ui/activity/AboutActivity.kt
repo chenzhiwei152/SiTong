@@ -1,9 +1,11 @@
 package com.sevenstringedzithers.sitong.ui.activity
 
+import android.support.design.widget.AppBarLayout
 import android.view.View
 import com.jyall.bbzf.extension.jump
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.base.*
+import com.sevenstringedzithers.sitong.ui.listerner.AppBarStateChangeListener
 import com.sevenstringedzithers.sitong.utils.TypefaceUtil
 import kotlinx.android.synthetic.main.activity_about.*
 import org.greenrobot.eventbus.EventBus
@@ -24,6 +26,21 @@ class AboutActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBase
         ct_layout.setExpandedTitleTypeface(typeface1)
         EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.MINE_FINISH))
         EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.SEARCH_FINISH))
+        appBar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
+            override fun onStateChanged(appBarLayout: AppBarLayout, state: AppBarStateChangeListener.State) {
+                if (state === AppBarStateChangeListener.State.EXPANDED) {
+
+                    //展开状态
+                    tv_subtitle.visibility = View.VISIBLE
+                } else if (state === AppBarStateChangeListener.State.COLLAPSED) {
+                    //折叠状态
+                    tv_subtitle.visibility = View.GONE
+                } else {
+                    //中间状态
+                    tv_subtitle.visibility = View.GONE
+                }
+            }
+        })
     }
 
 

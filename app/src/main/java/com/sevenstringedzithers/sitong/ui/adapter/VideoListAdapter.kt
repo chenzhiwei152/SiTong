@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.jyall.android.common.utils.LogUtils
 import com.jyall.bbzf.extension.loadRoundImage
 import com.jyall.bbzf.extension.toast
 import com.sevenstringedzithers.sitong.R
@@ -24,7 +25,7 @@ class VideoListAdapter(var context: Context) : RecyclerView.Adapter<VideoListAda
     var posi = 1
     private var type: Int = 0//0 文章，1，视频
     fun setData(all: ArrayList<VideoListBean>) {
-        list?.addAll(all)
+        list = all
         notifyDataSetChanged()
     }
 
@@ -56,8 +57,9 @@ class VideoListAdapter(var context: Context) : RecyclerView.Adapter<VideoListAda
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        LogUtils.e("CurrentPosition:" + position)
         holder.viewLayout.tv_title.setText(list[position].title)
-        holder.viewLayout.tv_city.setText(list[position].author)
+        holder.viewLayout.tv_city.text = list[position].author
         holder.viewLayout.iv_image.loadRoundImage(context, list[position].icon)
         holder.viewLayout.setOnClickListener {
             if (type == 0) {

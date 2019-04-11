@@ -36,14 +36,14 @@ class ArticleFragment : BaseFragment<ArticleListContract.View, ArticleListPresen
     override fun getLayoutId(): Int = R.layout.fragment_qin_hall
 
     override fun lazyLoad() {
+        mPresenter?.getList()
     }
 
 
     override fun initViewsAndEvents() {
-        rv_list.layoutManager = LinearLayoutManager(activity)
-        mAdapter = VideoListAdapter(context!!)
+        rv_list.layoutManager = LinearLayoutManager(requireContext())
+        mAdapter = VideoListAdapter(requireContext())
         rv_list.adapter = mAdapter
-        mPresenter?.getList()
     }
 
     override fun isRegistEventBus(): Boolean = false

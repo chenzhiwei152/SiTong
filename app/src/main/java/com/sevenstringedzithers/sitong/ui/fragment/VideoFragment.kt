@@ -32,17 +32,16 @@ class VideoFragment : BaseFragment<VideoListContract.View, VideoListPresenter>()
     override fun getLayoutId(): Int = R.layout.fragment_qin_hall
 
     override fun lazyLoad() {
+        mPresenter?.getList()
     }
 
 
     override fun initViewsAndEvents() {
-        rv_list.layoutManager = LinearLayoutManager(activity)
-        mAdapter = VideoListAdapter(context!!)
+        rv_list.layoutManager = LinearLayoutManager(requireContext())
+        mAdapter = VideoListAdapter(requireContext())
         mAdapter?.setType(1)
         rv_list.adapter = mAdapter
-        mPresenter?.getList()
     }
-
     override fun isRegistEventBus(): Boolean = false
 
     override fun isNeedLec(): View? = null

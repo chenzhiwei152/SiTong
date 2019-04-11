@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sayaki="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:sayaki="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -13,6 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp_20"
             android:orientation="vertical"
             android:padding="@dimen/dp_15">
 
@@ -28,24 +29,38 @@
                     android:src="@mipmap/ic_qin" />
 
                 <com.sevenstringedzithers.sitong.view.PlumbTextView
+                    android:id="@+id/tv_des1"
                     android:layout_width="wrap_content"
                     android:layout_height="300dp"
                     android:layout_alignParentRight="true"
-                    app:regex="[\n]"
                     app:columnSpacing="5dp"
                     app:letterSpacing="3dp"
+                    app:regex="[\n]"
+                    app:text="“琴”是中国历史上最为悠久的古乐器之一，亦称丝桐、瑶琴、玉琴、七弦琴等。传说有伏羲、神农、黄帝、唐尧造琴，“削桐为琴、绳丝为弦“，可以说琴的历史是相当的悠久。“琴”在几千年的传承与发展中，不仅创造并完善了独特的琴器、琴曲、琴谱等，更因其深沉高雅的音色与丰富的表现力，成为中华民族精神及传统音乐文化的代表。"
                     app:textColor="@color/color_20232b"
-                    app:textSize="14sp"
-                    app:text="古籍记载伏羲作琴，又有神农作琴、黄帝造琴、唐尧造琴等传说；舜定琴为五弦，文王增一弦，武王伐纣又增一弦为七弦；可见古琴文化的源远流长，博大精深。\n琴有﹃士无故不撤琴瑟﹄和﹃左琴右书﹄之说。位列中国传统文化四艺﹃琴棋书画﹄之首，被视为高雅的代表，亦为文人吟唱时的伴奏乐器，自古以来一直是许多文人必备的知识和必修的科目。" />
+                    app:textSize="14sp" />
+
+                <com.sevenstringedzithers.sitong.view.PlumbTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:layout_below="@+id/tv_des1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp_20"
+                    app:columnSpacing="5dp"
+                    app:letterSpacing="3dp"
+                    app:regex="[\n]"
+                    app:text="古人对琴的评价极高，琴是中国传统文化四艺“琴棋书画”之首，“左琴右书”、“士大夫无故不撤琴瑟”等古琴音乐观念一向被古代文人所信奉。琴不但是乐器，也是抒怀寄情之物。因此琴成为历代文人们具备音乐修养及实践技能必修的一种乐器，是文人们思想学识与人格情操的最佳体现方式。"
+                    app:textColor="@color/color_20232b"
+                    app:textSize="14sp" />
 
             </RelativeLayout>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_30"
                 android:layout_marginBottom="@dimen/dp_20"
-                android:layout_gravity="center_horizontal"
                 android:src="@mipmap/ic_knowledge" />
         </LinearLayout>
 

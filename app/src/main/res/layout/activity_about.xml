@@ -58,7 +58,7 @@
         android:background="@drawable/selector_menu"
         android:clickable="true" />
 
-    <ScrollView
+    <com.sevenstringedzithers.sitong.view.StickyNestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -77,8 +77,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/dp_25"
                     android:src="@mipmap/ic_menu_top" />
 
@@ -89,8 +89,8 @@
                     android:layout_height="400dp"
                     android:layout_alignParentRight="true"
                     android:layout_gravity="right"
-                    app:columnSpacing="5dp"
                     android:layout_marginRight="@dimen/dp_20"
+                    app:columnSpacing="5dp"
                     app:letterSpacing="3dp"
                     app:regex="[\n]"
                     app:text="年少时乐器店的一次偶遇，古琴便成了小小少年的念想；青年时代古琴成为了一种向往；机缘巧合下和古琴正式结缘，从此开始了古琴学习的漫漫长路。\n在古琴学习的过程中，偶遇练琴时的问题，比如记谱慢、节奏把握不好、厚厚的教材携带不便等，同时了解到全国各地学习古琴的同学们苦于当地找不到老师等问题，从此萌发了想做一款有关古琴练习的手机 ，用来方便琴友们练琴和学习，这就是丝桐古琴app的由来。"
@@ -98,9 +98,94 @@
                     app:textSize="12sp" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_25"
+                    android:src="@mipmap/ic_menu_top" />
+
+
+                <com.sevenstringedzithers.sitong.view.PlumbTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="400dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/dp_20"
+                    app:columnSpacing="5dp"
+                    app:letterSpacing="3dp"
+                    app:regex="[\n]"
+                    app:text="如果您是中国传统文化爱好者，丝桐古琴应用可以帮组您一窥古琴世界的美妙；如果您是初学琴友，丝桐古琴应用可以帮助您快速记谱，并养成良好的练琴习惯；如果您是资深琴友，丝桐古琴应用愿意和您一起探寻古琴文化的奇妙；如果您是古琴老师，丝桐古琴应用将协助您帮助您的学员取得更好的进步；如果您是古琴大师，丝桐古琴应用愿意和您一起传播古琴文化。"
+                    app:textColor="@color/color_20232b"
+                    app:textSize="12sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_25"
+                    android:src="@mipmap/ic_menu_top" />
+
+
+                <com.sevenstringedzithers.sitong.view.PlumbTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="400dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/dp_20"
+                    app:columnSpacing="5dp"
+                    app:letterSpacing="3dp"
+                    app:regex="[\n]"
+                    app:text="丝桐古琴应用在此特别鸣谢古琴大师杨青老师的大力支持，本应用以杨青老师所著的《学古琴：古琴自学教程》为主，在设计和开发团队的共同努力下打造出一款符合古琴气质的古琴手机应用提供给各位琴友们使用。"
+                    app:textColor="@color/color_20232b"
+                    app:textSize="12sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_25"
+                    android:src="@mipmap/ic_menu_top" />
+
+
+                <com.sevenstringedzithers.sitong.view.PlumbTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="400dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/dp_20"
+                    app:columnSpacing="5dp"
+                    app:letterSpacing="3dp"
+                    app:regex="[\n]"
+                    app:text="联系方式：hi@7stringedzithers.com\n相关链接：www.7stringedzithers.com\n该手机应用版权归武汉丝桐科技有限公司所有，侵权必究。"
+                    app:textColor="@color/color_20232b"
+                    app:textSize="12sp" />
+            </RelativeLayout>
+
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.sevenstringedzithers.sitong.view.StickyNestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

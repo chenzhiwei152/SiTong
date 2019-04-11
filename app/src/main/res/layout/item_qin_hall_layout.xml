@@ -16,6 +16,7 @@
         android:layout_width="172dp"
         android:layout_height="172dp"
         android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
         android:layout_toLeftOf="@+id/tv_title"
         android:src="@mipmap/ic_default" />
 
