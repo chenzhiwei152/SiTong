@@ -137,9 +137,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
 
 
                 if (list!![cachePositoin].numbered_music == "-1" || list!![cachePositoin].numbered_music == "8") {
-                    val textview = ImageView(mContext)
                     ll_num?.removeAllViews()
-                    ll_num?.addView(textview)
+                    ll_num?.addView(ImageView(mContext))
                 } else {
                     if (list!![cachePositoin].sound_type == 0) {
                         //        中间的数字
@@ -174,10 +173,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
 
 
         if (list!![mPlayPosition].numbered_music == "-1" || list!![mPlayPosition].numbered_music == "8") {
-            val textview = TextView(mContext)
-            textview.text = ""
             ll_num?.removeAllViews()
-            ll_num?.addView(textview)
+            ll_num?.addView(ImageView(mContext))
         } else {
 //            ll_num?.removeAllViews()
             if (list!![mPlayPosition].sound_type == 0) {
@@ -245,8 +242,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             holder.iv_shoushi_selected.visibility = View.GONE
         }
         if (list!![position].numbered_music == "-1" || list!![position].numbered_music == "8") {
-            val textview = TextView(mContext)
-            textview.text = ""
+            val textview = ImageView(mContext)
             holder.ll_center.addView(textview)
             val textview1 = TextView(mContext)
             holder.ll_left_center.addView(textview1)

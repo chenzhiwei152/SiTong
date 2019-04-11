@@ -101,14 +101,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_20"
                             android:gravity="center"
-                            android:orientation="vertical" />
+                            android:orientation="vertical" >
+
+                        </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/ll_center_dowm"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_18"
                             android:gravity="center_horizontal"
-                            android:orientation="vertical"></LinearLayout>
+                            android:orientation="vertical" />
 
                         <FrameLayout
                             android:id="@+id/iv_image"

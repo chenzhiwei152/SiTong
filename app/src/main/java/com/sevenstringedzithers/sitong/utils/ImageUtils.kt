@@ -32,24 +32,23 @@ class ImageUtils {
                         (ll_center.getChildAt(0) as ImageView).setImageResource(image)
                     }
                 } else {
-                    ll_center?.removeAllViews()
                     var imageView = ImageView(mContext)
                     imageView.setImageResource(image!!)
                     ll_center?.addView(imageView)
 
-                    var para = imageView.layoutParams as LinearLayout.LayoutParams
-
-                    if (isSmall == 1) {
-                    } else if (isSmall == 2) {
-                        para.width = UIUtil.dip2px(mContext, 8f)
-                        para.height = UIUtil.dip2px(mContext, 8f)
-                        para.topMargin = UIUtil.dip2px(mContext, 2f)
-                    } else {
-                        para.width = UIUtil.dip2px(mContext, 4f)
-                        para.height = UIUtil.dip2px(mContext, 4f)
-                        para.topMargin = UIUtil.dip2px(mContext, 2f)
+                    if (isSmall == 2||isSmall == 3) {
+                        var para = imageView.layoutParams as LinearLayout.LayoutParams
+                        if (isSmall == 2) {
+                            para.width = UIUtil.dip2px(mContext, 8f)
+                            para.height = UIUtil.dip2px(mContext, 8f)
+                            para.topMargin = UIUtil.dip2px(mContext, 2f)
+                        } else {
+                            para.width = UIUtil.dip2px(mContext, 4f)
+                            para.height = UIUtil.dip2px(mContext, 4f)
+                            para.topMargin = UIUtil.dip2px(mContext, 2f)
+                        }
+                        imageView.layoutParams = para
                     }
-                    imageView.layoutParams = para
                 }
             }
         }
