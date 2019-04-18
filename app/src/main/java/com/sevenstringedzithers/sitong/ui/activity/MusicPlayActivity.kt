@@ -153,10 +153,10 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                                 val tempCacheMp3FileName = MediaDirectoryUtils.getTempMp3FileName()
                                 try {
                                     tempCacheMp3FileName.createNewFile()
-                                    var ff=File(lastRecordFile)
+                                    var ff = File(lastRecordFile)
                                     ff.renameTo(tempCacheMp3FileName)
                                     RecordFilesUtils.getInstance()?.deletedFile(lastRecordFile!!)
-                                    lastRecordFileName=""
+                                    lastRecordFileName = ""
                                 } catch (e: IOException) {
                                     e.printStackTrace()
                                 }
@@ -167,7 +167,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                     })
                     mRecordDialog.setRightTitleListerner(object : View.OnClickListener {
                         override fun onClick(v: View?) {
-                            var ff=File(lastRecordFile)
+                            var ff = File(lastRecordFile)
                             ff.delete()
 //                            RecordFilesUtils.getInstance()?.deletedFile(lastRecordFile!!)
                         }
@@ -394,7 +394,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 //录音
         MediaDirectoryUtils.setMediaManagerProvider(object : MediaDirectoryUtils.MediaManagerProvider {
             override fun getTempMp3FileName(): File? {
-                return File(if (lastRecordFileName.isNullOrEmpty()) (RecordFilesUtils.getInstance()!!.getCurrentUri() + "/"+System.currentTimeMillis()) else (RecordFilesUtils.getInstance()!!.getCurrentUri() + "/"+lastRecordFileName+".mp3")
+                return File(if (lastRecordFileName.isNullOrEmpty()) (RecordFilesUtils.getInstance()!!.getCurrentUri() + "/" + System.currentTimeMillis()) else (RecordFilesUtils.getInstance()!!.getCurrentUri() + "/" + lastRecordFileName + ".mp3")
                 )
             }
 
@@ -419,7 +419,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             }
 
             override fun getCachePath(): File? {
-                return File(RecordFilesUtils.getInstance()!!.getCurrentUri()+"cache")
+                return File(RecordFilesUtils.getInstance()!!.getCurrentUri() + "cache")
             }
 
         })
@@ -486,6 +486,16 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             setButtonState()
                             adapter?.clearSelected()
                             tv_start_time.text = "00:00"
+                            var msg = Message()
+                            msg.what = 3
+                            if (currentSort != null) {
+                                msg.arg1 = currentSort!!
+                            } else {
+                                msg.arg1 = -1
+                            }
+                            msg.arg2 = -1
+                            handler.sendMessage(msg)
+                            rv_list.smoothScrollToPosition(0)
                             return
                         }
                         seek_bar.setProgress((currentPercentage * du!!).toFloat())
@@ -506,7 +516,6 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                             if (currentSort != null) {
                                 var msg = Message()
                                 msg.what = 3
-//                                if (rv_list.layoutManager)
                                 msg.arg1 = currentSort!!
                                 msg.arg2 = nextSort!!
                                 handler.sendMessage(msg)
@@ -683,7 +692,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             isPlaying = false
             setButtonState()
         }
-        if (getRecordManager()?.isRecordIng){
+        if (getRecordManager()?.isRecordIng) {
             getRecordManager()?.stopRecord()
         }
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -717,8 +726,8 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
             if (recordManager != null && getRecordManager()?.isRecordIng) {
                 getRecordManager()?.stopRecord()
                 RecordFactory.release(recordManager)
-                recordManager=null
-                if (!lastRecordFile.isNullOrEmpty()){
+                recordManager = null
+                if (!lastRecordFile.isNullOrEmpty()) {
                     File(lastRecordFile).delete()
                 }
             }
@@ -792,7 +801,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 //                    tvPath.setText("audioPth:" + if (mAudioFile == null) null else mAudioFile.getAbsolutePath())
                     lastRecordFile = if (recordManager?.file == null) null else recordManager?.file?.getAbsolutePath()
 //                    runOnUiThread { toast_msg("保存路径："+lastRecordFile) }
-                    LogUtils.e("保存路径："+lastRecordFile)
+                    LogUtils.e("保存路径：" + lastRecordFile)
 //                    val tempCacheMp3FileName = MediaDirectoryUtils.getTempMp3FileName()
 //                    try {
 //                        tempCacheMp3FileName.createNewFile()

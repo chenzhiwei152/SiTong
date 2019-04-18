@@ -158,38 +158,39 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             }
 
         }
-        var iv_shoushi = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi)
-        var iv_shoushi_selected = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi_selected)
-        var ll_num = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<LinearLayout>(R.id.ll_center)
+        if(mPlayPosition!=-1){
+            var iv_shoushi = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi)
+            var iv_shoushi_selected = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi_selected)
+            var ll_num = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<LinearLayout>(R.id.ll_center)
 
-        //        最下面的图片
+            //        最下面的图片
 //        iv_image?.removeAllViews()
-        if (!isScrolling && !TextUtils.isEmpty(list!![mPlayPosition].jianzipu)) {
+            if (!isScrolling && !TextUtils.isEmpty(list!![mPlayPosition].jianzipu)) {
 
-            iv_shoushi_selected?.visibility = View.VISIBLE
+                iv_shoushi_selected?.visibility = View.VISIBLE
 //            iv_shoushi?.visibility = View.GONE
-        }
+            }
 
 
 
-        if (list!![mPlayPosition].numbered_music == "-1" || list!![mPlayPosition].numbered_music == "8") {
-            ll_num?.removeAllViews()
-            ll_num?.addView(ImageView(mContext))
-        } else {
-//            ll_num?.removeAllViews()
-            if (list!![mPlayPosition].sound_type == 0) {
-                //        中间的数字
-                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music, 1, true)
-            } else if (list!![mPlayPosition].sound_type == 1) {
-                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music_up, 2, true)
-                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music, 2, true)
+            if (list!![mPlayPosition].numbered_music == "-1" || list!![mPlayPosition].numbered_music == "8") {
+                ll_num?.removeAllViews()
+                ll_num?.addView(ImageView(mContext))
             } else {
-                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music_up, 3, true)
-                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music_middle, 3, true)
-                ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music, 3, true)
+//            ll_num?.removeAllViews()
+                if (list!![mPlayPosition].sound_type == 0) {
+                    //        中间的数字
+                    ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music, 1, true)
+                } else if (list!![mPlayPosition].sound_type == 1) {
+                    ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music_up, 2, true)
+                    ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music, 2, true)
+                } else {
+                    ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music_up, 3, true)
+                    ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music_middle, 3, true)
+                    ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music, 3, true)
+                }
             }
         }
-
 
     }
 
