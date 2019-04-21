@@ -222,6 +222,11 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         iv_music_title.text = musicBean.name
 
         chenckIsLoaded(musicBean.url)
+        if (musicBean?.score?.size > 40) {
+            rv_list.setItemViewCacheSize(musicBean?.score?.size)
+        } else {
+            rv_list.setItemViewCacheSize(40)
+        }
         adapter?.setList(musicBean.score)
         var line = 0
         var start = 0
@@ -348,7 +353,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         layoutManager.flexWrap = FlexWrap.WRAP
         layoutManager.justifyContent = JustifyContent.CENTER
         rv_list.layoutManager = layoutManager
-        rv_list.setItemViewCacheSize(40)
+        rv_list.setItemViewCacheSize(132)
         adapter = MainAdapter(this, this)
         adapter?.setmRecyclerView(rv_list)
         adapter?.setLinesMap(mLinesMap)

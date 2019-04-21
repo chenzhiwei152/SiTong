@@ -44,7 +44,9 @@ class QinHallDetilListAdapter(var context: Context) : RecyclerView.Adapter<QinHa
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.viewLayout.tv_name.text = list[position].ctn
+        var ctn = list[position].ctn.replace("\\n", "\n")
+        ctn = ctn.replace("\\r", "\r")
+        holder.viewLayout.tv_name.text = ctn
         if (!list[position]?.img.isNullOrEmpty()) {
             holder.viewLayout.iv_image.loadImage(context, list[position]?.img)
             holder.viewLayout.iv_image.visibility = View.VISIBLE
