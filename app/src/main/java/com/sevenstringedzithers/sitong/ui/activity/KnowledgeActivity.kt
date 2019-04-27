@@ -8,6 +8,7 @@ import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.base.BaseActivity
 import com.sevenstringedzithers.sitong.base.BasePresenter
 import com.sevenstringedzithers.sitong.base.IBaseView
+import com.sevenstringedzithers.sitong.utils.TypefaceUtil
 import kotlinx.android.synthetic.main.activity_knowledge.*
 
 class KnowledgeActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBaseView {
@@ -49,7 +50,10 @@ class KnowledgeActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), I
 //            }
 //
 //        })
-
+        val typeface1 = TypefaceUtil.createagaTypeface(this)
+        ct_layout.setCollapsedTitleTypeface(typeface1)
+        ct_layout.setExpandedTitleTypeface(typeface1)
+        tv_subtitle.typeface = typeface1
     }
 
     override fun isRegistEventBus(): Boolean = false

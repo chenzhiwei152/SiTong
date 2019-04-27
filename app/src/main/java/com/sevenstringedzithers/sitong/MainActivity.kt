@@ -84,6 +84,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
         val typeface1 = TypefaceUtil.createagaTypeface(this)
         ct_layout.setCollapsedTitleTypeface(typeface1)
         ct_layout.setExpandedTitleTypeface(typeface1)
+        tv_subtitle.typeface = typeface1
         iv_menu.setOnClickListener {
             jump<MenuActivity>(isAnimation = false)
         }

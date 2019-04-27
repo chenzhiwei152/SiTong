@@ -33,6 +33,7 @@ class MusicSearchActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(),
         val typeface1 = TypefaceUtil.createagaTypeface(this)
         ct_layout.setCollapsedTitleTypeface(typeface1)
         ct_layout.setExpandedTitleTypeface(typeface1)
+        tv_subtitle.typeface = typeface1
         tabsTitle.add(resources.getString(R.string.qin_hall))
         tabsTitle.add(resources.getString(R.string.video))
         tabsTitle.add(resources.getString(R.string.article))

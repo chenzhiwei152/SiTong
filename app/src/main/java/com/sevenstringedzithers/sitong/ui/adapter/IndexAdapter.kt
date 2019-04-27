@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.sevenstringedzithers.sitong.R
 import com.sevenstringedzithers.sitong.mvp.model.bean.MusicBean
 import com.sevenstringedzithers.sitong.ui.listerner.RVAdapterItemOnClick
+import com.sevenstringedzithers.sitong.utils.TypefaceUtil
 import kotlinx.android.synthetic.main.item_index_first.view.*
 
 /**
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.item_index_first.view.*
 class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.ViewHolder>() {
     var list = arrayListOf<MusicBean>()
     var posi = 1
+    private var mTypeface = TypefaceUtil.createagaTypeface(context)
     private var onItemClick: RVAdapterItemOnClick? = null
     private var letteOnclick: RVAdapterItemOnClick? = null
 
@@ -29,7 +31,7 @@ class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.Vie
     }
 
     fun setData(all: ArrayList<MusicBean>) {
-        list=all
+        list = all
         notifyDataSetChanged()
     }
 
@@ -60,6 +62,7 @@ class IndexAdapter(var context: Context) : RecyclerView.Adapter<IndexAdapter.Vie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.viewLayout.tag = position
         holder.viewLayout.tv_rank.text = list[position].levelName
+        holder.viewLayout.tv_rank.typeface = mTypeface
         holder.viewLayout.ll_tag.tag = "sticky"
         if (position <= posi) {
             holder.viewLayout.tv_rank.visibility = View.VISIBLE

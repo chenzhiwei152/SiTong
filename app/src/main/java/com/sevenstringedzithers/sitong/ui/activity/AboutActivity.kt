@@ -24,6 +24,7 @@ class AboutActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), IBase
         val typeface1 = TypefaceUtil.createagaTypeface(this)
         ct_layout.setCollapsedTitleTypeface(typeface1)
         ct_layout.setExpandedTitleTypeface(typeface1)
+        tv_subtitle.typeface = typeface1
         EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.MINE_FINISH))
         EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.SEARCH_FINISH))
         appBar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
