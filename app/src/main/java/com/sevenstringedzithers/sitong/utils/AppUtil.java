@@ -92,7 +92,7 @@ public class AppUtil {
             }
             childListRightAllImage.add(R.mipmap.ic_right_child_tuo);
             childListRightAllImage.add(R.mipmap.ic_right_child_pi);
-            childListRightAllImage.add(R.drawable.bg_transparent);
+            childListRightAllImage.add(R.mipmap.ic_right_child_tiao);
             childListRightAllImage.add(R.mipmap.ic_right_child_mo);
             childListRightAllImage.add(R.mipmap.ic_right_child_ti);
             childListRightAllImage.add(R.mipmap.ic_right_child_gou);
