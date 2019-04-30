@@ -140,6 +140,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                     ll_num?.removeAllViews()
                     ll_num?.addView(ImageView(mContext))
                 } else {
+                    ll_num?.removeAllViews()
                     if (list!![cachePositoin].sound_type == 0) {
                         //        中间的数字
 //                    LogUtils.e("开始获取数字："+list!![cachePositoin].numbered_music)
@@ -177,7 +178,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                 ll_num?.removeAllViews()
                 ll_num?.addView(ImageView(mContext))
             } else {
-//            ll_num?.removeAllViews()
+            ll_num?.removeAllViews()
                 if (list!![mPlayPosition].sound_type == 0) {
                     //        中间的数字
                     ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music, 1, true)

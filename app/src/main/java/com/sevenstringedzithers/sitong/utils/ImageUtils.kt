@@ -27,11 +27,11 @@ class ImageUtils {
                 image = number_black[type]
             }
             if (image != null) {
-                if (ll_center.childCount == 1 && isSmall == 1) {
-                    if (ll_center.getChildAt(0) is ImageView) {
-                        (ll_center.getChildAt(0) as ImageView).setImageResource(image)
-                    }
-                } else {
+//                if (ll_center.childCount == 1 && isSmall == 1) {
+//                    if (ll_center.getChildAt(0) is ImageView) {
+//                        (ll_center.getChildAt(0) as ImageView).setImageResource(image)
+//                    }
+//                } else {
                     var imageView = ImageView(mContext)
                     imageView.setImageResource(image!!)
                     ll_center?.addView(imageView)
@@ -49,7 +49,7 @@ class ImageUtils {
                         }
                         imageView.layoutParams = para
                     }
-                }
+//                }
             }
         }
 
