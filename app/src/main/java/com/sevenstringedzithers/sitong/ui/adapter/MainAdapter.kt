@@ -114,12 +114,15 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         selectedIndicesCopy.clear()
         callback?.onSelectionChanged(0)
     }
-
     fun setPlayPosition(pre: Int, curent: Int) {
+
         this.cachePositoin = pre
         this.mPlayPosition = curent
 //        LogUtils.e("currentPo:" + mPlayPosition + "---cachePositoin:" + cachePositoin)
+        updateItems()
+    }
 
+    private fun updateItems() {
         if (cachePositoin != -1) {
             try {
                 var iv_shoushi = rv_list?.findViewHolderForLayoutPosition(cachePositoin)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi)
@@ -159,7 +162,8 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             }
 
         }
-        if(mPlayPosition!=-1){
+        if (mPlayPosition != -1) {
+            LogUtils.e("当前播放的position：" + mPlayPosition)
             var iv_shoushi = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi)
             var iv_shoushi_selected = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<ImageView>(R.id.iv_shoushi_selected)
             var ll_num = rv_list?.findViewHolderForLayoutPosition(mPlayPosition)?.itemView?.findViewById<LinearLayout>(R.id.ll_center)
@@ -169,7 +173,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             if (!isScrolling && !TextUtils.isEmpty(list!![mPlayPosition].jianzipu)) {
 
                 iv_shoushi_selected?.visibility = View.VISIBLE
-//            iv_shoushi?.visibility = View.GONE
+                iv_shoushi?.visibility = View.INVISIBLE
             }
 
 
@@ -178,7 +182,7 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                 ll_num?.removeAllViews()
                 ll_num?.addView(ImageView(mContext))
             } else {
-            ll_num?.removeAllViews()
+                ll_num?.removeAllViews()
                 if (list!![mPlayPosition].sound_type == 0) {
                     //        中间的数字
                     ImageUtils.getNumber(ll_num, mContext, list!![mPlayPosition].numbered_music, 1, true)
@@ -192,7 +196,6 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
                 }
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -226,11 +229,11 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
             var url = list!![position].jianzipu
             url = url.replace("normal", "highlight")
             if (mPlayPosition == position) {
-                holder.iv_shoushi.visibility = View.GONE
+                holder.iv_shoushi.visibility = View.INVISIBLE
                 holder.iv_shoushi_selected.visibility = View.VISIBLE
             } else {
                 holder.iv_shoushi.visibility = View.VISIBLE
-                holder.iv_shoushi_selected.visibility = View.GONE
+                holder.iv_shoushi_selected.visibility = View.INVISIBLE
 
             }
 //            var imge = ImageView(mContext)

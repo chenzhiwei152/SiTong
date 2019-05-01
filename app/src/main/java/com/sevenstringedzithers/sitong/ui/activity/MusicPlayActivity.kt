@@ -519,24 +519,18 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                         }
                         if (currentSort != nextSort && nextSort != null) {
                             if (currentSort != null) {
-                                var msg = Message()
-                                msg.what = 3
-                                msg.arg1 = currentSort!!
-                                msg.arg2 = nextSort!!
-                                handler.sendMessage(msg)
-//                                var hol = rv_list.findViewHolderForLayoutPosition(currentSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
-//                                hol?.setBackgroundResource(R.color.albumTransparent)
                                 if (isABStyle) {
                                     rv_list.smoothScrollToPosition(currentSort!!)
                                 } else {
                                     rv_list.smoothScrollToPosition(nextSort!!)
                                 }
+                                var msg = Message()
+                                msg.what = 3
+                                msg.arg1 = currentSort!!
+                                msg.arg2 = nextSort!!
+                                handler.sendMessage(msg)
+
                             }
-//                            if (!isABStyle) {
-//                                adapter?.setSelected(nextSort!!, true)
-//                                var hol = rv_list.findViewHolderForLayoutPosition(nextSort!!)?.itemView?.findViewById<LinearLayout>(R.id.ll_all)
-//                                hol?.setBackgroundResource(R.color.color_99d0a670)
-//                            }
 
                             if (rl_qin.visibility == View.VISIBLE) {
                                 cq_view.setmMoveMap(mMoveMap, musicBean?.score?.get(nextSort!!)?.overtone!!, musicBean?.score?.get(nextSort!!)?.portamento!!, musicBean?.score?.get(nextSort!!)?.duration, mEndMap)
@@ -639,7 +633,13 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                         }
                     }
                 }
+
                 nextSort = qinViewPointBean.index
+                if (nextSort !== null && currentSort != null) {
+                    if (currentSort!! > nextSort!!) {
+                        rv_list.scrollToPosition(nextSort!!)
+                    }
+                }
                 return@forEachIndexed
             }
         }
@@ -806,7 +806,7 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
 //                    tvPath.setText("audioPth:" + if (mAudioFile == null) null else mAudioFile.getAbsolutePath())
                     lastRecordFile = if (recordManager?.file == null) null else recordManager?.file?.getAbsolutePath()
 //                    runOnUiThread { toast_msg("保存路径："+lastRecordFile) }
-                    LogUtils.e("保存路径：" + lastRecordFile)
+//                    LogUtils.e("保存路径：" + lastRecordFile)
 //                    val tempCacheMp3FileName = MediaDirectoryUtils.getTempMp3FileName()
 //                    try {
 //                        tempCacheMp3FileName.createNewFile()

@@ -130,7 +130,7 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitXY"
-                                android:visibility="gone" />
+                                android:visibility="invisible" />
                         </FrameLayout>
                     </LinearLayout>
 

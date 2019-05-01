@@ -4,7 +4,9 @@
     <string name="register">注册</string>
     <string name="next">下一步</string>
     <string name="find_pw">寻回密码</string>
-    <string name="login_english">Sign Up</string>
+    <string name="login_english">Sign In</string>
+    <string name="register_english">Sign Up</string>
+    <string name="find_password_english">Retrieve Password</string>
     <string name="phone">手机</string>
     <string name="new_pw">输入新密码</string>
     <string name="again_new_pw">再次输入新密码</string>

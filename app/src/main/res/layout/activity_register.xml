@@ -23,7 +23,7 @@
                 style="@style/textStyle_d0a670_37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_english" />
+                android:text="@string/register_english" />
 
             <TextView
                 style="@style/textStyle_d0a670_24"
