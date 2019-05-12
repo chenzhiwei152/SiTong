@@ -961,11 +961,9 @@ class MainAdapter(private val mContext: Context, private val callback: Listener?
         //是否换行
         val lp = holder.itemView.layoutParams
         if (lp is FlexboxLayoutManager.LayoutParams) {
-            val flexboxLp = holder.itemView.layoutParams as FlexboxLayoutManager.LayoutParams
             if (position > 0) {
-                flexboxLp.isWrapBefore = list!![position - 1].islinefeed == 1
+                lp.isWrapBefore = list!![position - 1].islinefeed == 1
             }
-
         }
     }
 

@@ -158,20 +158,6 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
                 }).setLeftTitleListerner(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
-                        if (!bean.isbuy) {
-//                            需要付费的
-                            dia?.dismiss()
-                            var musicPayDialog = MusicPayDialog(this@MainActivity, "取消", "购买", bean.name, bean.enName).setRightTitleListerner(object : View.OnClickListener {
-                                override fun onClick(p0: View?) {
-//                                    跳支付
-                                    var bund = Bundle()
-                                    bund.putString("id", "" + bean?.id)
-                                    jump<MemberListActivity>(dataBundle = bund)
-                                }
-                            })
-                            musicPayDialog.show()
-
-                        } else {
                             if (bean.onshelf == 1) {
                                 var bundle = Bundle()
                                 bundle.putString("id", "" + bean.id)
@@ -180,9 +166,6 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                             } else {
                                 toast_msg("该曲目未上架")
                             }
-
-                        }
-
                     }
 
                 }).setColletionListerner(object : View.OnClickListener {

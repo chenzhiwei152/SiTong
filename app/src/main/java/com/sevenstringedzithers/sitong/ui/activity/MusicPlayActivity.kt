@@ -41,7 +41,6 @@ import com.smp.soundtouchandroid.OnProgressChangedListener
 import com.smp.soundtouchandroid.SoundStreamAduioRecorder
 import com.smp.soundtouchandroid.SoundStreamAudioPlayer
 import com.smp.soundtouchandroid.SoundTouch
-import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.activity_music_play.*
 import kotlinx.android.synthetic.main.layout_play_title.*
 import java.io.File
@@ -302,24 +301,31 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         map.put("needdetail", "1")
         mPresenter?.getMusicDetail(map)
         init()
-        seek_bar.onProgressChangedListener = object : BubbleSeekBar.OnProgressChangedListenerAdapter() {
-            override fun onProgressChanged(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
-                super.onProgressChanged(bubbleSeekBar, progress, progressFloat, fromUser)
-            }
-
-            override fun getProgressOnFinally(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
-                super.getProgressOnFinally(bubbleSeekBar, progress, progressFloat, fromUser)
-
-            }
-
-            override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
-                try {
-                    player?.seekTo((progressFloat.toDouble() / du!!), false)
-                } catch (ex: java.lang.Exception) {
-                }
-
-            }
-        }
+//        seek_bar.onProgressChangedListener = object : BubbleSeekBar.OnProgressChangedListenerAdapter() {
+//            override fun onProgressChanged(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
+//                super.onProgressChanged(bubbleSeekBar, progress, progressFloat, fromUser)
+//            }
+//
+//            override fun getProgressOnFinally(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
+//                super.getProgressOnFinally(bubbleSeekBar, progress, progressFloat, fromUser)
+//
+//            }
+//
+//            override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
+//                try {
+//                    if (nextSort != null) {
+//                        var msg = Message()
+//                        msg.what = 3
+//                        msg.arg1 = nextSort!!
+//                        msg.arg2 = -1
+//                        handler.sendMessage(msg)
+//                    }
+//                    player?.seekTo((progressFloat.toDouble() / du!!), false)
+//                } catch (ex: java.lang.Exception) {
+//                }
+//
+//            }
+//        }
     }
 
     override fun isRegistEventBus(): Boolean = true
@@ -375,14 +381,14 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         var mCurPosY = 0f
         ll_scroll.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                when (event?.getAction()) {
+                when (event?.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        mPosX = event.getX()
-                        mPosY = event.getY()
+                        mPosX = event.x
+                        mPosY = event.y
                     }
                     MotionEvent.ACTION_MOVE -> {
-                        mCurPosX = event.getX()
-                        mCurPosY = event.getY()
+                        mCurPosX = event.x
+                        mCurPosY = event.y
                     }
                     MotionEvent.ACTION_UP -> if (mCurPosY - mPosY > 0 && Math.abs(mCurPosY - mPosY) > 25) {
                         //向下滑動
@@ -600,16 +606,22 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
         if (isABStyle && adapter?.selectedIndices!!.size > 0) {
             startTime = musicBean?.score!![adapter?.selectedIndices!![0]].start_second[0]
             endTime = musicBean?.score!![adapter?.selectedIndices!![adapter?.selectedIndices!!.size - 1]].end_second[0]
-            LogUtils.e("PlayActivity---" + "startTime:" + startTime + "-----endTime:" + endTime)
+//            LogUtils.e("PlayActivity---" + "startTime:" + startTime + "-----endTime:" + endTime)
             player?.seekTo((startTime!! / du!!), false)
         }
     }
 
+    private var isGet = false
     /*获取琴上面的点*/
     private fun getPoints(currenttime: Float) {
+        if (pointList == null || pointList!!.isEmpty()) {
+            return
+        }
         mMoveMap.clear()
         mEndMap.clear()
-        pointList?.forEachIndexed { index, qinViewPointBean ->
+        isGet=false
+        for (pos in (if (currentSort == null) 0 else currentSort!!) until pointList?.size!!) finished@ {
+            var qinViewPointBean = pointList!![pos]
             if (qinViewPointBean.start_second <= currenttime && qinViewPointBean.end_second >= currenttime) {
                 if (!qinViewPointBean.string.isNullOrEmpty()) {
                     if (!qinViewPointBean.string.contains("+")) {
@@ -635,14 +647,77 @@ class MusicPlayActivity : BaseActivity<MusicPlayContract.View, MusicPlayPresente
                 }
 
                 nextSort = qinViewPointBean.index
+                isGet = true
                 if (nextSort !== null && currentSort != null) {
                     if (currentSort!! > nextSort!!) {
-                        rv_list.scrollToPosition(nextSort!!)
+//                        判断current 和next 是否在一行
+                        var ieLine = false
+                        for (i in nextSort!!..currentSort!!) complete@ {
+                            if (musicBean?.score?.get(i)!!.islinefeed == 1) {
+                                ieLine = true
+                                return@complete
+                            }
+                        }
+                        if (!ieLine) {
+                            rv_list.scrollToPosition(nextSort!!)
+                        }
                     }
                 }
-                return@forEachIndexed
+                return@finished
             }
         }
+        if (!isGet&&currentSort!=null) {
+            for (pos in currentSort!! downTo 0) finished@ {
+                var qinViewPointBean = pointList!![pos]
+                if (qinViewPointBean.start_second <= currenttime && qinViewPointBean.end_second >= currenttime) {
+                    if (!qinViewPointBean.string.isNullOrEmpty()) {
+                        if (!qinViewPointBean.string.contains("+")) {
+                            mMoveMap.put(qinViewPointBean.string.toInt(), qinViewPointBean.percent.toFloat())
+                        } else {
+                            var ss = qinViewPointBean.string.split("+")
+                            var pp = qinViewPointBean.percent.split("+")
+                            ss.forEachIndexed { index, s ->
+                                mMoveMap.put(s.toInt(), pp[index].toFloat())
+                            }
+                        }
+                    }
+                    if (!qinViewPointBean.toPosition.isNullOrEmpty() && !qinViewPointBean.string.isNullOrEmpty()) {
+                        if (!qinViewPointBean.toPosition.contains("+")) {
+                            mEndMap.put(qinViewPointBean.string.toInt(), qinViewPointBean.toPosition.toFloat())
+                        } else {
+                            var ss = qinViewPointBean.string.split("+")
+                            var pp = qinViewPointBean.toPosition.split("+")
+                            ss.forEachIndexed { index, s ->
+                                mEndMap.put(s.toInt(), pp[index].toFloat())
+                            }
+                        }
+                    }
+
+                    nextSort = qinViewPointBean.index
+                    isGet = true
+                    if (nextSort !== null && currentSort != null) {
+                        if (currentSort!! > nextSort!!) {
+//                        判断current 和next 是否在一行
+                            var ieLine = false
+                            for (i in nextSort!!..currentSort!!) complete@ {
+                                if (musicBean?.score?.get(i)!!.islinefeed == 1) {
+                                    ieLine = true
+                                    return@complete
+                                }
+                            }
+                            if (!ieLine) {
+                                rv_list.scrollToPosition(nextSort!!)
+                            }
+                        }
+                    }
+                    return@finished
+                }
+            }
+        }
+
+//        pointList?.forEachIndexed { index, qinViewPointBean ->
+//
+//        }
     }
 
 

@@ -7,7 +7,7 @@ import com.sevenstringedzithers.sitong.base.BasePresenter
 import com.sevenstringedzithers.sitong.base.IBaseView
 
 /**
- * 延音
+ * 减字谱
  * create by chen.zhiwei on 2018-8-15
  */
 class DescribejianziFragment : BaseFragment<IBaseView, BasePresenter<IBaseView>>(), IBaseView {

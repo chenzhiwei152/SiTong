@@ -41,7 +41,7 @@ class CollectionActivity : BaseActivity<IndexContract.View, IndexPresenter>(), I
     override fun getDataSuccess(musicList: ArrayList<MusicBean>) {
         lists.clear()
         musicList.forEach {
-            it.musics.forEach {
+            it?.musics.forEach {
                 lists.add(it)
             }
         }
@@ -132,7 +132,7 @@ class CollectionActivity : BaseActivity<IndexContract.View, IndexPresenter>(), I
     override fun isNeedLec(): View? = null
     private fun initTitle() {
         iv_back.setOnClickListener { finish() }
-        tv_title.setText("我喜欢的乐谱")
+        tv_title.text = "我喜欢的乐谱"
         iv_menu.visibility = View.GONE
     }
 }
