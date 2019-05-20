@@ -62,8 +62,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/new_pw"
-            android:inputType="number"
-            android:maxLength="11"
+            android:inputType="textPassword"
             android:textColorHint="@color/color_d0a670" />
 
         <View
