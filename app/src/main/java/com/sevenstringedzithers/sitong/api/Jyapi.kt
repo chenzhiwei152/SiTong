@@ -87,7 +87,7 @@ interface Jyapi {
      *  找回密码
      */
     @POST(FIND_PASSWORD)
-    fun findPW(@Body map: HashMap<String, String>): Observable<Response<BaseBean<String>>>
+    fun findPW(@Body map: HashMap<String, String>): Observable<Response<BaseBean<FindPawSuccessBean>>>
 
     /*---------------------------------------------登录注册相关end-------------------------*/
 /*

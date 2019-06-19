@@ -6,6 +6,7 @@ import com.sevenstringedzithers.sitong.base.BaseBean
 import com.sevenstringedzithers.sitong.base.BasePresenter
 import com.sevenstringedzithers.sitong.mvp.contract.RegisterContract
 import com.sevenstringedzithers.sitong.mvp.model.LoginModel
+import com.sevenstringedzithers.sitong.mvp.model.bean.FindPawSuccessBean
 import com.sevenstringedzithers.sitong.mvp.model.bean.UserInfo
 
 /**
@@ -18,7 +19,7 @@ class RegisterPresenter : BasePresenter<RegisterContract.View>(), RegisterContra
     override fun findPW(map: HashMap<String, String>) {
         if (checkViewAttached()){
             mRootView?.showLoading(false)
-            var observer = object : CommonObserver<BaseBean<String>>() {
+            var observer = object : CommonObserver<BaseBean<FindPawSuccessBean>>() {
 
                 override fun onError(errorResponseBean: ErrorResponseBean): Boolean {
                     mRootView?.dismissLoading()
@@ -26,13 +27,13 @@ class RegisterPresenter : BasePresenter<RegisterContract.View>(), RegisterContra
                     return false
                 }
 
-                override fun onFail(errorResponseBean: BaseBean<String>): Boolean {
+                override fun onFail(errorResponseBean: BaseBean<FindPawSuccessBean>): Boolean {
                     mRootView?.dismissLoading()
                     mRootView?.toast_msg(errorResponseBean.message!!)
                     return true
                 }
 
-                override fun onSuccess(body: BaseBean<String>) {
+                override fun onSuccess(body: BaseBean<FindPawSuccessBean>) {
                     mRootView?.dismissLoading()
                     mRootView?.sendCodeSuccess()
                 }

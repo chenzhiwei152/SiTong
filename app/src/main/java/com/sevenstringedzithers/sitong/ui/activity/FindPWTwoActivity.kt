@@ -18,6 +18,7 @@ import org.greenrobot.eventbus.EventBus
 class FindPWTwoActivity : BaseActivity<RegisterContract.View, RegisterPresenter>(), RegisterContract.View {
     override fun sendCodeSuccess() {
         EventBus.getDefault().post(EventBusCenter<Int>(Constants.Tag.REGISTER_FINISH))
+        toast_msg("修改密码成功")
         finish()
     }
 
@@ -68,7 +69,7 @@ class FindPWTwoActivity : BaseActivity<RegisterContract.View, RegisterPresenter>
 
             var map = HashMap<String, String>()
             map.put("phone", phone!!)
-            map.put("passwd", et_pw.text.toString())
+            map.put("pwd", et_pw.text.toString())
             map.put("code", code!!)
             mPresenter?.findPW(map)
         }
