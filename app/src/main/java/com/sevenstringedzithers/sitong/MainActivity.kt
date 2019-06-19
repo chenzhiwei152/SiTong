@@ -57,7 +57,7 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
         mRVAdapter?.setData(musicList)
         mRankRVAdapter?.setData(musicList)
-        mPosition=1
+        mPosition = 1
         if (SharedPrefUtil.getObj(this@MainActivity, "mKeys") != null) {
             rv_rank.post {
                 getValue()
@@ -130,42 +130,49 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
                 }
                 dia = MusicDialog(this@MainActivity, resources.getString(R.string.enjoy), resources.getString(R.string.begin_experience), bean.name, bean.enName, bean.level, bean.iscollection).setRightTitleListerner(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
-                        if (!bean.isbuy) {
-//                            需要付费的
-                            dia?.dismiss()
-                            var musicPayDialog = MusicPayDialog(this@MainActivity, "取消", "购买", bean.name, bean.enName).setRightTitleListerner(object : View.OnClickListener {
-                                override fun onClick(p0: View?) {
-//                                    跳支付
-                                    var bund = Bundle()
-                                    bund.putString("id", "" + bean?.id)
-                                    jump<MemberListActivity>(dataBundle = bund)
-                                }
-                            })
-                            musicPayDialog.show()
-
+                        if (bean?.id == 59366469362335) {
+                            var bundle = Bundle()
+                            bundle.putString("id", "" + bean.id)
+                            jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
                         } else {
-                            if (bean.onshelf == 1) {
-                                var bundle = Bundle()
-                                bundle.putString("id", "" + bean.id)
-                                jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
-                            } else {
-                                toast_msg("该曲目未上架")
-                            }
+                            if (!bean.isbuy) {
+//                            需要付费的
+                                dia?.dismiss()
+                                var musicPayDialog = MusicPayDialog(this@MainActivity, "取消", "购买", bean.name, bean.enName).setRightTitleListerner(object : View.OnClickListener {
+                                    override fun onClick(p0: View?) {
+//                                    跳支付
+                                        var bund = Bundle()
+                                        bund.putString("id", "" + bean?.id)
+                                        jump<MemberListActivity>(dataBundle = bund)
+                                    }
+                                })
+                                musicPayDialog.show()
 
+                            } else {
+                                if (bean.onshelf == 1) {
+                                    var bundle = Bundle()
+                                    bundle.putString("id", "" + bean.id)
+                                    jump<MusicPlayActivity>(isAnimation = false, dataBundle = bundle)
+                                } else {
+                                    toast_msg("该曲目未上架")
+                                }
+
+                            }
                         }
+
 
                     }
 
                 }).setLeftTitleListerner(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
-                            if (bean.onshelf == 1) {
-                                var bundle = Bundle()
-                                bundle.putString("id", "" + bean.id)
-                                bundle.putBoolean("isEnjoy", bean.icon.isEmpty())
-                                jump<MusicEnjoyActivity>(isAnimation = false, dataBundle = bundle)
-                            } else {
-                                toast_msg("该曲目未上架")
-                            }
+                        if (bean.onshelf == 1) {
+                            var bundle = Bundle()
+                            bundle.putString("id", "" + bean.id)
+                            bundle.putBoolean("isEnjoy", bean.icon.isEmpty())
+                            jump<MusicEnjoyActivity>(isAnimation = false, dataBundle = bundle)
+                        } else {
+                            toast_msg("该曲目未上架")
+                        }
                     }
 
                 }).setColletionListerner(object : View.OnClickListener {
