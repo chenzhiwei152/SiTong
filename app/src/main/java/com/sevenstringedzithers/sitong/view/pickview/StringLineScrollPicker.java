@@ -12,6 +12,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 
+import com.jyall.android.common.utils.UIUtil;
 import com.sevenstringedzithers.sitong.R;
 import com.sevenstringedzithers.sitong.utils.ColorUtil;
 
@@ -32,8 +33,9 @@ public class StringLineScrollPicker extends ScrollPickerView<CharSequence> {
 
     private TextPaint mPaint; //
     private Paint mCirclePaint;
-    private int mMinTextSize = 24; // 最小的字体
-    private int mMaxTextSize = 32; // 最大的字体
+    private int mMinTextSize = UIUtil.dip2px(getContext(), 12); // 最小的字体
+    private int mMaxTextSize = UIUtil.dip2px(getContext(), 16); // 最大的字体
+    private int Size30 = UIUtil.dip2px(getContext(), 15);
     // 字体渐变颜色
     private int mStartColor = Color.BLACK; // 中间选中ｉｔｅｍ的颜色
     private int mEndColor = Color.GRAY; // 上下两边的颜色
@@ -55,9 +57,9 @@ public class StringLineScrollPicker extends ScrollPickerView<CharSequence> {
         mPaint.setColor(Color.BLACK);
 
 
-        mCirclePaint=new Paint();
+        mCirclePaint = new Paint();
         mCirclePaint.setColor(getResources().getColor(R.color.color_d0a670));
-        mCirclePaint.setStrokeWidth(2);
+        mCirclePaint.setStrokeWidth(UIUtil.dip2px(getContext(), 1));
         mCirclePaint.setAntiAlias(true);
         mCirclePaint.setShader(new LinearGradient(50, 50, 500, 50, getResources().getColor(R.color.color_33d0a670), getResources().getColor(R.color.color_d0a670),
                 Shader.TileMode.CLAMP));
@@ -206,7 +208,7 @@ public class StringLineScrollPicker extends ScrollPickerView<CharSequence> {
             x = top + (getItemWidth() - lineWidth) / 2;
             y = (getItemHeight() - layout.getHeight()) / 2;
         } else { // 垂直滚动
-            x = (getItemWidth() - lineWidth) / 2-30;
+            x = (getItemWidth() - lineWidth) / 2 -  UIUtil.dip2px(getContext(), 20) ;
             y = top + (getItemHeight() - layout.getHeight()) / 2;
         }
         // 计算渐变颜色
@@ -214,9 +216,9 @@ public class StringLineScrollPicker extends ScrollPickerView<CharSequence> {
 //        canvas.drawText(text, x, y, mPaint);
 
         if (relative == 0) { // 中间item,当前选中
-            canvas.drawCircle(mMaxLineWidth-30-23 , y + getItemHeight() / 2+9, 50, mCirclePaint);
+            canvas.drawCircle(mMaxLineWidth - Size30  - UIUtil.dip2px(getContext(), 11), y + getItemHeight() / 2 + UIUtil.dip2px(getContext(), 3), UIUtil.dip2px(getContext(), 13), mCirclePaint);
         }
-        canvas.drawLine(0,y + getItemHeight() / 2+6,mMaxLineWidth -30-50,y+getItemHeight() / 2,mCirclePaint);
+        canvas.drawLine(0, y + getItemHeight() / 2 , mMaxLineWidth - Size30 - UIUtil.dip2px(getContext(), 30), y + getItemHeight() / 2, mCirclePaint);
         canvas.save();
         canvas.translate(x, y);
         layout.draw(canvas);
@@ -231,7 +233,7 @@ public class StringLineScrollPicker extends ScrollPickerView<CharSequence> {
     private void computeColor(int relative, int itemSize, float moveLength) {
 
         int color = mEndColor; // 　其他默认为ｍEndColor
-         if (relative == -1 || relative == 1) { // 上一个或下一个
+        if (relative == -1 || relative == 1) { // 上一个或下一个
             // 处理上一个item且向上滑动　或者　处理下一个item且向下滑动　，颜色为mEndColor
             if ((relative == -1 && moveLength < 0)
                     || (relative == 1 && moveLength > 0)) {

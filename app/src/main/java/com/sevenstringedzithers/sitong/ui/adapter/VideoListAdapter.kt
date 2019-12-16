@@ -68,7 +68,7 @@ class VideoListAdapter(var context: Context) : RecyclerView.Adapter<VideoListAda
                 context.startActivity(intent)
             } else {
                 if (list[position].url != null) {
-                    var url = (list[position].url)?.replace("https", "http")
+                    var url = (list[position].url)
                     var intent = Intent(context, VideoPlayActivity::class.java)
                     intent.putExtra(Constants.VIDOE_URL, url)
                     context.startActivity(intent)

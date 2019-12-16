@@ -10,8 +10,8 @@ object APIAddressConstants {
     /**
      * 获取基础地址，此地址是最主要的接口地址
      */
-//    const val baseUrl: String = "server.7stringedzithers.com"
-    const val baseUrl: String = "test.server.7stringedzithers.com"
+    const val baseUrl: String = "server.7stringedzithers.com"
+//    const val baseUrl: String = "test.server.7stringedzithers.com"
 //    const val baseUrl: String = "192.168.43.112:8787"
     val APP_HOST = "http://$baseUrl"
     const val USER_API: String = "/user"

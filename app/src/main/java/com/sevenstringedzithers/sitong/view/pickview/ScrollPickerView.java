@@ -710,7 +710,7 @@ public abstract class ScrollPickerView<T> extends View {
         } else {
             this.mData = (List<T>) data;
         }
-        mSelected = mData.size() / 2;
+        mSelected = 0;
         invalidate();
     }
 

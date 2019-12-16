@@ -165,14 +165,14 @@ class MainActivity : BaseActivity<IndexContract.View, IndexPresenter>(), IndexCo
 
                 }).setLeftTitleListerner(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
-                        if (bean.onshelf == 1) {
+//                        if (bean.onshelf == 1) {
                             var bundle = Bundle()
                             bundle.putString("id", "" + bean.id)
                             bundle.putBoolean("isEnjoy", bean.icon.isEmpty())
                             jump<MusicEnjoyActivity>(isAnimation = false, dataBundle = bundle)
-                        } else {
-                            toast_msg("该曲目未上架")
-                        }
+//                        } else {
+//                            toast_msg("该曲目未上架")
+//                        }
                     }
 
                 }).setColletionListerner(object : View.OnClickListener {

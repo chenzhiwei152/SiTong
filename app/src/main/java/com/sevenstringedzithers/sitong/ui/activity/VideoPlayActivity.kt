@@ -34,7 +34,7 @@ class VideoPlayActivity : BaseActivity<IBaseView, BasePresenter<IBaseView>>(), I
         if (intent.extras != null) {
             videoUrl = intent.extras.getString(Constants.VIDOE_URL)
         }
-        nice_video_player.setPlayerType(NiceVideoPlayer.TYPE_IJK) // IjkPlayer or MediaPlayer
+        nice_video_player.setPlayerType(NiceVideoPlayer.TYPE_NATIVE) // IjkPlayer or MediaPlayer
         controller = TxVideoPlayerController1(this)
 //        controller.setTitle("Beautiful China...")
 //        controller.setLenght(117000)

@@ -8,6 +8,8 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.jyall.android.common.utils.LogUtils;
+import com.jyall.android.common.utils.UIUtil;
 import com.sevenstringedzithers.sitong.R;
 
 
@@ -17,11 +19,11 @@ public class VerticalScaleView1 extends View {
     private int percentNum = 4;//每个模块下面的数量
     private int nums = 10;//多少个模块
 
-    private int largeLineLength = 56;//长一点的线的长度
-    private int largeLineHeight = 2;//长一点的线的宽度
+    private int largeLineLength = UIUtil.dip2px(getContext(), 28);//长一点的线的长度
+    private int largeLineHeight = UIUtil.dip2px(getContext(), 1);//长一点的线的宽度
 
-    private int smallLineLength = 28;//短一点的线的长度
-    private int smallLineHeight = 2;//短一点的线的宽度
+    private int smallLineLength = UIUtil.dip2px(getContext(), 14);//短一点的线的长度
+    private int smallLineHeight = UIUtil.dip2px(getContext(), 1);//短一点的线的宽度
 
     private int currentLineLength = 140;
     private int currentLineHeight = 2;
@@ -34,6 +36,7 @@ public class VerticalScaleView1 extends View {
     private Paint mMiddleLinesPaint;//中间刻度线画笔
 
     private TextPaint textPaint;
+    private TextPaint textPaint2;
 
     private int maxWidth;//控件总宽度
     private int maxHeight;//空间总高度
@@ -41,11 +44,11 @@ public class VerticalScaleView1 extends View {
     private int mRealHeight;
 
     private static int mDividerLines = 5;//分割线之间的间距
-    private String value = "440";
+    private String value = "98";
     private float currentValue;
-    private float percentValue=0.5f;
-    private float minValue;
-    private float maxValue;
+    private float percentValue = 0.5f;
+    private float rangeValue;
+    private boolean isOK = false;
 
 
     public VerticalScaleView1(Context context) {
@@ -88,8 +91,11 @@ public class VerticalScaleView1 extends View {
 
 
         textPaint = new TextPaint();
-        textPaint.setTextSize(60);
+        textPaint.setTextSize(UIUtil.dip2px(getContext(), 16));
         textPaint.setColor(getResources().getColor(R.color.color_d0a670));
+        textPaint2 = new TextPaint();
+        textPaint2.setTextSize(UIUtil.dip2px(getContext(), 12));
+        textPaint2.setColor(getResources().getColor(R.color.color_d0a670));
 
     }
 
@@ -97,7 +103,7 @@ public class VerticalScaleView1 extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         //获取屏幕的宽度
-        maxWidth = getMeasuredWidth();
+        maxWidth = getMeasuredWidth() - UIUtil.dip2px(getContext(), 32);
 
         maxHeight = getMeasuredHeight();
 
@@ -126,49 +132,47 @@ public class VerticalScaleView1 extends View {
         canvas.drawLine(maxWidth / 2 - largeLineLength / 2, getPaddingTop() + largeLineHeight * nums * percentNum + mDividerLines * nums * (percentNum),
                 maxWidth / 2 + largeLineLength / 2, getPaddingTop() + largeLineHeight * nums * percentNum + mDividerLines * nums * percentNum, mLinesPaint);
 //绘制单位hz
-        canvas.drawText("Hz", maxWidth / 2 + largeLineLength / 2 + 40, getPaddingTop() + 26, textPaint);
+        canvas.drawText(value, maxWidth / 2 + largeLineLength / 2 + UIUtil.dip2px(getContext(), 10), getPaddingTop() + UIUtil.dip2px(getContext(), 10), textPaint);
+        canvas.drawText("(Hz)", maxWidth / 2 + largeLineLength / 2 + UIUtil.dip2px(getContext(), 10), getPaddingTop() + UIUtil.dip2px(getContext(), 30), textPaint2);
 //绘制中间线
-        canvas.drawLine(maxWidth / 2 - middleLineLength / 2, ((getPaddingTop() + largeLineHeight * nums * percentNum+ mDividerLines * nums * (percentNum) )-(getPaddingTop())) * percentValue+getPaddingTop(),
-                maxWidth / 2 + middleLineLength / 2, ((getPaddingTop() + largeLineHeight * nums * percentNum + mDividerLines * nums * percentNum)-(getPaddingTop())) * percentValue+getPaddingTop(), mMiddleLinesPaint);
+        canvas.drawLine(maxWidth / 2 - middleLineLength / 2, ((getPaddingTop() + largeLineHeight * nums * percentNum + mDividerLines * nums * (percentNum)) - (getPaddingTop())) * percentValue + getPaddingTop(),
+                maxWidth / 2 + middleLineLength / 2, ((getPaddingTop() + largeLineHeight * nums * percentNum + mDividerLines * nums * percentNum) - (getPaddingTop())) * percentValue + getPaddingTop(), mMiddleLinesPaint);
 //绘制中间位置的hz数值
-        canvas.drawText(value, maxWidth / 2 + largeLineLength / 2 + 40, getPaddingTop() + largeLineHeight * nums * percentNum / 2 + mDividerLines * nums * percentNum / 2 + 26, textPaint);
-
+        if (isOK) {
+            isOK=false;
+            canvas.drawText("OK", maxWidth / 2 + largeLineLength / 2 + UIUtil.dip2px(getContext(), 10), getPaddingTop() + largeLineHeight * nums * percentNum / 2 + mDividerLines * nums * percentNum / 2 + UIUtil.dip2px(getContext(), 10), textPaint);
+        } else {
+            canvas.drawText("" + currentValue, maxWidth / 2 + largeLineLength / 2 + UIUtil.dip2px(getContext(), 10), getPaddingTop() + largeLineHeight * nums * percentNum / 2 + mDividerLines * nums * percentNum / 2 + UIUtil.dip2px(getContext(), 10), textPaint);
+        }
     }
 
 
     public void setCurrentValue(float currentValue) {
+//        if (isOK) {
+//            return;
+//        }
         this.currentValue = currentValue;
         calu();
         invalidate();
     }
 
-    public void setMinValue(float minValue) {
-        this.minValue = minValue;
-        calu();
-        invalidate();
-    }
 
-    public void setMaxValue(float maxValue) {
-        this.maxValue = maxValue;
-        calu();
-        invalidate();
-    }
-
-    public void setValue(float min, float max, String value) {
+    public void setValue(float rangeValue, String value) {
         this.value = value;
-        this.minValue = min;
-        this.maxValue = max;
-//        calu();
+        this.rangeValue = rangeValue;
+        isOK = false;
+        calu();
         invalidate();
     }
 
     private void calu() {
-        if (currentValue>=maxValue){
-            percentValue=1f;
-        }else if (currentValue<=minValue){
-            percentValue=0f;
-        }else {
-            percentValue = currentValue/(maxValue - minValue);
+        if (currentValue > rangeValue + Float.parseFloat(value)) {
+            percentValue = 0f;
+        } else if (currentValue < Float.parseFloat(value) - rangeValue) {
+            percentValue = 1f;
+        } else {
+            isOK = true;
+            percentValue = 0.5f;
         }
     }
 }
